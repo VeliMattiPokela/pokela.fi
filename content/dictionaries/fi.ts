@@ -93,6 +93,14 @@ const fi = {
 
   common: {
     role: 'Rooli',
+    /* Vastuujako. Olivat ennen kovakoodattuina PreviousWorkissa,
+       jolloin ne olisivat jääneet suomeksi englanninkieliselle
+       sivulle. */
+    responsible: 'Vastuullani',
+    contributed: 'Osallistuin',
+    /* Ennen/jälkeen-kuvaparin kahvan otsikot. */
+    before: 'Ennen',
+    after: 'Jälkeen',
     clients: 'Asiakkaita',
     toBeAdded: 'Täydennetään',
   },

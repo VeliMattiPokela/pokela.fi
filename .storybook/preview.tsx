@@ -115,12 +115,16 @@ const preview: Preview = {
     },
     options: {
       storySort: {
+        /* Perusta ensin, sitten palikat, sitten niistä kootut osiot.
+           Perustan sisäjärjestys kulkee abstraktista konkreettiseen:
+           väri ja typografia ovat päätöksiä, viiva ja ikoni ovat
+           piirrettyjä asioita. */
         order: [
           'Aloita',
           'Perusta',
-          ['Väri', 'Typografia', 'Grid', 'Välistys', 'Liike'],
+          ['Väri', 'Typografia', 'Välistys', 'Grid', 'Viivat', 'Ikonit', 'Liike'],
           'Komponentit',
-          'Sivut',
+          'Osiot',
         ],
       },
     },

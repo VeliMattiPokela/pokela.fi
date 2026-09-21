@@ -10,8 +10,13 @@ import BeforeAfter from './BeforeAfter';
  * Aiempi työ. Rivit avautuvat paikallaan — vanhat projektit eivät saa
  * omia sivuja, jotta kaksi kärkicasea pitävät huomion.
  *
- * Vastuut on eroteltu: "Vastuullani" vs. "Osallistuin". Yksi lista
- * olisi lyhyempi mutta epärehellisempi.
+ * Vastuut on eroteltu: vastuullani vs. osallistuin. Yksi lista olisi
+ * lyhyempi mutta epärehellisempi.
+ *
+ * Kaikki teksti tulee sanakirjasta ja kuvat sisältödatasta. Kumpikin
+ * oli ennen kovakoodattuna tähän: otsikot suomeksi ja vertailukuvat
+ * Pivon poluilla, jolloin toinen vertailu olisi näyttänyt väärän
+ * työn kaappaukset.
  */
 export default function PreviousWork({
   items,
@@ -59,7 +64,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
           <p className="body-s detail__role-note">{d.roleNote}</p>
         </div>
         <div className="detail__role-col">
-          <h4 className="meta">Vastuullani</h4>
+          <h4 className="meta">{dict.common.responsible}</h4>
           <ul className="detail__list">
             {d.responsible.map((line) => (
               <li key={line}>{line}</li>
@@ -67,7 +72,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
           </ul>
         </div>
         <div className="detail__role-col">
-          <h4 className="meta">Osallistuin</h4>
+          <h4 className="meta">{dict.common.contributed}</h4>
           <ul className="detail__list detail__list--muted">
             {d.contributed.map((line) => (
               <li key={line}>{line}</li>
@@ -94,14 +99,14 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
             media.kind === 'compare' ? (
               <BeforeAfter
                 key={media.caption}
-                before="/assets/screen/pivo-ennen.png"
-                after="/assets/screen/pivo-jalkeen.png"
-                beforeLabel="Ennen"
-                afterLabel="Jälkeen"
+                before={media.before}
+                after={media.after}
+                beforeLabel={dict.common.before}
+                afterLabel={dict.common.after}
                 alt={media.caption}
                 caption={media.caption}
-                width={742}
-                height={1502}
+                width={media.width}
+                height={media.height}
               />
             ) : (
               <Media

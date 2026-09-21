@@ -2,16 +2,20 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Row, Specimen, Stack } from '@/stories/doc/Layout';
 
 /**
- * Napit eivät ole React-komponentti vaan luokkia (`.btn`,
+ * Button ei ole React-komponentti vaan luokkasopimus (`.btn`,
  * `.btn--primary`). Se on tarkoituksellista: nappi on useimmiten
  * `<a>` eikä `<button>`, ja luokat toimivat molemmilla ilman
  * `as`-propia.
+ *
+ * Nimi on Button eikä Napit, koska sama asia luetaan neljästä
+ * paikasta: `styles/base.css`, `Button.figma.ts`, Figman
+ * komponenttisetti ja tämä story. Yksi nimi, ei käännöstä.
  *
  * Story renderöi siksi elementin suoraan — se on sama merkkaus jota
  * sivusto käyttää.
  */
 const meta = {
-  title: 'Komponentit/Napit',
+  title: 'Komponentit/Button',
   parameters: {
     docs: {
       description: {

@@ -22,6 +22,25 @@ export type Lead = {
   next: string;
 };
 
+/**
+ * Avautuvan rivin media. Erotettu unioniksi, jotta vertailulohkoa ei
+ * voi kirjoittaa ilman kuvaparia: ennen kuvat olivat kovakoodattuina
+ * komponentissa, jolloin jokainen vertailu olisi näyttänyt Pivon
+ * kaappaukset riippumatta siitä kenen työstä on kyse.
+ */
+export type PreviousMedia =
+  | { kind: 'image' | 'video'; ratio: string; caption: string }
+  | {
+      kind: 'compare';
+      ratio: string;
+      caption: string;
+      before: string;
+      after: string;
+      /** Kuvaparin luonnolliset mitat, tarvitaan asettelun varaamiseen. */
+      width: number;
+      height: number;
+    };
+
 export type Previous = {
   slug: string;
   number: string;
@@ -40,7 +59,7 @@ export type Previous = {
     sectionsTitle: string;
     sections: { title: string; body: string }[];
     /** Kuva- ja videopaikat. Tyhjä lista = ei vielä materiaalia. */
-    media: { kind: 'image' | 'video' | 'compare'; ratio: string; caption: string }[];
+    media: PreviousMedia[];
   };
 };
 
@@ -123,6 +142,10 @@ const previous: Previous[] = [
         {
           kind: 'compare',
           ratio: '3:4',
+          before: '/assets/screen/pivo-ennen.png',
+          after: '/assets/screen/pivo-jalkeen.png',
+          width: 742,
+          height: 1502,
           caption:
             'Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä.',
         },

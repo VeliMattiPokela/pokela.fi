@@ -7,7 +7,7 @@ import fi from '@/content/dictionaries/fi';
  * 1 px alleviivauksella — ei värillä.
  */
 const meta = {
-  title: 'Komponentit/Nav',
+  title: 'Osiot/Nav',
   component: Nav,
   parameters: {
     /* Täysleveä: hoitaa oman sivupaddinginsa .bleed-utilitylla. */

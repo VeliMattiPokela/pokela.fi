@@ -7,6 +7,12 @@ import Icon, { ICON_NAMES, type IconSize } from './Icon';
  */
 const meta = {
   title: 'Perusta/Ikonit',
+  /* Id kiinnitetty ASCII-muotoon kuten muillakin Perusta-sivuilla:
+     suorat linkit ovat casen todistusaineistoa, ja generoitu id voi
+     muuttua. Tämä sivu asuu components/-kansiossa eikä
+     stories/perusta/:ssa, koska sillä on oikea komponentti ja oikeat
+     storyt — muut Perusta-sivut ovat pelkkää dokumentaatiota. */
+  id: 'perusta-ikonit',
   component: Icon,
   parameters: {
     docs: {

@@ -168,3 +168,31 @@
 /* MDX:n omat listat samaan rytmiin. */
 .sbdocs-content > ul:not(.spec-list) { padding-left: var(--space-20); }
 .sbdocs-content > ul:not(.spec-list) li { color: var(--ink-muted); margin-bottom: var(--space-8); }
+
+/* ---- Perusta / Viivat --------------------------------------------- */
+
+/* Viivanäyte piirretään border-topilla eikä korkeudella, jotta
+   näytteen paksuus on täsmälleen sama arvo jota token kuvaa. */
+.spec-line {
+  display: block;
+  width: 56px;
+  border-top-style: solid;
+  border-top-color: var(--ink);
+}
+.spec-line-cell { width: 72px; }
+
+.spec-rule-demo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border: var(--hairline) solid var(--ink);
+}
+
+/* ---- Perusta / Lukumitta ------------------------------------------ */
+
+.spec-measure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-16);
+}

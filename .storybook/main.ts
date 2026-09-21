@@ -41,6 +41,20 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
+
+  /* Netlifyn CLI jättää juureen .netlify-kansion (8,5 MB käännettyä
+     sivustoa). Vite vahtii projektin juurta, joten jokainen julkaisu
+     laukaisi satoja turhia page reloadeja kehityspalvelimessa. */
+  viteFinal: async (config) => ({
+    ...config,
+    server: {
+      ...config.server,
+      watch: {
+        ...config.server?.watch,
+        ignored: ['**/.netlify/**', '**/out/**', '**/storybook-static/**'],
+      },
+    },
+  }),
 };
 
 export default config;

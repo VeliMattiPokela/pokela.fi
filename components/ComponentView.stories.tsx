@@ -10,7 +10,7 @@ import ListRow from './ListRow';
  * palvelinpuolen asia (lib/source.ts).
  */
 const meta = {
-  title: 'Komponentit/ComponentView',
+  title: 'Osiot/ComponentView',
   component: ComponentView,
   parameters: {
     docs: {

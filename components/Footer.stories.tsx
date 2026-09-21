@@ -3,7 +3,7 @@ import Footer from './Footer';
 import fi from '@/content/dictionaries/fi';
 
 const meta = {
-  title: 'Komponentit/Footer',
+  title: 'Osiot/Footer',
   component: Footer,
   parameters: {
     /* Täysleveä: hoitaa oman sivupaddinginsa .bleed-utilitylla. */

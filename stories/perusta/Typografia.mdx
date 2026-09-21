@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import { TypeScale, DoDont } from '../doc/Specimens';
+import { TypeScale, MeasureDemo, DoDont } from '../doc/Specimens';
 
 {/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
     eivätkä ääkköset kestä jakamista sellaisenaan. */}
@@ -29,6 +29,27 @@ Sarake oikealla näyttää koon jokaisella tasolla: `base` (0–599), `sm` (600)
   <li><strong>Leipätekstin mitta enintään 62 merkkiä</strong> (<code>--measure</code>). Pidempi rivi hidastaa lukemista.</li>
   <li><strong>Leipäteksti ei laske alle 16 px.</strong> iOS zoomaa syöttökentät alle sen.</li>
 </ul>
+
+## Lukumitta
+
+<MeasureDemo />
+
+Yksi mitta, ei viittä. `ch` on yhden merkin leveys siinä fonttikoossa jossa teksti on,
+joten sama luku tarkoittaa suunnilleen samaa merkkimäärää joka koossa — `62ch` kelpaa
+myös 14 pikselin tekstille. Mitattuna leipäteksti saa 63 merkkiä riville, mikä osuu
+klassiseen 45–75:n haarukkaan.
+
+<div className="doc-callout">
+  <strong>Kaikki `ch` ei ole lukumitta.</strong> Sivustolla oli välillä viisi eri
+  arvoa (48, 52, 58, 62, 68). Mittaus osoitti ettei kolme niistä ollut lukumittoja:
+  vertailun kuvateksti on sidottu kuvaan ja etusivun roolirivi on taittovarmistus. Ne
+  ovat nyt pikseleinä ja kirjattuina poikkeuksina, koska `ch` lupasi niistä jotain
+  mitä se ei pitänyt.
+</div>
+
+**`ch` ei sovi harvennettuun tekstiin.** Yksikkö ei tunne `letter-spacing`iä. Roolirivi
+on metatekstiä 0,16 em harvennuksella, ja siellä `68ch` lupasi 68 merkkiä kun riville
+mahtui 35.
 
 ## Miksi kokoja on neljä eikä kahdeksan
 

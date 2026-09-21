@@ -170,10 +170,18 @@ Loput: `portfolio-pokela/brand-brief.md`.
       Omaa tarkistusta ei kannata kirjoittaa: se toimisi vain paikallisesti,
       ei CI:ssä.
 - [ ] **Storybookin julkaisu on käsin.** `pokela-storybook.netlify.app` ei ole
-      kytketty repoon, vaan se julkaistiin CLI:llä (`netlify deploy --prod
-      --dir=storybook-static`). Syy: molemmat sivustot tulisivat samasta
-      reposta, ja juuren `netlify.toml` pakottaisi niille saman
-      build-komennon. Automatisointi vaatii `NETLIFY_AUTH_TOKEN`in ja
+      kytketty repoon vaan se julkaistaan CLI:llä:
+
+      ```
+      npm run build-storybook
+      netlify deploy --prod --no-build --dir=storybook-static
+      ```
+
+      `--no-build` on olennainen: ilman sitä Netlify lukee juuren
+      `netlify.toml`:n ja ajaa **sivuston** buildin Storybookin
+      julkaisun yhteydessä. Syy koko järjestelyyn on sama tiedosto:
+      molemmat sivustot tulisivat samasta reposta, ja `netlify.toml`
+      pakottaisi niille saman build-komennon. Automatisointi vaatii `NETLIFY_AUTH_TOKEN`in ja
       `NETLIFY_SITE_ID`:n GitHubin secreteiksi — ne ovat sinun tunnuksiasi,
       joten en voi luoda niitä. CI rakentaa Storybookin jo, joten
       julkaisuaskel on yksi rivi lisää `ci.yml`:ään sen jälkeen.

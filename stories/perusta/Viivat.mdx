@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { BorderScale, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Viivat" id="perusta-viivat" />
+
+# Viivat
+
+<p className="doc-lede">
+  Hiusviiva on tämän systeemin tunnusomaisin token. Se erottaa rivit, rajaa napit ja
+  piirtää ikonit. Kun korostus tehdään ilman väriä ja ilman varjoja, viiva on se mikä
+  jää.
+</p>
+
+## Asteikko
+
+<BorderScale />
+
+<div className="doc-callout">
+  <strong>Ikonille ei ole omaa paksuutta.</strong> Ikonin veto on{' '}
+  <code>--hairline</code>, sama arvo kuin reunoissa. Jos ikonilla olisi oma token,
+  systeemiin syntyisi kaksi hiusviivaa jotka voisivat ajautua erilleen. Selaimessa
+  paksuus pidetään vakiona <code>vector-effect: non-scaling-stroke</code>illa, jotta
+  24 pikselin ikoni ei saa 1,5 pikselin viivaa.
+</div>
+
+## Miksi kaksi paksuutta eikä väri
+
+Tekstinapilla ei ole pintaa jota kääntää, joten sen hover on viivan paksuuntuminen:
+`--hairline` → `--hairline-strong`. Samalla alapaddingi kevenee saman verran, jotta
+napin korkeus ei muutu eikä ympäröivä teksti nytkähdä osoittimen alla.
+
+## Radius on nolla, ja se on päätös
+
+`--radius: 0` ei ole unohdus vaan sääntö joka kulkee läpi systeemin. Siksi ikonien
+päätteet ovat tylpät (`stroke-linecap: butt`) ja kulmat terävät
+(`stroke-linejoin: miter`) — pyöristetty pääte olisi eri kieltä kuin terävä kulma
+kolme pikseliä sen vieressä.
+
+## Fokusrengas ei ole koriste
+
+`--focus-width` ja `--focus-offset` ovat saavutettavuutta, eivät typografiaa.
+`--focus-width` sattuu olemaan sama arvo kuin `--hairline-strong`, mutta ne ovat eri
+tokeneita tarkoituksella: toista säädetään kun typografia muuttuu, toista ei säädetä
+ilman saavutettavuussyytä.
+
+<DoDont
+  do={[
+    'Käytä --hairlinea kaikkeen mikä on viiva: reunat, erottimet, ikonien veto.',
+    'Merkitse tila paksuudella kun pintaa ei voi kääntää.',
+    'Pidä fokusrengas näkyvissä myös käännetyllä pinnalla.',
+  ]}
+  dont={[
+    'Älä lisää kolmatta paksuutta. Kaksi riittää: perus ja korostettu.',
+    'Älä korvaa viivaa varjolla tai taustavärillä.',
+    'Älä anna ikonille omaa paksuustokenia.',
+    'Älä pyöristä mitään. Radius on nolla myös silloin kun se näyttäisi pehmeämmältä.',
+  ]}
+/>

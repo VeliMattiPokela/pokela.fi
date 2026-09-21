@@ -195,6 +195,99 @@ export function SpaceScale() {
   );
 }
 
+/* ---- viivat ------------------------------------------------------- */
+
+/**
+ * Viivat ja reunat. Hiusviiva on tämän systeemin tunnusomaisin token:
+ * se on jokaisessa reunassa, jokaisessa listarivissä ja jokaisen
+ * ikonin vedossa. Sitä ei ole erikseen ikoneille, jotta kahta
+ * paksuutta ei voi syntyä.
+ */
+export function BorderScale() {
+  const rows = [
+    {
+      token: '--hairline',
+      value: tokens.border.hairline,
+      what: 'Perusviiva. Rivien väli, reunat, ikonin veto.',
+      demo: <span className="spec-line" style={{ borderTopWidth: tokens.border.hairline }} />,
+    },
+    {
+      token: '--hairline-strong',
+      value: tokens.border.hairlineStrong,
+      what: 'Hover ja valittu tila. Sama arvo kuin fokusrenkaassa, mutta eri asia — toinen on typografiaa, toinen saavutettavuutta.',
+      demo: <span className="spec-line" style={{ borderTopWidth: tokens.border.hairlineStrong }} />,
+    },
+    {
+      token: '--radius',
+      value: tokens.border.radius,
+      what: 'Nolla kaikkialla. Siksi ikonien päätteet ovat tylpät ja kulmat terävät.',
+      demo: <span className="spec-rule-demo" style={{ borderRadius: tokens.border.radius }} />,
+    },
+    {
+      token: '--focus-width',
+      value: tokens.border.focusWidth,
+      what: 'Fokusrengas. Ei koskaan pois päältä.',
+      demo: (
+        <span
+          className="spec-rule-demo"
+          style={{ outline: `${tokens.border.focusWidth} solid var(--ink)`, outlineOffset: tokens.border.focusOffset }}
+        />
+      ),
+    },
+    {
+      token: '--focus-offset',
+      value: tokens.border.focusOffset,
+      what: 'Renkaan etäisyys elementistä, jotta viiva ei istu kiinni tekstissä.',
+      demo: null,
+    },
+  ];
+  return (
+    <table className="spec-table sb-unstyled">
+      <thead>
+        <tr>
+          <th />
+          <th>Token</th>
+          <th>Arvo</th>
+          <th>Mihin</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.token}>
+            <td className="spec-line-cell">{row.demo}</td>
+            <td>
+              <code>{row.token}</code>
+            </td>
+            <td className="spec-num">{row.value}</td>
+            <td className="spec-muted">{row.what}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+/* ---- lukumitta ---------------------------------------------------- */
+
+/**
+ * Lukumitta näytetään oikealla tekstillä, ei palkilla: mitan koko
+ * pointti on kuinka monta merkkiä riville mahtuu.
+ */
+export function MeasureDemo() {
+  const sample =
+    'Rivin pituus ratkaisee luettavuuden enemmän kuin fonttikoko. Kun rivi on liian pitkä, silmä kadottaa paikkansa rivinvaihdossa ja sama rivi luetaan kahdesti.';
+  return (
+    <div className="sb-unstyled spec-measure">
+      <p className="body-l" style={{ maxWidth: tokens.layout.measure }}>
+        {sample}
+      </p>
+      <p className="meta meta--s spec-muted">
+        <code>--measure</code> — {tokens.layout.measure}
+      </p>
+    </div>
+  );
+}
+
 /* ---- liike -------------------------------------------------------- */
 
 export function MotionTable() {

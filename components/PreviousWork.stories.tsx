@@ -8,7 +8,7 @@ import work from '@/content/work/fi';
  * paikallaan, jotta kaksi kärkicasea pitävät huomion.
  */
 const meta = {
-  title: 'Komponentit/PreviousWork',
+  title: 'Osiot/PreviousWork',
   component: PreviousWork,
   parameters: {
     /* Täysleveä: hoitaa oman sivupaddinginsa .bleed-utilitylla. */
