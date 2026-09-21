@@ -1,0 +1,23 @@
+<!-- Managerin (sivupalkki, työkalurivi) omat fontit. Se on eri
+     dokumentti kuin esikatselu, joten next/font ei ulotu tänne. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Archivo:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /* Tuotenimi display-rekisteriin, kaikki muu Archivoon. */
+  .sidebar-header a[title],
+  .sidebar-header > div > a {
+    font-family: 'Bodoni Moda', Georgia, serif !important;
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.005em !important;
+  }
+  /* Ei pyöristyksiä myöskään työkalussa. */
+  .sidebar-container button,
+  .sidebar-container input,
+  #panel-tab-content,
+  [role='tablist'] button { border-radius: 0 !important; }
+</style>

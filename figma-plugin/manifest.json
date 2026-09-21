@@ -1,0 +1,12 @@
+{
+  "name": "Pokela — tokenit Figmaan",
+  "id": "pokela-design-tokens",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "networkAccess": {
+    "allowedDomains": ["https://pokela.fi", "http://localhost:3000", "http://localhost:4321"],
+    "reasoning": "Hakee sivuston julkaisemat designtokenit osoitteesta /tokens.json."
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+storybook-static/
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.scratch/
+
+# Alkuperäinen design-paketti: brändiohje, casejen lähdedokumentit ja
+# asiakaskaappaukset. 31 MB lähdemateriaalia jota koodi ei käytä —
+# tsconfig jättää sen jo ulos. Repon argumentti on koodi ja
+# synkkatarkistus, ei lähdepaketti.
+portfolio-pokela/

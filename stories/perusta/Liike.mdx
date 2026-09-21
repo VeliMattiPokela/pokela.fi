@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { MotionTable, EasingCurves, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Liike" id="perusta-liike" />
+
+# Liike
+
+<p className="doc-lede">
+  Liike on tilan vaihto, ei efekti. Mitään ei liiku ilman että käyttäjä teki jotain —
+  paitsi reveal, ja sekin kerran.
+</p>
+
+## Kestot
+
+<MotionTable />
+
+## Pehmennykset
+
+<EasingCurves />
+
+## Ennen / jälkeen on 0 ms
+
+Vedettävä jakaja seuraa osoitinta 1:1. Pienikin siirtymä tuntuu heti rikkinäiseltä,
+koska käyttäjä odottaa suoraa vastetta sormeensa. Tämä on ainoa komponentti jossa
+transition on tarkoituksella pois.
+
+## Kunnioita prefers-reduced-motion
+
+Reveal-säännöt ovat `no-preference`-median sisällä, joten ne eivät ole olemassa
+käyttäjälle joka on pyytänyt vähemmän liikettä:
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(var(--reveal-shift)); }
+  .reveal.is-in { opacity: 1; transform: none; transition: …; }
+}
+```
+
+Komponentti ei tarvitse omaa haaraa — luokka vain ei tee mitään.
+
+## Tee / älä tee
+
+<DoDont
+  do={[
+    'Käytä --dur-* ja --ease-* -tokeneita',
+    'Animoi vain väriä, opacityä ja transformia',
+    'Pidä reveal kertaluontoisena',
+    'Kirjoita reduced-motion -haara CSS:ään, älä JavaScriptiin',
+  ]}
+  dont={[
+    'Ei parallaksia',
+    'Ei scroll-jackausta',
+    'Ei automaattisia karuselleja',
+    'Ei siirtymää ennen/jälkeen-jakajaan',
+  ]}
+/>

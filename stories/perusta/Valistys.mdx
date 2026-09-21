@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { SpaceScale, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Välistys" id="perusta-valistys" />
+
+# Välistys
+
+<p className="doc-lede">
+  4 px perusyksikkö. Tokenit on nimetty arvon mukaan — <code>--space-24</code> on 24 px
+  eikä vaadi taulukon muistamista.
+</p>
+
+## Asteikko
+
+<SpaceScale />
+
+<div className="doc-callout">
+  <strong>Miksi nimi on arvo.</strong> Juokseva numerointi (<code>--space-6</code>)
+  pakottaa muistamaan taulukon, ja uuden askeleen lisääminen keskelle siirtää kaikkia
+  numeroita. Arvonimillä <code>--space-32</code> lisättiin ilman että mikään muu muuttui.
+</div>
+
+## Rytmi
+
+<ul className="spec-list">
+  <li><strong>Osioiden väli</strong> on <code>--section-gap</code>: 48 → 64 → 80 → 96 px. Se on token, ei askel asteikolta, koska se muuttuu breakpointeittain.</li>
+  <li><strong>Listarivin pystypadding</strong> on <code>--space-28</code> työpöydällä ja <code>--space-20</code> mobiilissa.</li>
+  <li><strong>Isolle otsikolle</strong> vähintään 56 px ilmaa ympärille.</li>
+  <li><strong>Kosketuskohde</strong> vähintään 44 px (<code>--tap-min</code>) joka suuntaan.</li>
+</ul>
+
+## 32, 40 ja 48 lisättiin myöhemmin
+
+Alkuperäisessä asteikossa niitä ei ollut, mutta sivupohjat käyttivät niitä jatkuvasti —
+noin puolet sivupohjien pikseliarvoista jäi asteikon ulkopuolelle ja olisi päätynyt
+kovakoodatuksi. Asteikon laajentaminen oli oikeampi korjaus kuin arvojen pyöristäminen
+väkisin.
+
+## Tee / älä tee
+
+<DoDont
+  do={[
+    'Käytä --space-* -tokenia jokaiseen väliin',
+    'Käytä gapia marginaalien sijaan',
+    'Anna osioiden väliksi --section-gap, älä kiinteää arvoa',
+    'Laajenna asteikkoa jos arvo toistuu — älä kovakoodaa sitä',
+  ]}
+  dont={[
+    'Älä kirjoita px-arvoa suoraan padding- tai gap-sääntöön',
+    'Älä käytä negatiivisia marginaaleja layoutin korjaamiseen',
+    'Älä tee kosketuskohteesta alle 44 px korkeaa',
+    'Älä lisää asteikolle arvoa jota käytetään vain kerran',
+  ]}
+/>

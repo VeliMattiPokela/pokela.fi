@@ -1,0 +1,62 @@
+<!-- Verkkoyhteys on vain tässä kehyksessä: Figman plugin-sandboxissa
+     ei ole fetchiä, joten haku tehdään UI:ssa ja tulos lähetetään
+     viestinä varsinaiselle pluginille. -->
+<style>
+  body { font: 13px/1.5 Inter, system-ui, sans-serif; margin: 0; padding: 16px; color: #101112; }
+  h1 { font-size: 13px; margin: 0 0 4px; letter-spacing: .08em; text-transform: uppercase; }
+  p { margin: 0 0 12px; color: #6A6C6E; }
+  label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6A6C6E; margin: 12px 0 4px; }
+  input, textarea { width: 100%; box-sizing: border-box; font: 12px/1.4 ui-monospace, monospace; padding: 8px; border: 1px solid #E8E8E6; }
+  textarea { height: 90px; resize: vertical; }
+  button { margin-top: 12px; width: 100%; padding: 10px; border: 1px solid #101112; background: #101112; color: #fff; font: 500 13px Inter, sans-serif; cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  pre { margin: 12px 0 0; padding: 8px; background: #F7F7F5; font: 11px/1.5 ui-monospace, monospace; white-space: pre-wrap; max-height: 160px; overflow: auto; }
+</style>
+
+<h1>Tokenit Figmaan</h1>
+<p>Lukee sivuston <code>tokens.json</code>:n ja luo tai päivittää muuttujat. Ajaminen uudelleen ei kahdenna mitään.</p>
+
+<label for="url">Osoite</label>
+<input id="url" value="https://pokela.fi/tokens.json" />
+
+<label for="paste">…tai liitä tokens.json tähän</label>
+<textarea id="paste" placeholder="{ &quot;color&quot;: { … } }"></textarea>
+
+<button id="run">Generoi muuttujat</button>
+<pre id="log">Valmis.</pre>
+
+<script>
+  const log = (text) => { document.getElementById('log').textContent = text; };
+
+  document.getElementById('run').onclick = async () => {
+    const button = document.getElementById('run');
+    button.disabled = true;
+    try {
+      const pasted = document.getElementById('paste').value.trim();
+      let tokens;
+      if (pasted) {
+        log('Luetaan liitetystä tekstistä…');
+        tokens = JSON.parse(pasted);
+      } else {
+        const url = document.getElementById('url').value.trim();
+        log('Haetaan ' + url + ' …');
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(url + ' → HTTP ' + response.status);
+        tokens = await response.json();
+      }
+      log('Kirjoitetaan muuttujia…');
+      parent.postMessage({ pluginMessage: { type: 'tokens', tokens } }, '*');
+    } catch (error) {
+      log('✗ ' + error.message);
+      button.disabled = false;
+    }
+  };
+
+  onmessage = (event) => {
+    const message = event.data.pluginMessage;
+    if (!message) return;
+    if (message.type === 'done') log(message.report);
+    if (message.type === 'error') log('✗ ' + message.message);
+    document.getElementById('run').disabled = false;
+  };
+</script>

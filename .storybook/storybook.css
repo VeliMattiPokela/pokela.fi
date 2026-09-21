@@ -1,0 +1,170 @@
+/* Storybookin dokumenttisivut samaan typografiseen rekisteriin kuin
+   sivusto: Bodoni otsikoihin, Archivo kaikkeen muuhun, hiusviivat
+   erottimina, ei pyöristyksiä, ei varjoja.
+
+   Valitsimet osoittavat elementteihin `.sbdocs-content`in sisällä,
+   eivät Storybookin luokkanimiin: MDX:n otsikot saavat generoidun
+   emotion-luokan (`css-0`), joten `.sbdocs-h1` ei osu mihinkään.
+
+   Tämä tiedosto koskee vain Storybookia. Sivuston tyylit tulevat
+   styles/index.css:stä eikä niitä kirjoiteta täällä yli. */
+
+.sbdocs.sbdocs-wrapper {
+  background: var(--paper);
+  color: var(--ink);
+  padding-top: var(--space-40);
+}
+
+.sbdocs.sbdocs-content {
+  max-width: 940px;
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+}
+
+/* ---- otsikot ----------------------------------------------------- */
+
+.sbdocs-content h1,
+.sbdocs-content h2,
+.sbdocs-content h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  border: 0;
+}
+
+.sbdocs-content h1 {
+  font-size: var(--text-display-l);
+  line-height: var(--lh-display-l);
+  letter-spacing: var(--tr-display-l);
+  margin: 0 0 var(--space-24);
+}
+
+.sbdocs-content h2 {
+  font-size: var(--text-display-m);
+  line-height: var(--lh-display-m);
+  letter-spacing: var(--tr-display-m);
+  margin: var(--space-72) 0 var(--space-20);
+  padding-bottom: var(--space-12);
+  border-bottom: var(--hairline) solid var(--line-strong);
+}
+
+.sbdocs-content h3 {
+  font-size: var(--text-display-s);
+  line-height: var(--lh-display-s);
+  letter-spacing: var(--tr-display-s);
+  margin: var(--space-40) 0 var(--space-12);
+}
+
+.sbdocs-content h4 {
+  font-family: var(--font-ui);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: var(--space-32) 0 var(--space-16);
+}
+
+/* ---- teksti ------------------------------------------------------ */
+
+.sbdocs-content p {
+  color: var(--ink-muted);
+  max-width: var(--measure);
+  margin: 0 0 var(--space-16);
+}
+.sbdocs-content p strong,
+.sbdocs-content li strong { color: var(--ink); font-weight: 500; }
+.sbdocs-content em { font-style: italic; }
+
+.sbdocs-content a { color: var(--ink); text-underline-offset: 3px; }
+
+.sbdocs-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--badge-surface);
+  color: var(--ink);
+  border: 0;
+  border-radius: 0;
+  font-size: 0.86em;
+  padding: 2px 5px;
+}
+
+/* Koodilohkot: hiusviiva kehyksenä, ei varjoa, ei pyöristystä. */
+.sbdocs-content pre,
+.sbdocs .docblock-source {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: var(--hairline) solid var(--line) !important;
+}
+
+.sbdocs .docs-story,
+.sbdocs .sb-story,
+.sbdocs .sbdocs-preview,
+.sbdocs .docblock-argstable {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.sbdocs .sbdocs-preview {
+  border: var(--hairline) solid var(--line);
+  background: var(--paper);
+}
+
+/* Arg-taulukot tabulaarisiksi listoiksi. */
+.sbdocs table.docblock-argstable { border-collapse: collapse; }
+.sbdocs table.docblock-argstable th,
+.sbdocs table.docblock-argstable td {
+  border-bottom: var(--hairline) solid var(--line);
+  background: transparent !important;
+}
+.sbdocs table.docblock-argstable th {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---- dokumenttisivujen apuluokat --------------------------------- */
+
+.sbdocs-content .doc-lede {
+  font-size: var(--text-body-l);
+  line-height: var(--lh-body-l);
+  color: var(--ink-muted);
+  max-width: var(--measure);
+  margin-bottom: var(--space-32);
+}
+
+.sbdocs-content .doc-rule {
+  border: 0;
+  border-top: var(--hairline) solid var(--line-strong);
+  margin: var(--space-56) 0;
+}
+
+.sbdocs-content .doc-grid-2 { margin-bottom: var(--space-32); }
+.sbdocs-content .doc-grid-2 h3 { margin-top: 0; }
+
+.sbdocs-content .doc-callout {
+  border-left: 2px solid var(--ink);
+  padding: var(--space-4) 0 var(--space-4) var(--space-20);
+  margin: var(--space-32) 0;
+  max-width: var(--measure);
+}
+.sbdocs-content .doc-callout p { margin: 0; color: var(--ink); }
+
+/* ---- vain docs-kontekstia koskevat tarkennukset ------------------ */
+
+/* Näytepalojen luokat ovat story-layout.css:ssä, koska samoja
+   käytetään myös story-kankaalla. Täällä vain se mitä docs-runko
+   vaatii päälle. */
+
+.sbdocs-content .spec-table,
+.sbdocs-content .spec-type,
+.sbdocs-content .spec-space { margin-bottom: var(--space-40); }
+
+.sbdocs-content .sb-row,
+.sbdocs-content .sb-stack { margin-block: var(--space-24) var(--space-40); }
+
+/* MDX:n omat listat samaan rytmiin. */
+.sbdocs-content > ul:not(.spec-list) { padding-left: var(--space-20); }
+.sbdocs-content > ul:not(.spec-list) li { color: var(--ink-muted); margin-bottom: var(--space-8); }

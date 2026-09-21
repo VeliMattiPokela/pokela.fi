@@ -1,0 +1,40 @@
+/* Ikoni — systeemin oma piirretty merkki.
+   ==================================================================
+   Ei kirjastoa. Geometria on components/Icon.tsx:ssä, tässä on se
+   mikä tekee merkistä osan systeemiä: hiusviiva, currentColor ja
+   kolme kokoa tokeneista.
+
+   `vector-effect: non-scaling-stroke` on tässä olennainen. Ilman sitä
+   viivanpaksuus skaalautuisi ruudukon mukana: 16-ruudukon 1 yksikköä
+   olisi 24 pikselin ikonissa 1,5 pikseliä ja 12 pikselin ikonissa
+   0,75. Kanssa sen `stroke-width` luetaan ruudun koordinaatistossa,
+   jolloin --hairline on hiusviiva joka koossa — juuri se mitä token
+   lupaa. */
+
+.icon {
+  display: inline-block;
+  flex: none;
+  width: var(--icon-m);
+  height: var(--icon-m);
+  /* Ikoni istuu tekstin seassa, joten se lasketaan perusviivalle.
+     `vertical-align: middle` keskittäisi sen x-korkeuden puoliväliin
+     ja nostaisi merkin liian ylös metatekstin rinnalla. */
+  vertical-align: -0.125em;
+  color: inherit;
+}
+
+.icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--hairline);
+  /* Tylpät päätteet ja terävät kulmat, koska --radius on 0.
+     Nämä ovat SVG:n oletukset — ne on kirjoitettu näkyviin, koska ne
+     ovat systeemin päätös eivätkä sattuma. */
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+
+.icon--s { width: var(--icon-s); height: var(--icon-s); }
+.icon--m { width: var(--icon-m); height: var(--icon-m); }
+.icon--l { width: var(--icon-l); height: var(--icon-l); }

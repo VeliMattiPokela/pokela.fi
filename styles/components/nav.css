@@ -1,0 +1,137 @@
+/* Navi — 20/36px, meta-s, viiva alla.
+   Aktiivinen = musteen täysi sävy + 1px alleviivaus. Ei väriä.
+
+   Typografia tulee .meta/.meta--s-luokista merkkauksessa, ei tästä
+   tiedostosta. Aiemmin nämä neljä kohtaa toistivat saman fonttikoon,
+   painon, välistyksen ja versaalit käsin — ja unohtivat rivivälin,
+   joten ne perivät leipätekstin 1.65:n .metan 1.4:n sijaan. */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding-block: var(--space-20);
+  border-bottom: var(--hairline) solid var(--line);
+}
+@media (min-width: 900px) { .nav { padding-block: var(--space-20) var(--space-20); } }
+
+.nav__mark:hover { text-decoration: none; }
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: var(--space-28);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 600px) { .nav__links { display: flex; } }
+
+/* <li> perii leipätekstin koon, joten sen rivilaatikko (16px × 1.65)
+   olisi korkeampi kuin linkki itse ja määräisi navin korkeuden.
+   Flex-item ei kanna omaa strutiaan. */
+.nav__links li { display: flex; }
+
+.nav__link {
+  padding-block: var(--space-4);
+  border-bottom: var(--hairline) solid transparent;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.nav__link:hover { color: var(--ink); text-decoration: none; }
+.nav__link[aria-current='page'] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.nav__tools { display: flex; align-items: center; gap: var(--space-8); }
+
+/* Teema- ja kielivalitsin: tekstinappeja, ei ikoneita. */
+.nav__toggle {
+  background: none;
+  border: 0;
+  padding: var(--space-12);
+  margin: calc(var(--space-12) * -1);
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.nav__toggle:hover { color: var(--ink); }
+.nav__toggle[aria-pressed='true'] { color: var(--ink); }
+
+/* Mobiilivalikon avaus: kaksi viivaa, ei hampurilaisikonia. */
+.nav__menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin-right: calc(var(--space-12) * -1);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+@media (min-width: 600px) { .nav__menu-btn { display: none; } }
+/* Merkki oli ennen kaksi <span>-viivaa omilla mitoillaan (22 × 1,
+   5 pikselin välillä). Nyt se on sama Icon kuin muualla: geometria
+   on Icon.tsx:ssä ja paksuus tulee --hairlinesta, joten valikon
+   merkki ei voi ajautua erilleen muista viivoista. */
+.nav__menu-btn .icon { color: var(--ink); }
+
+/* Koko ruudun valikko. */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-20);
+  overflow-y: auto;
+}
+
+.menu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-20);
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+.menu__close {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: none;
+  border: 0;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-12);
+  margin-right: calc(var(--space-12) * -1);
+  cursor: pointer;
+}
+
+.menu__links {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-40) 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.menu__links a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-display-l);
+  line-height: var(--lh-display-l);
+  padding-block: var(--space-12);
+}
+.menu__links a:hover { text-decoration: none; }
+.menu__links a[aria-current='page'] { text-decoration: underline; text-underline-offset: var(--space-4); }
+
+.menu__foot {
+  margin-top: auto;
+  padding-top: var(--space-40);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}

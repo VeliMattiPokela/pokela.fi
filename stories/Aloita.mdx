@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Aloita" id="aloita" />
+
+# Pokela
+
+<p className="doc-lede">
+  Design system yhdelle sivustolle: `pokela.fi`. Tämä ei ole demo eikä tyylikirjasto —
+  se on sama koodi jota sivusto ajaa. Jokainen alla oleva luku luetaan
+  `tokens.json`:sta, eikä yhtäkään niistä ole kirjoitettu tähän käsin.
+</p>
+
+<div className="doc-callout">
+  <strong>Miksi tämä on julkinen.</strong> Portfolio voi väittää mitä tahansa design
+  systemistä. Tämän voi tarkistaa: avaa komponentti, vaihda teemaa, kavenna ikkunaa,
+  lue koodi. Jos väite ei pidä, se näkyy tässä.
+</div>
+
+## Miten tämä on rakennettu
+
+Ketju kulkee yhteen suuntaan, eikä matkalla ole käsityötä.
+
+<div className="doc-grid-2">
+  <div>
+    <h4 className="meta" style={{ marginBottom: 'var(--space-16)' }}>Lähde</h4>
+    <ul className="spec-list">
+      <li><code>styles/tokens.css</code> — ainoa paikka jossa arvo määritellään</li>
+      <li><code>tokens.json</code> — sama arvo koneluettavana</li>
+      <li><code>styles/base.css</code> — primitiivit, jotka lukevat tokenit</li>
+      <li><code>components/*.tsx</code> — ei kovakoodattuja arvoja</li>
+    </ul>
+  </div>
+  <div>
+    <h4 className="meta" style={{ marginBottom: 'var(--space-16)' }}>Valvonta</h4>
+    <ul className="spec-list">
+      <li><code>npm run check:tokens</code> vertaa CSS:n ja JSONin</li>
+      <li>Ajetaan jokaisessa buildissa ja pull requestissa</li>
+      <li>Eriytymä pysäyttää putken ja kertoo <em>mikä</em> eriytyi</li>
+      <li>Nämä sivut lukevat saman JSONin, joten ne eivät voi vanhentua</li>
+    </ul>
+  </div>
+</div>
+
+<hr className="doc-rule" />
+
+## Kolme sääntöä joita ei rikota
+
+<div className="doc-grid-2">
+  <div>
+    <h3 className="sbdocs-h3">Ei aksenttiväriä</h3>
+    <p className="sbdocs-p">
+      Korostus tehdään musta/valkoinen-käännöksellä. Väri sivulle tulee vain työn
+      kuvista. Palettissa ei ole yhtään sävyä joka ei ole harmaa.
+    </p>
+  </div>
+  <div>
+    <h3 className="sbdocs-h3">Ei kortteja</h3>
+    <p className="sbdocs-p">
+      Ei kehystettyjä laatikoita, ei varjoja, ei sävytettyjä pintoja sisällön ympärillä.
+      Erottelu tehdään hiusviivalla tai käännetyllä pinnalla. Radius on 0.
+    </p>
+  </div>
+  <div>
+    <h3 className="sbdocs-h3">Typografia on ainoa koriste</h3>
+    <p className="sbdocs-p">
+      Bodoni Moda kantaa äänen, Archivo hoitaa käyttöliittymän. Ei ikoneita paitsi
+      nuolet. Ei gradientteja. Ei emojia.
+    </p>
+  </div>
+  <div>
+    <h3 className="sbdocs-h3">Mobile first, aina</h3>
+    <p className="sbdocs-p">
+      <code>:root</code> on mobiilikoko ja <code>min-width</code> kasvattaa. Jokaisella
+      komponentilla on story mobiilikoossa — se ei ole jälkitarkistus vaan lähtökohta.
+    </p>
+  </div>
+</div>
+
+<hr className="doc-rule" />
+
+## Miten tätä luetaan
+
+<ul className="spec-list">
+  <li><strong>Teema</strong> vaihtuu työkalurivin valitsimesta. Sama token-nimi, molemmat teemat — ei erillisiä tyylejä.</li>
+  <li><strong>Katselukoko</strong> vaihtuu viereisestä valitsimesta. Koot tulevat <code>tokens.json</code>:n breakpointeista.</li>
+  <li><strong>Saavutettavuus</strong> tarkistetaan automaattisesti jokaisesta storystä (a11y-välilehti). Virhe kaataa ajon.</li>
+  <li><strong>Koodi</strong> näkyy jokaisen esimerkin alta — se on sama tiedosto jota sivusto importoi.</li>
+</ul>
+
+## Mistä aloittaa
+
+<ul className="spec-list">
+  <li><strong>Perusta</strong> — väri, typografia, grid, välistys ja liike. Kaikki arvot yhdessä paikassa.</li>
+  <li><strong>Komponentit</strong> — listarivi on tunnusomaisin, ja se sisältää käännöslogiikan. Aloita siitä.</li>
+</ul>

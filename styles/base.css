@@ -1,0 +1,256 @@
+/* Pokela — layout-primitiivit
+   ------------------------------------------------------------------
+   Ei uusia värejä eikä kokoja: kaikki arvot tulevat tokens.css:stä.
+   Jokaisella tämän tiedoston luokalla on vastine Storybookissa.
+*/
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* Bodoni Modasta on ladattu vain leikkaukset 400 ja 500. Jos jokin
+     pyytää lihavaa — esimerkiksi selaimen oletustyyli <h1>–<h6>:lle —
+     selain venyttäisi 400:n paksummaksi. Didonessa se tuhoaa juuri
+     sen mikä tekee siitä didonen: hiusviivojen ja tolppien
+     kontrastin. Kursiivin synteesi jätetään päälle, koska
+     koodilohkojen kommentit nojaavat siihen. */
+  font-synthesis-weight: none;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+/* Focus: 2px musteviiva 2px offsetilla. Yksi sääntö, koko sivustolle. */
+:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: var(--focus-offset);
+}
+/* Käännetyllä pinnalla focus kääntyy mukana. */
+.invert :focus-visible { outline-color: var(--invert-ink); }
+
+/* ---- typografia ---------------------------------------------------- */
+
+.display-xl, .display-l, .display-m, .display-s {
+  font-family: var(--font-display);
+  font-weight: var(--weight-400);
+  margin: 0;
+  text-wrap: balance;
+}
+.display-xl { font-size: var(--text-display-xl); line-height: var(--lh-display-xl); letter-spacing: var(--tr-display-xl); }
+.display-l  { font-size: var(--text-display-l);  line-height: var(--lh-display-l);  letter-spacing: var(--tr-display-l); }
+.display-m  { font-size: var(--text-display-m);  line-height: var(--lh-display-m);  letter-spacing: var(--tr-display-m); }
+.display-s  { font-size: var(--text-display-s);  line-height: var(--lh-display-s);  letter-spacing: var(--tr-display-s); }
+
+.body-l { font-size: var(--text-body-l); line-height: var(--lh-body-l); margin: 0; }
+.body-s { font-size: var(--text-body-s); line-height: var(--lh-body-s); margin: 0; }
+
+/* Leipätekstin mitta. Ei koskaan yli 62 merkkiä. */
+.measure { max-width: var(--measure); }
+
+.meta {
+  /* Nollaus, koska .meta osuu myös <p>- ja <h2>-elementteihin. Ilman
+     tätä selaimen oletusmarginaali (1em = 11px) livahti mukaan
+     paikkoihin joissa väli tulee vanhemman gapista. */
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight-600);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.meta--s { font-size: var(--text-meta-s); line-height: var(--lh-meta-s); letter-spacing: var(--tr-meta-s); }
+.meta--ink { color: var(--ink); }
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
+
+/* ---- sivu ja grid -------------------------------------------------- */
+
+.page {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+/* Täysleveä kaista joka hoitaa oman sivupaddinginsa.
+   Käytetään listariveille ja käännetyille palkeille — ne ulottuvat
+   reunaan, mutta sisältö pysyy samassa linjassa .page:n kanssa. */
+.bleed {
+  width: 100%;
+  padding-inline: max(var(--page-padding), calc((100% - var(--max-width)) / 2 + var(--page-padding)));
+}
+
+.section { margin-block: var(--section-gap); }
+
+/* 12-sarakkeinen grid: 4 → 8 → 12. Sarakemäärä tulee tokenista,
+   joten yksikään komponentti ei tiedä breakpointeista mitään. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: var(--space-32);
+}
+
+/* Col: leveys ja aloitussarake per breakpoint.
+   Arvot annetaan custom-propertyinä (--span-base / --span-sm / --span-md),
+   jolloin JSX kertoo sijoittelun ja CSS vain toteuttaa sen. */
+.col { grid-column: span var(--span-base) / span var(--span-base); }
+@media (min-width: 600px) {
+  .col { grid-column: var(--start-sm, auto) / span var(--span-sm); }
+}
+@media (min-width: 900px) {
+  .col { grid-column: var(--start-md, auto) / span var(--span-md); }
+}
+
+.rule { border: 0; border-top: var(--hairline) solid var(--line); margin: 0; }
+.rule--strong { border-top-color: var(--line-strong); }
+
+/* Käännetty pinta. Ainoa tehoväline — ei värejä, ei varjoja. */
+.invert {
+  background: var(--invert-surface);
+  color: var(--invert-ink);
+}
+.invert .meta { color: var(--invert-faint); }
+
+/* ---- napit --------------------------------------------------------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-8);
+  font-family: var(--font-ui);
+  font-size: var(--text-body-s);
+  font-weight: var(--weight-500);
+  line-height: 1;
+  min-height: var(--tap-min);
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius);
+  border: var(--hairline) solid transparent;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+}
+.btn:hover { text-decoration: none; }
+
+/* Mobiilissa päätoiminto on täysleveä, 600px:stä sisällön mukainen. */
+.btn--block { width: 100%; }
+@media (min-width: 600px) { .btn--block { width: auto; } }
+
+/* Hover = käännös. Reunaviiva tulee border-colorista, ei varjosta. */
+.btn--primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn--primary:hover { background: var(--paper); color: var(--ink); }
+
+.btn--ghost { border-color: var(--ink); color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+
+.btn--text {
+  min-height: 0;
+  padding: 0 0 var(--space-8);
+  border: 0;
+  border-bottom: var(--hairline) solid currentColor;
+}
+
+/* Tekstinapilla ei ole pintaa jota kääntää, joten hover on sama liike
+   kuin .case-linkillä: viiva paksunee. Padding kevenee saman verran
+   kuin viiva kasvaa, jotta napin korkeus ei muutu eikä ympärillä oleva
+   teksti nytkähdä osoittimen alla. */
+.btn--text:hover {
+  border-bottom-width: var(--hairline-strong);
+  padding-bottom: calc(var(--space-8) - (var(--hairline-strong) - var(--hairline)));
+}
+
+.btn[disabled], .btn[aria-disabled='true'] {
+  color: var(--ink-faint);
+  border-color: var(--line);
+  background: none;
+  cursor: not-allowed;
+}
+
+/* Kosketuslaitteella hoveria ei ole — käännös tulee :active-tilassa.
+   Tämä lohko on viimeisenä, joten se voittaa hover-säännöt. */
+@media (hover: none) {
+  .btn--primary:hover { background: var(--ink); color: var(--paper); }
+  .btn--ghost:hover { background: none; color: var(--ink); }
+  .btn--text:hover {
+    border-bottom-width: var(--hairline);
+    padding-bottom: var(--space-8);
+  }
+
+  .btn--primary:active { background: var(--paper); color: var(--ink); }
+  .btn--ghost:active { background: var(--ink); color: var(--paper); }
+  .btn--text:active {
+    border-bottom-width: var(--hairline-strong);
+    padding-bottom: calc(var(--space-8) - (var(--hairline-strong) - var(--hairline)));
+  }
+}
+
+/* ---- media (kuvapaikka) ----------------------------------------------------- */
+
+.media {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--placeholder-base) 0 12px,
+    var(--placeholder-stripe) 12px 24px
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-16);
+}
+@media (min-width: 600px) { .media { padding: var(--space-24); } }
+
+/* Kuvasuhteet: mobiilissa pystympi, työpöydällä editoriaalinen.
+   21:9 hero on mobiilissa 4:5 — muuten kuvasta ei näe mitään. */
+.media-hero     { aspect-ratio: 4 / 5; }
+.media-4-3      { aspect-ratio: 4 / 3; }
+.media-4-5      { aspect-ratio: 4 / 5; }
+.media-3-4      { aspect-ratio: 3 / 4; }
+.media-1-1      { aspect-ratio: 1 / 1; }
+@media (min-width: 600px) { .media-hero { aspect-ratio: 16 / 9; } }
+@media (min-width: 900px) { .media-hero { aspect-ratio: 21 / 9; } }
+
+.media-fill { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---- reveal --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(var(--reveal-shift)); }
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+  }
+}
+
+/* ---- saavutettavuus -------------------------------------------------- */
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--space-16); top: var(--space-16);
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--ink); color: var(--paper);
+  padding: var(--space-12) var(--space-16);
+}
+.skip-link:focus { transform: none; }

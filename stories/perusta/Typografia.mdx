@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TypeScale, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Typografia" id="perusta-typografia" />
+
+# Typografia
+
+<p className="doc-lede">
+  Kaksi rekisteriä ja ei kolmatta. Bodoni Moda kantaa äänen, Archivo hoitaa kaiken
+  käyttöliittymätekstin. Display-koot kasvavat breakpointeittain — mobiilissa otsikko
+  katkeaa riveille, se ei kutistu.
+</p>
+
+## Asteikko
+
+Sarake oikealla näyttää koon jokaisella tasolla: `base` (0–599), `sm` (600), `md` (900),
+`lg` (1200). Vaihda katselukokoa työkaluriviltä nähdäksesi muutoksen.
+
+<TypeScale />
+
+## Säännöt
+
+<ul className="spec-list">
+  <li><strong>Bodoni vain ≥ 24 px.</strong> Pienemmässä koossa didone-kontrasti hajoaa eikä teksti ole luettavaa.</li>
+  <li><strong>Ei Bodonia leipätekstissä.</strong> Koskaan, missään koossa.</li>
+  <li><strong>Metatiedot versaalein ja harvennettuina</strong> — 11 px / 0.16em tai 10 px / 0.20em.</li>
+  <li><strong>Leipätekstin mitta enintään 62 merkkiä</strong> (<code>--measure</code>). Pidempi rivi hidastaa lukemista.</li>
+  <li><strong>Leipäteksti ei laske alle 16 px.</strong> iOS zoomaa syöttökentät alle sen.</li>
+</ul>
+
+## Miksi kokoja on neljä eikä kahdeksan
+
+Neljä display-kokoa riittää: nimi, casen otsikko, väitelause, listan rivi. Jos viides
+tuntuu tarpeelliselta, kyse on yleensä hierarkiaongelmasta eikä puuttuvasta koosta.
+
+## Tee / älä tee
+
+<DoDont
+  do={[
+    'Anna isolle otsikolle vähintään 56 px ilmaa ympärille',
+    'Katkaise pitkä nimi riveille mobiilissa, älä skaalaa pieneksi',
+    'Käytä valmiita luokkia: display-xl, display-l, meta, meta--s',
+    'Pidä leipäteksti measure-luokan sisällä',
+  ]}
+  dont={[
+    'Älä kirjoita font-sizeä komponenttiin',
+    'Älä käytä Bodonia alle 24 px koossa',
+    'Älä keskitä isoja otsikoita — poikkeus on vain käännetty lausuntapalkki ja ennen/jälkeen',
+    'Älä lisää viidettä display-kokoa ilman että poistat jonkin',
+  ]}
+/>

@@ -1,0 +1,104 @@
+/* Ennen / jälkeen -vertailu.
+   Ainoa lohko jossa keskitys on sallittu (brand-brief). */
+
+.compare {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.compare__frame {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  overflow: hidden;
+  touch-action: none;       /* veto ei saa vierittää sivua */
+  cursor: ew-resize;
+  user-select: none;
+  background: var(--paper-alt);
+}
+
+.compare__img { position: absolute; inset: 0; }
+
+/* Ennen-kuva leikataan jakajan kohdalta. Ei transitionia:
+   jakajan pitää seurata osoitinta 1:1. */
+.compare__img--before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compare__label {
+  position: absolute;
+  top: var(--space-12);
+  padding: var(--space-4) var(--space-8);
+  pointer-events: none;
+}
+.compare__label--before {
+  left: var(--space-12);
+  background: var(--invert-surface);
+  color: var(--invert-ink);
+}
+.compare__label--after {
+  right: var(--space-12);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.compare__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.compare__handle {
+  position: absolute;
+  top: 50%;
+  left: var(--pos);
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin: calc(var(--tap-min) / -2) 0 0 calc(var(--tap-min) / -2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: var(--text-body-s);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+
+/* Oikea range-syöte hoitaa näppäimistön ja ruudunlukijan.
+   Piilotettu näkyvistä mutta ei saavutettavuuspuusta. */
+.compare__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  cursor: ew-resize;
+}
+.compare__range:focus-visible {
+  opacity: 1;
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: calc(var(--focus-offset) * -1);
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Kuvateksti ei ole lukumitta vaan kuvaan sidottu leveys: se on
+   keskitetty 320 pikselin kehyksen alle, ja lukumitta (62ch = 497 px)
+   levittäisi sen irti kuvasta. Arvo on 4 saraketta 12:sta lg-tasolla,
+   sama kuin etusivun roolirivillä. */
+.compare__caption {
+  color: var(--ink-muted);
+  max-width: 440px;
+  text-align: center;
+}

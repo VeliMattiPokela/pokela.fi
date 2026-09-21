@@ -1,0 +1,206 @@
+/* Listarivi — sivuston tunnuskomponentti.
+   ==================================================================
+   Yksi rivi, kolme käyttöä. Sivustolla oli pitkään kolme lähes
+   samanlaista riviä — listarivi, työlistan kärkirivi ja avautuva
+   rivi — joilla oli sama viiva, sama käännös ja sama sisältö, mutta
+   kolme eri toteutusta. Nyt runko on yksi ja erot ovat modifioijia:
+
+     .list-row                 nimi + kuvaus + rooli, linkkinä
+     .list-row--numbered       numerosarake vasemmalle
+     .list-row--m              isompi otsikko ja väljempi rytmi
+     .list-row--expandable     + / − -osoitin oikeaan laitaan
+
+   Vaakapadding tulee .bleed-utilitystä, ei tästä: muuten rivi saa
+   sivupaddingin kahdesti .page-käärön sisällä.
+*/
+
+/* ---- runko --------------------------------------------------------- */
+
+.list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'main'
+    'meta';
+  align-items: baseline;
+  gap: var(--space-8) var(--space-16);
+  width: 100%;
+  padding-block: var(--space-20);
+  min-height: var(--tap-min);
+  border-top: var(--hairline) solid var(--line);
+  color: var(--ink);
+  text-align: left;
+  transition:
+    background var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard);
+}
+
+@media (min-width: 600px) {
+  .list-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'main meta';
+    gap: var(--space-24);
+    padding-block: var(--space-28);
+  }
+}
+
+.list-rows > .list-row:last-child,
+.list-rows > *:last-child > .list-row {
+  border-bottom: var(--hairline) solid var(--line);
+}
+
+/* ---- osat ---------------------------------------------------------- */
+
+.list-row__number { grid-area: num; }
+.list-row__meta { grid-area: meta; }
+
+/* Nimi + kuvaus omana pinonaan, jotta rooli voi asettua oikeaan
+   laitaan nimen perusviivalle. */
+.list-row__main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.list-row__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  line-height: var(--lh-display-s);
+  letter-spacing: var(--tr-display-s);
+}
+
+.list-row__description {
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink-muted);
+}
+
+/* ---- numerollinen -------------------------------------------------- */
+
+.list-row--numbered {
+  grid-template-columns: var(--space-36) minmax(0, 1fr);
+  /* Roolilla on oma alue myös mobiilissa. Ilman sitä `grid-area`
+     ei osu mihinkään, selain sijoittaa sen automaattisesti ja luo
+     implisiittisen sarakkeen — pääsisältö kutistui 86 pikseliin. */
+  grid-template-areas:
+    'num main'
+    '.   meta';
+}
+@media (min-width: 600px) {
+  .list-row--numbered {
+    grid-template-columns: var(--space-56) minmax(0, 1fr) auto;
+    grid-template-areas: 'num main meta';
+  }
+}
+
+/* ---- iso koko ------------------------------------------------------ */
+
+.list-row--m { padding-block: var(--space-24); }
+@media (min-width: 600px) {
+  .list-row--m { padding-block: var(--space-32); }
+  .list-row--m.list-row--numbered { grid-template-columns: var(--space-56) minmax(0, 1fr) 260px; }
+}
+.list-row--m .list-row__main { gap: var(--space-12); }
+.list-row--m .list-row__title {
+  font-size: var(--text-display-m);
+  line-height: var(--lh-display-m);
+  letter-spacing: var(--tr-display-m);
+}
+.list-row--m .list-row__description { max-width: var(--measure); }
+
+/* ---- avautuva ------------------------------------------------------
+   Merkki on systeemin oma ikoni (plus / minus), ei tekstimerkki eikä
+   kirjaston ikoni — ks. components/Icon.tsx. Nimi oli välillä `sign`
+   ja `indicator`; molemmat olivat kiertoilmauksia sille ettei näitä
+   merkkejä haluttu kutsua ikoneiksi. Nyt ne ovat ikoneita, ja slotin
+   nimi on `icon`. */
+
+.list-row--expandable {
+  grid-template-columns: var(--space-36) minmax(0, 1fr) auto;
+  grid-template-areas: 'num main icon';
+  background: none;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  font: inherit;
+  cursor: pointer;
+}
+/* Mobiilissa merkki vie tilan, joten rooli jää pois. */
+.list-row--expandable .list-row__meta { display: none; }
+
+@media (min-width: 600px) {
+  .list-row--expandable {
+    grid-template-columns: var(--space-56) minmax(0, 1fr) auto var(--space-24);
+    grid-template-areas: 'num main meta icon';
+  }
+  .list-row--expandable .list-row__meta { display: block; }
+}
+
+.list-row__icon {
+  grid-area: icon;
+  /* Ei align-selfiä: ikoni kohdistuu rivin perusviivalle kuten numero
+     ja meta. SVG:llä ei ole perusviivaa, joten selain käyttää sen
+     alareunaa — merkki istuu otsikon riville, ei kahden tekstirivin
+     pystykeskelle. Koko tulee .icon--l:stä. */
+}
+
+/* ---- käännös ------------------------------------------------------- */
+
+/* `.invert` on mukana, jotta tila voidaan näyttää myös staattisena
+   (esim. dokumentaatiossa) ilman omaa sääntöä — muuten .list-row:n
+   oma `color` voittaisi utilityn samalla spesifisyydellä ja teksti
+   jäisi näkymättömiin. `aria-expanded` on avatun rivin sama tila. */
+.list-row:hover,
+.list-row:focus-visible,
+.list-row.invert,
+.list-row[aria-expanded='true'] {
+  background: var(--invert-surface);
+  color: var(--invert-ink);
+  text-decoration: none;
+}
+.list-row:hover .list-row__description,
+.list-row:focus-visible .list-row__description,
+.list-row.invert .list-row__description,
+.list-row[aria-expanded='true'] .list-row__description,
+.list-row:hover .meta,
+.list-row:focus-visible .meta,
+.list-row.invert .meta,
+.list-row[aria-expanded='true'] .meta { color: var(--invert-faint); }
+
+/* Focus-renkaan pitää näkyä käännetyllä pinnalla. */
+.list-row:focus-visible {
+  outline-color: var(--invert-ink);
+  outline-offset: calc(var(--focus-offset) * -2);
+}
+
+/* Sisarrivit vaimennetaan hoverin aikana. */
+.list-rows:hover .list-row:not(:hover) { color: var(--ink-faint); }
+.list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-faint); }
+
+/* Kosketus: ei hoveria, käännös :active-tilassa. Viimeisenä = voittaa. */
+@media (hover: none) {
+  .list-row:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+  .list-row:hover .list-row__description { color: var(--ink-muted); }
+  .list-row:hover .meta { color: var(--ink-faint); }
+  .list-rows:hover .list-row:not(:hover) { color: var(--ink); }
+  .list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-muted); }
+
+  .list-row:active,
+  .list-row[aria-expanded='true'] {
+    background: var(--invert-surface);
+    color: var(--invert-ink);
+  }
+  .list-row:active .list-row__description,
+  .list-row[aria-expanded='true'] .list-row__description,
+  .list-row:active .meta,
+  .list-row[aria-expanded='true'] .meta { color: var(--invert-faint); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list-row { transition: none; }
+}

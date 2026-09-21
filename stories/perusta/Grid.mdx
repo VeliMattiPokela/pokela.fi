@@ -1,0 +1,93 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { GridDemo, GridTable, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Grid" id="perusta-grid" />
+
+# Grid
+
+<p className="doc-lede">
+  4 → 8 → 12 saraketta. Sarakemäärä on token, ei komponentin tieto — siksi yksikään
+  komponentti ei sisällä breakpointtia.
+</p>
+
+## Tasot
+
+<GridTable />
+
+## 12 saraketta
+
+<GridDemo columns={12} />
+
+Kavenna katselukokoa työkaluriviltä: sama merkintä antaa 8 saraketta `sm`-tasolla ja
+4 saraketta mobiilissa. Mitään ei tarvitse kirjoittaa uudelleen.
+
+## Miten sijoittelu merkitään
+
+Leveys annetaan sarakkeina, ei pikseleinä:
+
+```tsx
+<Grid>
+  <Col base={4} sm={8} md={7}>
+    <p className="display-m">Rakennan tuotteita, jotka toimivat…</p>
+  </Col>
+  <Col base={4} sm={8} md={4} startMd={9}>
+    <p className="body-l measure">Suunnittelen käyttöliittymät…</p>
+  </Col>
+</Grid>
+```
+
+CSS:ssä tämä on kolme sääntöä, ei enempää:
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+.col { grid-column: span var(--span-base) / span var(--span-base); }
+@media (min-width: 900px) { .col { grid-column: var(--start-md, auto) / span var(--span-md); } }
+```
+
+<div className="doc-callout">
+  <strong>Miksi tämä eikä kiinteät pikselisarakkeet.</strong> Sivupohjat oli alun perin
+  ladottu käsin arvoilla kuten <code>60px minmax(0,1fr) 360px</code>. Ne näyttävät
+  oikealta yhdessä leveydessä ja hajoavat kaikissa muissa — eikä 600–1200 px:n välille
+  jäävää aluetta kattanut yksikään sivupohja. Tokeneista luettu grid kattaa ne kaikki.
+</div>
+
+## Täysleveä kaista
+
+Listarivit ja käännetyt palkit ulottuvat reunaan, mutta niiden sisältö pysyy samassa
+linjassa muun sivun kanssa. Se hoidetaan yhdellä utilitylla:
+
+```css
+.bleed {
+  width: 100%;
+  padding-inline: max(
+    var(--page-padding),
+    calc((100% - var(--max-width)) / 2 + var(--page-padding))
+  );
+}
+```
+
+Komponentti ei siis maalaa omaa sivupaddingiaan — muuten se tulisi kahdesti
+`.page`-käärön sisällä.
+
+## Tee / älä tee
+
+<DoDont
+  do={[
+    'Anna leveys sarakkeina: <Col base={4} md={7}>',
+    'Käytä .bleed-utilitya reunaan ulottuviin kaistoihin',
+    'Anna aloitussarake startMd-propilla, älä marginaalilla',
+    'Tarkista layout jokaisella neljällä tasolla ennen kuin siirryt eteenpäin',
+  ]}
+  dont={[
+    'Älä kirjoita grid-template-columnsia kiinteillä pikseleillä',
+    'Älä kirjoita media queryä komponenttiin — sarakemäärä tulee tokenista',
+    'Älä käytä page-paddingia komponentin sisällä jos se on jo .page:n sisällä',
+    'Älä ylitä 1440 px:n maksimileveyttä',
+  ]}
+/>

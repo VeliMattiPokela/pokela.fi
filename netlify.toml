@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Synkkatarkistus ajetaan osana build-komentoa (package.json: build).
+# Jos tokenit ovat eriytyneet, build kaatuu eikä sivustoa julkaista.

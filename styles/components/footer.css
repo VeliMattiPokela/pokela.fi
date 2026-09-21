@@ -1,0 +1,45 @@
+/* Footer-CTA — display-l vasemmalle, yhteystiedot metana oikealle,
+   viiva yläpuolelle. */
+
+.footer {
+  border-top: var(--hairline) solid var(--line-strong);
+  padding-block: var(--space-48) var(--space-40);
+  margin-top: var(--section-gap);
+}
+@media (min-width: 900px) { .footer { padding-block: var(--space-72) var(--space-56); } }
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+@media (min-width: 600px) {
+  .footer__inner { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--space-40); }
+}
+
+.footer__cta {
+  font-family: var(--font-display);
+  font-size: var(--text-display-l);
+  line-height: var(--lh-display-l);
+  letter-spacing: var(--tr-display-l);
+}
+.footer__cta:hover { text-decoration: none; }
+.footer__cta span { display: block; }
+
+.footer__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  text-align: left;
+}
+@media (min-width: 600px) { .footer__meta { text-align: right; align-items: flex-end; } }
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+  justify-content: space-between;
+  padding-top: var(--space-40);
+  margin-top: var(--space-40);
+  border-top: var(--hairline) solid var(--line);
+}

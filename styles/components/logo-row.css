@@ -1,0 +1,54 @@
+/* Asiakaslogorivi.
+   ------------------------------------------------------------------
+   Logot ovat mustaa läpinäkyvällä taustalla, joten dark-teemassa ne
+   katoaisivat. Ratkaisu on CSS-mask: kuva toimii maskina ja väri
+   tulee currentColorista, jolloin logo seuraa --ink:iä molempiin
+   suuntiin. filter: invert() olisi nopeampi mutta pehmentää reunat
+   ja hajoaa niillä logoilla joissa on jo vaaleaa sisältöä.
+
+   Optinen koko annetaan per logo (--logo-h), ei yhtenä korkeutena:
+   leveä ohut sanamerkki ja lähes neliömäinen merkki eivät näytä
+   samankokoisilta samalla pikselikorkeudella.
+*/
+
+.logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-28) var(--space-40);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 900px) { .logo-row { gap: var(--space-32) var(--space-56); } }
+
+.logo-row__item {
+  width: var(--logo-w, auto);
+  height: var(--logo-h, 20px);
+  background-color: var(--ink-muted);
+  -webkit-mask-image: var(--logo-src);
+          mask-image: var(--logo-src);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+          mask-position: left center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+.logo-row:hover .logo-row__item { background-color: var(--ink-faint); }
+.logo-row__item:hover { background-color: var(--ink); }
+
+.logo-row-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding-block: var(--space-32);
+  border-top: var(--hairline) solid var(--line);
+  border-bottom: var(--hairline) solid var(--line);
+}
+@media (min-width: 900px) {
+  .logo-row-block { flex-direction: row; align-items: center; gap: var(--space-56); }
+  .logo-row__label { flex: 0 0 auto; }
+  .logo-row { flex: 1 1 auto; }
+}

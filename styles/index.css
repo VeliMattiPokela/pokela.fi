@@ -1,0 +1,17 @@
+/* Ainoa globaali tyylitiedosto. Järjestys on merkitsevä:
+   tokenit → primitiivit → komponentit. */
+@import './tokens.css';
+@import './base.css';
+@import './components/icon.css';
+@import './components/list-row.css';
+@import './components/nav.css';
+@import './components/footer.css';
+@import './components/logo-row.css';
+@import './components/home.css';
+@import './components/accordion.css';
+@import './components/compare.css';
+@import './components/work.css';
+@import './components/about.css';
+@import './components/case.css';
+@import './components/system.css';
+@import './components/component-view.css';

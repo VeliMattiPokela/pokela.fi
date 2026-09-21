@@ -1,0 +1,5 @@
+# Juuri ohjataan oletuskielelle. Kun EN julkaistaan, tähän voi lisätä
+# kieliohjauksen selaimen Accept-Languagen perusteella.
+/                 /fi/   302
+/tyot/*           /fi/tyot/:splat   301
+/tietoa/*         /fi/tietoa/:splat 301

@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: Synkkatarkistus, tyypit ja build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Storyt ajetaan oikeassa selaimessa, joten Chromium tarvitaan.
+      # Binääri on iso (~570 MB), joten se välimuistitetaan
+      # lukkotiedoston hashilla — lataus vain kun Playwright päivittyy.
+      - name: Selainvälimuisti
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Asenna Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium --with-deps
+
+      # Eriytymä pysäyttää putken ja kertoo MIKÄ eriytyi.
+      # Tämä on case 03:n väite käytännössä.
+      - name: Tokenit synkassa (tokens.css ↔ tokens.json)
+        run: npm run check:tokens
+
+      - name: Storyt kattavat komponentit
+        run: npm run check:stories
+
+      # Kytkentä koodin ja Figman välillä: osoittaako se yhä olemassa
+      # olevaan komponenttiin ja oikeaan Figma-tiedostoon.
+      - name: Code Connect -kytkennät ehjiä
+        run: npm run check:code-connect
+
+      # Jokainen kovakoodattu mitta tai väri on joko token tai
+      # kirjattu poikkeus syineen — hiljaista poikkeusta ei ole.
+      - name: Ei kovakoodattuja arvoja tyyleissä
+        run: npm run check:hardcoded
+
+      - name: Tyypintarkistus
+        run: npx tsc --noEmit
+
+      # Jokainen story renderöidään ja tarkistetaan axella.
+      # Saavutettavuusvirhe kaataa ajon — a11y: { test: 'error' }.
+      - name: Storyt ja saavutettavuus
+        run: npm run test:stories
+
+      - name: Sivuston build
+        run: npx next build
+
+      # Sivusto julkaisee omat designtokeninsa osoitteeseen /tokens.json.
+      - name: Tokenit mukaan julkaisuun
+        run: npm run publish:tokens
+
+      # Rikkinäinen story ei saa päätyä julkaistuun Storybookiin —
+      # se on casen todistusaineistoa, ei kehitystyökalu.
+      - name: Storybookin build
+        run: npm run build-storybook

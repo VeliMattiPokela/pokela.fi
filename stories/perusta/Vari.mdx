@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Swatches, InvertDemo, DoDont } from '../doc/Specimens';
+
+{/* Id on kiinnitetty ASCII-muotoon: suorat linkit ovat casen todistusaineistoa,
+    eivätkä ääkköset kestä jakamista sellaisenaan. */}
+<Meta title="Perusta/Väri" id="perusta-vari" />
+
+# Väri
+
+<p className="doc-lede">
+  Kaksi teemaa, samat token-nimet, yksi määrittely per token. Palettissa ei ole
+  yhtään aksenttisävyä — korostus tehdään pinnan käännöksellä.
+</p>
+
+## Yksi määrittely, kaksi teemaa
+
+Jokainen väri kirjoitetaan kerran `light-dark()`-funktiolla:
+
+```css
+:root {
+  color-scheme: light dark;
+  --paper: light-dark(#FFFFFF, #0E0F10);
+  --ink:   light-dark(#101112, #F4F4F2);
+}
+
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark']  { color-scheme: dark; }
+```
+
+<div className="doc-callout">
+  <strong>Miksi näin.</strong> Kaksi rinnakkaista teemalohkoa ajautuvat erilleen — toiseen
+  lisätään token ja toiseen unohdetaan. Tässä projektissa se oli jo tapahtunut: tumman
+  teeman lohkosta puuttui <code>--badge-surface</code> ja siihen oli jäänyt oranssi
+  aksenttiväri edellisestä suunnasta. Yhdellä rivillä per token sitä ei voi tapahtua.
+</div>
+
+Vaihda teemaa työkaluriviltä — arvot alla pysyvät samoina, vain pinnat kääntyvät.
+
+## Paletti
+
+<Swatches />
+
+## Käännetty pinta
+
+Korvaa kortit, varjot ja aksenttivärin. Yksi per sivu.
+
+<InvertDemo />
+
+## Kontrasti
+
+Pieni teksti on aina vähintään 4.5:1. Käännetyllä pinnalla teksti on `--invert-ink`
+ja metatieto `--invert-faint` — ei `--ink-faint`, joka ei kanna tummalla pinnalla.
+Jokainen story tarkistetaan a11y-välilehdellä automaattisesti.
+
+## Tee / älä tee
+
+<DoDont
+  do={[
+    'Käytä --ink-muted toissijaiseen tekstiin, älä läpinäkyvyyttä',
+    'Vaihda käännetyllä pinnalla myös metatiedon token',
+    'Anna työn kuvien tuoda väri sivulle',
+    'Merkitse saatavuus ja aktiivinen navi musteella ja alleviivauksella',
+  ]}
+  dont={[
+    'Älä lisää aksenttiväriä — ei nappeihin, linkkeihin, badgeihin eikä pintoihin',
+    'Älä kirjoita hex-arvoa komponenttiin, käytä tokenia',
+    'Älä käytä varjoa erotteluun — hiusviiva tai käännös riittää',
+    'Älä lisää värillistä pintaa kuvan ympärille',
+  ]}
+/>

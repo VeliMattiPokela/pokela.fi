@@ -1,0 +1,47 @@
+{
+  "name": "pokela",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run check:sync && next build && npm run publish:tokens",
+    "start": "next start",
+    "lint": "next lint",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "check": "npm run check:sync && npx tsc --noEmit && npm run test:stories",
+    "check:stories": "node scripts/check-stories.mjs",
+    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded",
+    "test:stories": "vitest run --project=storybook",
+    "test:stories:watch": "vitest --project=storybook",
+    "publish:tokens": "node scripts/publish-tokens.mjs",
+    "figma:check": "figma connect publish --dry-run --exit-on-unreadable-files",
+    "figma:publish": "figma connect publish --exit-on-unreadable-files",
+    "check:code-connect": "node scripts/check-code-connect.mjs",
+    "check:hardcoded": "node scripts/check-hardcoded.mjs"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@figma/code-connect": "^2.0.1",
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-vitest": "^10.6.0",
+    "@storybook/nextjs-vite": "^10.6.0",
+    "@types/node": "22.15.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitest/browser": "^4.1.11",
+    "@vitest/browser-playwright": "^4.1.11",
+    "playwright": "^1.63.0",
+    "shiki": "^4.4.3",
+    "storybook": "^10.6.0",
+    "typescript": "5.8.3",
+    "vite": "^8.3.0",
+    "vitest": "^4.1.11"
+  }
+}

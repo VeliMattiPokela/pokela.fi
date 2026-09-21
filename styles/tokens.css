@@ -1,0 +1,232 @@
+/* Pokela — design tokens
+   ------------------------------------------------------------------
+   Väriarvot määritellään kerran parina (-l / -d). Teemanvaihto vain
+   uudelleenohjaa eikä sisällä yhtään väriarvoa, joten vaalea ja
+   tumma eivät voi ajautua erilleen.
+
+   Aksenttiväriä ei ole. Korostus = musta/valkoinen-käännös
+   (--invert-surface / --invert-ink) tai hiljainen --badge-surface.
+   Väri sivulle tulee vain työn kuvista.
+
+   Mobile first: :root on mobiilikoko, min-width kasvattaa.
+   Arvojen lähde: tokens.json. scripts/check-tokens.mjs valvoo että
+   nämä kaksi pysyvät samana.
+
+   Fontit (Google Fonts, OFL): Bodoni Moda 400/500, Archivo 400/500/600.
+*/
+
+:root {
+  color-scheme: light;
+
+  /* ---- type ------------------------------------------------------
+     --font-bodoni / --font-archivo tulevat next/fontista (itse
+     tarjoiltu, ei ulkoista pyyntöä).
+
+     Fallback on var()-funktion SISÄLLÄ, ei sen perässä. Jos
+     --font-bodoni puuttuu, `var(--font-bodoni), 'Bodoni Moda'`
+     tekisi koko määrittelystä epäkelvon (invalid at computed-value
+     time) ja typografia putoaisi selaimen oletusfonttiin ilman
+     virhettä. Tämä muoto kestää sen. */
+  --font-display: var(--font-bodoni, 'Bodoni Moda'), Georgia, serif;
+  --font-ui: var(--font-archivo, 'Archivo'), Helvetica, Arial, sans-serif;
+  /* Koodi on sivustolla toistuva elementti (komponenttinäkymä, /system,
+     Storybook), joten sen pino on token eikä viisi kertaa kirjoitettu
+     lista — joista yksi ehti jo erota muista. */
+  --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* MOBILE FIRST: base = 360–599 px. Isommat koot min-width-kyselyissä. */
+  --text-display-xl: 52px;   --lh-display-xl: 0.92;  --tr-display-xl: -0.02em;
+  --text-display-l: 40px;    --lh-display-l: 1;      --tr-display-l: -0.005em;
+  --text-display-m: 28px;    --lh-display-m: 1.12;   --tr-display-m: -0.005em;
+  --text-display-s: 26px;    --lh-display-s: 1;      --tr-display-s: -0.005em;
+  --text-body-l: 17px;       --lh-body-l: 1.65;
+  --text-body: 16px;         --lh-body: 1.65;   /* älä laske alle 16px: iOS zoomaa inputit */
+  --text-body-s: 14px;       --lh-body-s: 1.6;
+  --text-meta: 11px;         --lh-meta: 1.4;    --tr-meta: 0.16em;
+  --text-meta-s: 10px;       --lh-meta-s: 1.4;  --tr-meta-s: 0.2em;
+  --text-code: 13px;         --lh-code: 1.5;    /* monospace on optisesti isompi kuin body-s */
+  /* Paino on asteikko, koska ladattuja leikkauksia on vain kolme:
+     Archivo 400/500/600, Bodoni 400/500. font-synthesis-weight on
+     pois päältä, joten ladatun ulkopuolinen paino ei lihavoi vaan
+     jää huomaamatta. Nimi on arvo, kuten välistysasteikossa. */
+  --weight-400: 400;
+  --weight-500: 500;
+  --weight-600: 600;
+  --measure: 62ch;           /* lukumitta — ainoa, myös 14px-tekstille */
+
+  /* ---- space (4px perusyksikkö) ----------------------------------
+     Nimetty arvon mukaan, ei juoksevalla numerolla: --space-24 on
+     24px eikä vaadi taulukon muistamista. 32 / 40 / 48 lisättiin
+     koska sivupohjat käyttävät niitä — aiemmin ne jäivät skaalan
+     ulkopuolelle ja päätyivät kovakoodatuiksi.                      */
+  --space-4: 4px;    --space-8: 8px;    --space-12: 12px;  --space-16: 16px;
+  --space-20: 20px;  --space-24: 24px;  --space-28: 28px;  --space-32: 32px;
+  --space-36: 36px;  --space-40: 40px;  --space-44: 44px;  --space-48: 48px;
+  --space-56: 56px;  --space-72: 72px;  --space-96: 96px;  --space-128: 128px;
+
+  /* ---- layout ---------------------------------------------------- */
+  --max-width: 1440px;
+  --page-padding: 20px;
+  --columns: 4;
+  --gutter: 16px;
+  --section-gap: 48px;
+  --tap-min: 44px;
+  --hairline: 1px;
+  /* Korostettu viiva: hoverin ja valitun tilan paksuus. Sama arvo
+     kuin --focus-width, mutta eri asia — focus on saavutettavuutta,
+     tämä on typografiaa, ja ne saavat muuttua toisistaan riippumatta. */
+  --hairline-strong: 2px;
+  --radius: 0px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* ---- ikonit ------------------------------------------------------
+     Ikonit piirretään 16×16-ruudukolle ja skaalataan näihin kolmeen
+     kokoon. Viivanpaksuutta ei ole tässä: se on --hairline, sama viiva
+     jolla jokainen reuna piirretään. Ks. styles/components/icon.css. */
+  --icon-s: 12px;
+  --icon-m: 16px;
+  --icon-l: 24px;
+
+  /* ---- motion ---------------------------------------------------- */
+  --dur-fast: 180ms; --dur-base: 220ms; --dur-slow: 320ms; --dur-reveal: 600ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-shift: 12px;
+  --reveal-stagger: 70ms;
+
+  /* ---- colour ----------------------------------------------------
+     Arvot määritellään KERRAN parina: -l on vaalea, -d tumma.
+     Teemanvaihto alla vain uudelleenohjaa, eikä sisällä yhtään
+     väriarvoa — siksi vaalea ja tumma eivät voi ajautua erilleen.
+
+     Miksi ei light-dark(): Next 16:n Lightning CSS transpiloi sen
+     omaksi polyfillikseen, joka reagoi vain käyttöjärjestelmän
+     prefers-color-schemeen. Nimenomainen data-theme-valinta jäisi
+     silloin tehottomaksi ja teksti näkymättömiin. Tämä muoto toimii
+     kaikkialla eikä riipu käännösketjusta.
+
+     scripts/check-tokens.mjs valvoo että jokaisella tokenilla on
+     molemmat arvot ja että molemmat vaihtolohkot kattavat saman
+     listan.                                                        */
+  --paper-l: #FFFFFF;          --paper-d: #0E0F10;
+  --paper-alt-l: #FAFAF8;      --paper-alt-d: #16181A;
+  --line-l: #E8E8E6;           --line-d: #262829;
+  --line-strong-l: #101112;    --line-strong-d: #F4F4F2;
+  --ink-l: #101112;            --ink-d: #F4F4F2;
+  --ink-muted-l: #45464A;      --ink-muted-d: #B9BCBF;
+  --ink-faint-l: #6A6C6E;      --ink-faint-d: #9A9DA1;
+  --badge-surface-l: #EDEDEA;  --badge-surface-d: #232527;
+  --invert-surface-l: #101112; --invert-surface-d: #F4F4F2;
+  --invert-ink-l: #F4F4F2;     --invert-ink-d: #0E0F10;
+  --invert-faint-l: #B6B8BA;   --invert-faint-d: #4A4C4E;
+  --placeholder-base-l: #EFEFEC;  --placeholder-base-d: #1B1D1F;
+  --placeholder-stripe-l: #E7E7E3;  --placeholder-stripe-d: #16181A;
+
+  /* Koodipaneeli. Tumma molemmissa teemoissa: koodi on oma
+     artefaktinsa, ei leipätekstiä, ja tumma pinta on se mitä lukija
+     odottaa koodilta. Vaaleassa teemassa se on käännetty pinta,
+     tummassa hieman paperista nostettu. Musteet ovat samat
+     molemmilla, joten korostuksen kartta ei muutu teeman mukana. */
+  --code-surface-l: #101112;   --code-surface-d: #1B1D1F;
+  --code-ink-l: #F4F4F2;       --code-ink-d: #F4F4F2;
+  --code-muted-l: #A8ABAD;     --code-muted-d: #A8ABAD;
+  --code-faint-l: #8A8D90;     --code-faint-d: #8A8D90;
+
+  /* Oletus: vaalea. */
+  --paper: var(--paper-l);
+  --paper-alt: var(--paper-alt-l);
+  --line: var(--line-l);
+  --line-strong: var(--line-strong-l);
+  --ink: var(--ink-l);
+  --ink-muted: var(--ink-muted-l);
+  --ink-faint: var(--ink-faint-l);
+  --badge-surface: var(--badge-surface-l);
+  --invert-surface: var(--invert-surface-l);
+  --invert-ink: var(--invert-ink-l);
+  --invert-faint: var(--invert-faint-l);
+  --placeholder-base: var(--placeholder-base-l);
+  --placeholder-stripe: var(--placeholder-stripe-l);
+  --code-surface: var(--code-surface-l);
+  --code-ink: var(--code-ink-l);
+  --code-muted: var(--code-muted-l);
+  --code-faint: var(--code-faint-l);
+}
+
+/* Tumma paletti. Sama lista kahdesti, mutta ilman yhtäkään
+   väriarvoa — vain uudelleenohjaus. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: var(--paper-d);
+  --paper-alt: var(--paper-alt-d);
+  --line: var(--line-d);
+  --line-strong: var(--line-strong-d);
+  --ink: var(--ink-d);
+  --ink-muted: var(--ink-muted-d);
+  --ink-faint: var(--ink-faint-d);
+  --badge-surface: var(--badge-surface-d);
+  --invert-surface: var(--invert-surface-d);
+  --invert-ink: var(--invert-ink-d);
+  --invert-faint: var(--invert-faint-d);
+  --placeholder-base: var(--placeholder-base-d);
+  --placeholder-stripe: var(--placeholder-stripe-d);
+  --code-surface: var(--code-surface-d);
+  --code-ink: var(--code-ink-d);
+  --code-muted: var(--code-muted-d);
+  --code-faint: var(--code-faint-d);
+}
+
+/* Ilman nimenomaista valintaa seurataan käyttöjärjestelmää. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --paper: var(--paper-d);
+    --paper-alt: var(--paper-alt-d);
+    --line: var(--line-d);
+    --line-strong: var(--line-strong-d);
+    --ink: var(--ink-d);
+    --ink-muted: var(--ink-muted-d);
+    --ink-faint: var(--ink-faint-d);
+    --badge-surface: var(--badge-surface-d);
+    --invert-surface: var(--invert-surface-d);
+    --invert-ink: var(--invert-ink-d);
+    --invert-faint: var(--invert-faint-d);
+    --placeholder-base: var(--placeholder-base-d);
+    --placeholder-stripe: var(--placeholder-stripe-d);
+    --code-surface: var(--code-surface-d);
+    --code-ink: var(--code-ink-d);
+    --code-muted: var(--code-muted-d);
+    --code-faint: var(--code-faint-d);
+  }
+}
+
+:root[data-theme='light'] { color-scheme: light; }
+
+/* ---- breakpoints (mobile first, min-width) ------------------------
+   base   0–599     4 saraketta, padding 20, yksi palsta
+   sm     600       8 saraketta, padding 24
+   md     900      12 saraketta, padding 28
+   lg     1200     12 saraketta, padding 36, täysi editoriaalinen skaala
+*/
+@media (min-width: 600px) {
+  :root {
+    --page-padding: 24px; --columns: 8; --gutter: 20px; --section-gap: 64px;
+    --text-display-xl: 76px; --text-display-l: 52px;
+    --text-display-m: 34px;  --text-display-s: 30px;
+  }
+}
+@media (min-width: 900px) {
+  :root {
+    --page-padding: 28px; --columns: 12; --gutter: 24px; --section-gap: 80px;
+    --text-display-xl: 104px; --text-display-l: 64px;
+    --text-display-m: 40px;   --text-display-s: 34px;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --page-padding: 36px; --section-gap: 96px;
+    --text-display-xl: 136px; --lh-display-xl: 0.88;
+    --text-display-l: 82px;   --lh-display-l: 0.96;
+    --text-display-m: 46px;   --text-display-s: 38px;
+  }
+}

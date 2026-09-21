@@ -1,0 +1,90 @@
+/* Info / CV. */
+
+.about__top { padding-top: var(--space-40); }
+@media (min-width: 900px) { .about__top { padding-top: var(--space-56); } }
+
+.about__title { margin-bottom: var(--space-32); }
+.about__title-line { display: block; }
+
+.about__lede { margin-bottom: var(--space-20); }
+.about__body { margin: 0; color: var(--ink-muted); }
+
+.about__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin-top: var(--space-32);
+}
+@media (min-width: 600px) { .about__actions { flex-direction: row; gap: var(--space-16); } }
+
+/* Muotokuva: tausta on poistettu, joten kuva piirtyy suoraan
+   paperille ilman kehystä. Alkuperäisessä tiedostossa rajaus
+   päättyy kaarevaan leikkaukseen — se häivytetään maskilla, jottei
+   reunaa näy kummassakaan teemassa.
+
+   HUOM: mustavalkoinen irtileikkaus ei kanna tummaa teemaa; hattu
+   ja paita sulautuvat taustaan. Oikea korjaus on uusi kuva, jossa
+   on aito tausta. Tämä on väliaikainen. */
+.about__portrait {
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
+}
+
+.about__services {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-32);
+}
+@media (min-width: 900px) { .about__services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-40); } }
+.about__service { display: flex; flex-direction: column; gap: var(--space-8); padding-top: var(--space-20); border-top: var(--hairline) solid var(--line); }
+.about__service-title { margin: 0; font-size: var(--text-body-l); font-weight: var(--weight-500); }
+.about__service-body { margin: 0; color: var(--ink-muted); font-size: var(--text-body-s); line-height: var(--lh-body-s); }
+
+/* ---- työhistoria --------------------------------------------- */
+
+.cv-job {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-20);
+  padding-block: var(--space-32);
+  border-top: var(--hairline) solid var(--line);
+}
+@media (min-width: 900px) {
+  .cv-job { grid-template-columns: 300px minmax(0, 1fr); gap: var(--space-40); padding-block: var(--space-40); }
+}
+.cv-job__head { display: flex; flex-direction: column; gap: var(--space-4); }
+.cv-job__title {
+  margin: 0;
+  font-family: var(--font-display);
+  /* <h3> saisi selaimelta lihavan, jota Bodonista ei ole. */
+  font-weight: var(--weight-400);
+  font-size: var(--text-display-s);
+  line-height: var(--lh-display-s);
+  letter-spacing: var(--tr-display-s);
+}
+.cv-job__company { color: var(--ink-faint); }
+
+.cv-job__projects { margin: 0; display: flex; flex-direction: column; }
+.cv-job__project { padding-block: var(--space-16); border-top: var(--hairline) solid var(--line); }
+.cv-job__project:first-child { border-top: 0; padding-top: 0; }
+.cv-job__project-name { font-weight: var(--weight-500); }
+.cv-job__project-body { margin: var(--space-4) 0 0; color: var(--ink-muted); }
+
+.cv-footnote { color: var(--ink-faint); padding-top: var(--space-24); border-top: var(--hairline) solid var(--line); }
+
+/* ---- työkalut / koulutus -------------------------------------- */
+
+.cv-list { margin: 0; display: flex; flex-direction: column; }
+.cv-list__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-16);
+  border-top: var(--hairline) solid var(--line);
+}
+@media (min-width: 600px) { .cv-list__row { grid-template-columns: 140px minmax(0, 1fr); gap: var(--space-20); align-items: baseline; } }
+.cv-list__row:first-child { border-top: 0; }
+.cv-list__label { font-weight: var(--weight-500); font-size: var(--text-body-s); }
+.cv-list__value { margin: 0; color: var(--ink-muted); font-size: var(--text-body-s); line-height: var(--lh-body-s); }

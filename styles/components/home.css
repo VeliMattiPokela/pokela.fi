@@ -1,0 +1,76 @@
+/* Etusivu. Vain sijoittelu — kaikki arvot tokeneista. */
+
+.home__intro {
+  padding-top: var(--space-40);
+  padding-bottom: var(--space-32);
+}
+@media (min-width: 900px) { .home__intro { padding-top: var(--space-56); padding-bottom: var(--space-40); } }
+
+/* Nimi katkeaa riveille, ei skaalaudu pieneksi. Työpöydällä yhdelle
+   riville, mobiilissa kolmelle — siksi rivit ovat omia elementtejään. */
+.home__name { margin: 0; }
+.home__name-line { display: block; }
+@media (min-width: 900px) {
+  .home__name-line { display: inline; white-space: pre; }
+}
+
+.home__intro-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-24);
+  margin-top: var(--space-24);
+  border-top: var(--hairline) solid var(--line);
+}
+@media (min-width: 600px) {
+  .home__intro-meta { flex-direction: row; align-items: baseline; justify-content: space-between; gap: var(--space-24); }
+}
+/* Roolirivi ei ole lukumitta vaan taittovarmistus: ilman rajaa se
+   venyisi yhdelle 860 pikselin riville saatavuustekstiä vasten.
+   `ch` ei kelpaa tähän, koska metateksti on harvennettua (0.16em)
+   eikä ch tunne letter-spacingia — `68ch` lupasi 68 merkkiä mutta
+   riville mahtui 35. Arvo on 4 saraketta 12:sta lg-tasolla:
+   4 × 92 + 3 × 24. */
+.home__role { max-width: 440px; }
+
+/* Saatavuus: musteen täysi sävy + alleviivaus, ei väriä. */
+.home__availability {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: var(--space-4);
+}
+
+.home__statement { text-wrap: balance; }
+.home__lede { color: var(--ink-muted); }
+.home__about { margin-top: var(--space-24); }
+
+.home__section-head,
+.home__section-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+.home__section-head { padding-bottom: var(--space-16); }
+.home__section-foot { padding-top: var(--space-20); flex-wrap: wrap; }
+
+/* Käännetty nostorivi. Yksi per sivu. */
+.home__band {
+  padding-block: var(--space-48);
+  margin-top: var(--section-gap);
+}
+@media (min-width: 900px) { .home__band { padding-block: var(--space-72); } }
+
+.home__band-inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+@media (min-width: 900px) {
+  .home__band-inner { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--space-56); }
+  .home__band-title { flex: 1 1 55%; }
+  .home__band-body { flex: 0 1 38%; }
+}
+.home__band-body { color: var(--invert-faint); }
