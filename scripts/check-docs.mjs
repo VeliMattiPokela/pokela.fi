@@ -28,6 +28,7 @@
  */
 
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -48,6 +49,19 @@ const DOCS = [
 const MISSING_OK = {
   '/cv/veli-matti-pokela-cv.pdf': 'Avoin kohta: CV-PDF puuttuu, linkki on jo paikallaan.',
 };
+
+/**
+ * Onko polku tarkoituksella repon ulkopuolella? `portfolio-pokela/`
+ * on .gitignoressa, joten se on olemassa paikallisesti muttei CI:n
+ * checkoutissa. Dokumentti saa viitata siihen — README nimenomaan
+ * selittää miksi sitä ei ole repossa. Ilman tätä tarkistus menisi
+ * läpi koneella ja kaatuisi CI:ssä, mikä on pahin mahdollinen
+ * yhdistelmä. Näin kävi ensimmäisellä ajolla.
+ */
+function gitIgnored(path) {
+  const result = spawnSync('git', ['check-ignore', '-q', path], { cwd: root });
+  return result.status === 0;
+}
 
 /* ---- generaattorit -------------------------------------------------- */
 
@@ -140,10 +154,12 @@ for (const doc of DOCS) {
 
   /* 2. polut */
   for (const match of source.matchAll(/`([a-zA-Z0-9_.-]+\/[a-zA-Z0-9_./*-]+)`/g)) {
-    const target = match[1].replace(/\/\*.*$/, '').replace(/\/$/, '');
-    if (target.startsWith('--')) continue; /* token-nimi, ei polku */
-    if (target.includes('*')) continue; /* glob, ei yksittäinen tiedosto */
-    if (MISSING_OK[match[1]]) continue;
+    const raw = match[1];
+    if (raw.startsWith('--')) continue; /* token-nimi, ei polku */
+    if (raw.includes('*')) continue; /* glob, ei yksittäinen tiedosto */
+    if (MISSING_OK[raw]) continue;
+    const target = raw.replace(/\/$/, '');
+    if (gitIgnored(target)) continue;
     paths++;
     if (!existsSync(join(root, target))) {
       drift.push({ doc, issue: `viittaa polkuun joka ei ole olemassa: ${match[1]}` });
