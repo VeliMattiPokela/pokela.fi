@@ -152,6 +152,13 @@ ketjun on toimittava ilman verkkoa ja ilman salaisuuksia, eikä Figman
 katkos saa estää sivuston buildia. Tarvitsee `FIGMA_ACCESS_TOKEN`in
 (oikeus: *Files → Read the contents of … files*).
 
+**Code Connect julkaistaan CI:ssä.** `npm run figma:publish` ajetaan
+jokaisella mainiin menevällä pushilla, ei pull requesteissa. Ennen tätä
+kytkennät olivat repossa mutta Figma ei tiennyt niistä mitään — Dev
+Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
+mukana". Nyt väite on totta rakenteeltaan. Oikeus:
+*Development → Write and change component code*.
+
 **7. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:

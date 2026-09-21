@@ -62,6 +62,18 @@ jobs:
       - name: Dokumentaatio ajan tasalla
         run: npm run check:docs
 
+      # Casesivu sanoo kytkennöistä "julkaistaan repon mukana". Ennen
+      # tätä se ei pitänyt paikkaansa: tiedostot olivat repossa mutta
+      # Figma ei tiennyt niistä mitään, joten Dev Modessa ei näkynyt
+      # koodia. Nyt väite on totta rakenteeltaan.
+      #
+      # Vain mainiin: pull request ei saa kirjoittaa Figmaan.
+      - name: Code Connect Figmaan
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npm run figma:publish
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+
       - name: Tyypintarkistus
         run: npx tsc --noEmit
 
