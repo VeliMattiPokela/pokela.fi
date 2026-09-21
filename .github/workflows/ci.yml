@@ -51,6 +51,14 @@ jobs:
       - name: Ei kovakoodattuja arvoja tyyleissä
         run: npm run check:hardcoded
 
+      # Ainoa tarkistus joka avaa Figma-tiedoston. Ei ole
+      # check:sync-ketjussa: ketjun pitää toimia ilman verkkoa ja
+      # ilman salaisuuksia, eikä Figman katkos saa estää buildia.
+      - name: Koodi ja Figma synkassa
+        run: npm run check:figma
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+
       - name: Tyypintarkistus
         run: npx tsc --noEmit
 

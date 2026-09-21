@@ -19,7 +19,8 @@
     "figma:check": "figma connect publish --dry-run --exit-on-unreadable-files",
     "figma:publish": "figma connect publish --exit-on-unreadable-files",
     "check:code-connect": "node scripts/check-code-connect.mjs",
-    "check:hardcoded": "node scripts/check-hardcoded.mjs"
+    "check:hardcoded": "node scripts/check-hardcoded.mjs",
+    "check:figma": "node scripts/check-figma.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

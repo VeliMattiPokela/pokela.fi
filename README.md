@@ -65,8 +65,16 @@ eriytyy, putki pysähtyy ja raportti kertoo **mikä** eriytyi.
 ✓ Tokenit synkassa — 102 tokenia tarkistettu (styles/tokens.css ↔ tokens.json)
 ✓ Storyt kattavat komponentit — 12/17 storylla, 5 kirjattua poikkeusta
 ✓ Code Connect ehjä — 8/8 kytkentää, Figma-tiedosto PVyeKV6J1Rzyj2VL4X27FR
-✓ Ei kovakoodattuja arvoja — 22 arvoa tarkistettu, 22 kirjattua poikkeusta
+✓ Ei kovakoodattuja arvoja — 23 arvoa tarkistettu, 22 kirjattua poikkeusta
 ✓ Test Files 13 passed · Tests 59 passed
+```
+
+Lisäksi CI ajaa erikseen `npm run check:figma`, joka tarvitsee verkon:
+
+```
+✓ Figma synkassa — 8/8 komponenttia kytketty, 8 osoitetta tarkistettu (Pokela — Design System)
+  · 1 apukomponenttia ei vaadi kytkentää: Nav / Link
+  · Muuttujia ei tarkisteta: Figman variables-rajapinta vaatii Enterprise-tason.
 ```
 
 **1. Tokenit** (`scripts/check-tokens.mjs`) — vertaa `tokens.css`:n ja
@@ -77,7 +85,7 @@ breakpointilla, välistyksen, layoutin, reunat ja motion-arvot.
 story, ja jokaisessa storyssa vähintään tumma teema ja mobiilikoko.
 Poikkeus on sallittu mutta se on kirjattava syineen.
 
-**4. Kovakoodatut arvot** (`scripts/check-hardcoded.mjs`) — tokenit eivät
+**3. Kovakoodatut arvot** (`scripts/check-hardcoded.mjs`) — tokenit eivät
 hajoa kerralla vaan yksi kiire kerrallaan: joku kirjoittaa
 `padding: 13px` koska asteikolla ei satu olemaan 13:a, ja puolen vuoden
 päästä asteikon vieressä elää toinen, kirjoittamaton asteikko.
@@ -85,7 +93,7 @@ Tarkistus ei kiellä poikkeusta vaan vaatii sille syyn — jokainen
 kovakoodattu mitta ja väri on joko token tai kirjattu `EXEMPT`-listaan
 perusteluineen.
 
-**5. Saavutettavuus** (`npm run test:stories`) — jokainen story
+**4. Saavutettavuus** (`npm run test:stories`) — jokainen story
 renderöidään Chromiumissa ja tarkistetaan axella. Kontrastivirhe,
 puuttuva saavutettava nimi tai rikkoutunut otsikkohierarkia kaataa ajon
 ja raportti kertoo elementin, mitatun arvon ja vaaditun rajan:
@@ -108,7 +116,7 @@ se on oikea; se ei kerro onko ruudunlukijan lukujärjestys mielekäs eikä
 toimiiko ennen/jälkeen-jakaja näppäimistöllä järkevästi. Tarkistus estää
 regression, se ei korvaa läpikäyntiä.
 
-**3. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
+**5. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
 koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
 komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
 koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
@@ -121,6 +129,24 @@ komponenttiin — keksityllä osoitteella tarkistus menee läpi. Sen
 sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
 `check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
 Figmaan lisätty komponentti ei ilmesty siihen itsestään.
+
+**6. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
+Figma-tiedoston. Se varmistaa että jokaisen kytkennän `node-id`
+osoittaa olemassa olevaan komponenttiin ja että nimi täsmää, ja että
+jokaisella kirjaston komponentilla on kytkentä. Kirjaston sisältö
+luetaan Figma-tiedostosta: ylimmän tason komponenttisetti on kirjastoa,
+paitsi jos nimessä on ryhmäerotin (`Nav / Link`). Käsin ylläpidettyä
+listaa ei siis tarvita.
+
+Ensimmäinen ajo löysi todellisen eriytymän: `LogoRow`-kytkentä osoitti
+yhteen varianttiin (`Breakpoint=sm+`) eikä komponenttiin, jolloin koodi
+olisi näkynyt Dev Modessa vain sen yhden variantin kohdalla. Neljä muuta
+tarkistusta eivät voineet nähdä sitä.
+
+Tämä ajetaan **CI:ssä omana vaiheenaan, ei `check:sync`-ketjussa**:
+ketjun on toimittava ilman verkkoa ja ilman salaisuuksia, eikä Figman
+katkos saa estää sivuston buildia. Tarvitsee `FIGMA_ACCESS_TOKEN`in
+(oikeus: *Files → Read the contents of … files*).
 
 **Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
 `tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
@@ -171,13 +197,6 @@ Loput: `portfolio-pokela/brand-brief.md`.
       julkisen katselulinkin — case 03 lepää sen varassa, (2) mitä
       artefaktille tapahtuu jos työsuhde päättyy. Jos kumpikaan ei ratkea,
       kirjasto siirretään omaan tiimiin ja Code Connect jää pois.
-- [ ] **Code Connect -osoitteita ei validoida.** `check:code-connect` tarkistaa
-      että kytkentätiedosto on olemassa, muttei että sen `node-id` osoittaa
-      oikeaan komponenttiin: keksitty osoite menee läpi. Tämä ratkeaa
-      `npm run figma:publish`illa, joka kysyy osoitteet Figmalta — se odottaa
-      `FIGMA_ACCESS_TOKEN`ia, eli samaa organisaatiokysymystä kuin yllä.
-      Omaa tarkistusta ei kannata kirjoittaa: se toimisi vain paikallisesti,
-      ei CI:ssä.
 - [ ] **Storybookin julkaisu on käsin.** `pokela-storybook.netlify.app` ei ole
       kytketty repoon vaan se julkaistaan CLI:llä:
 
@@ -194,8 +213,6 @@ Loput: `portfolio-pokela/brand-brief.md`.
       `NETLIFY_SITE_ID`:n GitHubin secreteiksi — ne ovat sinun tunnuksiasi,
       joten en voi luoda niitä. CI rakentaa Storybookin jo, joten
       julkaisuaskel on yksi rivi lisää `ci.yml`:ään sen jälkeen.
-- [ ] Figma-tiedoston nimi on yhä *Document* — Plugin API ei salli nimen
-      asettamista, joten se on vaihdettava käsin: **Pokela — Design System**
 - [ ] Figma: kirjastossa ovat `ListRow`, `Button`, `Nav`, `Media`, `Footer`,
       `Accordion`, `LogoRow` ja `Icon` sekä gridityyli
       `Grid / Page` (sarakemäärä, väli ja marginaali sidottu muuttujiin,

@@ -52,7 +52,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'code-connect',
     title: 'Code Connect',
     proves: 'Jokaisella kirjatulla Figma-komponentilla on kytkentätiedosto, ja se osoittaa oikeaan Figma-tiedostoon.',
-    blind: 'Ei avaa Figmaa. Komponentin osoitteen voi vaihtaa keksityksi ja tarkistus menee silti läpi.',
+    blind: 'Ei avaa Figmaa itse — sen tekee Figma-tarkistus, joka ajetaan erikseen CI:ssä.',
   },
   {
     id: 'hardcoded',
@@ -64,8 +64,9 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'figma',
     title: 'Figma',
     proves:
-      'Figma-tiedoston muuttujat vastaavat tokens.jsonia, jokainen kytkentä osoittaa olemassa olevaan komponenttiin, ja jokaisella Figman komponentilla on kytkentä.',
-    blind: '',
+      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, ja jokaisella kirjaston komponentilla on kytkentä. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta.',
+    blind:
+      'Ei tarkista muuttujia: Figman variables-rajapinta vaatii Enterprise-tason, eikä tämä tiedosto ole sellaisessa organisaatiossa. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
   },
   {
     id: 'strings',
@@ -76,20 +77,31 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
 ];
 
 /**
- * Mitkä tarkistukset oikeasti ajetaan. Luetaan `check:sync`-ketjusta,
- * koska se on se komento jonka build ja CI ajavat.
+ * Mitkä tarkistukset oikeasti ajetaan.
+ *
+ * Kaksi lähdettä, koska kaikki eivät ole samassa ketjussa:
+ * `check:sync` on se mitä `npm run build` ajaa, ja CI:n työnkulku on
+ * se mikä estää rikkinäisen muutoksen menemästä läpi. `check:figma`
+ * on vain jälkimmäisessä — se tarvitsee verkon ja salaisuuden, joten
+ * se ei kuulu buildiin.
  */
 function wired(): Set<string> {
   const pkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8')) as {
     scripts: Record<string, string>;
   };
-  const chain = pkg.scripts['check:sync'] ?? '';
+  const ciPath = join(repoRoot, '.github/workflows/ci.yml');
+  const sources = [
+    pkg.scripts['check:sync'] ?? '',
+    existsSync(ciPath) ? readFileSync(ciPath, 'utf8') : '',
+  ].join('\n');
+
   const ids = new Set<string>();
-  for (const match of chain.matchAll(/npm run check:([a-z-]+)/g)) {
+  for (const match of sources.matchAll(/npm run check:([a-z-]+)/g)) {
     const id = match[1];
     /* Kytketty ei riitä: skriptin on myös oltava olemassa. */
     if (existsSync(join(repoRoot, `scripts/check-${id}.mjs`))) ids.add(id);
   }
+  ids.delete('sync');
   return ids;
 }
 

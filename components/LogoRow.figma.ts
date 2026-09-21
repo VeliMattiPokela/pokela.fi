@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/PVyeKV6J1Rzyj2VL4X27FR/Pokela--Design-System?node-id=27-3
+// url=https://www.figma.com/design/PVyeKV6J1Rzyj2VL4X27FR/Pokela--Design-System?node-id=31-1589
 // component=LogoRow
 
 /**
