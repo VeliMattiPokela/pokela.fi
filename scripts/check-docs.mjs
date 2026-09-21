@@ -102,9 +102,17 @@ function perustaPages() {
   return ordered.map((t) => t.toLowerCase()).join(', ');
 }
 
+/** Casen lohkotyypit sisältömallista. */
+function caseBlockKinds() {
+  const source = readFileSync(join(root, 'content/cases/types.ts'), 'utf8');
+  const kinds = [...source.matchAll(/kind: '([a-z]+)'/g)].map((m) => m[1]);
+  return `${kinds.length} lohkotyyppiä: ${kinds.join(', ')}`;
+}
+
 const GENERATORS = {
   'figma-kokoelmat': figmaCollections,
   'perusta-sivut': perustaPages,
+  'case-lohkot': caseBlockKinds,
 };
 
 /* ---- tarkistus ------------------------------------------------------ */

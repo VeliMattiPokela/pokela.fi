@@ -31,7 +31,10 @@ const EXEMPT = {
   'ThemeScript.tsx': 'Ei renderöi mitään näkyvää: injektoi <script>in ennen hydraatiota.',
   'ThemeToggle.tsx': 'Näkyy Nav-storyssa oikeassa yhteydessään; yksin se on pelkkä sana.',
   'Reveal.tsx': 'Kääre ilman omaa ulkoasua. Liike dokumentoidaan Perusta/Liike-sivulla.',
-  'CaseBlocks.tsx': 'Kokoaa casen lohkot datasta; lohkot ovat omia komponenttejaan.',
+  'CaseBlocks.tsx':
+    'Valitsee vain kumpi piirtää, CaseBlock vai CaseBlockDerived. Lohkojen ulkoasu on niissä, ja CaseBlockilla on storyt. Tässä luki aiemmin "lohkot ovat omia komponenttejaan" — se ei pitänyt paikkaansa, ja piilotti sen ettei yhdelläkään lohkolla ollut storya.',
+  'CaseBlockDerived.tsx':
+    'Palvelinkomponentti: lukee artefaktien tilan, tarkistuslistan ja komponentin lähdekoodin tiedostojärjestelmästä build-aikana, joten se ei voi ajaa selaimessa. Sama syy kuin ListRowShowcasella.',
   'ListRowShowcase.tsx':
     'Palvelinkomponentti: lukee lähdekoodin fs:llä build-aikana, joten se ei voi ajaa selaimessa. Sen UI on ComponentView, jolla on omat storyt.',
 };
