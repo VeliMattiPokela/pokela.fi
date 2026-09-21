@@ -101,7 +101,7 @@ export function componentArtefacts(storyPath: string): Artefact[] {
       label: 'Figma',
       state: figma,
       href: artefactUrls.figma,
-      note: note(figma, `${connections} Code Connect -kytkentä`),
+      note: note(figma, `${connections} Code Connect -kytkentää`),
     },
     {
       label: 'GitHub',
@@ -143,7 +143,7 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
       body: 'Määrittelyt jotka kertovat Figmalle, mikä koodikomponentti vastaa mitä.',
       state: state(artefactUrls.codeConnect, connections > 0),
       href: artefactUrls.codeConnect,
-      detail: `${connections} kytkentä, julkaistaan repon mukana`,
+      detail: `${connections} kytkentää, julkaistaan repon mukana`,
     },
     {
       number: '04',

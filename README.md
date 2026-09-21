@@ -157,10 +157,6 @@ Loput: `portfolio-pokela/brand-brief.md`.
 ## Avoinna
 
 - [ ] CV-PDF puuttuu — `/cv/veli-matti-pokela-cv.pdf` on linkitetty mutta tiedostoa ei ole
-- [ ] Case 03: julkiset osoitteet artefakteille — lisää ne tiedostoon
-      `content/artefacts.ts`, yksi rivi per artefakti. Tila ("tehty" vs.
-      "tulossa") johdetaan tiedostoista automaattisesti, ja repon osoite
-      luetaan `.git/configista` heti kun remote on olemassa.
 - [ ] **Figma-tiedosto on Loihde Factorin organisaatiossa.** Kaksi asiaa
       tarkistettava ennen julkaisua: (1) salliiko organisaation asetus
       julkisen katselulinkin — case 03 lepää sen varassa, (2) mitä
@@ -173,6 +169,14 @@ Loput: `portfolio-pokela/brand-brief.md`.
       `FIGMA_ACCESS_TOKEN`ia, eli samaa organisaatiokysymystä kuin yllä.
       Omaa tarkistusta ei kannata kirjoittaa: se toimisi vain paikallisesti,
       ei CI:ssä.
+- [ ] **Storybookin julkaisu on käsin.** `pokela-storybook.netlify.app` ei ole
+      kytketty repoon, vaan se julkaistiin CLI:llä (`netlify deploy --prod
+      --dir=storybook-static`). Syy: molemmat sivustot tulisivat samasta
+      reposta, ja juuren `netlify.toml` pakottaisi niille saman
+      build-komennon. Automatisointi vaatii `NETLIFY_AUTH_TOKEN`in ja
+      `NETLIFY_SITE_ID`:n GitHubin secreteiksi — ne ovat sinun tunnuksiasi,
+      joten en voi luoda niitä. CI rakentaa Storybookin jo, joten
+      julkaisuaskel on yksi rivi lisää `ci.yml`:ään sen jälkeen.
 - [ ] Figma-tiedoston nimi on yhä *Document* — Plugin API ei salli nimen
       asettamista, joten se on vaihdettava käsin: **Pokela — Design System**
 - [ ] Figma: kirjastossa ovat `ListRow`, `Button`, `Nav`, `Media`, `Footer`,

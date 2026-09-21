@@ -13,3 +13,6 @@ next-env.d.ts
 # tsconfig jättää sen jo ulos. Repon argumentti on koodi ja
 # synkkatarkistus, ei lähdepaketti.
 portfolio-pokela/
+
+# Local Netlify folder
+.netlify

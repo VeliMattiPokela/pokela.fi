@@ -14,7 +14,7 @@
  * se ilmestyy itsestään heti kun remote on olemassa.
  */
 export const artefactUrls = {
-  storybook: null as string | null,
+  storybook: 'https://pokela-storybook.netlify.app' as string | null,
   figma: 'https://www.figma.com/design/PVyeKV6J1Rzyj2VL4X27FR' as string | null,
   codeConnect: null as string | null,
   /** Jätä null: luetaan .git/configista. Täytä vain jos haluat ohittaa. */
