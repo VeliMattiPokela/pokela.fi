@@ -131,6 +131,47 @@ a.case__artefact:hover .meta { color: var(--invert-faint); }
 .case__artefact--pending { color: var(--ink-faint); }
 .case__artefact--pending .case__artefact-name { color: var(--ink-faint); }
 
+/* Synkkatarkistukset. Sama rivirakenne kuin artefakteilla, mutta
+   kolmas sarake on tila eikä linkki: tarkistusta ei voi avata, sen
+   voi vain ajaa. */
+.case__checks { border-top: var(--hairline) solid var(--line-strong); }
+.case__check {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'main' 'state';
+  gap: var(--space-8);
+  padding-block: var(--space-24);
+  border-bottom: var(--hairline) solid var(--line);
+}
+@media (min-width: 600px) {
+  .case__check {
+    grid-template-columns: minmax(0, 1fr) 170px;
+    grid-template-areas: 'main state';
+    align-items: baseline;
+    gap: var(--space-24);
+  }
+}
+.case__check-main { grid-area: main; display: flex; flex-direction: column; gap: var(--space-4); }
+.case__check-state { grid-area: state; }
+@media (min-width: 600px) { .case__check-state { text-align: right; } }
+.case__check-name { font-family: var(--font-display); font-size: var(--text-display-s); line-height: var(--lh-display-s); }
+.case__check-body { font-size: var(--text-body-s); line-height: var(--lh-body-s); color: var(--ink-muted); }
+
+/* Raja on eri asia kuin kuvaus, joten se erottuu myös typografisesti.
+   Se on sivun rehellisin kohta: tarkistus kertoo mitä se ei näe. */
+.case__check-blind {
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink-faint);
+  padding-left: var(--space-16);
+  border-left: var(--hairline) solid var(--line);
+}
+
+/* Kytkemätön tarkistus vaimennetaan kokonaan — sitä ei saa lukea
+   samana kuin ajossa olevaa. */
+.case__check--pending { color: var(--ink-faint); }
+.case__check--pending .case__check-name { color: var(--ink-faint); }
+
 /* Seuraava case. */
 .case__next {
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-16);

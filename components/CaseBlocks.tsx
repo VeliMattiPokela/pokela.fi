@@ -4,6 +4,7 @@ import Media from './Media';
 import Reveal from './Reveal';
 import ListRowShowcase from './ListRowShowcase';
 import { caseArtefacts } from '@/lib/artefacts';
+import { checks } from '@/lib/checks';
 import CaseText from './CaseText';
 import type { Locale } from '@/lib/i18n';
 import Icon from './Icon';
@@ -206,6 +207,53 @@ function CaseBlock({ block, locale, slug }: { block: Block; locale: Locale; slug
                     </div>
                   ),
                 )}
+              </div>
+            </div>
+          </section>
+        </Reveal>
+      );
+    }
+
+    case 'checks': {
+      /* Lista johdetaan package.jsonista. Casetekstissä on vain
+         otsikko ja johdanto — se mitä tarkistetaan, luetaan sieltä
+         missä tarkistukset asuvat. */
+      const all = checks();
+      const live = all.filter((c) => c.runs).length;
+      return (
+        <Reveal>
+          <section className="page case__section">
+            <h2 className="meta">{block.label}</h2>
+            <div className="case__section-body">
+              <h3 className="display-m case__h">{block.title}</h3>
+              <p className="body-l measure case__p">{block.note}</p>
+              <p className="body-l measure case__p">
+                Ajossa {live} tarkistusta {all.length}:stä. Loput näkyvät tässä listassa
+                vasta kun ne oikeasti ajetaan.
+              </p>
+              <div className="case__checks">
+                {all.map((check) => (
+                  <div
+                    key={check.id}
+                    className={[
+                      'case__check',
+                      check.runs ? 'case__check--live' : 'case__check--pending',
+                    ].join(' ')}
+                  >
+                    <span className="case__check-main">
+                      <span className="case__check-name">{check.title}</span>
+                      <span className="case__check-body">{check.proves}</span>
+                      {check.blind ? (
+                        <span className="case__check-blind">
+                          <strong>Ei näe:</strong> {check.blind}
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="meta case__check-state">
+                      {check.runs ? 'Ajossa' : 'Ei vielä kytketty'}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </section>

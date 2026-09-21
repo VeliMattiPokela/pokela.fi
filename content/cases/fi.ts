@@ -299,7 +299,7 @@ const thisSite: Case = {
       kind: 'steps',
       label: 'Putki',
       title: 'Viisi askelta, jokainen avattavissa',
-      body: 'Ketju kulkee tokeneista Figman komponenttiin niin, ettei matkalla ole käsityötä. Jokainen askel on julkinen, joten ketjua ei tarvitse uskoa.',
+      body: 'Ketju kulkee tokeneista Figman komponenttiin. Osa askelista on automatisoitu — Figman muuttujat generoidaan tokens.jsonista — ja osa on käsityötä, jonka tarkistus vahtii. Jokainen askel on julkinen, joten ketjua ei tarvitse uskoa.',
       items: [
         { h: 'Tokenit', p: 'CSS-muuttujat, light ja dark. Yksi tiedosto.' },
         { h: 'Komponentti koodissa', p: 'Lukee tokenit, ei kovakoodattuja arvoja.' },
@@ -316,8 +316,14 @@ const thisSite: Case = {
     },
     {
       kind: 'band',
-      title: 'Synkka ei ole lupaus. Build kaatuu jos se rikkoutuu.',
-      body: 'Jokainen build tarkistaa että tokenit, Storybook ja Figma vastaavat toisiaan. Jos komponentti on lisätty koodiin ilman kytkentää, token on muuttunut vain toisaalla, tai variantti on kadonnut Figmasta, putki pysähtyy ja kertoo mikä eriytyi.',
+      title: 'Tarkistus on vain niin hyvä kuin se mitä se lukee.',
+      body: 'Jokainen build ajaa saman ketjun, ja eriytymä pysäyttää putken. Mutta tarkistuksella on raja, ja raja on osa väitettä: alla on lista siitä mitä kukin niistä todistaa — ja mitä se ei näe.',
+    },
+    {
+      kind: 'checks',
+      label: 'Mitä build tarkistaa',
+      title: 'Neljä tarkistusta, ja niiden sokeat kohdat',
+      note: 'Lista ei ole kirjoitettu tähän vaan johdettu package.jsonista: tarkistus näkyy vasta kun se on kytketty ketjuun ja sen skripti on olemassa. Tämä sivu väitti kerran että Figmaa tarkistetaan — ei tarkistettu. Siksi väite luetaan nyt sieltä missä se on totta.',
     },
     {
       kind: 'text',

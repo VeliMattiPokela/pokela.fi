@@ -34,6 +34,10 @@ export type Block =
       build-aikana (lib/artefacts.ts) — niitä ei kirjoiteta tähän,
       jotta ne eivät voi jäädä jälkeen todellisuudesta. */
   | { kind: 'artefacts'; label: string; note: string }
+  /** Synkkatarkistukset. Lista johdetaan package.jsonista
+      (lib/checks.ts) — mitä ajetaan, se näkyy. Casetekstiin ei
+      kirjoiteta mitä tarkistetaan, koska se väite vanheni kerran jo. */
+  | { kind: 'checks'; label: string; title: string; note: string }
   /** Numeroitu putki, ei linkkejä. */
   | { kind: 'steps'; label: string; title: string; body: string; items: { h: string; p: string }[] }
   /** Kaksi rinnakkaista vaihtoehtoa. */

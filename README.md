@@ -66,7 +66,7 @@ eriytyy, putki pysähtyy ja raportti kertoo **mikä** eriytyi.
 ✓ Storyt kattavat komponentit — 12/17 storylla, 5 kirjattua poikkeusta
 ✓ Code Connect ehjä — 8/8 kytkentää, Figma-tiedosto PVyeKV6J1Rzyj2VL4X27FR
 ✓ Ei kovakoodattuja arvoja — 22 arvoa tarkistettu, 22 kirjattua poikkeusta
-✓ Test Files 12 passed · Tests 52 passed
+✓ Test Files 13 passed · Tests 59 passed
 ```
 
 **1. Tokenit** (`scripts/check-tokens.mjs`) — vertaa `tokens.css`:n ja
@@ -111,13 +111,22 @@ regression, se ei korvaa läpikäyntiä.
 **3. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
 koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
 komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
-koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa
-komponenttiin jota ei enää ole, väärään Figma-tiedostoon, tai jos
-kirjastoon luvattu komponentti on jäänyt kytkemättä.
+koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
+komponenttiin jota ei ole, väärään Figma-tiedostoon, tai jos
+`IN_FIGMA`-listaan merkitty komponentti on jäänyt kytkemättä.
 
-**Figman muuttujat** eivät ole tarkistuksessa, koska ne generoidaan
-`tokens.json`:sta (`figma-plugin/`) — eriytymä on rakenteellisesti
-mahdoton, ei asia joka löydetään jälkikäteen.
+**Raja:** tarkistus ei avaa Figmaa. Se lukee kytkentätiedoston
+`node-id`:n muttei varmista että se osoittaa olemassa olevaan
+komponenttiin — keksityllä osoitteella tarkistus menee läpi. Sen
+sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
+`check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
+Figmaan lisätty komponentti ei ilmesty siihen itsestään.
+
+**Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
+`tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
+generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa
+sen jälkeen, mikään ei huomaa. Sanoin tässä aiemmin että eriytymä on
+"rakenteellisesti mahdoton"; se oli liian vahva väite.
 
 **Miksei muuttujia verrata rajapinnan kautta:** Figman muuttujien REST-API
 vaatii Enterprise-tason (*"This API is available to full members of
