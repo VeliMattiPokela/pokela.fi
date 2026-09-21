@@ -270,15 +270,22 @@ Loput: `portfolio-pokela/brand-brief.md`.
       lisätään samalla kaavalla, ja jokainen lisätään myös
       `scripts/check-code-connect.mjs`:n `IN_FIGMA`-listaan.
 - [ ] Figma: sivupohjat **etusivu**, **työlista** ja **casesivu** ovat
-      valmiina sekä `lg 1440` että `base 390` -koossa.
+      valmiina sekä `lg 1440` että `base 390` -koossa. Niiden lisäksi
+      on **Lohkot**-pohja molemmissa koissa, jossa ovat ne lohkot
+      joita casepohjissa ei ollut.
 
       <!-- luotu:case-lohkot -->
       12 lohkotyyppiä: text, media, pair, band, trio, scope, artefacts, checks, steps, choices, component, todo
       <!-- /luotu -->
 
-      Figmassa niistä on viisi: text, media, pair, band ja trio. Loput
-      lisätään kun niitä tarvitaan. `todo` ei tule Figmaan koskaan —
-      se näkyy vain kehityksessä.
+      Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
+      kehityksessä eikä tule Figmaan koskaan.
+
+      **Avoinna:** kolmen lohkon sisältö johdetaan build-aikana
+      (`artefacts`, `checks`, `component`), joten niiden korkeus
+      Figmassa vanhenee heti kun tarkistus tai artefakti lisätään.
+      Rakenne pätee, korkeus ei. Sivupohjat eivät ole tarkistuksessa
+      lainkaan — ks. `lib/checks.ts`:n `blind`-kentät.
 - [ ] **Figman perusvariantti ei kohdista perusviivalle.** CSS:ssä
       `.list-row` on `align-items: baseline` joka leveydellä, ja
       mobiilissa numero istuu siksi 13 pikseliä otsikon ylälaidan
