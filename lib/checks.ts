@@ -64,9 +64,9 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'figma',
     title: 'Figma',
     proves:
-      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, ja jokaisella kirjaston komponentilla on kytkentä. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta.',
+      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta.',
     blind:
-      'Ei tarkista muuttujia: Figman variables-rajapinta vaatii Enterprise-tason, eikä tämä tiedosto ole sellaisessa organisaatiossa. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
+      'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
   },
   {
     id: 'strings',

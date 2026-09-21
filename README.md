@@ -72,7 +72,7 @@ eriytyy, putki pysähtyy ja raportti kertoo **mikä** eriytyi.
 Lisäksi CI ajaa erikseen `npm run check:figma`, joka tarvitsee verkon:
 
 ```
-✓ Figma synkassa — 8/8 komponenttia kytketty, 8 osoitetta tarkistettu (Pokela — Design System)
+✓ Figma synkassa — 8/8 komponenttia kytketty, 8 osoitetta ja niiden propertyt tarkistettu (Pokela — Design System)
   · 1 apukomponenttia ei vaadi kytkentää: Nav / Link
   · Muuttujia ei tarkisteta: Figman variables-rajapinta vaatii Enterprise-tason.
 ```
@@ -131,9 +131,13 @@ sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
 Figmaan lisätty komponentti ei ilmesty siihen itsestään.
 
 **6. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
-Figma-tiedoston. Se varmistaa että jokaisen kytkennän `node-id`
-osoittaa olemassa olevaan komponenttiin ja että nimi täsmää, ja että
-jokaisella kirjaston komponentilla on kytkentä. Kirjaston sisältö
+Figma-tiedoston. Se varmistaa kolme asiaa: jokaisen kytkennän
+`node-id` osoittaa olemassa olevaan komponenttiin ja nimi täsmää,
+jokaisella kirjaston komponentilla on kytkentä, ja **jokainen property
+ja variantti jonka kytkentä lukee on oikeasti Figmassa**. Viimeinen on
+se kohta jonka casesivu kerran lupasi ilman katetta: jos `Size=m`
+poistetaan Figmasta tai `showIcon` nimetään uudelleen, ajo pysähtyy ja
+kertoo kumpi. Kirjaston sisältö
 luetaan Figma-tiedostosta: ylimmän tason komponenttisetti on kirjastoa,
 paitsi jos nimessä on ryhmäerotin (`Nav / Link`). Käsin ylläpidettyä
 listaa ei siis tarvita.
@@ -154,10 +158,22 @@ generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa
 sen jälkeen, mikään ei huomaa. Sanoin tässä aiemmin että eriytymä on
 "rakenteellisesti mahdoton"; se oli liian vahva väite.
 
-**Miksei muuttujia verrata rajapinnan kautta:** Figman muuttujien REST-API
-vaatii Enterprise-tason (*"This API is available to full members of
-Enterprise orgs"*). Sitä ei ole käytettävissä, joten vertailun sijaan
-Figma generoidaan koodista — mikä on joka tapauksessa vahvempi ratkaisu.
+**Miksei muuttujia verrata rajapinnan kautta — todennettu 21.9.2026:**
+päätepiste `GET /v1/files/:key/variables/local` vastaa, mutta palauttaa
+
+```
+403 Invalid scope(s): file_content:read, file_code_connect:write.
+    This endpoint requires the file_variables:read scope
+```
+
+Oikeutta `file_variables:read` ei ole tämän tilin tunnusvalikoimassa —
+lista alkaa `current_user:read`istä ja päättyy `webhooks:write`iin eikä
+sisällä muuttujia. Sitä ei siis voi rastittaa, joten rajoitus on tilin
+tasolla eikä unohdus.
+
+Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
+kukaan oli kokeillut. Lopputulos oli sama, mutta väite oli kuulopuhetta.
+Nyt se on kokeiltu.
 
 ## Sivukartta
 
