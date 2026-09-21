@@ -152,6 +152,33 @@ ketjun on toimittava ilman verkkoa ja ilman salaisuuksia, eikä Figman
 katkos saa estää sivuston buildia. Tarvitsee `FIGMA_ACCESS_TOKEN`in
 (oikeus: *Files → Read the contents of … files*).
 
+**7. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
+eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
+väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
+mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`
+on dokumentoitu tässä tiedostossa, ja johdettavissa olevat kohdat
+vastaavat lähdettään.
+
+Johdettavat kohdat merkitään luoduksi lohkoksi eikä kirjoiteta käsin:
+
+```
+<!-- luotu:LOHKON-NIMI -->   ← tähän väliin generoitu sisältö
+<!-- /luotu -->
+```
+
+Käytössä olevat lohkot: `figma-kokoelmat` (pluginin README) ja
+`perusta-sivut` (Storybookin etusivu).
+
+Lohko generoidaan lähteestä (tässä: pluginin oma spesifikaatio) ja
+verrataan tiedostoon. `npm run docs:korjaa` kirjoittaa ne uusiksi.
+
+Proosaa tämä ei voi todentaa. Auditissa 21.9.2026 löytyi kolme
+eriytymää joita mikään ei ollut huomannut: Storybookin etusivu lupasi
+*"ei matkalla käsityötä"* ja *"ei ikoneita paitsi nuolet"*, ja pluginin
+README väitti `Border`-kokoelmassa olevan 4 muuttujaa (5) eikä tuntenut
+`Icon`-kokoelmaa lainkaan. Ensimmäinen ajo tällä tarkistuksella kaatui
+omaan sääntöönsä: `check-docs` ei ollut itse dokumentoitu.
+
 **Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
 `tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
 generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa

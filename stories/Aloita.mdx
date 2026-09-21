@@ -20,7 +20,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Miten tämä on rakennettu
 
-Ketju kulkee yhteen suuntaan, eikä matkalla ole käsityötä.
+Ketju kulkee yhteen suuntaan. Osa askelista on automatisoitu — Figman muuttujat
+generoidaan `tokens.json`:sta — ja osa on käsityötä, jonka tarkistus vahtii.
 
 <div className="doc-grid-2">
   <div>
@@ -35,7 +36,7 @@ Ketju kulkee yhteen suuntaan, eikä matkalla ole käsityötä.
   <div>
     <h4 className="meta" style={{ marginBottom: 'var(--space-16)' }}>Valvonta</h4>
     <ul className="spec-list">
-      <li><code>npm run check:tokens</code> vertaa CSS:n ja JSONin</li>
+      <li>Kuusi tarkistusta, joista viisi ajossa — lista casesivulla</li>
       <li>Ajetaan jokaisessa buildissa ja pull requestissa</li>
       <li>Eriytymä pysäyttää putken ja kertoo <em>mikä</em> eriytyi</li>
       <li>Nämä sivut lukevat saman JSONin, joten ne eivät voi vanhentua</li>
@@ -65,8 +66,9 @@ Ketju kulkee yhteen suuntaan, eikä matkalla ole käsityötä.
   <div>
     <h3 className="sbdocs-h3">Typografia on ainoa koriste</h3>
     <p className="sbdocs-p">
-      Bodoni Moda kantaa äänen, Archivo hoitaa käyttöliittymän. Ei ikoneita paitsi
-      nuolet. Ei gradientteja. Ei emojia.
+      Bodoni Moda kantaa äänen, Archivo hoitaa käyttöliittymän. Ei ikonikirjastoa —
+      systeemi piirtää kuusi merkkiään itse samalla hiusviivalla kuin reunat. Ei
+      gradientteja. Ei emojia.
     </p>
   </div>
   <div>
@@ -92,6 +94,7 @@ Ketju kulkee yhteen suuntaan, eikä matkalla ole käsityötä.
 ## Mistä aloittaa
 
 <ul className="spec-list">
-  <li><strong>Perusta</strong> — väri, typografia, grid, välistys ja liike. Kaikki arvot yhdessä paikassa.</li>
-  <li><strong>Komponentit</strong> — listarivi on tunnusomaisin, ja se sisältää käännöslogiikan. Aloita siitä.</li>
+  <li><strong>Perusta</strong> — kaikki arvot yhdessä paikassa: {/* luotu:perusta-sivut */}väri, typografia, välistys, grid, viivat, ikonit, liike{/* /luotu */}</li>
+  <li><strong>Komponentit</strong> — rakennuspalikat. Listarivi on tunnusomaisin, ja se sisältää käännöslogiikan. Aloita siitä.</li>
+  <li><strong>Osiot</strong> — kokonaisia sivun lohkoja: navi, footer, aiempi työ, komponenttinäkymä.</li>
 </ul>

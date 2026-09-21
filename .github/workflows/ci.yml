@@ -59,6 +59,9 @@ jobs:
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
 
+      - name: Dokumentaatio ajan tasalla
+        run: npm run check:docs
+
       - name: Tyypintarkistus
         run: npx tsc --noEmit
 

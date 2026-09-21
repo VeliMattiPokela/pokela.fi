@@ -12,7 +12,7 @@
     "build-storybook": "storybook build",
     "check": "npm run check:sync && npx tsc --noEmit && npm run test:stories",
     "check:stories": "node scripts/check-stories.mjs",
-    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded",
+    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded && npm run check:docs",
     "test:stories": "vitest run --project=storybook",
     "test:stories:watch": "vitest --project=storybook",
     "publish:tokens": "node scripts/publish-tokens.mjs",
@@ -20,7 +20,9 @@
     "figma:publish": "figma connect publish --exit-on-unreadable-files",
     "check:code-connect": "node scripts/check-code-connect.mjs",
     "check:hardcoded": "node scripts/check-hardcoded.mjs",
-    "check:figma": "node scripts/check-figma.mjs"
+    "check:figma": "node scripts/check-figma.mjs",
+    "check:docs": "node scripts/check-docs.mjs",
+    "docs:korjaa": "node scripts/check-docs.mjs --korjaa"
   },
   "dependencies": {
     "next": "^16.3.5",

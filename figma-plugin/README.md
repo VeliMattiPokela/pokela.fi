@@ -26,14 +26,17 @@ tuhota työtä jota se ei tehnyt.
 
 ## Mitä syntyy
 
+<!-- luotu:figma-kokoelmat -->
 | Kokoelma | Moodit | Muuttujia |
 |---|---|---|
 | Color | Light, Dark | 17 |
 | Typography | base, sm, md, lg | 28 |
 | Spacing | Default | 16 |
 | Layout | base, sm, md, lg | 6 |
-| Border | Default | 4 |
+| Border | Default | 5 |
+| Icon | Default | 3 |
 | Motion | Default | 8 |
+<!-- /luotu -->
 
 Jokainen muuttuja saa skoopin (ei koskaan `ALL_SCOPES`) ja
 WEB-koodisyntaksin `var(--nimi)`, joten Dev Mode näyttää saman nimen

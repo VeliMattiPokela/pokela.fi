@@ -69,6 +69,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
       'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
   },
   {
+    id: 'docs',
+    title: 'Dokumentaatio',
+    proves:
+      'Dokumentissa mainittu tiedostopolku ja komento on olemassa, jokainen tarkistus on dokumentoitu, ja johdettavissa olevat kohdat (Figman kokoelmat, Perusta-sivut) vastaavat lähdettään.',
+    blind:
+      'Ei voi todentaa proosaa. Väärä perustelu tai vanhentunut kuvaus menee läpi, jos se ei ole luotu lohko eikä sisällä polkua. Siksi kaikki mikä on johdettavissa merkitään luoduksi.',
+  },
+  {
     id: 'strings',
     title: 'Tekstit',
     proves: 'Näkyvät tekstit tulevat sanakirjasta, eivät komponenteista.',
