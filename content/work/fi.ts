@@ -29,17 +29,27 @@ export type Lead = {
  * kaappaukset riippumatta siitä kenen työstä on kyse.
  */
 export type PreviousMedia =
-  | { kind: 'image' | 'video'; ratio: string; caption: string }
+  /**
+   * `id` on paikan tunniste ja samalla tiedoston nimi: kuva
+   * `kuvat/<id>.*` päätyy tähän paikkaan. Vertailuparilla lähteitä on
+   * kaksi, `<id>-ennen` ja `<id>-jalkeen`.
+   *
+   * Pakollinen, jottei paikkaa voi lisätä ilman että kuvaputki tietää
+   * siitä. Sama syy kuin casejen MediaSlotissa.
+   */
+  | { kind: 'image' | 'video'; id: string; ratio: string; caption: string }
   | {
       kind: 'compare';
+      id: string;
       ratio: string;
       caption: string;
-      before: string;
-      after: string;
-      /** Kuvaparin luonnolliset mitat, tarvitaan asettelun varaamiseen. */
-      width: number;
-      height: number;
     };
+
+/* Vertailuparin tiedostopolut ja mitat olivat ennen tässä. Ne ovat
+   nyt content/media.generated.json:ssa, jonka `npm run kuvat`
+   kirjoittaa lähteistä — käsin kirjoitettuina ne olisivat voineet
+   osoittaa väärään tiedostoon tai vanhaan mittaan, eikä mikään olisi
+   huomannut. */
 
 export type Previous = {
   slug: string;
@@ -140,12 +150,9 @@ const previous: Previous[] = [
       ],
       media: [
         {
+          id: 'pivo-kirjautuminen',
           kind: 'compare',
           ratio: '3:4',
-          before: '/assets/screen/pivo-ennen.png',
-          after: '/assets/screen/pivo-jalkeen.png',
-          width: 742,
-          height: 1502,
           caption:
             'Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä.',
         },
@@ -190,9 +197,9 @@ const previous: Previous[] = [
         },
       ],
       media: [
-        { kind: 'image', ratio: '4:3', caption: 'Toimipistelista ja kartta työpöydällä — päänäkymä' },
-        { kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
-        { kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
+        { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Toimipistelista ja kartta työpöydällä — päänäkymä' },
+        { id: 'aisti-mobiili', kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
+        { id: 'aisti-tiketti', kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
       ],
     },
   },
@@ -234,9 +241,9 @@ const previous: Previous[] = [
         },
       ],
       media: [
-        { kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää' },
-        { kind: 'image', ratio: '4:5', caption: 'Vaurionvalitsin: auto ylhäältä, klikattavat osat' },
-        { kind: 'image', ratio: '4:3', caption: 'Mukautuva kysymyspolku' },
+        { id: 'op-aloitus', kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää' },
+        { id: 'op-vaurio', kind: 'image', ratio: '4:5', caption: 'Vaurionvalitsin: auto ylhäältä, klikattavat osat' },
+        { id: 'op-polku', kind: 'image', ratio: '4:3', caption: 'Mukautuva kysymyspolku' },
       ],
     },
   },

@@ -129,7 +129,25 @@ Korjaus on `npm run build:favicon`.
 **Raja:** tarkistus ei näe onko merkki hyvä. Muoto on koordinaatteina
 generaattorissa, ja sen luettavuus 16 pikselissä on arvioitu silmällä.
 
-**5. Saavutettavuus** (`npm run test:stories`) — jokainen story
+**5. Kuvat** (`scripts/check-kuvat.mjs`) — kuvat eivät ole repoon
+pudotettuja tiedostoja vaan johdettuja artefakteja, samoin kuin
+favicon. `scripts/kuvat.mjs` laskee `content/media.generated.json`:n
+lähteistä ja sisällössä ilmoitetuista kuvasuhteista; tarkistus kutsuu
+samaa funktiota ilman enkoodausta ja vertaa tuloksen levyyn.
+
+Se havaitsee kolme hiljaista eriytymää:
+
+| Vika | Mitä tapahtuisi ilman tarkistusta |
+|---|---|
+| Kuvasuhde muuttuu sisällössä | Sivu pyytäisi tiedostoja joita ei ole, tai näyttäisi vanhan rajauksen |
+| Lähteellä ei ole paikkaa | Kuva olisi repossa muttei näkyisi missään |
+| Manifesti puuttuu | Kaikki kuvapaikat palaisivat paikanvaraajiksi |
+
+**Raja:** tarkistus ei arvioi kuvaa. Rajaus on oletuksena keskeltä,
+eikä mikään huomaa jos olennainen kohta jää sen ulkopuolelle. Tyhjä
+paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia.
+
+**6. Saavutettavuus** (`npm run test:stories`) — jokainen story
 renderöidään Chromiumissa ja tarkistetaan axella. Kontrastivirhe,
 puuttuva saavutettava nimi tai rikkoutunut otsikkohierarkia kaataa ajon
 ja raportti kertoo elementin, mitatun arvon ja vaaditun rajan:
@@ -152,7 +170,7 @@ se on oikea; se ei kerro onko ruudunlukijan lukujärjestys mielekäs eikä
 toimiiko ennen/jälkeen-jakaja näppäimistöllä järkevästi. Tarkistus estää
 regression, se ei korvaa läpikäyntiä.
 
-**6. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
+**7. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
 koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
 komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
 koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
@@ -166,7 +184,7 @@ sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
 `check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
 Figmaan lisätty komponentti ei ilmesty siihen itsestään.
 
-**7. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
+**8. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
 Figma-tiedoston. Se varmistaa kolme asiaa: jokaisen kytkennän
 `node-id` osoittaa olemassa olevaan komponenttiin ja nimi täsmää,
 jokaisella kirjaston komponentilla on kytkentä, ja **jokainen property
@@ -195,7 +213,7 @@ Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
 mukana". Nyt väite on totta rakenteeltaan. Oikeus:
 *Development → Write and change component code*.
 
-**8. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
+**9. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
 mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`
@@ -259,6 +277,77 @@ tasolla eikä unohdus.
 Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
 kukaan oli kokeillut. Lopputulos oli sama, mutta väite oli kuulopuhetta.
 Nyt se on kokeiltu.
+
+## Kuvat
+
+Pudota tiedosto `kuvat/uudet/`-kansioon ja aja:
+
+```
+npm run kuvat
+```
+
+Muuta ei tarvita. Skripti nimeää, siirtää, rajaa, skaalaa ja pakkaa —
+eikä koodia tarvitse koskea.
+
+### Miten tiedosto löytää paikkansa
+
+Jokaisella kuvapaikalla on tunniste (`id`) sisällössä, ja se on myös
+tiedoston nimi. `colliers-hero.png` menee paikkaan jonka `id` on
+`colliers-hero`. Tunniste on tyypissä pakollinen, joten kuvapaikkaa ei
+voi lisätä ilman että kuvaputki tietää siitä.
+
+Nimi normalisoidaan kevyesti: isot kirjaumet, välilyönnit, ääkköset ja
+Finderin lisäämät kaksoiskappalemerkinnät siivotaan. `Colliers hero
+2.png` osuu siis oikeaan paikkaan. Tunnistamatonta tiedostoa **ei
+arvata** — se jää postilaatikkoon ja skripti listaa vapaat paikat
+kuvateksteineen.
+
+Vertailupari tarvitsee kaksi tiedostoa: `<id>-ennen` ja `<id>-jalkeen`.
+
+### Kolme kansiota
+
+| Kansi | Rooli | Repossa |
+|---|---|---|
+| `kuvat/uudet/` | Postilaatikko. Tyhjenee ajossa. | ei |
+| `kuvat/` | Normalisoidut lähteet, yksi per paikka | kyllä |
+| `public/kuva/` | Rajatut ja pakatut johdannaiset | ei |
+
+Lähde säilytetään **rajaamattomana**, enintään 2800 px pitkältä
+sivulta. Rajaus on johdannaisen ominaisuus, ei lähteen: jos kuvasuhde
+muuttuu sisällössä, uusi rajaus lasketaan samasta lähteestä eikä kuvaa
+tarvitse hankkia uudelleen. Rajattu lähde olisi tie yhteen suuntaan.
+
+### Mitä johdannaisista tulee
+
+AVIF ja WebP, leveysportaat 480–2800 px lähteen mukaan. Komponentti
+kirjoittaa `<picture>`-elementin, jossa on `srcset`, `sizes` ja
+laiska lataus — `sizes` tulee lohkolta, koska lohko tietää kuinka
+leveänä kuva piirtyy, kuva ei.
+
+`hero` saa **kolme rajausta**, koska sen kuvasuhde vaihtuu
+breakpointeittain (4:5 → 16:9 → 21:9). Yksi rajaus olisi joko kirjeenä
+mobiilissa tai leikkaisi laidat työpöydällä.
+
+Mittaustulos Pivon vertailuparista: 501 kt PNG → 22 kt AVIF, **96 %
+pienempi**, ilman näkyvää eroa gradientissa tai tekstin reunoissa.
+
+### Rajauskohta
+
+Oletus on keskitys, koska se on ennustettava ja sama minkä CSS:n
+`object-fit: cover` tekisi. Jos kuvan olennainen kohta on muualla,
+tee lähteen viereen `kuvat/<id>.json`:
+
+```json
+{ "rajaus": "top" }
+```
+
+Sallitut arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
+`right bottom`, `bottom`, `left bottom`, `left`, `left top`, `centre`.
+
+### Video
+
+Sama putki. Pudota `mp4` tai `mov`, ja siitä syntyy mp4 (H.264) ja
+webm (VP9) sekä julistekuva. Sisällössä paikan `kind` on `video`.
 
 ## Sivukartta
 
@@ -379,10 +468,12 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
 Yhteensä **18 kuvaa** ja **16 muuta kohtaa**, joista kaksi odottaa
 ulkopuolista lupaa (Colliersin sitaatti, Microsoftin logo).
 
-Kuvapaikat ovat jo olemassa oikeissa kuvasuhteissa — ne renderöityvät
-paikanvaraajina kunnes tiedosto on olemassa, eivätkä siis vaadi
-koodimuutosta. Kuvatekstit on kirjoitettu, joten ne kertovat mitä
-kuvassa pitää näkyä.
+Kuvapaikat ovat olemassa oikeissa kuvasuhteissa ja kuvatekstit on
+kirjoitettu, joten ne kertovat mitä kuvassa pitää näkyä. Layout ei
+liiku kun kuva tulee tilalle.
+
+Kuva on pelkkä tiedosto: pudota se `kuvat/uudet/`-kansioon nimellä
+`<id>.png` ja aja `npm run kuvat`. Ks. *Kuvat* yllä.
 
 **Videota ei ole missään.** `components/Media.tsx` osaa vain kuvan, ja
 casejen sisällössä ei ole yhtään videopaikkaa. Jos jokin näistä

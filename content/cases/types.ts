@@ -9,6 +9,16 @@ import type { Ratio } from '@/components/Media';
  */
 
 export type MediaSlot = {
+  /**
+   * Paikan tunniste, ja samalla tiedoston nimi. Kuva `kuvat/<id>.*`
+   * päätyy tähän paikkaan — muuta kohdistusta ei ole.
+   *
+   * Kenttä on pakollinen, jottei kuvapaikkaa voi lisätä ilman että
+   * kuvaputki tietää siitä. Järjestysnumero olisi ajautunut: yhden
+   * paikan lisäys keskelle olisi siirtänyt kaikki sen jälkeiset kuvat
+   * hiljaa väärään kohtaan.
+   */
+  id: string;
   ratio: Ratio;
   caption: string;
   /** Kuvan alle tuleva merkintä, jos kuvapari tarvitsee sen. */

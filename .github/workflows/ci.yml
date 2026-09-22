@@ -57,6 +57,12 @@ jobs:
       - name: Favicon vastaa tokeneita
         run: npm run check:favicon
 
+      # Kuvamanifesti on johdettu lähteistä ja sisällön kuvasuhteista.
+      # Tarkistus laskee sen uudelleen ja vertaa — se huomaa myös
+      # lähteen jolle ei ole paikkaa sisällössä.
+      - name: Kuvat vastaavat sisältöä
+        run: npm run check:kuvat
+
       # Ainoa tarkistus joka avaa Figma-tiedoston. Ei ole
       # check:sync-ketjussa: ketjun pitää toimia ilman verkkoa ja
       # ilman salaisuuksia, eikä Figman katkos saa estää buildia.
@@ -87,6 +93,12 @@ jobs:
       # Saavutettavuusvirhe kaataa ajon — a11y: { test: 'error' }.
       - name: Storyt ja saavutettavuus
         run: npm run test:stories
+
+      # Johdannaiset eivät ole repossa: ne lasketaan lähteistä joka
+      # buildissa. ffmpeg on ubuntu-runnerissa valmiina, ja sitä
+      # tarvitaan vasta kun ensimmäinen video on olemassa.
+      - name: Kuvat ja videot
+        run: npm run kuvat
 
       - name: Sivuston build
         run: npx next build

@@ -16,3 +16,9 @@ portfolio-pokela/
 
 # Local Netlify folder
 .netlify
+
+# Kuvaputki. Postilaatikko on työpöytä, ei arkisto; johdannaiset
+# lasketaan buildissa lähteistä (kuvat/). Molemmat syntyvät
+# komennolla `npm run kuvat`.
+kuvat/uudet/
+public/kuva/

@@ -213,6 +213,17 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
 }
 @media (min-width: 600px) { .media { padding: var(--space-24); } }
 
+/* Kun paikassa on kuva, raidoitus ja sisennys eivät ole tarpeen:
+   kuva täyttää laatikon reunasta reunaan. Sama .media-luokka säilyy,
+   jotta kuvasuhde tulee samasta paikasta kummassakin tilassa eikä
+   layout liiku kun kuva ilmestyy. */
+.media--kuva {
+  display: block;
+  padding: 0;
+  background: var(--placeholder-base);
+  overflow: hidden;
+}
+
 /* Kuvasuhteet: mobiilissa pystympi, työpöydällä editoriaalinen.
    21:9 hero on mobiilissa 4:5 — muuten kuvasta ei näe mitään. */
 .media-hero     { aspect-ratio: 4 / 5; }

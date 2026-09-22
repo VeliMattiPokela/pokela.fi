@@ -69,6 +69,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
       'Ei arvioi merkin laatua. Muoto on koordinaatteina generaattorissa, ja sen luettavuus 16 pikselissä on tarkistettu silmällä — mikään ei valvo ettei seuraava muutos riko sitä.',
   },
   {
+    id: 'kuvat',
+    title: 'Kuvat',
+    proves:
+      'Kuvamanifesti vastaa lähdetiedostoja ja sisällössä ilmoitettuja kuvasuhteita, eikä kuvat-kansiossa ole lähdettä jolle ei ole paikkaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa.',
+    blind:
+      'Ei arvioi kuvaa. Rajaus on oletuksena keskeltä, eikä mikään huomaa jos kuvan olennainen kohta jää sen ulkopuolelle. Tyhjä paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia — se vain raportoidaan.',
+  },
+  {
     id: 'figma',
     title: 'Figma',
     proves:

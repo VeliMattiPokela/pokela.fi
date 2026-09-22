@@ -56,7 +56,7 @@ export const Teksti: Story = {
 
 /** Yksittäinen kuva. */
 export const Kuva: Story = {
-  args: { block: { kind: 'media', media: { ratio: '4:3', caption: 'Asuntohaku, karttanäkymä' } } },
+  args: { block: { kind: 'media', media: { id: 'demo-1', ratio: '4:3', caption: 'Asuntohaku, karttanäkymä' } } },
 };
 
 /** Kuvapari, esim. luuranko → julkaisu. */
@@ -66,8 +66,8 @@ export const Kuvapari: Story = {
       kind: 'pair',
       label: 'Ennen ja jälkeen',
       items: [
-        { ratio: '4:3', caption: 'Luurankoversio', label: 'Viikko 1' },
-        { ratio: '4:3', caption: 'Julkaistu näkymä', label: 'Viikko 24' },
+        { id: 'demo-2', ratio: '4:3', caption: 'Luurankoversio', label: 'Viikko 1' },
+        { id: 'demo-3', ratio: '4:3', caption: 'Julkaistu näkymä', label: 'Viikko 24' },
       ],
     },
   },
@@ -92,9 +92,9 @@ export const Kolmikko: Story = {
       label: 'Mitä rakensin',
       title: 'Kolme näkymää, yksi järjestelmä',
       items: [
-        { media: { ratio: '4:5', caption: 'Haku' }, h: 'Asuntohaku', p: 'Kartta ja suodattimet samassa näkymässä.' },
-        { media: { ratio: '4:5', caption: 'Kohde' }, h: 'Kohdesivu', p: 'Pohjakuva, hinta ja vapautumispäivä yhdellä silmäyksellä.' },
-        { media: { ratio: '4:5', caption: 'Hakemus' }, h: 'Verkkovuokraus', p: 'Hakemus loppuun ilman liitteitä.' },
+        { media: { id: 'demo-4', ratio: '4:5', caption: 'Haku' }, h: 'Asuntohaku', p: 'Kartta ja suodattimet samassa näkymässä.' },
+        { media: { id: 'demo-5', ratio: '4:5', caption: 'Kohde' }, h: 'Kohdesivu', p: 'Pohjakuva, hinta ja vapautumispäivä yhdellä silmäyksellä.' },
+        { media: { id: 'demo-6', ratio: '4:5', caption: 'Hakemus' }, h: 'Verkkovuokraus', p: 'Hakemus loppuun ilman liitteitä.' },
       ],
     },
   },

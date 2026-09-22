@@ -1,0 +1,33 @@
+{
+  "pivo-kirjautuminen": {
+    "tyyppi": "vertailu",
+    "osat": {
+      "pivo-kirjautuminen-ennen": [
+        {
+          "koko": "base",
+          "media": null,
+          "suhde": 0.494,
+          "leveydet": [
+            480,
+            742
+          ],
+          "leveys": 742,
+          "korkeus": 1502
+        }
+      ],
+      "pivo-kirjautuminen-jalkeen": [
+        {
+          "koko": "base",
+          "media": null,
+          "suhde": 0.494,
+          "leveydet": [
+            480,
+            742
+          ],
+          "leveys": 742,
+          "korkeus": 1502
+        }
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import { Lahteet, rajaukset } from './Media';
 
 /**
  * Ennen / jälkeen -vertailu. Sivuston signature-komponentti.
@@ -13,30 +14,36 @@ import { useCallback, useRef, useState } from 'react';
  * toimii näppäimistöllä ja ruudunlukijalla ilman erillistä
  * näppäinkäsittelyä. Se on visuaalisesti piilotettu, ja näkyvä
  * kahva piirretään sen päälle pointer-events: none -tilassa.
+ *
+ * Tiedostot ja mitat luetaan kuvamanifestista tunnisteen perusteella,
+ * eikä niitä anneta propseina: käsin kirjoitettu polku olisi voinut
+ * osoittaa väärään tiedostoon ja käsin kirjoitettu mitta varannut
+ * väärän tilan. Vertailuparia ei rajata, joten kehys ottaa lähteen
+ * oman kuvasuhteen eikä object-fit: cover leikkaa mitään pois.
  */
 export default function BeforeAfter({
-  before,
-  after,
+  id,
   beforeLabel,
   afterLabel,
   alt,
   caption,
-  width,
-  height,
+  sizes = '100vw',
 }: {
-  before: string;
-  after: string;
+  /** Paikan tunniste. Lähteet ovat `<id>-ennen` ja `<id>-jalkeen`. */
+  id: string;
   beforeLabel: string;
   afterLabel: string;
   alt: string;
   caption?: string;
-  /** Lähdekuvan mitat. Kehys ottaa niiden kuvasuhteen, jotta
-      object-fit: cover ei rajaa mitään pois. */
-  width: number;
-  height: number;
+  sizes?: string;
 }) {
   const [pos, setPos] = useState(50);
   const frameRef = useRef<HTMLDivElement>(null);
+
+  const ennen = rajaukset(id, `${id}-ennen`)?.[0];
+  const jalkeen = rajaukset(id, `${id}-jalkeen`)?.[0];
+  if (!ennen || !jalkeen) return null;
+  const { leveys: width, korkeus: height } = jalkeen;
 
   /** Osoittimen x → prosentti. Sama laskenta klikille ja vedolle. */
   const fromPointer = useCallback((clientX: number) => {
@@ -67,16 +74,37 @@ export default function BeforeAfter({
         style={{ ['--pos' as string]: `${pos}%`, aspectRatio: `${width} / ${height}` }}
       >
         {/* Jälkeen: pohjalla, koko kehys. */}
-        <img src={after} alt={alt} className="compare__img media-fill" draggable={false} />
+        <picture>
+          <Lahteet nimi={`${id}-jalkeen`} r={jalkeen} sizes={sizes} />
+          <img
+            src={`/kuva/${id}-jalkeen-${jalkeen.koko}-${jalkeen.leveys}.webp`}
+            alt={alt}
+            width={jalkeen.leveys}
+            height={jalkeen.korkeus}
+            sizes={sizes}
+            loading="lazy"
+            decoding="async"
+            className="compare__img media-fill"
+            draggable={false}
+          />
+        </picture>
 
         {/* Ennen: päällä, leikattuna jakajan kohdalta. */}
-        <img
-          src={before}
-          alt=""
-          aria-hidden="true"
-          className="compare__img compare__img--before media-fill"
-          draggable={false}
-        />
+        <picture className="compare__img--before">
+          <Lahteet nimi={`${id}-ennen`} r={ennen} sizes={sizes} />
+          <img
+            src={`/kuva/${id}-ennen-${ennen.koko}-${ennen.leveys}.webp`}
+            alt=""
+            aria-hidden="true"
+            width={ennen.leveys}
+            height={ennen.korkeus}
+            sizes={sizes}
+            loading="lazy"
+            decoding="async"
+            className="compare__img media-fill"
+            draggable={false}
+          />
+        </picture>
 
         <span className="meta meta--s compare__label compare__label--before">{beforeLabel}</span>
         <span className="meta meta--s compare__label compare__label--after">{afterLabel}</span>

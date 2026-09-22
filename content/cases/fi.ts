@@ -23,6 +23,7 @@ const colliers: Case = {
     {
       kind: 'media',
       media: {
+        id: 'colliers-hero',
         ratio: 'hero',
         caption: 'Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä',
       },
@@ -64,11 +65,13 @@ const colliers: Case = {
       label: 'Viikko 1 → julkaisu',
       items: [
         {
+          id: 'colliers-viikko-1',
           ratio: '4:3',
           label: 'Viikko 1 — toimiva runko',
           caption: 'Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä.',
         },
         {
+          id: 'colliers-julkaisu',
           ratio: '4:3',
           label: 'Julkaisu — sama rakenne, valmis ilme',
           caption: 'Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla.',
@@ -86,17 +89,17 @@ const colliers: Case = {
       title: 'Design ja toteutus samoissa käsissä',
       items: [
         {
-          media: { ratio: '4:5', caption: 'AI-haku: kirjoitettu kuvaus + tulokset' },
+          media: { id: 'colliers-haku', ratio: '4:5', caption: 'AI-haku: kirjoitettu kuvaus + tulokset' },
           h: 'Asuntohaku, jolle voi kuvailla kodin',
           p: 'Käyttäjä kirjoittaa millaista kotia etsii, ja siitä muodostuu haku. Vastasin käyttöliittymästä ja siitä, miten tulokset esitetään.',
         },
         {
-          media: { ratio: '4:5', caption: 'Vuokraa heti -polku, yksi vaihe' },
+          media: { id: 'colliers-vuokraus', ratio: '4:5', caption: 'Vuokraa heti -polku, yksi vaihe' },
           h: 'Vuokraa heti — vuokraus verkossa',
           p: 'Monivaiheinen polku, joka on suunniteltu keskeytettäväksi ja jatkettavaksi. Suunnittelu ja toteutus iteroitiin suoraan koodissa.',
         },
         {
-          media: { ratio: '4:5', caption: 'Strapi-editori sisältöä muokattaessa' },
+          media: { id: 'colliers-strapi', ratio: '4:5', caption: 'Strapi-editori sisältöä muokattaessa' },
           h: 'Sisällönhallinta ja whitelabel',
           p: 'Strapi-pohjainen järjestelmä, jolla markkinointi tekee laskeutumissivut itse — myös asiakkaan omalla ilmeellä.',
         },
@@ -150,6 +153,7 @@ const blokbook: Case = {
     {
       kind: 'media',
       media: {
+        id: 'blokbook-hero',
         ratio: 'hero',
         caption:
           'Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä.',
@@ -192,11 +196,13 @@ const blokbook: Case = {
       label: 'Kaksi näkökulmaa',
       items: [
         {
+          id: 'blokbook-asukas',
           ratio: '4:3',
           label: 'Asukas — varaa ja maksaa',
           caption: 'Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu.',
         },
         {
+          id: 'blokbook-hallinta',
           ratio: '4:3',
           label: 'Isännöinti — hallinnoi',
           caption: 'Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet.',
@@ -231,17 +237,17 @@ const blokbook: Case = {
       title: 'Sama palvelu, kolme alustaa',
       items: [
         {
-          media: { ratio: '3:4', caption: 'Web — varausnäkymä kapeana' },
+          media: { id: 'blokbook-web', ratio: '3:4', caption: 'Web — varausnäkymä kapeana' },
           h: 'Web',
           p: 'Ensimmäinen alusta. Design system ja Storybook syntyivät tässä.',
         },
         {
-          media: { ratio: '3:4', caption: 'iOS — natiivisovellus, ei laitekehystä' },
+          media: { id: 'blokbook-ios', ratio: '3:4', caption: 'iOS — natiivisovellus, ei laitekehystä' },
           h: 'iOS',
           p: 'Natiivi sovellus, samat komponentit ja sama ilme kuin webissä.',
         },
         {
-          media: { ratio: '3:4', caption: 'Android — sama näkymä' },
+          media: { id: 'blokbook-android', ratio: '3:4', caption: 'Android — sama näkymä' },
           h: 'Android',
           p: 'Sama työtapa kuin Colliersissa, mutta nyt myös mobiilissa.',
         },

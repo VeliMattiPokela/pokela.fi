@@ -31,12 +31,12 @@ const meta = {
     },
   },
   args: {
-    before: '/assets/screen/pivo-ennen.png',
-    after: '/assets/screen/pivo-jalkeen.png',
+    /* Tunniste, ei polkuja: tiedostot ja mitat tulevat
+       kuvamanifestista. Story käyttää siis samoja tiedostoja kuin
+       sivu — jos kuva puuttuu, story näyttää sen eikä valehtele. */
+    id: 'pivo-kirjautuminen',
     beforeLabel: 'Ennen',
     afterLabel: 'Jälkeen',
-    width: 742,
-    height: 1502,
     alt: 'Pivon kirjautumisnäkymä ennen ja jälkeen saavutettavuuskorjausten',
   },
 } satisfies Meta<typeof BeforeAfter>;

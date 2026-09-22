@@ -1,5 +1,22 @@
 import type { Block } from '@/content/cases';
 import Media from './Media';
+
+/**
+ * Kuinka leveänä kuva piirtyy kussakin lohkossa. Lohko tietää sen,
+ * kuva ei — siksi `sizes` annetaan täältä eikä oleteta Mediassa.
+ *
+ * Luvut seuraavat case.css:n gridejä ja --page-paddingia. Liian suuri
+ * arvo lataisi turhan ison tiedoston, liian pieni pehmeän kuvan.
+ */
+const SIZES = {
+  /* Koko sisältöleveys: sivu on enintään 1440 ja reunat 36+36. */
+  taysi: '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
+  /* Kaksi saraketta 600:sta ylöspäin. */
+  pari: '(min-width: 1440px) 672px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
+  /* Kolme saraketta 900:sta, kaksi 600:sta. */
+  kolmikko:
+    '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
+};
 import Reveal from './Reveal';
 import CaseText from './CaseText';
 import type { Locale } from '@/lib/i18n';
@@ -62,7 +79,13 @@ export default function CaseBlock({
     case 'media':
       return (
         <div className="page">
-          <Media ratio={block.media.ratio} caption={block.media.caption} />
+          <Media
+            id={block.media.id}
+            ratio={block.media.ratio}
+            caption={block.media.caption}
+            sizes={SIZES.taysi}
+            priority={block.media.ratio === 'hero'}
+          />
         </div>
       );
 
@@ -74,7 +97,12 @@ export default function CaseBlock({
             <div className="case__pair">
               {block.items.map((media) => (
                 <figure key={media.caption} style={{ margin: 0 }}>
-                  <Media ratio={media.ratio} caption={media.caption} />
+                  <Media
+                    id={media.id}
+                    ratio={media.ratio}
+                    caption={media.caption}
+                    sizes={SIZES.pari}
+                  />
                   {media.label ? (
                     <figcaption className="meta">{media.label}</figcaption>
                   ) : null}
@@ -107,7 +135,12 @@ export default function CaseBlock({
               <div className="case__trio">
                 {block.items.map((item) => (
                   <div key={item.h}>
-                    <Media ratio={item.media.ratio} caption={item.media.caption} />
+                    <Media
+                      id={item.media.id}
+                      ratio={item.media.ratio}
+                      caption={item.media.caption}
+                      sizes={SIZES.kolmikko}
+                    />
                     <h4>{item.h}</h4>
                     <p>
                       <CaseText text={item.p} locale={locale} currentSlug={slug} />

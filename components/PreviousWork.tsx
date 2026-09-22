@@ -99,20 +99,20 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
             media.kind === 'compare' ? (
               <BeforeAfter
                 key={media.caption}
-                before={media.before}
-                after={media.after}
+                id={media.id}
                 beforeLabel={dict.common.before}
                 afterLabel={dict.common.after}
                 alt={media.caption}
                 caption={media.caption}
-                width={media.width}
-                height={media.height}
+                sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
               />
             ) : (
               <Media
                 key={media.caption}
+                id={media.id}
                 ratio={media.ratio as Ratio}
                 caption={media.caption}
+                sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
               />
             ),
           )}
