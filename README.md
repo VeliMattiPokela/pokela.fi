@@ -199,8 +199,23 @@ mukana". Nyt väite on totta rakenteeltaan. Oikeus:
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
 mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`
-on dokumentoitu tässä tiedostossa, ja johdettavissa olevat kohdat
-vastaavat lähdettään.
+on kirjattu kaikkiin kolmeen rekisteriinsä, ja johdettavissa olevat
+kohdat vastaavat lähdettään.
+
+Rekisterit ovat:
+
+| Paikka | Mitä se kertoo |
+|---|---|
+| `README.md` | mitä tarkistus todistaa ihmiselle |
+| `.github/workflows/ci.yml` | ajetaanko se oikeasti ennen mergeä |
+| `lib/checks.ts` | näkyykö se casesivun listalla |
+
+Jokainen näistä on unohtunut kerran. Viimeisin oli `check-favicon`:
+se oli `check:sync`-ketjussa, joten casesivu ilmoitti sen ajossa
+olevaksi — mutta CI ei aja ketjua vaan jokaisen tarkistuksen omana
+askeleenaan, jotta kaatuva kohta näkyy GitHubin käyttöliittymässä
+nimeltä. Askel puuttui, joten tarkistus ei ajanut kertaakaan pull
+requestissa. Vihreä CI väitti enemmän kuin se katsoi.
 
 Johdettavat kohdat merkitään luoduksi lohkoksi eikä kirjoiteta käsin:
 

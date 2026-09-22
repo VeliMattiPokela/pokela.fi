@@ -19,7 +19,9 @@
  *   2. Polut. Dokumentissa mainittu tiedostopolku on olemassa.
  *   3. Komennot. Mainittu `npm run x` on package.jsonissa.
  *   4. Kattavuus. Jokainen `scripts/check-*.mjs` on mainittu
- *      README:ssä — uutta tarkistusta ei voi lisätä hiljaa.
+ *      README:ssä, ajetaan omana askeleenaan `ci.yml`:ssä ja on
+ *      kirjattu `lib/checks.ts`:n rekisteriin — uutta tarkistusta ei
+ *      voi lisätä hiljaa eikä vanha voi jäädä ajamatta.
  *
  * Proosaa tämä ei voi todentaa. Siksi kaikki mikä on johdettavissa
  * merkitään luoduksi lohkoksi eikä kirjoiteta käsin.
@@ -181,12 +183,46 @@ for (const doc of DOCS) {
   }
 }
 
-/* 4. jokainen tarkistus on dokumentoitu */
+/* 4. jokainen tarkistus on kirjattu kaikkiin kolmeen rekisteriin
+      ------------------------------------------------------------
+      Tarkistus elää kolmessa paikassa, ja jokainen niistä voi jäädä
+      päivittämättä erikseen:
+
+        README.md            mitä se todistaa ihmiselle
+        ci.yml               ajetaanko se oikeasti ennen mergeä
+        lib/checks.ts        näkyykö se casesivun listalla
+
+      Kaikki kolme on unohdettu kerran. Viimeisin oli check-favicon:
+      se oli check:sync-ketjussa, joten casesivu ilmoitti sen ajossa
+      olevaksi — mutta CI ei aja ketjua vaan jokaisen tarkistuksen
+      omana askeleenaan, jotta kaatuva kohta näkyy GitHubin
+      käyttöliittymässä nimeltä. Askel puuttui, joten tarkistus ei
+      ajanut kertaakaan pull requestissa. Vihreä CI väitti enemmän
+      kuin se katsoi.
+
+      Tiedostojärjestelmä on totuus: jos scripts/check-<id>.mjs on
+      olemassa, sen on löydyttävä kaikista kolmesta.                */
 const readme = readFileSync(join(root, 'README.md'), 'utf8');
+const ci = readFileSync(join(root, '.github/workflows/ci.yml'), 'utf8');
+const rekisteri = readFileSync(join(root, 'lib/checks.ts'), 'utf8');
 const checkScripts = readdirSync(join(root, 'scripts')).filter((f) => /^check-.*\.mjs$/.test(f));
+
 for (const script of checkScripts) {
+  const id = script.replace(/^check-|\.mjs$/g, '');
   if (!readme.includes(`scripts/${script}`)) {
     drift.push({ doc: 'README.md', issue: `tarkistus scripts/${script} ei ole dokumentoitu` });
+  }
+  if (!ci.includes(`npm run check:${id}`)) {
+    drift.push({
+      doc: '.github/workflows/ci.yml',
+      issue: `tarkistus check:${id} ei ole omana askeleenaan — se ei aja pull requestissa`,
+    });
+  }
+  if (!new RegExp(`id: '${id}'`).test(rekisteri)) {
+    drift.push({
+      doc: 'lib/checks.ts',
+      issue: `tarkistus check:${id} puuttuu rekisteristä — casesivu kertoo yhden vähemmän kuin todellisuus`,
+    });
   }
 }
 
@@ -195,7 +231,7 @@ for (const script of checkScripts) {
 if (drift.length === 0) {
   console.log(
     `✓ Dokumentaatio ajan tasalla — ${blocks} luotua lohkoa, ${paths} polkua, ` +
-      `${commands} komentoa, ${checkScripts.length} tarkistusta dokumentoitu`,
+      `${commands} komentoa, ${checkScripts.length} tarkistusta kolmessa rekisterissä`,
   );
   process.exit(0);
 }

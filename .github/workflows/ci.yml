@@ -51,6 +51,12 @@ jobs:
       - name: Ei kovakoodattuja arvoja tyyleissä
         run: npm run check:hardcoded
 
+      # public/-kansion favicon lasketaan tokeneista. Binääri repossa
+      # ei kerro mistä se on tullut, joten paletin muutos jättäisi
+      # ikonin vanhaan sävyyn kenenkään huomaamatta.
+      - name: Favicon vastaa tokeneita
+        run: npm run check:favicon
+
       # Ainoa tarkistus joka avaa Figma-tiedoston. Ei ole
       # check:sync-ketjussa: ketjun pitää toimia ilman verkkoa ja
       # ilman salaisuuksia, eikä Figman katkos saa estää buildia.
