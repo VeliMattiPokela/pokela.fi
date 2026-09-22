@@ -25,8 +25,8 @@
     "docs:korjaa": "node scripts/check-docs.mjs --korjaa",
     "build:favicon": "node scripts/build-favicon.mjs",
     "check:favicon": "node scripts/check-favicon.mjs",
-    "kuvat": "node --experimental-strip-types scripts/kuvat.mjs",
-    "check:kuvat": "node --experimental-strip-types scripts/check-kuvat.mjs"
+    "kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat.mjs",
+    "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

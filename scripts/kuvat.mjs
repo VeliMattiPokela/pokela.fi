@@ -130,15 +130,31 @@ export function lahteet(paikka) {
    nimien kesken olisi voinut sijoittaa kuvan väärään paikkaan
    hiljaa, joten tunnistamaton tiedosto raportoidaan eikä arvata.  */
 
-function normalisoiNimi(tiedosto) {
-  return tiedosto
+/**
+ * Tiedostonimen ehdokkaat paikan tunnisteeksi, paras ensin.
+ *
+ * Ensimmäinen on pelkkä siivous: pienet kirjaimet, ääkköset pois,
+ * välit ja alaviivat viivoiksi. Toinen poistaa lisäksi lopusta
+ * Finderin ja selaimen kaksoiskappalemerkinnän (" 2", "(1)",
+ * "-kopio").
+ *
+ * Järjestys on olennainen. Kaksoiskappalemerkinnän poisto nappaa myös
+ * aidon numeron: paikka `colliers-viikko-1` on olemassa, ja oikein
+ * nimetty `colliers-viikko-1.png` olisi lyhentynyt muotoon
+ * `colliers-viikko` eikä olisi osunut mihinkään. Siksi tarkka nimi
+ * kokeillaan ensin ja lyhennystä vasta jos se ei kelvannut.
+ */
+function nimiehdokkaat(tiedosto) {
+  const pohja = tiedosto
     .slice(0, tiedosto.lastIndexOf('.'))
     .toLowerCase()
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
-    .replace(/[\s_]+/g, '-')
-    .replace(/[-\s]*(kopio|copy|\(\d+\)|\d)$/u, '')
-    .replace(/-+$/, '');
+    .replace(/[\s_]+/g, '-');
+
+  const lyhennetty = pohja.replace(/[-\s]*(kopio|copy|\(\d+\)|\d)$/u, '').replace(/-+$/, '');
+
+  return lyhennetty && lyhennetty !== pohja ? [pohja, lyhennetty] : [pohja];
 }
 
 /**
@@ -155,10 +171,11 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
     if (tiedosto.startsWith('.')) continue;
     const polku = join(POSTILAATIKKO, tiedosto);
     const pate = extname(tiedosto).toLowerCase();
-    const nimi = normalisoiNimi(tiedosto);
+    const ehdokkaat = nimiehdokkaat(tiedosto);
+    const nimi = ehdokkaat.find((e) => kaikkiNimet.has(e));
 
-    if (!kaikkiNimet.has(nimi)) {
-      tuntemattomat.push({ tiedosto, arvattu: nimi });
+    if (!nimi) {
+      tuntemattomat.push({ tiedosto, arvattu: ehdokkaat.join(' tai ') });
       continue;
     }
 
