@@ -1,33 +1,87 @@
 {
-  "pivo-kirjautuminen": {
-    "tyyppi": "vertailu",
-    "osat": {
-      "pivo-kirjautuminen-ennen": [
-        {
-          "koko": "base",
-          "media": null,
-          "suhde": 0.494,
-          "leveydet": [
-            480,
-            742
-          ],
-          "leveys": 742,
-          "korkeus": 1502
-        }
-      ],
-      "pivo-kirjautuminen-jalkeen": [
-        {
-          "koko": "base",
-          "media": null,
-          "suhde": 0.494,
-          "leveydet": [
-            480,
-            742
-          ],
-          "leveys": 742,
-          "korkeus": 1502
-        }
-      ]
+  "paikat": {
+    "pivo-kirjautuminen": {
+      "tyyppi": "vertailu",
+      "osat": {
+        "pivo-kirjautuminen-ennen": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.494,
+            "leveydet": [
+              480,
+              742
+            ],
+            "leveys": 742,
+            "korkeus": 1502
+          }
+        ],
+        "pivo-kirjautuminen-jalkeen": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.494,
+            "leveydet": [
+              480,
+              742
+            ],
+            "leveys": 742,
+            "korkeus": 1502
+          }
+        ]
+      }
+    }
+  },
+  "logot": {
+    "sanoma": {
+      "muoto": "png",
+      "leveys": 1356,
+      "korkeus": 128
+    },
+    "ilta-sanomat": {
+      "muoto": "png",
+      "leveys": 1480,
+      "korkeus": 204
+    },
+    "finavia": {
+      "muoto": "png",
+      "leveys": 1232,
+      "korkeus": 184
+    },
+    "oikotie": {
+      "muoto": "png",
+      "leveys": 928,
+      "korkeus": 248
+    },
+    "evira": {
+      "muoto": "png",
+      "leveys": 1212,
+      "korkeus": 360
+    },
+    "elisa": {
+      "muoto": "png",
+      "leveys": 1076,
+      "korkeus": 424
+    },
+    "pivo": {
+      "muoto": "png",
+      "leveys": 868,
+      "korkeus": 424
+    },
+    "op": {
+      "muoto": "png",
+      "leveys": 504,
+      "korkeus": 336
+    },
+    "colliers": {
+      "muoto": "png",
+      "leveys": 1040,
+      "korkeus": 588
+    },
+    "microsoft": {
+      "muoto": "png",
+      "leveys": 872,
+      "korkeus": 640
     }
   }
 }

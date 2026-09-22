@@ -349,6 +349,34 @@ Sallitut arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
 Sama putki. Pudota `mp4` tai `mov`, ja siitä syntyy mp4 (H.264) ja
 webm (VP9) sekä julistekuva. Sisällössä paikan `kind` on `video`.
 
+Videota **ei toisteta automaattisesti**. Automaattitoisto vaatisi
+asiakaskomponentin jotta `prefers-reduced-motion` voidaan lukea, ja
+liikkuva kuva jota ei voi pysäyttää on saavutettavuusongelma silloinkin
+kun se on mykkä. Julistekuva näkyy heti, katsoja päättää lähteekö se
+liikkeelle. `preload="metadata"` hakee vain otsakkeet.
+
+### Logot
+
+Logot ovat samalla tavalla johdettuja, lähteet kansiossa
+`kuvat/logo/`. Ne piirretään CSS-maskina, joten vain alfakanava
+merkitsee — väri tulee tokenista. Siksi rasteri pakataan
+yksikanavaiseksi ja pienennetään näyttökorkeuteen × 4, mikä kattaa 3×
+näytön ja kohtuullisen zoomin.
+
+Alkuperäiset olivat 5–8-kertaisesti ylimitoitettuja: 1480 × 204
+pikselin PNG piirrettiin 15 pikselin korkuisena. **1369 kt → 58 kt,
+96 % pienempi**, ilman näkyvää eroa.
+
+Jos `kuvat/logo/<nimi>.svg` on olemassa, se voittaa PNG:n. Virallinen
+vektori yrityksen brändisivulta on aina parempi kuin pienennetty
+rasteri, eikä sitä kannata jäljittää koneella: kirjainmuodot
+vääristyisivät. **Nykyiset kymmenen ovat rasteria** — SVG:t ovat
+hankittavissa mutta niiden käyttöoikeus on tapauskohtainen.
+
+Kuvasuhde luetaan manifestista. Se oli ennen käsin `content/logos.ts`:
+ssä; `height` on yhä siellä, koska se on optinen päätös eikä
+mitattavissa.
+
 ## Sivukartta
 
 ```
@@ -501,7 +529,7 @@ Lähteet: casejen sisältö on `content/cases/fi.ts`, aiemmat työt
 - [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
 - [ ] Mittarit. Teksti sanoo nyt "Mittareita ei ole vielä julkaistu" —
       joko luvut tai lause pois
-- [ ] Logo. `public/assets/logo/logo-colliers.png` on tumma laatikko
+- [ ] Logo. `kuvat/logo/colliers.png` on tumma laatikko
       harmaine palkkeineen; muut logorivin merkit ovat läpinäkyviä
       sanamerkkejä. Nykyinen ei istu riviin
 
@@ -568,7 +596,7 @@ Ennen/jälkeen-kuva on olemassa (`pivo-ennen.png`, `pivo-jalkeen.png`).
 #### Kaikkia koskevat
 
 - [ ] Microsoftin logon käyttölupa — tai jätä pelkkä nimi. Logo on
-      `public/assets/logo/logo-microsoft.png` ja näkyy logorivissä
+      `kuvat/logo/microsoft.png` ja näkyy logorivissä
 
 ---
 

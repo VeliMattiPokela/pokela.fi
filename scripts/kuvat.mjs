@@ -110,9 +110,13 @@ export async function paikat() {
 export function lahteet(paikka) {
   const nimet = paikka.vertailu ? [`${paikka.id}-ennen`, `${paikka.id}-jalkeen`] : [paikka.id];
   return nimet.map((nimi) => {
-    const osuma = readdirSync(LAHTEET).find(
-      (f) => f.slice(0, f.lastIndexOf('.')) === nimi && !f.startsWith('.') && !f.endsWith('.json'),
-    );
+    const osuma = readdirSync(LAHTEET, { withFileTypes: true }).find(
+      (d) =>
+        d.isFile() &&
+        !d.name.startsWith('.') &&
+        !d.name.endsWith('.json') &&
+        d.name.slice(0, d.name.lastIndexOf('.')) === nimi,
+    )?.name;
     return { nimi, tiedosto: osuma ? join(LAHTEET, osuma) : null };
   });
 }
@@ -312,6 +316,62 @@ async function teeVideo(nimi, lahde, { kirjoita = true } = {}) {
   return { leveys: koko.width, korkeus: koko.height };
 }
 
+/* ---- logot ----------------------------------------------------------
+   Logot eivät ole sisällön kuvapaikkoja vaan oma rekisterinsä
+   (content/logos.ts), mutta sama periaate pätee: lähde repoon,
+   johdannainen laskettuna.
+
+   Ne piirretään CSS-maskina, joten vain alfakanava merkitsee — väri
+   tulee tokenista. Siksi rasteri pakataan yksikanavaiseksi: väriarvot
+   olisivat tavuja joita mikään ei lue.
+
+   Rasteri tehdään näyttökorkeuteen × 4, mikä kattaa 3× näytön ja
+   kohtuullisen zoomin. Alkuperäiset olivat 5–8× ylimitoitettuja:
+   1480 × 204 pikselin PNG piirrettiin 15 pikselin korkuisena.
+
+   SVG kopioidaan sellaisenaan. Jos `kuvat/logo/<nimi>.svg` on
+   olemassa, se voittaa PNG:n — virallinen vektori on aina parempi
+   kuin pienennetty rasteri, eikä sitä kannata jäljittää koneella:
+   kirjainmuodot vääristyisivät.                                    */
+
+const LOGOKANSIO = join(LAHTEET, 'logo');
+const LOGOJULKAISU = join(JULKAISU, 'logo');
+const LOGOTARKKUUS = 4;
+
+async function teeLogot({ kirjoita = true } = {}) {
+  const { logos } = await import(join(root, 'content/logos.ts'));
+  if (kirjoita) mkdirSync(LOGOJULKAISU, { recursive: true });
+
+  const ulos = {};
+  for (const logo of logos) {
+    const kanta = logo.file;
+    const svg = join(LOGOKANSIO, `${kanta}.svg`);
+    const png = join(LOGOKANSIO, `${kanta}.png`);
+
+    if (existsSync(svg)) {
+      const meta = await sharp(svg).metadata();
+      if (kirjoita) writeFileSync(join(LOGOJULKAISU, `${kanta}.svg`), readFileSync(svg));
+      ulos[kanta] = { muoto: 'svg', leveys: meta.width, korkeus: meta.height };
+      continue;
+    }
+
+    if (!existsSync(png)) throw new Error(`Logo ${logo.name}: lähdettä ei ole (${kanta}.svg|.png)`);
+
+    const meta = await sharp(png).metadata();
+    const korkeus = Math.min(meta.height, logo.height * LOGOTARKKUUS);
+    const leveys = Math.round((meta.width / meta.height) * korkeus);
+    if (kirjoita) {
+      await sharp(png)
+        .resize(leveys, korkeus)
+        .extractChannel('alpha')
+        .png({ compressionLevel: 9, palette: true })
+        .toFile(join(LOGOJULKAISU, `${kanta}.png`));
+    }
+    ulos[kanta] = { muoto: 'png', leveys: meta.width, korkeus: meta.height };
+  }
+  return ulos;
+}
+
 /* ---- manifesti ------------------------------------------------------
    Pieni JSON jonka komponentti importtaa. Komponentti ei saa lukea
    levyä: se renderöidään myös Storybookissa ja selaintesteissä.    */
@@ -356,18 +416,24 @@ export async function rakenna({ kirjoita = true } = {}) {
     manifesti[paikka.id] = { tyyppi: paikka.vertailu ? 'vertailu' : 'kuva', osat };
   }
 
+  const logot = await teeLogot({ kirjoita });
+
   /* Lähteet joille ei ole paikkaa: nimi on kirjoitettu väärin tai
      paikka on poistettu sisällöstä. Kumpikin on hiljainen vika —
      tiedosto on olemassa mutta ei näy missään. */
   const tunnetut = new Set(
     lista.flatMap((p) => lahteet(p).map((l) => l.nimi)),
   );
-  const orvot = readdirSync(LAHTEET)
-    .filter((f) => !f.startsWith('.') && f !== 'uudet' && !f.endsWith('.json'))
-    .map((f) => f.slice(0, f.lastIndexOf('.')))
+  const orvot = readdirSync(LAHTEET, { withFileTypes: true })
+    /* Vain tiedostot: `uudet/` ja `logo/` ovat kansioita, ja
+       `<id>.json` on rajausohje eikä lähde. Ilman tyyppisuodatusta
+       kansio "logo" olisi tulkittu lähteeksi nimeltä "log", koska
+       päätteen katkaisu olettaa pisteen. */
+    .filter((d) => d.isFile() && !d.name.startsWith('.') && !d.name.endsWith('.json'))
+    .map((d) => (d.name.includes('.') ? d.name.slice(0, d.name.lastIndexOf('.')) : d.name))
     .filter((n) => !tunnetut.has(n));
 
-  return { manifesti, lista, puuttuvat, posti, orvot };
+  return { manifesti: { paikat: manifesti, logot }, lista, puuttuvat, posti, orvot };
 }
 
 /* ---- suoraan ajettaessa --------------------------------------------- */

@@ -14,39 +14,38 @@
 
 export type Logo = {
   name: string;
+  /** Lähteen nimi ilman päätettä: kuvat/logo/<file>.svg tai .png. */
   file: string;
-  /** Alkuperäisen tiedoston mitat, kuvasuhdetta varten. */
-  w: number;
-  h: number;
   /** Optinen korkeus sivulla, px. */
   height: number;
   blocked?: string;
 };
 
+/* Alkuperäiset mitat olivat ennen tässä käsin kirjoitettuina. Ne ovat
+   mitattavissa tiedostosta, joten ne luetaan nyt kuvamanifestista —
+   käsin kirjoitettu mitta olisi voinut jäädä vanhaan, ja logo olisi
+   piirtynyt väärällä leveydellä ilman että mikään huomaa. */
+
 export const logos: Logo[] = [
-  { name: 'Sanoma',       file: 'logo-sanoma.png',       w: 1356, h: 128, height: 13 },
-  { name: 'Ilta-Sanomat', file: 'logo-ilta-sanomat.png', w: 1480, h: 204, height: 15 },
-  { name: 'Finavia',      file: 'logo-finavia.png',      w: 1232, h: 184, height: 15 },
-  { name: 'Oikotie',      file: 'logo-oikotie.png',      w: 928,  h: 248, height: 16 },
-  { name: 'Evira',        file: 'logo-evira.png',        w: 1212, h: 360, height: 24 },
-  { name: 'Elisa',        file: 'logo-elisa.png',        w: 1076, h: 424, height: 25 },
-  { name: 'Pivo',         file: 'logo-pivo.png',         w: 868,  h: 424, height: 25 },
-  { name: 'OP',           file: 'logo-op.png',           w: 504,  h: 336, height: 24 },
+  { name: 'Sanoma',       file: 'sanoma', height: 13 },
+  { name: 'Ilta-Sanomat', file: 'ilta-sanomat', height: 15 },
+  { name: 'Finavia',      file: 'finavia', height: 15 },
+  { name: 'Oikotie',      file: 'oikotie', height: 16 },
+  { name: 'Evira',        file: 'evira', height: 24 },
+  { name: 'Elisa',        file: 'elisa', height: 25 },
+  { name: 'Pivo',         file: 'pivo', height: 25 },
+  { name: 'OP',           file: 'op', height: 24 },
 
   {
     name: 'Colliers',
-    file: 'logo-colliers.png',
-    w: 1040,
-    h: 588,
+    file: 'colliers',
     height: 26,
     blocked:
       'Nykyinen tiedosto on tumma laatikko pyöristetyillä kulmilla ja varjolla — ei yksivärinen sanamerkki. Korvaa ennen käyttöä.',
   },
   {
     name: 'Microsoft',
-    file: 'logo-microsoft.png',
-    w: 872,
-    h: 640,
+    file: 'microsoft',
     height: 22,
     blocked:
       'Microsoftin tunnuksen käyttöehdot ovat tiukat eikä yksivärinen versio neliöistä ole yleensä sallittu. Tarkista lupa tai pidä pelkkä nimi.',
