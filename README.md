@@ -83,7 +83,25 @@ breakpointilla, välistyksen, layoutin, reunat ja motion-arvot.
 
 **2. Storyt** (`scripts/check-stories.mjs`) — jokaisella komponentilla on
 story, ja jokaisessa storyssa vähintään tumma teema ja mobiilikoko.
-Poikkeus on sallittu mutta se on kirjattava syineen.
+Poikkeus on sallittu, mutta **sen syy ei ole vapaa teksti.**
+
+Aiemmin se oli, ja se osoittautui aukoksi: `CaseBlocks.tsx`illa luki
+*"lohkot ovat omia komponenttejaan"*, mikä tarkoitti "nämä on testattu
+muualla". Se ei ollut totta — casesivun 12 lohkoa olivat yhden funktion
+sisällä eikä yhtäkään ollut koskaan renderöity testissä. Tarkistus
+näytti vihreää, koska se tarkisti että perustelu on olemassa, ei että
+se on totta.
+
+Syy on nyt valinta kolmesta, ja jokaisella on sääntö jonka skripti ajaa:
+
+| Syy | Mitä skripti tarkistaa |
+|---|---|
+| `palvelinkomponentti` | Tiedosto tai jokin sen importeista käyttää `node:fs`:ää |
+| `katettu-muualla` | Kattava sivu on olemassa **ja** viittaa tähän komponenttiin |
+| `ei-näkyvää` | JSX:ssä ei ole yhtään näkyvää elementtiä |
+
+Vapaan tekstin voi yhä kirjoittaa `huom`-kenttään ihmiselle, mutta se
+ei korvaa sääntöä.
 
 **3. Kovakoodatut arvot** (`scripts/check-hardcoded.mjs`) — tokenit eivät
 hajoa kerralla vaan yksi kiire kerrallaan: joku kirjoittaa

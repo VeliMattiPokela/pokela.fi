@@ -46,7 +46,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'stories',
     title: 'Storyt',
     proves: 'Jokaisella komponentilla on story, ja siinä on tumma teema ja mobiilikoko.',
-    blind: 'Poikkeuksen perustelu on vapaata tekstiä. Kone tarkistaa että se on olemassa, ei että se on totta.',
+    blind: 'Poikkeuksen syy on nyt valinta kolmesta, ja jokaisella on sääntö jonka kone ajaa. Mutta se ei näe onko story hyvä — vain että se on olemassa ja kattaa tumman teeman ja mobiilikoon.',
   },
   {
     id: 'code-connect',
