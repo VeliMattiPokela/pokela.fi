@@ -318,7 +318,12 @@ Loput: `portfolio-pokela/brand-brief.md`.
 - [ ] Figmassa ei ole auki olevaa valikkoa, joten `close`-ikonille ei ole
       siellä käyttöpaikkaa. Ikoni on kirjastossa ja koodissa; pohja
       lisätään jos valikko mallinnetaan.
-- [ ] Englanninkieliset tekstit — lisää `'en'` `lib/i18n.ts`:n `locales`-listaan kun valmiit
+- [ ] Englanninkieliset tekstit — lisää `'en'` `lib/i18n.ts`:n `locales`-listaan kun valmiit.
+      Näkyvät tekstit on siirretty sanakirjaan, joten käännös on kirjoitustyötä
+      eikä arkeologiaa. Samalla kannattaa tehdä `check:strings`, joka estää
+      uudet kovakoodatut tekstit — nyt se olisi vain listannut nykytilan, ja
+      poikkeuslista olisi kasvanut kohdassa jossa kone joutuu arvaamaan
+      tuotenimen ja käännettävän tekstin eron.
 - [ ] Blokbook: stack, julkaisuvuosi, taloyhtiöiden määrä
 - [ ] Asiakkaiden sitaatit (Colliers, Blokbook) ja "mitä tekisin toisin"
 - [ ] Colliersin logo — nykyinen tiedosto on tumma laatikko varjolla, ei sanamerkki

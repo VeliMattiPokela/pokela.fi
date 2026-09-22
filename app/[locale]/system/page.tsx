@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { isLocale, type Locale } from '@/lib/i18n';
+import { isLocale, path, type Locale } from '@/lib/i18n';
+import { getWork } from '@/content/work';
 import { getDictionary } from '@/content/dictionaries';
 import tokens, { colorNames, typeNames, spaceSteps } from '@/lib/tokens';
 import ListRow from '@/components/ListRow';
@@ -27,7 +28,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
   return (
     <>
       <header className="page page-head">
-        <h1 className="display-xl">System</h1>
+        <h1 className="display-xl">{dict.system.title}</h1>
         <p className="meta">
           {colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä
         </p>
@@ -167,7 +168,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
           <h2 id="components" className="meta">
             05 — Komponentit
           </h2>
-          <span className="meta">Radius 0 · viiva 1 px · ei varjoja</span>
+          <span className="meta">{dict.system.rules}</span>
         </div>
 
         <div className="page sys__buttons">
@@ -198,21 +199,18 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         </div>
 
         <div className="page sys__specimen sys__specimen--wide">
-          <span className="meta meta--s">list-row — vie osoitin päälle</span>
+          <span className="meta meta--s">{dict.system.listRowHint}</span>
         </div>
         <div className="list-rows">
-          <ListRow
-            title="Colliers Asunnot"
-            description="Vuokra-asuntopalvelu, joka suunniteltiin koodissa"
-            meta="Design, front end, CMS"
-            href="#"
-          />
-          <ListRow
-            title="Blokbook"
-            description="Oman taloyhtiön ongelmasta myytäväksi palveluksi"
-            meta="Perustaja — tuote, design, toteutus"
-            href="#"
-          />
+          {getWork(locale as Locale).leads.slice(0, 2).map((lead) => (
+            <ListRow
+              key={lead.slug}
+              title={lead.title}
+              description={lead.tagline}
+              meta={lead.meta}
+              href={path(locale as Locale, 'work', lead.slug)}
+            />
+          ))}
         </div>
       </section>
     </>

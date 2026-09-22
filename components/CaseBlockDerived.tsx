@@ -4,6 +4,7 @@ import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
 import { checks } from '@/lib/checks';
+import type { Locale } from '@/lib/i18n';
 
 /**
  * Casen johdetut lohkot: ne eivät piirrä annettua dataa vaan lukevat
@@ -20,7 +21,13 @@ import { checks } from '@/lib/checks';
  */
 export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' }>;
 
-export default function CaseBlockDerived({ block }: { block: DerivedBlock }) {
+export default function CaseBlockDerived({
+  block,
+  locale,
+}: {
+  block: DerivedBlock;
+  locale: Locale;
+}) {
   switch (block.kind) {
     case 'artefacts': {
       /* Tila luetaan tiedostoista build-aikana, ei casedatasta.
@@ -123,7 +130,7 @@ export default function CaseBlockDerived({ block }: { block: DerivedBlock }) {
             <h3 className="display-m case__h">{block.title}</h3>
             <p className="body-l measure case__p">{block.body}</p>
             {/* Palvelinkomponentti: lukee lähdekoodin build-aikana. */}
-            <ListRowShowcase />
+            <ListRowShowcase locale={locale} />
           </div>
         </section>
       );

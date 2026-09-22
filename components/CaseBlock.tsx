@@ -3,6 +3,7 @@ import Media from './Media';
 import Reveal from './Reveal';
 import CaseText from './CaseText';
 import type { Locale } from '@/lib/i18n';
+import { getDictionary } from '@/content/dictionaries';
 
 /**
  * Casen puhtaat lohkot: ne piirtävät sen mitä niille annetaan.
@@ -32,6 +33,7 @@ export default function CaseBlock({
   locale: Locale;
   slug: string;
 }) {
+  const dict = getDictionary(locale);
   switch (block.kind) {
     case 'text':
       return (
@@ -190,7 +192,7 @@ export default function CaseBlock({
       if (process.env.NODE_ENV === 'production') return null;
       return (
         <div className="page case__section">
-          <span className="meta">Täydennettävä</span>
+          <span className="meta">{dict.common.todo}</span>
           <span className="todo">{block.text}</span>
         </div>
       );

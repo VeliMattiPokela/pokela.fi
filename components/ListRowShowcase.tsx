@@ -2,6 +2,9 @@ import { readCodeConnect, readSource, readStories, readTokenGroups } from '@/lib
 import { componentArtefacts } from '@/lib/artefacts';
 import { highlight } from '@/lib/highlight';
 import ComponentView, { CodeBlock, FactList } from './ComponentView';
+import { getDictionary } from '@/content/dictionaries';
+import { path, type Locale } from '@/lib/i18n';
+import { getWork } from '@/content/work';
 import ListRow from './ListRow';
 
 /**
@@ -22,7 +25,12 @@ const SOURCES = {
   connect: 'components/ListRow.figma.ts',
 } as const;
 
-export default async function ListRowShowcase() {
+export default async function ListRowShowcase({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale);
+  /* Näyterivit luetaan sisällöstä eikä kirjoiteta tähän: muuten sama
+     teksti eläisi kahdessa paikassa ja osoitteet olisivat lukossa
+     yhteen kieleen. */
+  const leads = getWork(locale).leads;
   /* Koko tiedosto, ei otetta: paneeli vierittää. Piilotettu pätkä
      herättäisi kysymyksen siitä mitä muuta siellä on — ja tämän
      casen argumentti on nimenomaan että kaiken voi tarkistaa. */
@@ -50,7 +58,8 @@ export default async function ListRowShowcase() {
 
   return (
     <ComponentView
-      label="Listarivi neljästä suunnasta"
+      label={dict.showcase.label}
+      linksLabel={dict.showcase.elsewhere}
       tabs={[
         {
           id: 'nakyma',
@@ -59,26 +68,26 @@ export default async function ListRowShowcase() {
             <>
               <div className="list-rows cview__demo">
                 <ListRow
-                  title="Colliers Asunnot"
-                  description="Vuokra-asuntopalvelu, joka suunniteltiin koodissa"
-                  meta="Design, front end, CMS"
-                  href="/fi/tyot/colliers/"
+                  title={leads[0].title}
+                  description={leads[0].tagline}
+                  meta={leads[0].meta}
+                  href={path(locale, 'work', leads[0].slug)}
                 />
                 {/* Keskimmäinen rivi näyttää käännetyn tilan staattisena
                     `invert`-utilitylla — samat tokenit kuin hoverissa,
                     ei omaa sääntöä. Kosketuslaitteella hoveria ei ole. */}
                 <ListRow
-                  title="Blokbook"
-                  description="Oman taloyhtiön ongelmasta myytäväksi palveluksi"
-                  meta="Hover / :active — käännetty"
-                  href="/fi/tyot/blokbook/"
+                  title={leads[1].title}
+                  description={leads[1].tagline}
+                  meta={dict.showcase.hoverDemo}
+                  href={path(locale, 'work', leads[1].slug)}
                   className="invert"
                 />
                 <ListRow
-                  title="Tämä sivusto"
-                  description="Yksi lähde, kaksi suuntaa"
-                  meta="Design system, Storybook, Figma"
-                  href="/fi/tyot/tama-sivusto/"
+                  title={leads[2].title}
+                  description={leads[2].tagline}
+                  meta={leads[2].meta}
+                  href={path(locale, 'work', leads[2].slug)}
                 />
               </div>
 
@@ -197,10 +206,10 @@ export default async function ListRowShowcase() {
             <>
               <div className="cview__split">
                 <div>
-                  <h4 className="meta">Komponentti Figmassa</h4>
+                  <h4 className="meta">{dict.showcase.figmaHeading}</h4>
                   <FactList
                     items={[
-                      { label: 'Nimi', value: <code>ListRow</code> },
+                      { label: dict.showcase.name, value: <code>ListRow</code> },
                       ...connect.variants.map((variant) => ({
                         label: `Variantti: ${variant.name}`,
                         value: variant.values.join(' · '),
@@ -232,7 +241,7 @@ export default async function ListRowShowcase() {
                 </div>
 
                 <div>
-                  <h4 className="meta">Code Connect -kytkentä</h4>
+                  <h4 className="meta">{dict.showcase.codeConnectHeading}</h4>
                   <CodeBlock
                     path={SOURCES.connect}
                     html={connectHtml}

@@ -34,7 +34,7 @@ export default function CaseBlocks({
     <>
       {blocks.map((block, index) =>
         DERIVED.has(block.kind) ? (
-          <CaseBlockDerived key={index} block={block as never} />
+          <CaseBlockDerived key={index} block={block as never} locale={locale} />
         ) : (
           <CaseBlock key={index} block={block as never} locale={locale} slug={slug} />
         ),

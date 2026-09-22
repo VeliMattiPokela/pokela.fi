@@ -35,10 +35,14 @@ export default function ComponentView({
   tabs,
   label,
   links,
+  linksLabel,
 }: {
   tabs: Tab[];
   /** Saavutettava nimi koko ryhmälle. */
   label: string;
+  /** Alarivin otsikko. Propsina eikä kirjoitettuna tähän, jotta se
+      kulkee sanakirjan kautta kuten muukin näkyvä teksti. */
+  linksLabel?: string;
   /** Alarivin artefaktit. Tila kertoo onko se julkaistu, olemassa
       vai tulossa — "tulossa" ei saa tarkoittaa kahta eri asiaa. */
   links?: { label: string; href: string | null; state: string; note: string }[];
@@ -110,7 +114,7 @@ export default function ComponentView({
 
       {links?.length ? (
         <div className="cview__links">
-          <span className="meta">Sama komponentti muualla</span>
+          <span className="meta">{linksLabel}</span>
           <span className="cview__links-list">
             {links.map((link) =>
               link.href ? (

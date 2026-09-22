@@ -97,10 +97,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className="page section">
           <Grid>
             <Col base={4} sm={8} md={7}>
-              <Media ratio="4:3" caption="Colliers — asuntohaku" />
+              <Media ratio="4:3" caption={dict.captions.homeColliers} />
             </Col>
             <Col base={4} sm={8} md={4} startMd={9}>
-              <Media ratio="4:5" caption="Blokbook — varausnäkymä" />
+              <Media ratio="4:5" caption={dict.captions.homeBlokbook} />
             </Col>
           </Grid>
         </section>

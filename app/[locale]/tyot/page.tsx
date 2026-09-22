@@ -74,7 +74,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
       {/* ---- nosto + outro --------------------------------------- */}
       <Reveal>
         <section className="page section">
-          <Media ratio="4:3" caption="Nosto: Storybook-näkymä" />
+          <Media ratio="4:3" caption={dict.captions.workStorybook} />
 
           <div className="work__outro">
             <h2 className="display-m">{dict.work.outroTitle}</h2>

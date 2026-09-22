@@ -91,8 +91,39 @@ const fi = {
     year: '2026',
   },
 
+  /* Kuvatekstit. Näkyvät sivulla ja luetaan ruudunlukijalle, joten ne
+     kuuluvat tänne eivätkä komponenttiin. Tuotenimet (Colliers,
+     Blokbook, Storybook) eivät käänny, mutta loppuosa kääntyy. */
+  captions: {
+    homeColliers: 'Colliers — asuntohaku',
+    homeBlokbook: 'Blokbook — varausnäkymä',
+    workStorybook: 'Nosto: Storybook-näkymä',
+  },
+
+  /* System-sivu ja komponenttinäyttely. Nämä ovat dokumentaatiota,
+     mutta dokumentaatio on osa sivustoa ja kääntyy sen mukana. */
+  system: {
+    rules: 'Radius 0 · viiva 1 px · ei varjoja',
+    listRowHint: 'list-row — vie osoitin päälle',
+    title: 'System',
+  },
+
+  showcase: {
+    label: 'Listarivi neljästä suunnasta',
+    figmaHeading: 'Komponentti Figmassa',
+    codeConnectHeading: 'Code Connect -kytkentä',
+    elsewhere: 'Sama komponentti muualla',
+    name: 'Nimi',
+    /* Keskimmäisen näyterivin meta ei ole sisältöä vaan selite siitä
+       mitä rivi demonstroi. */
+    hoverDemo: 'Hover / :active — käännetty',
+  },
+
   common: {
     role: 'Rooli',
+    /* Näkyy vain kehityksessä: tuotannossa täydentämätön kohta
+       jätetään pois. Silti sanakirjassa, koska se on näkyvää tekstiä. */
+    todo: 'Täydennettävä',
     /* Vastuujako. Olivat ennen kovakoodattuina PreviousWorkissa,
        jolloin ne olisivat jääneet suomeksi englanninkieliselle
        sivulle. */
