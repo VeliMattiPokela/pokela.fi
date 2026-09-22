@@ -61,6 +61,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     blind: 'Sama kuin storyilla: poikkeuksen syy on tekstiä.',
   },
   {
+    id: 'favicon',
+    title: 'Favicon',
+    proves:
+      'public/-kansion favicon-tiedostot vastaavat tavu tavulta sitä mitä tokens.css:n käännetty väripari tuottaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa, joten ne eivät voi erota toisistaan.',
+    blind:
+      'Ei arvioi merkin laatua. Muoto on koordinaatteina generaattorissa, ja sen luettavuus 16 pikselissä on tarkistettu silmällä — mikään ei valvo ettei seuraava muutos riko sitä.',
+  },
+  {
     id: 'figma',
     title: 'Figma',
     proves:

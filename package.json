@@ -12,7 +12,7 @@
     "build-storybook": "storybook build",
     "check": "npm run check:sync && npx tsc --noEmit && npm run test:stories",
     "check:stories": "node scripts/check-stories.mjs",
-    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded && npm run check:docs",
+    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded && npm run check:favicon && npm run check:docs",
     "test:stories": "vitest run --project=storybook",
     "test:stories:watch": "vitest --project=storybook",
     "publish:tokens": "node scripts/publish-tokens.mjs",
@@ -22,7 +22,9 @@
     "check:hardcoded": "node scripts/check-hardcoded.mjs",
     "check:figma": "node scripts/check-figma.mjs",
     "check:docs": "node scripts/check-docs.mjs",
-    "docs:korjaa": "node scripts/check-docs.mjs --korjaa"
+    "docs:korjaa": "node scripts/check-docs.mjs --korjaa",
+    "build:favicon": "node scripts/build-favicon.mjs",
+    "check:favicon": "node scripts/check-favicon.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

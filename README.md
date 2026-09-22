@@ -112,7 +112,24 @@ Tarkistus ei kiellä poikkeusta vaan vaatii sille syyn — jokainen
 kovakoodattu mitta ja väri on joko token tai kirjattu `EXEMPT`-listaan
 perusteluineen.
 
-**4. Saavutettavuus** (`npm run test:stories`) — jokainen story
+**4. Favicon** (`scripts/check-favicon.mjs`) — `public/`-kansion
+favicon-tiedostot eivät ole käsin piirrettyjä binäärejä vaan johdettuja
+artefakteja: `scripts/build-favicon.mjs` laskee ne `tokens.css`:n
+käännetystä väriparista (`--invert-surface` / `--invert-ink`) ja
+piirtää merkin tämän järjestelmän omana vektorina. Ilman tarkistusta
+paletin muutos jättäisi ikonin vanhaan sävyyn — repossa oleva `.ico` ei
+kerro mistä se on tullut, eikä kukaan katso selaimen välilehteä
+teemanvaihdon jälkeen.
+
+Tarkistus kutsuu samaa `tiedostot()`-funktiota kuin generointi ja
+vertaa tuloksen levyyn tavu tavulta. Se ei siis voi laskea eri tavalla
+kuin generaattori, ja se havaitsee myös käsin muokatun tiedoston.
+Korjaus on `npm run build:favicon`.
+
+**Raja:** tarkistus ei näe onko merkki hyvä. Muoto on koordinaatteina
+generaattorissa, ja sen luettavuus 16 pikselissä on arvioitu silmällä.
+
+**5. Saavutettavuus** (`npm run test:stories`) — jokainen story
 renderöidään Chromiumissa ja tarkistetaan axella. Kontrastivirhe,
 puuttuva saavutettava nimi tai rikkoutunut otsikkohierarkia kaataa ajon
 ja raportti kertoo elementin, mitatun arvon ja vaaditun rajan:
@@ -135,7 +152,7 @@ se on oikea; se ei kerro onko ruudunlukijan lukujärjestys mielekäs eikä
 toimiiko ennen/jälkeen-jakaja näppäimistöllä järkevästi. Tarkistus estää
 regression, se ei korvaa läpikäyntiä.
 
-**5. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
+**6. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
 koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
 komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
 koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
@@ -149,7 +166,7 @@ sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
 `check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
 Figmaan lisätty komponentti ei ilmesty siihen itsestään.
 
-**6. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
+**7. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
 Figma-tiedoston. Se varmistaa kolme asiaa: jokaisen kytkennän
 `node-id` osoittaa olemassa olevaan komponenttiin ja nimi täsmää,
 jokaisella kirjaston komponentilla on kytkentä, ja **jokainen property
@@ -178,7 +195,7 @@ Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
 mukana". Nyt väite on totta rakenteeltaan. Oikeus:
 *Development → Write and change component code*.
 
-**7. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
+**8. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
 mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`

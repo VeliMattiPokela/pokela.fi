@@ -45,6 +45,17 @@ export async function generateMetadata({
       canonical: path(locale),
       languages: Object.fromEntries(locales.map((l) => [localeTags[l], path(l)])),
     },
+    /* Tiedostot syntyvät scripts/build-favicon.mjs:llä tokeneista.
+       .ico on listalla ensin myös siksi että selain pyytää
+       /favicon.ico:ta joka tapauksessa — ilman sitä pyyntö osuisi
+       [locale]-reittiin ja kaatuisi 500:aan. */
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '48x48' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
     openGraph: {
       title: dict.meta.title,
       description: dict.meta.description,

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .pinta { fill: #101112 }
+    .muste { fill: #F4F4F2 }
+    @media (prefers-color-scheme: dark) {
+      .pinta { fill: #F4F4F2 }
+      .muste { fill: #0E0F10 }
+    }
+  </style>
+  <rect class="pinta" width="32" height="32"/>
+  <path class="muste" fill-rule="evenodd" d="M10 6 H18 A6 6 0 0 1 18 18 H14 V26 H10 Z M14 10 H18 A2 2 0 0 1 18 14 H14 Z"/>
+</svg>
