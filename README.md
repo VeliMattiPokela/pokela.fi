@@ -267,17 +267,11 @@ Loput: `portfolio-pokela/brand-brief.md`.
         Todennettu ulkopuolelta: `linkAccess: view`, HTTP 200 ilman
         tunnusta, tiedosto renderöityy ilman kirjautumista.
 
-      Auki: **mitä tiedostolle tapahtuu jos työsuhde päättyy.** Tämä ei
-      estä julkaisua — tiedoston voi siirtää omaan tiliin silloin kun se
-      on ajankohtaista, ja osoitteen päivitys on yksi commit
-      (`content/artefacts.ts` + kahdeksan `.figma.ts`:n tiedostoavain,
-      jotka `check:figma` osoittaa yksitellen).
-
-      Ainoa todellinen riski on ajoitus: työsuhteen päättyminen on usein
-      äkillinen, jolloin "siirretään sitten" ei ole enää vaihtoehto.
-      Halpa vakuutus on kopio omalle Figma-tilille — se ei muuta
-      sivustoa eikä julkaistua linkkiä, mutta työ on tallessa vaikka
-      pääsy katkeaisi.
+      Jos tiedosto pitää joskus siirtää omaan tiliin, se on yksi commit:
+      `content/artefacts.ts` ja kahdeksan `.figma.ts`:n tiedostoavain.
+      `check:figma` osoittaa jokaisen jääneen kohdan yksitellen, joten
+      siirto on mekaaninen. Irtisanomisaika on Suomessa 1–2 kuukautta,
+      joten aikaa on. Ei syy pidätellä julkaisua.
 
       **Raja jonka lukija kohtaa:** Code Connect -kytkennät näkyvät vain
       Dev Modessa, jota anonyymi katselija ei saa auki ("Sign up to
