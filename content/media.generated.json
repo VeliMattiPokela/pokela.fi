@@ -1,5 +1,25 @@
 {
   "paikat": {
+    "muotokuva": {
+      "tyyppi": "kuva",
+      "osat": {
+        "muotokuva": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 1,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600
+            ],
+            "leveys": 1600,
+            "korkeus": 1600
+          }
+        ]
+      }
+    },
     "pivo-kirjautuminen": {
       "tyyppi": "vertailu",
       "osat": {

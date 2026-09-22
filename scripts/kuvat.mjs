@@ -72,6 +72,7 @@ export async function paikat() {
   const moduulit = await Promise.all([
     import(join(root, 'content/cases/fi.ts')),
     import(join(root, 'content/work/fi.ts')),
+    import(join(root, 'content/kuvat.ts')),
   ]);
 
   const loydetyt = new Map();

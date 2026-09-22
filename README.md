@@ -304,6 +304,11 @@ kuvateksteineen.
 
 Vertailupari tarvitsee kaksi tiedostoa: `<id>-ennen` ja `<id>-jalkeen`.
 
+Casejen ja aiempien töiden kuvapaikat luetaan sisältötiedostoista.
+Kuvat jotka eivät kuulu mihinkään caseen — tällä hetkellä muotokuva —
+ovat omassa rekisterissään `content/kuvat.ts`. Ilman sitä muotokuva
+olisi jäänyt ainoaksi käsin ylläpidetyksi kuvaksi sivustolla.
+
 ### Kolme kansiota
 
 | Kansi | Rooli | Repossa |

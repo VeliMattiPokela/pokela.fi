@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import { Lahteet, rajaukset } from '@/components/Media';
 import { isLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
 import { getCv } from '@/content/cv';
 import PrintCv from '@/components/PrintCv';
 import { Grid, Col } from '@/components/Grid';
 import Reveal from '@/components/Reveal';
+
+/** Muotokuva on neljä saraketta kahdestatoista, eli noin kolmannes. */
+const PORTRAIT_SIZES =
+  '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 40px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)';
 
 export async function generateMetadata({
   params,
@@ -67,15 +71,34 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
           <Col base={4} sm={8} md={4} startMd={9}>
             {/* Muotokuvan tausta on poistettu, joten se piirretään
-                suoraan paperille ilman kehystä tai pintaa. */}
-            <Image
-              src="/assets/portrait.png"
-              alt={about.portraitAlt}
-              width={1667}
-              height={1667}
-              className="about__portrait"
-              priority
-            />
+                suoraan paperille ilman kehystä tai pintaa.
+
+                Kuva kulkee saman putken läpi kuin casejen kuvat
+                (content/kuvat.ts → npm run kuvat), mutta se ei käytä
+                Media-komponenttia: sillä on oma luokkansa
+                maskihäivytystä varten eikä se saa paikanvaraajan
+                taustaa taakseen — tausta näkyisi läpinäkyvän alueen
+                kohdalla. Rajaukset luetaan silti samasta
+                manifestista. */}
+            {(() => {
+              const osa = rajaukset('muotokuva')?.[0];
+              if (!osa) return null;
+              return (
+                <picture>
+                  <Lahteet nimi="muotokuva" r={osa} sizes={PORTRAIT_SIZES} />
+                  <img
+                    src={`/kuva/muotokuva-${osa.koko}-${osa.leveys}.webp`}
+                    alt={about.portraitAlt}
+                    width={osa.leveys}
+                    height={osa.korkeus}
+                    sizes={PORTRAIT_SIZES}
+                    fetchPriority="high"
+                    decoding="sync"
+                    className="about__portrait"
+                  />
+                </picture>
+              );
+            })()}
           </Col>
         </Grid>
       </section>
