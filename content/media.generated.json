@@ -1,5 +1,52 @@
 {
   "paikat": {
+    "blokbook-hero": {
+      "tyyppi": "kuva",
+      "osat": {
+        "blokbook-hero": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.8,
+            "leveydet": [
+              480,
+              800,
+              864
+            ],
+            "leveys": 864,
+            "korkeus": 1080
+          },
+          {
+            "koko": "sm",
+            "media": "(min-width: 600px)",
+            "suhde": 1.7778,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              1920
+            ],
+            "leveys": 1920,
+            "korkeus": 1080
+          },
+          {
+            "koko": "lg",
+            "media": "(min-width: 900px)",
+            "suhde": 2.3333,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              1920
+            ],
+            "leveys": 1920,
+            "korkeus": 823
+          }
+        ]
+      }
+    },
     "muotokuva": {
       "tyyppi": "kuva",
       "osat": {

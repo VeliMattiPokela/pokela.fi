@@ -59,10 +59,19 @@ const MISSING_OK = {
  * selittää miksi sitä ei ole repossa. Ilman tätä tarkistus menisi
  * läpi koneella ja kaatuisi CI:ssä, mikä on pahin mahdollinen
  * yhdistelmä. Näin kävi ensimmäisellä ajolla.
+ *
+ * Kauttaviiva on merkitsevä. `.gitignoren` sääntö `kuvat/uudet/`
+ * koskee vain hakemistoa, ja ilman päättävää kauttaviivaa git ei voi
+ * päätellä onko polku hakemisto silloin kun sitä ei ole levyllä.
+ * Paikallisesti hakemisto on olemassa ja sääntö osuu; CI:n tuoreessa
+ * checkoutissa se ei ole, eikä osunut. Sama vika kuin edellä, uudessa
+ * paikassa — siksi molemmat muodot kokeillaan.
  */
 function gitIgnored(path) {
-  const result = spawnSync('git', ['check-ignore', '-q', path], { cwd: root });
-  return result.status === 0;
+  const muodot = path.endsWith('/') ? [path] : [path, `${path}/`];
+  return muodot.some(
+    (muoto) => spawnSync('git', ['check-ignore', '-q', muoto], { cwd: root }).status === 0,
+  );
 }
 
 /* ---- generaattorit -------------------------------------------------- */
