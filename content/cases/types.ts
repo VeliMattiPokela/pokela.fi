@@ -37,6 +37,10 @@ export type Block =
   /** Synkkatarkistukset. Lista johdetaan package.jsonista
       (lib/checks.ts) — mitä ajetaan, se näkyy. Casetekstiin ei
       kirjoiteta mitä tarkistetaan, koska se väite vanheni kerran jo. */
+  /* `title` on pakko sisältää `{n}`: renderöijä korvaa sen ajossa
+     olevien tarkistusten määrällä. Ilman placeholderia build kaatuu.
+     Luku vanheni kerran käsin kirjoitettuna — otsikko lupasi neljää
+     kun niitä oli seitsemän. */
   | { kind: 'checks'; label: string; title: string; note: string }
   /** Numeroitu putki, ei linkkejä. */
   | { kind: 'steps'; label: string; title: string; body: string; items: { h: string; p: string }[] }

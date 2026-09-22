@@ -3,7 +3,7 @@ import Reveal from './Reveal';
 import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
-import { checks } from '@/lib/checks';
+import { checks, liveCheckCount } from '@/lib/checks';
 import type { Locale } from '@/lib/i18n';
 
 /**
@@ -79,15 +79,31 @@ export default function CaseBlockDerived({
     case 'checks': {
       /* Lista johdetaan package.jsonista. Casetekstissä on vain
          otsikko ja johdanto — se mitä tarkistetaan, luetaan sieltä
-         missä tarkistukset asuvat. */
+         missä tarkistukset asuvat.
+
+         Myös otsikon luku on johdettu. Käsin kirjoitettuna se vanheni
+         heti: otsikko lupasi neljä tarkistusta kun niitä oli
+         seitsemän — täsmälleen se virhe jota tämä lohko käsittelee,
+         tällä sivulla itsellään. Placeholder on pakollinen, joten
+         lukua ei voi kirjoittaa takaisin: puuttuva {n} kaataa buildin
+         eikä muutos pääse läpi. Luku jää numeroksi eikä sanaksi,
+         koska taivutus olisi taas käsin kirjoitettua kieltä
+         komponentissa. */
       const all = checks();
-      const live = all.filter((c) => c.runs).length;
+      const live = liveCheckCount();
+
+      if (!block.title.includes('{n}')) {
+        throw new Error(
+          `Case-lohko 'checks': otsikosta puuttuu {n}. ` +
+            `Tarkistusten määrä on johdettava, ei kirjoitettava. Nyt: "${block.title}"`,
+        );
+      }
       return (
         <Reveal>
           <section className="page case__section">
             <h2 className="meta">{block.label}</h2>
             <div className="case__section-body">
-              <h3 className="display-m case__h">{block.title}</h3>
+              <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <p className="body-l measure case__p">
                 Ajossa {live} tarkistusta {all.length}:stä. Loput näkyvät tässä listassa

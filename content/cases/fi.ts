@@ -322,7 +322,7 @@ const thisSite: Case = {
     {
       kind: 'checks',
       label: 'Mitä build tarkistaa',
-      title: 'Neljä tarkistusta, ja niiden sokeat kohdat',
+      title: '{n} tarkistusta, ja niiden sokeat kohdat',
       note: 'Lista ei ole kirjoitettu tähän vaan johdettu package.jsonista: tarkistus näkyy vasta kun se on kytketty ketjuun ja sen skripti on olemassa. Tämä sivu väitti kerran että Figmaa tarkistetaan — ei tarkistettu. Siksi väite luetaan nyt sieltä missä se on totta.',
     },
     {
