@@ -292,6 +292,11 @@ Loput: `portfolio-pokela/brand-brief.md`.
 
 ## Avoinna
 
+Kaksi listaa: järjestelmä on sitä mitä voin tehdä itse, sisältö vaatii
+sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
+
+### Järjestelmä
+
 - [ ] **Figma-tiedosto on Loihde Factorin organisaatiossa.** Kahdesta
       kysymyksestä toinen on ratkennut 22.9.2026:
 
@@ -368,16 +373,115 @@ Loput: `portfolio-pokela/brand-brief.md`.
       uudet kovakoodatut tekstit — nyt se olisi vain listannut nykytilan, ja
       poikkeuslista olisi kasvanut kohdassa jossa kone joutuu arvaamaan
       tuotenimen ja käännettävän tekstin eron.
-- [ ] Blokbook: stack, julkaisuvuosi, taloyhtiöiden määrä
-- [ ] Asiakkaiden sitaatit (Colliers, Blokbook) ja "mitä tekisin toisin"
-- [ ] Colliersin logo — nykyinen tiedosto on tumma laatikko varjolla, ei sanamerkki
-- [ ] Microsoftin logon käyttölupa — tai pidä pelkkä nimi
-- [ ] Oikeat kuvat ja videot; shot listit ovat `portfolio-pokela/*.dc.html`-tiedostoissa
 
-Aiemmista töistä puuttuu (siirretty tänne `content/work/fi.ts`:n `todo`-kentistä,
-jotka eivät koskaan renderöityneet sivulle):
+### Sisältö
 
-- [ ] Pivo: saavutettavuusuudistuksen kriteerit ja saavutettu taso
-- [ ] Elisa Aisti: kuinka suuri osa front endistä oli omaa työtä? Nyt sanotaan "osallistuin"
-- [ ] OP Vahinkoapuri: onko korvauskäsittelyn nopeutumisesta julkaistavia lukuja?
-- [ ] Aistin ja OP:n kaappaukset ovat laitemockuppeja — rajattava näyttöalueeseen ennen käyttöä
+Yhteensä **18 kuvaa** ja **16 muuta kohtaa**, joista kaksi odottaa
+ulkopuolista lupaa (Colliersin sitaatti, Microsoftin logo).
+
+Kuvapaikat ovat jo olemassa oikeissa kuvasuhteissa — ne renderöityvät
+paikanvaraajina kunnes tiedosto on olemassa, eivätkä siis vaadi
+koodimuutosta. Kuvatekstit on kirjoitettu, joten ne kertovat mitä
+kuvassa pitää näkyä.
+
+**Videota ei ole missään.** `components/Media.tsx` osaa vain kuvan, ja
+casejen sisällössä ei ole yhtään videopaikkaa. Jos jokin näistä
+kannattaa esittää liikkeenä, se on komponenttimuutos eikä pelkkä
+tiedosto.
+
+Lähteet: casejen sisältö on `content/cases/fi.ts`, aiemmat työt
+`content/work/fi.ts`. Kuvaussuunnitelmat ovat
+`portfolio-pokela/*.dc.html`-tiedostoissa.
+
+---
+
+#### 01 · Colliers Asunnot — 6 kuvaa, 3 faktaa, 1 lupa, 1 logo
+
+| # | Suhde | Mitä |
+|---|---|---|
+| 1 | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, **min. 2800 px leveä** |
+| 2 | 4:3 | Viikko 1: skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä |
+| 3 | 4:3 | Sama näkymä julkaistussa palvelussa — **sama rajaus kuin 2** |
+| 4 | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
+| 5 | 4:5 | Vuokraa heti -polku, yksi vaihe |
+| 6 | 4:5 | Strapi-editori sisältöä muokattaessa |
+
+- [ ] "Mitä tekisin toisin" — yksi rehellinen lause
+- [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
+- [ ] Mittarit. Teksti sanoo nyt "Mittareita ei ole vielä julkaistu" —
+      joko luvut tai lause pois
+- [ ] Logo. `public/assets/logo/logo-colliers.png` on tumma laatikko
+      harmaine palkkeineen; muut logorivin merkit ovat läpinäkyviä
+      sanamerkkejä. Nykyinen ei istu riviin
+
+#### 02 · Blokbook — 6 kuvaa, 5 faktaa
+
+| # | Suhde | Mitä |
+|---|---|---|
+| 1 | hero | Varausnäkymä työpöydällä — **oikeaa dataa, ei demosisältöä** |
+| 2 | 4:3 | Asukas varaa ja maksaa: vapaat vuorot ja maksu |
+| 3 | 4:3 | Isännöinnin hallintanäkymä: tilat, vuorot, maksut, käyttöoikeudet |
+| 4 | 3:4 | Web — varausnäkymä kapeana |
+| 5 | 3:4 | iOS — natiivisovellus, **ei laitekehystä** |
+| 6 | 3:4 | Android — sama näkymä |
+
+- [ ] Stack
+- [ ] Julkaisuvuosi
+- [ ] Taloyhtiöiden määrä (jos saa kertoa)
+- [ ] Isännöitsijän tai hallituksen lause
+- [ ] "Mitä tekisin toisin"
+
+#### 03 · Tämä sivusto — valmis
+
+Ei kuvapaikkoja, ei puuttuvia faktoja. Kaikki viisi artefaktia ovat
+julkaistuja ja linkitettyjä: Storybook, Figma-tiedosto, Code
+Connect -kytkennät, repo ja sivu itse.
+
+- [ ] Poista vanhentunut `todo`-lohko `content/cases/fi.ts`:stä. Se
+      pyytää viittä URL-osoitetta, komponenttinäkymän koodia ja
+      kytkentöjen määrää — kaikki johdetaan nyt build-aikana. Lohko ei
+      renderöidy tuotannossa, joten se ei näy lukijalle, mutta se
+      valehtelee lähdekoodissa
+
+#### 04 · Pivo — kuva valmis, 1 fakta
+
+Ennen/jälkeen-kuva on olemassa (`pivo-ennen.png`, `pivo-jalkeen.png`).
+
+- [ ] Saavutettavuusuudistuksen kriteerit ja saavutettu taso
+
+#### 05 · Elisa Aisti — 3 kuvaa, 1 fakta
+
+| # | Suhde | Mitä |
+|---|---|---|
+| 1 | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
+| 2 | 4:5 | Mobiilikartta ja toimipisteen tila |
+| 3 | 4:3 | Tiketti aikaennusteineen |
+
+- [ ] Kuinka suuri osa front endistä oli omaa työtä? Nyt lukee
+      "Front end -toteutus" ilman rajausta
+- [ ] Nykyiset kaappaukset ovat laitemockuppeja — rajattava
+      näyttöalueeseen ennen käyttöä
+
+#### 06 · OP Vahinkoapuri — 3 kuvaa, 1 fakta
+
+| # | Suhde | Mitä |
+|---|---|---|
+| 1 | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+| 2 | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+| 3 | 4:3 | Mukautuva kysymyspolku |
+
+- [ ] Onko korvauskäsittelyn nopeutumisesta julkaistavia lukuja?
+- [ ] Nykyiset kaappaukset ovat laitemockuppeja — rajattava
+      näyttöalueeseen ennen käyttöä
+
+#### Kaikkia koskevat
+
+- [ ] Microsoftin logon käyttölupa — tai jätä pelkkä nimi. Logo on
+      `public/assets/logo/logo-microsoft.png` ja näkyy logorivissä
+
+---
+
+**Lähimpänä valmista:** Blokbook. Kuvat ovat omasta tuotteesta, joten
+et tarvitse kenenkään lupaa — ja viisi puuttuvaa faktaa ovat sinun
+tiedossasi. Colliers vaatii asiakkaan luvan sitaattiin ja uuden
+logotiedoston.
