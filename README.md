@@ -260,11 +260,23 @@ Loput: `portfolio-pokela/brand-brief.md`.
 ## Avoinna
 
 - [ ] CV-PDF puuttuu — `/cv/veli-matti-pokela-cv.pdf` on linkitetty mutta tiedostoa ei ole
-- [ ] **Figma-tiedosto on Loihde Factorin organisaatiossa.** Kaksi asiaa
-      tarkistettava ennen julkaisua: (1) salliiko organisaation asetus
-      julkisen katselulinkin — case 03 lepää sen varassa, (2) mitä
-      artefaktille tapahtuu jos työsuhde päättyy. Jos kumpikaan ei ratkea,
-      kirjasto siirretään omaan tiimiin ja Code Connect jää pois.
+- [ ] **Figma-tiedosto on Loihde Factorin organisaatiossa.** Kahdesta
+      kysymyksestä toinen on ratkennut 22.9.2026:
+
+      ✓ Organisaatio sallii julkisen katselulinkin, ja se on päällä.
+        Todennettu ulkopuolelta: `linkAccess: view`, HTTP 200 ilman
+        tunnusta, tiedosto renderöityy ilman kirjautumista.
+
+      Auki: **mitä tiedostolle tapahtuu jos työsuhde päättyy.** Tiedosto
+      on organisaation sisällä riippumatta linkkiasetuksesta. Jos vastaus
+      on epävarma, tiedosto siirretään omaan tiliin ennen julkaisua —
+      silloin päivitettävää on yksi osoite ja kahdeksan kytkentätiedostoa,
+      eikä julkaistussa portfoliossa ole hetkeäkään vanhaa linkkiä.
+
+      **Raja jonka lukija kohtaa:** Code Connect -kytkennät näkyvät vain
+      Dev Modessa, jota anonyymi katselija ei saa auki ("Sign up to
+      inspect"). Katselulinkki riittää tiedostoon, ei kytkentöihin. Tämä
+      lukee nyt myös artefaktilistassa.
 - [ ] **Storybookin julkaisu on käsin.** `pokela-storybook.netlify.app` ei ole
       kytketty repoon vaan se julkaistaan CLI:llä:
 

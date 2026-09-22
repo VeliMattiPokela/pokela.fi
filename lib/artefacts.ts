@@ -143,7 +143,11 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
       body: 'Määrittelyt jotka kertovat Figmalle, mikä koodikomponentti vastaa mitä.',
       state: state(artefactUrls.codeConnect, connections > 0),
       href: artefactUrls.codeConnect,
-      detail: `${connections} kytkentää, julkaistaan repon mukana`,
+      /* Julkaistu, mutta kytkentöjä ei voi katsoa ilman Figma-tiliä:
+         ne näkyvät Dev Modessa, ja anonyymi katselija saa vain
+         "Sign up to inspect". Se on rehellisempi sanoa kuin antaa
+         ymmärtää että linkki riittäisi. */
+      detail: `${connections} kytkentää, julkaistu Figmaan — näkyy Dev Modessa, joka vaatii Figma-tilin`,
     },
     {
       number: '04',
