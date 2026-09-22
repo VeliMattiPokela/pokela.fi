@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { isLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
 import { getCv } from '@/content/cv';
+import PrintCv from '@/components/PrintCv';
 import { Grid, Col } from '@/components/Grid';
 import Reveal from '@/components/Reveal';
 
@@ -37,6 +38,22 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </span>
               ))}
             </h1>
+            {/* Vain paperilla. Painettu CV ilman yhteystietoja on
+                hyödytön, ja ruudulla ne ovat napissa ja footerissa
+                joista kumpikaan ei tulostu. */}
+            <div className="cv-print-only">
+              <p className="meta cv-print-only__role">
+                {about.printRole} · {dict.footer.location}
+              </p>
+              <p className="cv-print-only__contact">
+                <a href={`mailto:${dict.footer.email}`}>{dict.footer.email}</a>
+                {' · '}
+                <a href={dict.footer.linkedinUrl}>
+                  {dict.footer.linkedinUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                </a>
+              </p>
+            </div>
+
             <p className="body-l measure about__lede">{about.lede}</p>
             <p className="measure about__body">{about.body}</p>
 
@@ -44,9 +61,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <a href={`mailto:${dict.footer.email}`} className="btn btn--primary btn--block">
                 {about.contact}
               </a>
-              <a href="/cv/veli-matti-pokela-cv.pdf" className="btn btn--ghost btn--block">
-                {about.downloadCv}
-              </a>
+              <PrintCv label={about.printCv} />
             </div>
           </Col>
 

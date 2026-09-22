@@ -71,7 +71,12 @@ const fi = {
     body:
       'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010 — usein samassa projektissa. Ymmärrän sekä liiketoiminnan että käyttäjän, kuvaan palvelun ja käyttöliittymän, ja muutan sen responsiiviseksi koodatuksi ratkaisuksi. Se monipuolisuus on se mikä pitää asiat liikkeessä ja auttaa tiimejä etenemään nopeammin.',
     contact: 'Ota yhteyttä',
-    downloadCv: 'Lataa CV (PDF)',
+    /* Ei "Lataa PDF": PDF:ää ei ole eikä tehdä. Sivu tulostuu
+       CV:ksi, ja selain tekee siitä tiedoston jos lukija haluaa. */
+    printCv: 'Tulosta CV',
+    /* Näkyy vain paperilla: ruudulla yhteystiedot ovat napissa ja
+       footerissa, joista kumpikaan ei tulostu. */
+    printRole: 'Senior Designer',
     portraitAlt: 'Veli-Matti Pokela',
     servicesTitle: 'Mitä teen',
     historyTitle: 'Työhistoria',

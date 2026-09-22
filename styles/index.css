@@ -15,3 +15,6 @@
 @import './components/case.css';
 @import './components/system.css';
 @import './components/component-view.css';
+
+/* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
+@import './print.css';

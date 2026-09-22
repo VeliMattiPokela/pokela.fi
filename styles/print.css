@@ -1,0 +1,220 @@
+/* Tulostus — CV paperille.
+   ==================================================================
+   Sivustolla ei ole erillistä CV-PDF:ää eikä sellaista tehdä. Se
+   olisi toinen kopio samasta sisällöstä, ja eriytyisi sivusta heti
+   kun jompaakumpaa muokataan — juuri se vika jota vastaan tämä
+   projekti on rakennettu.
+
+   Sen sijaan tietoa-sivu tulostuu CV:ksi. Sisältö tulee samasta
+   lähteestä (content/cv/fi.ts), joten paperiversio ei voi vanhentua.
+   Selain tekee PDF:n tarvittaessa.
+
+   Kaksi asiaa jotka olisivat rikkoneet tulosteen hiljaa:
+
+     1. `.reveal` on opacity: 0 kunnes osio on selattu näkyviin.
+        Ilman tätä tiedostoa osiot joita ei ole selattu tulostuisivat
+        tyhjinä.
+     2. Tumma teema tulostaisi valkoisen tekstin valkoiselle
+        paperille, koska selain ei tulosta taustoja. Värit pakotetaan
+        vaaleiksi tokens.css:n @media print -lohkossa.
+
+   Brändi säilyy: Bodoni otsikoissa, Archivo leipätekstissä,
+   versaalit metatiedoissa, hiusviivat osioiden välissä, ei
+   pyöristyksiä eikä värejä. Systeemi oli jo lähes painokelpoinen. */
+
+/* Ruudulla piilossa: nämä ovat vain paperia varten. Ei
+   visually-hidden, koska ruudunlukijalle sama tieto on jo footerissa
+   — kahteen kertaan luettuna se olisi kohinaa. */
+.cv-print-only { display: none; }
+
+@page {
+  size: A4;
+  /* Yläreuna väljempi, koska nimi on iso ja tarvitsee ilmaa. */
+  margin: 16mm 15mm 14mm;
+}
+
+@media print {
+  /* ---- 1. mikä jää pois ------------------------------------------ */
+
+  .nav,
+  .menu,
+  .footer,
+  .skip-link,
+  .about__actions {
+    display: none !important;
+  }
+
+  /* ---- 2. mikä tulee esiin --------------------------------------- */
+
+  /* Painettu CV ilman yhteystietoja on hyödytön. Ruudulla ne ovat
+     napissa ja footerissa, joista kumpikaan ei tulostu. */
+  .cv-print-only { display: block !important; }
+
+  /* Ilman tätä selaamaton osio tulostuisi tyhjänä. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cv-print-only__role {
+    margin: 0 0 1mm;
+  }
+  .cv-print-only__contact {
+    margin: 0 0 4mm;
+    font-size: 9pt;
+    color: var(--ink-muted);
+  }
+
+  /* ---- 3. sivu ---------------------------------------------------- */
+
+  html,
+  body {
+    background: none;
+    font-size: 10pt;
+  }
+
+  .page {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Ruudulla osiot hengittävät; paperilla väljyys maksaa sivuja. */
+  .section {
+    padding-block: 0;
+    margin-block: 0 7mm;
+  }
+
+  /* Osioiden välinen hiusviiva on sivuston tunnus, ja se toimii myös
+     paperilla. Ensimmäisen päälle ei viivaa. */
+  .section + .section {
+    border-top: var(--hairline) solid var(--line);
+    padding-top: 7mm;
+  }
+
+  /* Ruudun 12-sarakkeinen grid ei palvele A4:ää: sarakkeet ovat
+     leveyksiltään ruutua varten. Tulosteessa pino, paitsi työkalut
+     ja koulutus jotka mahtuvat rinnakkain. */
+  /* Ruudun 12-sarakkeinen grid ei palvele A4:ää, joten oletus on
+     pino. Kaksi poikkeusta joissa rinnakkaisuus säästää sivun. */
+  .grid {
+    display: block;
+  }
+
+  /* Työkalut ja koulutus ovat lyhyitä listoja: rinnakkain ne vievät
+     puolet tilasta. */
+  .about__tools .grid,
+  .grid:has(> .col .cv-list) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+  }
+  .grid:has(> .col .cv-list) > .col {
+    grid-column: auto;
+    min-width: 0;
+  }
+  /* Nimi ja teksti vasemmalle, muotokuva oikealle — sama sommittelu
+     kuin ruudulla. `.col` kantaa ruudun sarakemäärän (span 8), joten
+     se on nollattava tai lapset valuvat omille riveilleen. */
+  .about__top .grid {
+    display: grid;
+    grid-template-columns: 1fr 32mm;
+    gap: 8mm;
+    align-items: start;
+  }
+  .about__top .col {
+    grid-column: auto;
+    min-width: 0;
+  }
+
+  /* Palvelut tiiviimmin: ruudulla ne hengittävät, paperilla väljyys
+     maksaa sivun. */
+  .about__services { gap: 0; }
+  .about__service { padding-block: 3mm; }
+  .about__service-body { margin-top: 1mm; }
+
+  /* Työhistorian rivit lähemmäs toisiaan. */
+  .cv-job { padding-block: 4mm; }
+  .cv-job__project { padding-block: 1mm; }
+
+  /* ---- 4. typografia ---------------------------------------------- */
+
+  /* Nimi on brändi, mutta 82 px on paperilla absurdi. */
+  .about__title {
+    font-size: 26pt;
+    line-height: 1.05;
+    margin-bottom: 2mm;
+  }
+  .about__title-line {
+    display: inline;
+  }
+  .about__title-line + .about__title-line::before {
+    content: ' ';
+  }
+
+  .about__lede {
+    font-size: 11pt;
+    line-height: 1.45;
+    max-width: none;
+  }
+  .about__body {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    max-width: none;
+  }
+
+  .section-head,
+  h2.meta {
+    margin-bottom: 3mm;
+  }
+
+  .cv-job__title {
+    font-size: 13pt;
+  }
+  .about__service-title {
+    font-size: 11pt;
+  }
+  .measure {
+    max-width: none;
+  }
+
+  /* ---- 5. muotokuva ------------------------------------------------ */
+
+  .about__portrait {
+    width: 32mm;
+    height: auto;
+  }
+
+  /* ---- 6. sivunvaihdot --------------------------------------------- */
+
+  /* Työsuhde ei saa katketa kesken projektilistan. */
+  .cv-job,
+  .about__service,
+  .cv-list__row {
+    break-inside: avoid;
+  }
+
+  /* Otsikko ei jää yksin sivun alalaitaan. */
+  h1,
+  h2,
+  h3,
+  .section-head {
+    break-after: avoid;
+  }
+
+  p,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* ---- 7. linkit --------------------------------------------------- */
+
+  /* Paperilla linkki on turha jos osoitetta ei näe. Yhteysrivillä
+     osoite ON linkin teksti, joten attr(href):llä toistettuna se
+     tulisi kahteen kertaan. Muualla sivulla ei ole linkkejä joiden
+     osoitetta lukija tarvitsisi. */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

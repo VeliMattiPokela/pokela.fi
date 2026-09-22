@@ -11,8 +11,13 @@
  * jokainen kovakoodattu mitta tai väri on joko siirrettävä
  * tokeniksi tai kirjattava `EXEMPT`-listaan perusteluineen.
  *
- * Skannattavat: styles/base.css ja styles/components/*.css.
- * tokens.css on ulkona — se on se paikka jossa arvot määritellään.
+ * Skannattavat: styles/base.css, styles/print.css ja
+ * styles/components/*.css. tokens.css on ulkona — se on se paikka
+ * jossa arvot määritellään.
+ *
+ * print.css käyttää pt- ja mm-yksiköitä, eivätkä ne osu pituusregexiin
+ * (px|rem|em|ch). Se on tarkoituksellista: paperimitta ei tule ruudun
+ * asteikolta, eikä millimetriä voi ilmaista välistystokenina.
  *
  * Exit 0 = ei kirjaamattomia arvoja. Exit 1 = on.
  */
@@ -81,7 +86,11 @@ const EXEMPT = {
 const LENGTH = /(-?\d*\.?\d+)(px|rem|em|ch)\b/g;
 const COLOR = /#[0-9a-fA-F]{3,8}\b|\brgba?\(/g;
 
-const files = ['base.css', ...readdirSync(join(stylesDir, 'components')).map((f) => `components/${f}`)];
+const files = [
+  'base.css',
+  'print.css',
+  ...readdirSync(join(stylesDir, 'components')).map((f) => `components/${f}`),
+];
 
 const unrecorded = [];
 const usedExemptions = new Set();

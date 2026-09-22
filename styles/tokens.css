@@ -202,6 +202,35 @@
 
 :root[data-theme='light'] { color-scheme: light; }
 
+/* ---- paperi -------------------------------------------------------
+   Sama uudelleenkytkentä kuin tummalla teemalla, mutta medialle eikä
+   mieltymykselle. Ilman tätä tummalla teemalla tulostettaisiin
+   valkoinen teksti valkoiselle paperille: selain ei tulosta taustoja,
+   joten pinta katoaa mutta teksti ei vaihda väriä.
+
+   Viivat ovat paperilla tummempia kuin ruudulla. #E8E8E6 on ruudulla
+   juuri sopiva hiusviiva, mutta painossa se katoaa. */
+@media print {
+  :root,
+  :root[data-theme='dark'],
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --paper: #ffffff;
+    --paper-alt: #ffffff;
+    --line: #b8b8b4;
+    --line-strong: #101112;
+    --ink: #101112;
+    --ink-muted: #3a3b3e;
+    --ink-faint: #56585a;
+    --badge-surface: #ffffff;
+    --invert-surface: #ffffff;
+    --invert-ink: #101112;
+    --invert-faint: #56585a;
+    --placeholder-base: #f2f2f0;
+    --placeholder-stripe: #e9e9e6;
+  }
+}
+
 /* ---- breakpoints (mobile first, min-width) ------------------------
    base   0–599     4 saraketta, padding 20, yksi palsta
    sm     600       8 saraketta, padding 24
