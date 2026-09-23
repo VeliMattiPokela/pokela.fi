@@ -25,6 +25,13 @@ export type Kuvapaikka = {
   caption: string;
   /** Mihin näkymään paikka kuuluu. Näkyy luettelossa. */
   missa: string;
+  /**
+   * Kuinka leveänä kuva piirtyy kahden pikselin näytöllä.
+   * Putki varoittaa liian pienestä lähteestä tämän perusteella.
+   * Ilman arvoa oletetaan täysleveä, mikä on väärin esimerkiksi
+   * muotokuvalle — se on neljä saraketta kahdestatoista.
+   */
+  tarveLeveys?: number;
 };
 
 export const erilliset: Kuvapaikka[] = [
@@ -37,12 +44,14 @@ export const erilliset: Kuvapaikka[] = [
   {
     id: 'etusivu-colliers',
     ratio: '4:3',
+    tarveLeveys: 1580,
     caption: 'Colliers — asuntohaku',
     missa: 'Etusivu',
   },
   {
     id: 'etusivu-blokbook',
     ratio: '4:5',
+    tarveLeveys: 880,
     caption: 'Blokbook — varausnäkymä',
     missa: 'Etusivu',
   },
@@ -55,6 +64,7 @@ export const erilliset: Kuvapaikka[] = [
   {
     id: 'muotokuva',
     ratio: '1:1',
+    tarveLeveys: 880,
     caption: 'Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä.',
     missa: 'Tietoa-sivu',
   },

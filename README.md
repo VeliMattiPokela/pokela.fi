@@ -412,18 +412,64 @@ mobiilissa tai leikkaisi laidat työpöydällä.
 Mittaustulos Pivon vertailuparista: 501 kt PNG → 22 kt AVIF, **96 %
 pienempi**, ilman näkyvää eroa gradientissa tai tekstin reunoissa.
 
-### Rajauskohta
+### Kun lähde ei mahdu paikkaan
 
-Oletus on keskitys, koska se on ennustettava ja sama minkä CSS:n
-`object-fit: cover` tekisi. Jos kuvan olennainen kohta on muualla,
-tee lähteen viereen `kuvat/<id>.json`:
+Putki kertoo, paljonko rajaus poistaa ja mistä suunnasta. Yli
+viidenneksen hukka raportoidaan, koska se on päätös eikä vahinko:
+
+```
+!  Huomioita 2:
+    4  colliers-haku
+       rajaus poistaa 42 % korkeudesta (lähde 0.46, paikka 4:5 = 0.80)
+    4  colliers-haku
+       lähde on 622 px leveä, paikka tarvitsee noin 880 px
+```
+
+Puhelinkaappaus on tyypillisesti 0,46-suhteinen eikä se mahdu
+4:5-laatikkoon kokonaisena eikä rajattuna järkevästi — kokeiltuna
+kumpikin ääripää oli huono: rajaus katkaisi otsikon, sovitus teki
+sisällöstä lukukelvottoman pientä.
+
+Kolme vaihtoehtoa, kaikki `kuvat/<nimi>.json`:iin:
+
+```json
+{ "alue": { "x": 0, "y": 350, "leveys": 622, "korkeus": 777 } }
+```
+
+**Alue** on taiteellinen rajaus datana. Se kertoo mikä osa lähteestä
+on kuva — yleensä yksi paneeli, ei koko ruutu. Lähde säilyy
+koskemattomana, joten alueen voi muuttaa milloin tahansa ja
+kuvasuhteen vaihtuessa uusi rajaus lasketaan samasta alkuperäisestä.
+Tiedostoon leikattu rajaus olisi lopullinen.
+
+```json
+{ "sovita": true }
+```
+
+**Sovita** mahduttaa koko kuvan laatikkoon eikä rajaa mitään. Reunat
+jäävät läpinäkyviksi, jolloin laatikon taustaväri näkyy läpi ja
+seuraa teemaa. Taustan polttaminen tiedostoon tekisi vaaleasta
+reunasta pysyvän myös tummassa teemassa.
 
 ```json
 { "rajaus": "top" }
 ```
 
-Sallitut arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
+**Rajauskohta** siirtää keskitystä. Oletus on `centre`, koska se on
+ennustettava ja sama minkä CSS:n `object-fit: cover` tekisi. Sallitut
+arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
 `right bottom`, `bottom`, `left bottom`, `left`, `left top`, `centre`.
+
+Neljäs vaihtoehto on vaihtaa paikan kuvasuhde sisällössä. Se on
+oikea silloin kun useampi kuva samassa lohkossa on samaa muotoa.
+
+### Liian pieni lähde
+
+Putki varoittaa myös silloin kun lähde on kapeampi kuin mitä paikka
+piirtyy kahden pikselin näytöllä. Sitä ei voi korjata skaalaamalla —
+kuva näkyy pehmeänä ja se on otettava uudelleen. Arvio tulee
+lohkotyypistä (`scripts/kuvat.mjs`, `LOHKOLEVEYS`) tai paikan omasta
+`tarveLeveys`-kentästä.
 
 ### Video
 
@@ -607,7 +653,7 @@ mitä kuvan pitää näyttää.
 |  | 1 | Colliers Asunnot | `colliers-hero` | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
 |  | 2 | Colliers Asunnot | `colliers-viikko-1` | 4:3 | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
 |  | 3 | Colliers Asunnot | `colliers-julkaisu` | 4:3 | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
-|  | 4 | Colliers Asunnot | `colliers-haku` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
+| ✓ | 4 | Colliers Asunnot | `colliers-haku` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
 |  | 5 | Colliers Asunnot | `colliers-vuokraus` | 4:5 | Vuokraa heti -polku, yksi vaihe |
 |  | 6 | Colliers Asunnot | `colliers-strapi` | 4:5 | Strapi-editori sisältöä muokattaessa |
 | ✓ | 7 | Blokbook | `blokbook-hero` | hero | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
@@ -629,7 +675,7 @@ mitä kuvan pitää näyttää.
 |  | 23 | Työlista | `tyot-storybook` | 4:3 | Nosto: Storybook-näkymä |
 | ✓ | 24 | Tietoa-sivu | `muotokuva` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-3/24 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+4/24 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /luotu -->
 
 #### Faktat ja luvat casettain

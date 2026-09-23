@@ -120,6 +120,7 @@ export async function paikat() {
         ratio: solmu.ratio,
         caption: solmu.caption ?? '',
         missa: oma ?? '(tuntematon)',
+        tarveLeveys: solmu.tarveLeveys,
         lohko: omaLohko ?? 'media',
         vertailu: solmu.kind === 'compare',
         video: solmu.kind === 'video',
@@ -325,11 +326,29 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
  * right bottom, bottom, left bottom, left, left top, centre.
  */
 function rajauskohta(nimi) {
-  const sivu = join(LAHTEET, `${nimi}.json`);
-  if (!existsSync(sivu)) return 'centre';
-  const { rajaus } = JSON.parse(readFileSync(sivu, 'utf8'));
-  return rajaus ?? 'centre';
+  return asetukset(nimi).rajaus ?? 'centre';
 }
+
+/** Alue sharpin extract-muotoon, nimet suomeksi sivutiedostossa. */
+function alueeksi({ x = 0, y = 0, leveys, korkeus }) {
+  if (!leveys || !korkeus) throw new Error('alue: leveys ja korkeus ovat pakollisia');
+  return { left: Math.round(x), top: Math.round(y), width: Math.round(leveys), height: Math.round(korkeus) };
+}
+
+/** Lähteen omat asetukset, jos sellaiset on annettu. */
+function asetukset(nimi) {
+  const sivu = join(LAHTEET, `${nimi}.json`);
+  if (!existsSync(sivu)) return {};
+  return JSON.parse(readFileSync(sivu, 'utf8'));
+}
+
+/**
+ * Paljonko lohko tarvitsee leveyttä. Karkea arvio case.css:n
+ * grideistä, kaksinkertaisena koska näytöt ovat kaksinkertaisia.
+ * Tarkkuutta ei tarvita — kyse on siitä huomataanko että lähde on
+ * selvästi liian pieni.
+ */
+const LOHKOLEVEYS = { media: 2736, compare: 880, pair: 1344, trio: 880 };
 
 /**
  * Leveysportaat yhdelle rajaukselle.
@@ -356,7 +375,25 @@ function portaat(maxLeveys) {
  * puhelinkaappauksesta olisi kadonnut kolmannes ruudusta.
  */
 async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {}) {
-  const meta = await sharp(lahde).metadata();
+  const omat = asetukset(nimi);
+  const sovita = omat.sovita === true;
+  const hukat = [];
+
+  /* Alue: taiteellinen rajaus datana, ei tiedostoon poltettuna.
+     Puhelinkaappaus on tyypillisesti 0,46-suhteinen, eikä se mahdu
+     4:5-laatikkoon kokonaisena eikä rajattuna järkevästi — aihe on
+     yleensä yksi paneeli, ei koko ruutu. Alue kertoo mikä osa
+     lähteestä on kuva.
+
+     Lähde säilyy koskemattomana: alueen voi muuttaa milloin tahansa,
+     ja kuvasuhteen vaihtuessa uusi rajaus lasketaan samasta
+     alkuperäisestä. Tiedostoon leikattu rajaus olisi lopullinen.
+
+     Muoto: { "alue": { "x": 0, "y": 300, "leveys": 622, "korkeus": 777 } } */
+  const lahdeKuva = () => (omat.alue ? sharp(lahde).extract(alueeksi(omat.alue)) : sharp(lahde));
+  const meta = omat.alue
+    ? { width: omat.alue.leveys, height: omat.alue.korkeus }
+    : await sharp(lahde).metadata();
   const kohta = rajauskohta(nimi);
   const ulos = [];
 
@@ -377,8 +414,19 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
       for (const w of leveydet) {
         const h = Math.round(w / suhde);
         for (const [muoto, asetus] of [['avif', { quality: 55, effort: 5 }], ['webp', { quality: 78 }]]) {
-          await sharp(lahde)
-            .resize(w, h, { fit: 'cover', position: kohta })
+          await lahdeKuva()
+            .resize(
+              w,
+              h,
+              /* `sovita` mahduttaa koko kuvan laatikkoon eikä rajaa
+                 mitään. Reunat jäävät läpinäkyviksi, jolloin
+                 .media--kuva-laatikon taustaväri näkyy läpi ja seuraa
+                 teemaa — taustan polttaminen tiedostoon tekisi
+                 vaaleasta reunasta pysyvän myös tummassa teemassa. */
+                sovita
+                ? { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }
+                : { fit: 'cover', position: kohta },
+            )
             .toFormat(muoto, asetus)
             .toFile(join(JULKAISU, `${nimi}-${koko}-${w}.${muoto}`));
         }
@@ -393,8 +441,32 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
       leveys: leveydet[leveydet.length - 1],
       korkeus: Math.round(leveydet[leveydet.length - 1] / suhde),
     });
+
+    /* Rajauksen hukka: paljonko lähteestä jää pois. Ei virhe, mutta
+       42 % pois leikattua korkeutta on päätös jonka pitää olla
+       tiedossa eikä vahinko. */
+    if (rajaa && !sovita) {
+      const lahdeSuhde = meta.width / meta.height;
+      const hukka =
+        lahdeSuhde < suhde
+          ? 1 - (meta.width / suhde) / meta.height /* korkeutta pois */
+          : 1 - meta.height * suhde / meta.width; /* leveyttä pois */
+      if (hukka > 0.2) {
+        hukat.push({
+          nimi,
+          koko,
+          suunta: lahdeSuhde < suhde ? 'korkeudesta' : 'leveydestä',
+          osuus: hukka,
+          lahdeSuhde,
+          kohdeSuhde: suhde,
+          kohta,
+        });
+      }
+    }
   }
 
+  ulos.hukat = hukat;
+  ulos.lahdeLeveys = meta.width;
   return ulos;
 }
 
@@ -509,6 +581,7 @@ export async function rakenna({ kirjoita = true } = {}) {
 
   const manifesti = {};
   const puuttuvat = [];
+  const huomiot = [];
 
   for (const paikka of lista) {
     const omat = lahteet(paikka);
@@ -525,7 +598,37 @@ export async function rakenna({ kirjoita = true } = {}) {
 
     const osat = {};
     for (const { nimi, tiedosto } of omat) {
-      osat[nimi] = await teeKuva(nimi, tiedosto, paikka.ratio, { rajaa: !paikka.vertailu, kirjoita });
+      const tulos = await teeKuva(nimi, tiedosto, paikka.ratio, {
+        rajaa: !paikka.vertailu,
+        kirjoita,
+      });
+
+      /* Rajaus leikkaa yli viidenneksen: kerro paljonko ja mistä. */
+      for (const h of tulos.hukat) {
+        huomiot.push({
+          nimi,
+          paikka,
+          laji: 'rajaus',
+          teksti:
+            `rajaus poistaa ${Math.round(h.osuus * 100)} % ${h.suunta} ` +
+            `(lähde ${h.lahdeSuhde.toFixed(2)}, paikka ${paikka.ratio} = ${h.kohdeSuhde.toFixed(2)}` +
+            `${h.koko !== 'base' ? `, ${h.koko}-koko` : ''})`,
+        });
+      }
+
+      /* Lähde kapeampi kuin mitä paikka piirtyy kahden pikselin
+         näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä. */
+      const tarve = paikka.tarveLeveys ?? LOHKOLEVEYS[paikka.lohko] ?? 1344;
+      if (tulos.lahdeLeveys < tarve * 0.75) {
+        huomiot.push({
+          nimi,
+          paikka,
+          laji: 'tarkkuus',
+          teksti: `lähde on ${tulos.lahdeLeveys} px leveä, paikka tarvitsee noin ${tarve} px`,
+        });
+      }
+
+      osat[nimi] = tulos;
     }
     manifesti[paikka.id] = { tyyppi: paikka.vertailu ? 'vertailu' : 'kuva', osat };
   }
@@ -551,13 +654,13 @@ export async function rakenna({ kirjoita = true } = {}) {
     .map((d) => (d.name.includes('.') ? d.name.slice(0, d.name.lastIndexOf('.')) : d.name))
     .filter((n) => !tunnetut.has(n));
 
-  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot };
+  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot, huomiot };
 }
 
 /* ---- suoraan ajettaessa --------------------------------------------- */
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { manifesti, lista, puuttuvat, posti } = await rakenna();
+  const { manifesti, lista, puuttuvat, posti, huomiot } = await rakenna();
   writeFileSync(MANIFESTI, JSON.stringify(manifesti, null, 2) + '\n');
 
   if (posti.otetut.length) {
@@ -575,6 +678,24 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     for (const t of posti.tuntemattomat) console.log(`    ${t.tiedosto}   (tulkittu: ${t.arvattu})`);
     console.log('\n   Vapaat paikat:');
     for (const p of puuttuvat) console.log(`    ${p.id.padEnd(22)} ${p.ratio.padEnd(6)} ${p.caption}`);
+  }
+
+  if (huomiot.length) {
+    console.log(`\n!  Huomioita ${huomiot.length}:`);
+    for (const h of huomiot) {
+      console.log(`    ${h.paikka.numero}  ${h.nimi}`);
+      console.log(`       ${h.teksti}`);
+      if (h.laji === 'rajaus') {
+        console.log(`       korjaa: kuvat/${h.nimi}.json`);
+        console.log(`         { "sovita": true }        koko kuva laatikkoon, ei rajausta`);
+        console.log(`         { "rajaus": "top" }       pidä yläosa`);
+        console.log(`         { "alue": { "y": 300, "leveys": 622, "korkeus": 777 } }`);
+        console.log(`                                   rajaa alue lähteestä`);
+        console.log(`       tai vaihda paikan kuvasuhde sisällössä.`);
+      } else {
+        console.log(`       korjaa: ota kuva uudelleen leveämpänä.`);
+      }
+    }
   }
 
   const valmiit = lista.length - puuttuvat.length;

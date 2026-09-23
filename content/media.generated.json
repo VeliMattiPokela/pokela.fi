@@ -47,6 +47,24 @@
         ]
       }
     },
+    "colliers-haku": {
+      "tyyppi": "kuva",
+      "osat": {
+        "colliers-haku": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.8,
+            "leveydet": [
+              480,
+              622
+            ],
+            "leveys": 622,
+            "korkeus": 778
+          }
+        ]
+      }
+    },
     "muotokuva": {
       "tyyppi": "kuva",
       "osat": {
