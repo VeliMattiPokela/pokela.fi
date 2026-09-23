@@ -6,6 +6,11 @@ import ListRow from '@/components/ListRow';
 import LogoRow from '@/components/LogoRow';
 import PreviousWork from '@/components/PreviousWork';
 import Media from '@/components/Media';
+import { kuvapaikka } from '@/content/kuvat';
+
+/** Nosto on koko sisältöleveys. */
+const SIZES_TAYSI =
+  '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
 import Reveal from '@/components/Reveal';
 import Icon from '@/components/Icon';
 
@@ -74,7 +79,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
       {/* ---- nosto + outro --------------------------------------- */}
       <Reveal>
         <section className="page section">
-          <Media ratio="4:3" caption={dict.captions.workStorybook} />
+          <Media {...kuvapaikka('tyot-storybook')} sizes={SIZES_TAYSI} />
 
           <div className="work__outro">
             <h2 className="display-m">{dict.work.outroTitle}</h2>

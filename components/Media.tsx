@@ -149,18 +149,14 @@ export default function Media({
     const numero = id ? NUMEROT[id] : undefined;
     return (
       <div className={luokka} role="img" aria-label={caption ?? ''}>
-        {MERKINTA && numero ? (
-          <span className="media__numero" aria-hidden="true">
-            {numero}
-          </span>
-        ) : null}
         <span className="media__teksti">
-          {caption ? <span className="meta meta--s">{caption}</span> : null}
-          {MERKINTA && id ? (
-            <span className="meta meta--s media__tunnus" aria-hidden="true">
-              {id}
+          {MERKINTA && numero ? (
+            <span className="meta meta--s media__merkinta" aria-hidden="true">
+              <span className="media__numero">{numero}</span>
+              <span className="media__tunnus">{id}</span>
             </span>
           ) : null}
+          {caption ? <span className="meta meta--s">{caption}</span> : null}
         </span>
       </div>
     );

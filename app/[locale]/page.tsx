@@ -5,6 +5,16 @@ import { getWork } from '@/content/work';
 import { Grid, Col } from '@/components/Grid';
 import ListRow from '@/components/ListRow';
 import Media from '@/components/Media';
+import { kuvapaikka } from '@/content/kuvat';
+
+/* Kuinka leveänä kuva piirtyy. Sivu tietää sen, kuva ei.
+   Nostopari on md-koossa 7 ja 4 saraketta kahdestatoista. */
+const SIZES = {
+  taysi:
+    '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
+  leveampi: '(min-width: 1440px) 790px, (min-width: 900px) calc(58vw - 48px), calc(100vw - 40px)',
+  kapeampi: '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), calc(100vw - 40px)',
+};
 import Reveal from '@/components/Reveal';
 import Icon from '@/components/Icon';
 
@@ -41,7 +51,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ---- hero 21:9 ------------------------------------------ */}
       <div className="page">
-        <Media ratio="hero" caption={home.heroCaption} />
+        <Media {...kuvapaikka('etusivu-hero')} sizes={SIZES.taysi} priority />
       </div>
 
       {/* ---- väitelause ----------------------------------------- */}
@@ -97,10 +107,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className="page section">
           <Grid>
             <Col base={4} sm={8} md={7}>
-              <Media ratio="4:3" caption={dict.captions.homeColliers} />
+              <Media {...kuvapaikka('etusivu-colliers')} sizes={SIZES.leveampi} />
             </Col>
             <Col base={4} sm={8} md={4} startMd={9}>
-              <Media ratio="4:5" caption={dict.captions.homeBlokbook} />
+              <Media {...kuvapaikka('etusivu-blokbook')} sizes={SIZES.kapeampi} />
             </Col>
           </Grid>
         </section>

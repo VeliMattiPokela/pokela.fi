@@ -191,9 +191,24 @@ for (const doc of DOCS) {
       const tail = `${endOpen} /luotu ${endClose}`;
       return body2.includes('\n') ? `${head}\n${body2}\n${tail}` : `${head}${body2}${tail}`;
     }
+    /* Monirivisestä lohkosta näytetään vain ensimmäinen poikkeava
+       rivi ja rivimäärä. Koko sisällön tulostus oli lukukelvoton
+       heti kun lohko kasvoi taulukoksi: 24 riviä kahteen kertaan
+       yhdelle riville puristettuna ei kerro mitään. */
+    const onRivit = actual.trim().split('\n');
+    const pitaisiRivit = expected.trim().split('\n');
+    const ero = onRivit.findIndex((r, i) => r !== pitaisiRivit[i]);
+    const kohta = ero === -1 ? Math.min(onRivit.length, pitaisiRivit.length) : ero;
+
     drift.push({
       doc,
-      issue: `lohko "${id}" ei vastaa lähdettä\n      on:      ${actual.trim().split('\n').join(' / ')}\n      pitäisi:  ${expected.trim().split('\n').join(' / ')}`,
+      issue:
+        onRivit.length > 3 || pitaisiRivit.length > 3
+          ? `lohko "${id}" ei vastaa lähdettä — ${onRivit.length} riviä, pitäisi olla ${pitaisiRivit.length}\n` +
+            `      ensimmäinen ero rivillä ${kohta + 1}:\n` +
+            `      on:      ${onRivit[kohta] ?? '(rivi puuttuu)'}\n` +
+            `      pitäisi:  ${pitaisiRivit[kohta] ?? '(ylimääräinen rivi)'}`
+          : `lohko "${id}" ei vastaa lähdettä\n      on:      ${onRivit.join(' / ')}\n      pitäisi:  ${pitaisiRivit.join(' / ')}`,
     });
     return whole;
   });

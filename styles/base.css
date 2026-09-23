@@ -241,25 +241,19 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
    kehityksessä (Media.tsx päättää), ja tarkoitus on että pudotettavan
    tiedoston nimen voi lukea suoraan sivulta ilman terminaalia.
 
-   Numero on sivujärjestys eikä pysyvä — tunniste sen vieressä on se
-   joka ei muutu. Siksi molemmat näkyvät. */
-.media__teksti { display: flex; flex-direction: column; gap: var(--space-4); }
-/* Tunniste on kopioitava tiedostonimi, joten se näytetään täsmälleen
-   sellaisena kuin se kirjoitetaan. .meta muuttaisi sen versaaliksi. */
-.media__tunnus { color: var(--ink-muted); text-transform: none; }
-.media__numero {
-  position: absolute;
-  inset-block-start: var(--space-16);
-  inset-inline-start: var(--space-16);
-  font-family: var(--font-ui);
-  font-size: var(--text-display-m);
-  line-height: 1;
-  font-weight: var(--weight-600);
-  color: var(--ink-muted);
-}
-@media (min-width: 600px) {
-  .media__numero { inset-block-start: var(--space-24); inset-inline-start: var(--space-24); }
-}
+   Tyyli on sivuston oma: numerot ovat täällä .meta-kokoisia vaimeita
+   merkintöjä (ks. ListRow, CV, artefaktilista), eivät
+   display-elementtejä. Iso lihava numero nurkassa luki sisältönä eikä
+   rakennustelineenä.
+
+   Numero täydellä musteella, tunniste vaimeana: numero on se jota
+   vilkaistaan, tunniste se joka kopioidaan. Tunniste ilman
+   versaalimuunnosta, koska se on kopioitava tiedostonimi. */
+.media__teksti { display: flex; flex-direction: column; gap: var(--space-8); }
+.media__merkinta { display: flex; align-items: baseline; gap: var(--space-12); }
+.media__numero { color: var(--ink); font-variant-numeric: tabular-nums; }
+.media__tunnus { color: var(--ink-faint); text-transform: none; }
+
 
 /* ---- reveal --------------------------------------------------------- */
 

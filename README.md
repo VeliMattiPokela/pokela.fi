@@ -623,9 +623,13 @@ mitä kuvan pitää näyttää.
 |  | 17 | OP Vahinkoapuri | `op-aloitus` | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
 |  | 18 | OP Vahinkoapuri | `op-vaurio` | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
 |  | 19 | OP Vahinkoapuri | `op-polku` | 4:3 | Mukautuva kysymyspolku |
-| ✓ | 20 | Tietoa-sivu | `muotokuva` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+|  | 20 | Etusivu | `etusivu-hero` | hero | Täysleveä kuva 21:9 — työn hero tai valokuva |
+|  | 21 | Etusivu | `etusivu-colliers` | 4:3 | Colliers — asuntohaku |
+|  | 22 | Etusivu | `etusivu-blokbook` | 4:5 | Blokbook — varausnäkymä |
+|  | 23 | Työlista | `tyot-storybook` | 4:3 | Nosto: Storybook-näkymä |
+| ✓ | 24 | Tietoa-sivu | `muotokuva` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-3/20 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+3/24 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /luotu -->
 
 #### Faktat ja luvat casettain

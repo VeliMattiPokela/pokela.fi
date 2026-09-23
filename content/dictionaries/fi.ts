@@ -36,7 +36,6 @@ const fi = {
     role: 'Senior Designer — suunnittelen käyttöliittymät ja koodaan ne tuotantoon',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
     availability: null as string | null,
-    heroCaption: 'Täysleveä kuva 21:9 — työn hero tai valokuva',
     statement: 'Rakennan tuotteita, jotka toimivat myös silloin kun demo on ohi.',
     lede:
       'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon. Viimeisimmät kaksi projektia: Colliers Asunnot ja oma tuotteeni Blokbook — molemmissa design syntyi suoraan koodissa.',
@@ -99,12 +98,6 @@ const fi = {
   /* Kuvatekstit. Näkyvät sivulla ja luetaan ruudunlukijalle, joten ne
      kuuluvat tänne eivätkä komponenttiin. Tuotenimet (Colliers,
      Blokbook, Storybook) eivät käänny, mutta loppuosa kääntyy. */
-  captions: {
-    homeColliers: 'Colliers — asuntohaku',
-    homeBlokbook: 'Blokbook — varausnäkymä',
-    workStorybook: 'Nosto: Storybook-näkymä',
-  },
-
   /* System-sivu ja komponenttinäyttely. Nämä ovat dokumentaatiota,
      mutta dokumentaatio on osa sivustoa ja kääntyy sen mukana. */
   system: {

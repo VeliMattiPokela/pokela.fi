@@ -115,11 +115,15 @@
     "colliers-strapi": 6,
     "colliers-viikko-1": 2,
     "colliers-vuokraus": 5,
-    "muotokuva": 20,
+    "etusivu-blokbook": 22,
+    "etusivu-colliers": 21,
+    "etusivu-hero": 20,
+    "muotokuva": 24,
     "op-aloitus": 17,
     "op-polku": 19,
     "op-vaurio": 18,
-    "pivo-kirjautuminen": 13
+    "pivo-kirjautuminen": 13,
+    "tyot-storybook": 23
   },
   "logot": {
     "sanoma": {
