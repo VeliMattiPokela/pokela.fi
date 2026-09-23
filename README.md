@@ -463,6 +463,18 @@ arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
 Neljäs vaihtoehto on vaihtaa paikan kuvasuhde sisällössä. Se on
 oikea silloin kun useampi kuva samassa lohkossa on samaa muotoa.
 
+```json
+{ "vuoto": true }
+```
+
+**Vuoto** kuittaa rajausvaroituksen. Laitekollaasi jossa puhelimet
+jatkuvat kuvan ulkopuolelle on tehokeino, ei vahinko — silloin hukka
+on päätös joka on jo tehty. Varoitus jota ei voi kuitata on varoitus
+jonka oppii ohittamaan.
+
+Tarkkuusvaroitus jää voimaan myös vuotavalle sommittelulle: se
+tarvitsee yhtä paljon pikseleitä kuin mikä tahansa muu.
+
 ### Liian pieni lähde
 
 Putki varoittaa myös silloin kun lähde on kapeampi kuin mitä paikka

@@ -377,6 +377,16 @@ function portaat(maxLeveys) {
 async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {}) {
   const omat = asetukset(nimi);
   const sovita = omat.sovita === true;
+
+  /* `vuoto: true` = sommittelu on tarkoitettu vuotamaan reunojen yli.
+     Laitekollaasi jossa puhelimet jatkuvat kuvan ulkopuolelle on
+     tehokeino, ei vahinko, ja silloin rajauksen hukka on päätös joka
+     on jo tehty. Ilman kuittausmahdollisuutta varoitus toistuisi joka
+     ajossa asiasta jolle ei ole tekemistä — ja varoitus jota ei voi
+     kuitata on varoitus jonka oppii ohittamaan.
+
+     Tarkkuusvaroitus jää voimaan: vuotava sommittelu tarvitsee yhtä
+     paljon pikseleitä kuin mikä tahansa muu. */
   const hukat = [];
 
   /* Alue: taiteellinen rajaus datana, ei tiedostoon poltettuna.
@@ -445,7 +455,7 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
     /* Rajauksen hukka: paljonko lähteestä jää pois. Ei virhe, mutta
        42 % pois leikattua korkeutta on päätös jonka pitää olla
        tiedossa eikä vahinko. */
-    if (rajaa && !sovita) {
+    if (rajaa && !sovita && !omat.vuoto) {
       const lahdeSuhde = meta.width / meta.height;
       const hukka =
         lahdeSuhde < suhde
