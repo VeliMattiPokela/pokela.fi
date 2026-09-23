@@ -40,7 +40,9 @@ console.log('Tiedoston nimi = tunniste. Pudota kuvat/uudet/-kansioon ja aja `npm
 for (const [missa, omat] of ryhmat) {
   console.log(`── ${missa} ${'─'.repeat(Math.max(0, 62 - missa.length))}`);
   for (const p of omat) {
-    const nimet = lahteet(p).map((l) => `${l.nimi}.png`);
+    /* Pääte on tarkoituksella pois: pudotettavan tiedoston muodolla
+       ei ole väliä, vain nimellä. Putki muuntaa sen kerran. */
+    const nimet = lahteet(p).map((l) => l.nimi);
     console.log(`  ${tila(p)} ${nimet.join('  +  ').padEnd(46)} ${p.ratio.padEnd(6)} ${LOHKO[p.lohko] ?? p.lohko}`);
     console.log(`      ${p.caption}`);
   }

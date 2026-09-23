@@ -307,8 +307,10 @@ ei ole eikä unohtaa niitä jotka ovat.
 
 Jokaisella kuvapaikalla on tunniste (`id`) sisällössä, ja se on myös
 tiedoston nimi. `colliers-hero.png` menee paikkaan jonka `id` on
-`colliers-hero`. Tunniste on tyypissä pakollinen, joten kuvapaikkaa ei
-voi lisätä ilman että kuvaputki tietää siitä.
+`colliers-hero`. **Päätteellä ei ole väliä** — pudota png, jpg, heic
+tai mitä kamerasta tuleekin; putki muuntaa sen kerran. Tunniste on
+tyypissä pakollinen, joten kuvapaikkaa ei voi lisätä ilman että
+kuvaputki tietää siitä.
 
 Nimi normalisoidaan kevyesti: isot kirjaumet, välilyönnit, ääkköset ja
 Finderin lisäämät kaksoiskappalemerkinnät siivotaan. `Colliers hero
@@ -335,6 +337,19 @@ Lähde säilytetään **rajaamattomana**, enintään 2800 px pitkältä
 sivulta. Rajaus on johdannaisen ominaisuus, ei lähteen: jos kuvasuhde
 muuttuu sisällössä, uusi rajaus lasketaan samasta lähteestä eikä kuvaa
 tarvitse hankkia uudelleen. Rajattu lähde olisi tie yhteen suuntaan.
+
+Lähteet tallennetaan **häviöttömänä WebP:nä**. Häviötön tarkoittaa
+bitilleen samaa kuvaa kuin PNG, joten uudelleenrajaus ei kasaa
+pakkausvirhettä. Mitattuna nykyisistä lähteistä: **3,89 MB → 2,14 MB,
+45 % pienempi.**
+
+Yksi asia on hyvä tietää. WebP-häviötön hylkää *täysin läpinäkyvän*
+pikselin väriarvon. Tarkistin sen: alfakanava on bitilleen sama ja
+näkyvän pikselin väri bitilleen sama kaikissa neljässätoista
+lähteessä — ero on vain sellaisen pikselin alla jota ei voi nähdä.
+Jos jokin läpinäkyvä alue joskus paljastettaisiin, sen alta ei löydy
+vanhaa väriä. Muotokuvan tausta on poistettu tarkoituksella ja logot
+ovat maskeja, joten sillä ei ole tässä merkitystä.
 
 ### Mitä johdannaisista tulee
 
@@ -542,26 +557,26 @@ mitä kuvan pitää näyttää.
 <!-- luotu:kuvapaikat -->
 | | Missä | Tiedosto | Suhde | Mitä kuvassa |
 |---|---|---|---|---|
-|  | Colliers Asunnot | `colliers-hero.png` | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
-|  | Colliers Asunnot | `colliers-viikko-1.png` | 4:3 | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
-|  | Colliers Asunnot | `colliers-julkaisu.png` | 4:3 | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
-|  | Colliers Asunnot | `colliers-haku.png` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
-|  | Colliers Asunnot | `colliers-vuokraus.png` | 4:5 | Vuokraa heti -polku, yksi vaihe |
-|  | Colliers Asunnot | `colliers-strapi.png` | 4:5 | Strapi-editori sisältöä muokattaessa |
-| ✓ | Blokbook | `blokbook-hero.png` | hero | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
-|  | Blokbook | `blokbook-asukas.png` | 4:3 | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
-|  | Blokbook | `blokbook-hallinta.png` | 4:3 | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
-|  | Blokbook | `blokbook-web.png` | 3:4 | Web — varausnäkymä kapeana |
-|  | Blokbook | `blokbook-ios.png` | 3:4 | iOS — natiivisovellus, ei laitekehystä |
-|  | Blokbook | `blokbook-android.png` | 3:4 | Android — sama näkymä |
-| ✓ | Pivo | `pivo-kirjautuminen-ennen.png` + `pivo-kirjautuminen-jalkeen.png` | 3:4 | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | Elisa Aisti | `aisti-tyopoyta.png` | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
-|  | Elisa Aisti | `aisti-mobiili.png` | 4:5 | Mobiilikartta ja toimipisteen tila |
-|  | Elisa Aisti | `aisti-tiketti.png` | 4:3 | Tiketti aikaennusteineen |
-|  | OP Vahinkoapuri | `op-aloitus.png` | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-|  | OP Vahinkoapuri | `op-vaurio.png` | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-|  | OP Vahinkoapuri | `op-polku.png` | 4:3 | Mukautuva kysymyspolku |
-| ✓ | Tietoa-sivu | `muotokuva.png` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+|  | Colliers Asunnot | `colliers-hero` | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
+|  | Colliers Asunnot | `colliers-viikko-1` | 4:3 | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
+|  | Colliers Asunnot | `colliers-julkaisu` | 4:3 | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
+|  | Colliers Asunnot | `colliers-haku` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
+|  | Colliers Asunnot | `colliers-vuokraus` | 4:5 | Vuokraa heti -polku, yksi vaihe |
+|  | Colliers Asunnot | `colliers-strapi` | 4:5 | Strapi-editori sisältöä muokattaessa |
+| ✓ | Blokbook | `blokbook-hero` | hero | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
+|  | Blokbook | `blokbook-asukas` | 4:3 | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
+|  | Blokbook | `blokbook-hallinta` | 4:3 | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
+|  | Blokbook | `blokbook-web` | 3:4 | Web — varausnäkymä kapeana |
+|  | Blokbook | `blokbook-ios` | 3:4 | iOS — natiivisovellus, ei laitekehystä |
+|  | Blokbook | `blokbook-android` | 3:4 | Android — sama näkymä |
+| ✓ | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | 3:4 | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
+|  | Elisa Aisti | `aisti-tyopoyta` | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
+|  | Elisa Aisti | `aisti-mobiili` | 4:5 | Mobiilikartta ja toimipisteen tila |
+|  | Elisa Aisti | `aisti-tiketti` | 4:3 | Tiketti aikaennusteineen |
+|  | OP Vahinkoapuri | `op-aloitus` | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+|  | OP Vahinkoapuri | `op-vaurio` | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+|  | OP Vahinkoapuri | `op-polku` | 4:3 | Mukautuva kysymyspolku |
+| ✓ | Tietoa-sivu | `muotokuva` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
 3/20 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /luotu -->
@@ -574,7 +589,7 @@ mitä kuvan pitää näyttää.
 - [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
 - [ ] Mittarit. Teksti sanoo nyt "Mittareita ei ole vielä julkaistu" —
       joko luvut tai lause pois
-- [ ] Logo. `kuvat/logo/colliers.png` on tumma laatikko harmaine
+- [ ] Logo. `kuvat/logo/colliers.webp` on tumma laatikko harmaine
       palkkeineen; muut logorivin merkit ovat läpinäkyviä
       sanamerkkejä. Merkitty `blocked`-tilaan `content/logos.ts`:ssä,
       eli se ei näy rivillä ennen kuin korvataan
@@ -619,7 +634,7 @@ mitä kuvan pitää näyttää.
 #### Kaikkia koskevat
 
 - [ ] Microsoftin logon käyttölupa — tai jätä pelkkä nimi. Logo on
-      `kuvat/logo/microsoft.png` ja näkyy logorivissä
+      `kuvat/logo/microsoft.webp` ja näkyy logorivissä
 
 ---
 

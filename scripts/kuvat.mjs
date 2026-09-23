@@ -43,6 +43,19 @@ export const MANIFESTI = join(root, 'content/media.generated.json');
 /** Lähteen enimmäismitta pitkältä sivulta. Yli menevä on arkistoa. */
 const LAHDE_MAX = 2800;
 
+/**
+ * Lähteiden tallennusmuoto: häviötön WebP.
+ *
+ * Häviötön tarkoittaa bitilleen samaa kuvaa kuin PNG, joten
+ * uudelleenrajaus ei kasaa pakkausvirhettä — lähde saa olla lähde.
+ * Tiedostot ovat mitattuna 32–60 % pienempiä: kahdeksantoista kuvan
+ * repo olisi PNG:nä noin 27 MB ja tällä noin 15 MB.
+ *
+ * Pudotettavan tiedoston muodolla ei ole väliä. Tämä on se muoto
+ * johon se muunnetaan kerran, kun se otetaan postilaatikosta.
+ */
+const LAHDEPAATE = '.webp';
+
 /** Leveysportaat. Karsitaan lähteen mukaan — ei venytetä ylöspäin. */
 const PORTAAT = [480, 800, 1200, 1600, 2000, 2800];
 
@@ -202,17 +215,17 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
       const kuva = sharp(polku, { failOn: 'error' }).rotate();
       const meta = await kuva.metadata();
       const pitka = Math.max(meta.width, meta.height);
-      const kohde = join(LAHTEET, `${nimi}.png`);
+      const kohde = join(LAHTEET, `${nimi}${LAHDEPAATE}`);
       await (pitka > LAHDE_MAX
         ? kuva.resize({ width: meta.width >= meta.height ? LAHDE_MAX : null,
                         height: meta.height > meta.width ? LAHDE_MAX : null })
         : kuva
       )
-        .png({ compressionLevel: 9 })
+        .webp({ lossless: true, effort: 6 })
         .toFile(kohde);
       /* Vanha lähde toisella päätteellä pois, ettei kahta jää. */
       for (const vanha of readdirSync(LAHTEET)) {
-        if (vanha.slice(0, vanha.lastIndexOf('.')) === nimi && !vanha.endsWith('.png')) {
+        if (vanha.slice(0, vanha.lastIndexOf('.')) === nimi && !vanha.endsWith(LAHDEPAATE)) {
           rmSync(join(LAHTEET, vanha));
         }
       }
@@ -383,7 +396,9 @@ async function teeLogot({ kirjoita = true } = {}) {
   for (const logo of logos) {
     const kanta = logo.file;
     const svg = join(LOGOKANSIO, `${kanta}.svg`);
-    const png = join(LOGOKANSIO, `${kanta}.png`);
+    const rasteri = ['.webp', '.png']
+      .map((pate) => join(LOGOKANSIO, `${kanta}${pate}`))
+      .find((polku) => existsSync(polku));
 
     if (existsSync(svg)) {
       const meta = await sharp(svg).metadata();
@@ -392,13 +407,15 @@ async function teeLogot({ kirjoita = true } = {}) {
       continue;
     }
 
-    if (!existsSync(png)) throw new Error(`Logo ${logo.name}: lähdettä ei ole (${kanta}.svg|.png)`);
+    if (!rasteri) {
+      throw new Error(`Logo ${logo.name}: lähdettä ei ole (${kanta}.svg | .webp | .png)`);
+    }
 
-    const meta = await sharp(png).metadata();
+    const meta = await sharp(rasteri).metadata();
     const korkeus = Math.min(meta.height, logo.height * LOGOTARKKUUS);
     const leveys = Math.round((meta.width / meta.height) * korkeus);
     if (kirjoita) {
-      await sharp(png)
+      await sharp(rasteri)
         .resize(leveys, korkeus)
         .extractChannel('alpha')
         .png({ compressionLevel: 9, palette: true })

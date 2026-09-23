@@ -137,7 +137,7 @@ const kuvapaikatRivit = await (async () => {
   const rivit = ['| | Missä | Tiedosto | Suhde | Mitä kuvassa |', '|---|---|---|---|---|'];
   for (const p of lista) {
     const on = lahteet(p).every((l) => l.tiedosto) ? '✓' : '';
-    const nimet = lahteet(p).map((l) => `\`${l.nimi}.png\``).join(' + ');
+    const nimet = lahteet(p).map((l) => `\`${l.nimi}\``).join(' + ');
     rivit.push(`| ${on} | ${p.missa} | ${nimet} | ${p.ratio} | ${p.caption.replace(/\|/g, '\\|')} |`);
   }
   const taynna = lista.filter((p) => lahteet(p).every((l) => l.tiedosto)).length;
