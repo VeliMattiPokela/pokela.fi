@@ -134,6 +134,11 @@ export async function paikat() {
   for (const p of lista) {
     if (!SUHTEET[p.ratio]) throw new Error(`Paikka ${p.id}: tuntematon kuvasuhde ${p.ratio}`);
   }
+  /* Numero on sivujärjestys, ei tunniste. Se näkyy placeholderissa
+     ja kelpaa tiedostonimeksi, mutta putki nimeää tiedoston heti
+     tunnisteeksi — numero ei jää elämään mihinkään. Ks. numerolla(). */
+  for (const paikka of lista) paikka.numero = paikka.jarjestys + 1;
+
   return lista.sort((a, b) => a.id.localeCompare(b.id));
 }
 
@@ -193,6 +198,56 @@ function nimiehdokkaat(tiedosto) {
  * Siirtää postilaatikon tiedostot normalisoiduiksi lähteiksi.
  * Kuva skaalataan enintään LAHDE_MAX:iin mutta EI rajata.
  */
+/**
+ * Numero tiedostonimenä → paikan lähdenimi.
+ *
+ * Numero on sivujärjestys, ei tunniste. Se on tarkoituksella
+ * kertakäyttöinen: tiedosto nimetään heti tunnisteeksi, joten numero
+ * ei jää mihinkään elämään. Näin sivun uudelleenjärjestys ei voi
+ * muuttaa jo paikallaan olevan kuvan merkitystä.
+ *
+ * Riski jää silti siihen hetkeen kun katsot sivua ja ajat komennon:
+ * jos välissä lisätään kuvapaikka, numero osoittaa toiseen kohtaan.
+ * Siksi putki tulostaa mihin numero osui ja minkä kuvatekstin kanssa
+ * — väärä osuma on tarkoitus nähdä heti, ei kuukauden päästä.
+ *
+ * Vertailupari tarvitsee kaksi tiedostoa, joten pelkkä numero ei
+ * riitä: `7-ennen` ja `7-jalkeen`.
+ */
+function numeroon(tiedosto, selita = false) {
+  const kanta = tiedosto.slice(0, tiedosto.lastIndexOf('.')).trim().toLowerCase();
+  const osuma = /^(\d{1,3})(?:[-\s]*(ennen|jalkeen|jälkeen))?$/u.exec(kanta);
+  if (!osuma) return null;
+
+  const paikka = numerolista.find((p) => p.numero === Number(osuma[1]));
+  if (!paikka) {
+    return selita ? `numero ${osuma[1]} — ei sellaista paikkaa` : null;
+  }
+
+  const puoli = osuma[2]?.replace('ä', 'a');
+
+  if (paikka.vertailu && !puoli) {
+    return selita
+      ? `numero ${osuma[1]} on vertailupari — nimeä ${osuma[1]}-ennen ja ${osuma[1]}-jalkeen`
+      : null;
+  }
+
+  /* Puoli annettu paikkaan joka ei ole vertailupari: älä hyväksy
+     hiljaa. Ilman tätä `19-ennen` olisi mennyt paikkaan 19 ikään kuin
+     puolta ei olisi kirjoitettu, ja kuva olisi päätynyt väärään
+     kohtaan siinä uskossa että se on pari. */
+  if (!paikka.vertailu && puoli) {
+    return selita
+      ? `numero ${osuma[1]} (${paikka.id}) ei ole vertailupari — jätä "-${puoli}" pois`
+      : null;
+  }
+
+  return selita ? null : { nimi: puoli ? `${paikka.id}-${puoli}` : paikka.id, paikka };
+}
+
+/** Paikkalista numeroiden selvittämistä varten. Asetetaan rakenna():ssa. */
+let numerolista = [];
+
 async function tyhjennaPostilaatikko(kaikkiNimet) {
   if (!existsSync(POSTILAATIKKO)) return { otetut: [], tuntemattomat: [] };
 
@@ -204,10 +259,14 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
     const polku = join(POSTILAATIKKO, tiedosto);
     const pate = extname(tiedosto).toLowerCase();
     const ehdokkaat = nimiehdokkaat(tiedosto);
-    const nimi = ehdokkaat.find((e) => kaikkiNimet.has(e));
+    const numerolla = numeroon(tiedosto);
+    const nimi = ehdokkaat.find((e) => kaikkiNimet.has(e)) ?? numerolla?.nimi;
 
     if (!nimi) {
-      tuntemattomat.push({ tiedosto, arvattu: ehdokkaat.join(' tai ') });
+      tuntemattomat.push({
+        tiedosto,
+        arvattu: numeroon(tiedosto, true) ?? ehdokkaat.join(' tai '),
+      });
       continue;
     }
 
@@ -229,7 +288,7 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
           rmSync(join(LAHTEET, vanha));
         }
       }
-      otetut.push({ tiedosto, nimi, tyyppi: 'kuva', mitat: `${meta.width}×${meta.height}` });
+      otetut.push({ tiedosto, nimi, tyyppi: 'kuva', mitat: `${meta.width}×${meta.height}`, numerolla });
     } else if (VIDEOPAATTEET.includes(pate)) {
       const kohde = join(LAHTEET, `${nimi}.mp4`);
       /* Lähdevideo säilytetään alkuperäisenä koodekkina jos se on jo
@@ -238,7 +297,7 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
       execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', polku,
         '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
         '-an', '-vf', `scale='min(${LAHDE_MAX},iw)':-2`, kohde]);
-      otetut.push({ tiedosto, nimi, tyyppi: 'video', mitat: '' });
+      otetut.push({ tiedosto, nimi, tyyppi: 'video', mitat: '', numerolla });
     } else {
       tuntemattomat.push({ tiedosto, arvattu: `tuntematon pääte ${pate}` });
       continue;
@@ -442,6 +501,7 @@ export async function rakenna({ kirjoita = true } = {}) {
   if (kirjoita) mkdirSync(JULKAISU, { recursive: true });
 
   const lista = await paikat();
+  numerolista = lista;
   const kaikkiNimet = new Set(lista.flatMap((p) => lahteet(p).map((l) => l.nimi)));
   const posti = kirjoita
     ? await tyhjennaPostilaatikko(kaikkiNimet)
@@ -472,6 +532,10 @@ export async function rakenna({ kirjoita = true } = {}) {
 
   const logot = await teeLogot({ kirjoita });
 
+  /* Numerot kaikille paikoille, myös tyhjille: placeholder tarvitsee
+     numeronsa nimenomaan silloin kun kuvaa ei vielä ole. */
+  const numerot = Object.fromEntries(lista.map((p) => [p.id, p.numero]));
+
   /* Lähteet joille ei ole paikkaa: nimi on kirjoitettu väärin tai
      paikka on poistettu sisällöstä. Kumpikin on hiljainen vika —
      tiedosto on olemassa mutta ei näy missään. */
@@ -487,7 +551,7 @@ export async function rakenna({ kirjoita = true } = {}) {
     .map((d) => (d.name.includes('.') ? d.name.slice(0, d.name.lastIndexOf('.')) : d.name))
     .filter((n) => !tunnetut.has(n));
 
-  return { manifesti: { paikat: manifesti, logot }, lista, puuttuvat, posti, orvot };
+  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot };
 }
 
 /* ---- suoraan ajettaessa --------------------------------------------- */
@@ -500,6 +564,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(`\n✓ Postilaatikosta otettu ${posti.otetut.length}:`);
     for (const o of posti.otetut) {
       console.log(`    ${o.tiedosto}  →  kuvat/${o.nimi}  ${o.mitat}`);
+      /* Numerolla pudotettu: näytä mihin se osui ja millä
+         kuvatekstillä, jotta väärä numero näkyy heti. */
+      if (o.numerolla) console.log(`      ↳ ${o.numerolla.paikka.missa}: ${o.numerolla.paikka.caption}`);
     }
   }
 

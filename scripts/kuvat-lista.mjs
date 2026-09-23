@@ -35,7 +35,9 @@ for (const p of lista) {
 const taynna = lista.filter((p) => tila(p) === '✓').length;
 
 console.log(`\nKuvapaikat — ${taynna}/${lista.length} täynnä\n`);
-console.log('Tiedoston nimi = tunniste. Pudota kuvat/uudet/-kansioon ja aja `npm run kuvat`.\n');
+console.log('Pudota tiedosto kuvat/uudet/-kansioon ja aja `npm run kuvat`.');
+console.log('Nimeksi kelpaa joko numero (5.png) tai tunniste (colliers-vuokraus.png).');
+console.log('Numero näkyy myös paikanvaraajassa sivulla, kehitystilassa.\n');
 
 for (const [missa, omat] of ryhmat) {
   console.log(`── ${missa} ${'─'.repeat(Math.max(0, 62 - missa.length))}`);
@@ -43,7 +45,8 @@ for (const [missa, omat] of ryhmat) {
     /* Pääte on tarkoituksella pois: pudotettavan tiedoston muodolla
        ei ole väliä, vain nimellä. Putki muuntaa sen kerran. */
     const nimet = lahteet(p).map((l) => l.nimi);
-    console.log(`  ${tila(p)} ${nimet.join('  +  ').padEnd(46)} ${p.ratio.padEnd(6)} ${LOHKO[p.lohko] ?? p.lohko}`);
+    const numero = String(p.numero).padStart(2, ' ');
+    console.log(`  ${tila(p)} ${numero}  ${nimet.join('  +  ').padEnd(42)} ${p.ratio.padEnd(6)} ${LOHKO[p.lohko] ?? p.lohko}`);
     console.log(`      ${p.caption}`);
   }
   console.log();

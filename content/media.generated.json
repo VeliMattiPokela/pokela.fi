@@ -99,6 +99,28 @@
       }
     }
   },
+  "numerot": {
+    "aisti-mobiili": 15,
+    "aisti-tiketti": 16,
+    "aisti-tyopoyta": 14,
+    "blokbook-android": 12,
+    "blokbook-asukas": 8,
+    "blokbook-hallinta": 9,
+    "blokbook-hero": 7,
+    "blokbook-ios": 11,
+    "blokbook-web": 10,
+    "colliers-haku": 4,
+    "colliers-hero": 1,
+    "colliers-julkaisu": 3,
+    "colliers-strapi": 6,
+    "colliers-viikko-1": 2,
+    "colliers-vuokraus": 5,
+    "muotokuva": 20,
+    "op-aloitus": 17,
+    "op-polku": 19,
+    "op-vaurio": 18,
+    "pivo-kirjautuminen": 13
+  },
   "logot": {
     "sanoma": {
       "muoto": "png",

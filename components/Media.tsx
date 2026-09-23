@@ -37,6 +37,17 @@ type Merkinta =
   | { tyyppi: 'video'; leveys: number; korkeus: number };
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
+const NUMEROT = manifesti.numerot as unknown as Record<string, number>;
+
+/**
+ * Näytetäänkö paikanvaraajan tunnistemerkintä.
+ *
+ * Vain kehityksessä. Merkintä on työkalu kuvien hankintaan, ei osa
+ * sivua: julkaistussa sivustossa numero laatikon nurkassa näyttäisi
+ * keskeneräiseltä silloinkin kun keskeneräisyys on raidoituksesta jo
+ * selvää.
+ */
+const MERKINTA = process.env.NODE_ENV !== 'production';
 
 /**
  * Paikan rajaukset, tai null jos paikka on yhä tyhjä.
@@ -135,9 +146,22 @@ export default function Media({
   const osat = id ? rajaukset(id) : null;
 
   if (!osat) {
+    const numero = id ? NUMEROT[id] : undefined;
     return (
       <div className={luokka} role="img" aria-label={caption ?? ''}>
-        {caption ? <span className="meta meta--s">{caption}</span> : null}
+        {MERKINTA && numero ? (
+          <span className="media__numero" aria-hidden="true">
+            {numero}
+          </span>
+        ) : null}
+        <span className="media__teksti">
+          {caption ? <span className="meta meta--s">{caption}</span> : null}
+          {MERKINTA && id ? (
+            <span className="meta meta--s media__tunnus" aria-hidden="true">
+              {id}
+            </span>
+          ) : null}
+        </span>
       </div>
     );
   }
