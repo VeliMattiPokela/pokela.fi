@@ -570,7 +570,16 @@ async function teeLogot({ kirjoita = true } = {}) {
  */
 export async function rakenna({ kirjoita = true } = {}) {
   mkdirSync(LAHTEET, { recursive: true });
-  if (kirjoita) mkdirSync(JULKAISU, { recursive: true });
+  if (kirjoita) {
+    /* Julkaisukansio tyhjennetään joka ajolla. Johdannaiset ovat
+       kokonaan johdettuja, joten niiden säilyttämisessä ei ole
+       mitään voitettavaa — ja poistuneen tai uudelleennimetyn
+       lähteen tiedostot jäisivät muuten makaamaan. CI:ssä kansio on
+       aina tyhjä, joten ilman tätä paikallinen tulos poikkeaisi
+       julkaistusta juuri niiltä osin joita ei enää ole. */
+    rmSync(JULKAISU, { recursive: true, force: true });
+    mkdirSync(JULKAISU, { recursive: true });
+  }
 
   const lista = await paikat();
   numerolista = lista;
