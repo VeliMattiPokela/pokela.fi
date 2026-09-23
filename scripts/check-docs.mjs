@@ -120,10 +120,37 @@ function caseBlockKinds() {
   return `${kinds.length} lohkotyyppiä: ${kinds.join(', ')}`;
 }
 
+/**
+ * Kuvapaikat taulukkona.
+ *
+ * Tämä oli ennen kuusi käsin kirjoitettua taulukkoa README:ssä. Ne
+ * olivat sama tieto toiseen kertaan: kuvapaikka on sisällössä, ja
+ * käsin kopioitu luettelo olisi vanhentunut ensimmäisen lisäyksen
+ * kohdalla — eikä mikään olisi kertonut siitä.
+ *
+ * Laskenta tehdään kerran moduulin latautuessa, koska lohkojen
+ * korvaus on synkroninen eikä voi odottaa sisällön importtia.
+ */
+const kuvapaikatRivit = await (async () => {
+  const { paikat, lahteet } = await import('./kuvat.mjs');
+  const lista = (await paikat()).sort((a, b) => a.jarjestys - b.jarjestys);
+  const rivit = ['| | Missä | Tiedosto | Suhde | Mitä kuvassa |', '|---|---|---|---|---|'];
+  for (const p of lista) {
+    const on = lahteet(p).every((l) => l.tiedosto) ? '✓' : '';
+    const nimet = lahteet(p).map((l) => `\`${l.nimi}.png\``).join(' + ');
+    rivit.push(`| ${on} | ${p.missa} | ${nimet} | ${p.ratio} | ${p.caption.replace(/\|/g, '\\|')} |`);
+  }
+  const taynna = lista.filter((p) => lahteet(p).every((l) => l.tiedosto)).length;
+  rivit.push('');
+  rivit.push(`${taynna}/${lista.length} täynnä. Sama luettelo komennolla \`npm run kuvat:lista\`.`);
+  return rivit.join('\n');
+})();
+
 const GENERATORS = {
   'figma-kokoelmat': figmaCollections,
   'perusta-sivut': perustaPages,
   'case-lohkot': caseBlockKinds,
+  kuvapaikat: () => kuvapaikatRivit,
 };
 
 /* ---- tarkistus ------------------------------------------------------ */

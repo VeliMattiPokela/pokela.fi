@@ -78,25 +78,44 @@ export async function paikat() {
   const loydetyt = new Map();
   const kayty = new Set();
 
-  const kaiva = (solmu) => {
+  /* Omistaja ja lohko kulkevat mukana syvyyshaussa, jotta listaus voi
+     kertoa MISSÄ paikka on eikä vain että se on olemassa. Pelkkä
+     tunniste ei auta ketään joka yrittää nimetä tiedostoa. */
+  const kaiva = (solmu, omistaja, lohko) => {
     if (!solmu || typeof solmu !== 'object' || kayty.has(solmu)) return;
     kayty.add(solmu);
-    if (Array.isArray(solmu)) return solmu.forEach(kaiva);
+    if (Array.isArray(solmu)) return solmu.forEach((x) => kaiva(x, omistaja, lohko));
+
+    const oma = typeof solmu.missa === 'string'
+      ? solmu.missa
+      : typeof solmu.slug === 'string' && typeof solmu.title === 'string'
+        ? solmu.title
+        : omistaja;
+    const omaLohko = typeof solmu.kind === 'string' && solmu.kind !== 'image'
+      ? solmu.kind
+      : lohko;
 
     if (typeof solmu.id === 'string' && typeof solmu.ratio === 'string') {
       if (loydetyt.has(solmu.id)) throw new Error(`Kaksi paikkaa samalla id:llä: ${solmu.id}`);
       loydetyt.set(solmu.id, {
+        /* Löytymisjärjestys = sivun järjestys. Manifesti pysyy
+           aakkosissa jotta sen diff on luettava, mutta listaus
+           näytetään tässä järjestyksessä — kuvateksti "sama rajaus
+           kuin vasemmalla" on hyödytön jos pari on eri kohdassa. */
+        jarjestys: loydetyt.size,
         id: solmu.id,
         ratio: solmu.ratio,
         caption: solmu.caption ?? '',
+        missa: oma ?? '(tuntematon)',
+        lohko: omaLohko ?? 'media',
         vertailu: solmu.kind === 'compare',
         video: solmu.kind === 'video',
       });
     }
-    Object.values(solmu).forEach(kaiva);
+    Object.values(solmu).forEach((x) => kaiva(x, oma, omaLohko));
   };
 
-  for (const m of moduulit) Object.values(m).forEach(kaiva);
+  for (const m of moduulit) Object.values(m).forEach((x) => kaiva(x, undefined, undefined));
 
   const lista = [...loydetyt.values()];
   for (const p of lista) {
@@ -476,8 +495,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   const valmiit = lista.length - puuttuvat.length;
   console.log(`\n✓ Kuvat rakennettu — ${valmiit}/${lista.length} paikkaa täynnä`);
-  if (puuttuvat.length && !posti.tuntemattomat.length) {
-    console.log(`  Odottaa kuvaa: ${puuttuvat.map((p) => p.id).join(', ')}`);
+  if (puuttuvat.length) {
+    console.log(`  ${puuttuvat.length} paikkaa odottaa kuvaa. Mitkä ja mistä kohtaa sivua:`);
+    console.log('  npm run kuvat:lista');
   }
   console.log();
 }

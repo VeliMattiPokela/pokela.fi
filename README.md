@@ -289,6 +289,20 @@ npm run kuvat
 Muuta ei tarvita. Skripti nimeää, siirtää, rajaa, skaalaa ja pakkaa —
 eikä koodia tarvitse koskea.
 
+### Mistä tiedät miksi kuva pitää nimetä
+
+```
+npm run kuvat:lista
+```
+
+Luettelo kaikista kuvapaikoista sivun järjestyksessä: tiedoston nimi,
+kuvasuhde, missä lohkossa kuva on ja mitä sen pitää näyttää. ✓
+merkitsee täytettyä paikkaa. Sama taulukko on README:n *Avoinna*-
+osiossa luotuna lohkona.
+
+Luettelo johdetaan sisällöstä, joten se ei voi kertoa paikoista joita
+ei ole eikä unohtaa niitä jotka ovat.
+
 ### Miten tiedosto löytää paikkansa
 
 Jokaisella kuvapaikalla on tunniste (`id`) sisällössä, ja se on myös
@@ -498,8 +512,8 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
 
 ### Sisältö
 
-Yhteensä **18 kuvaa** ja **16 muuta kohtaa**, joista kaksi odottaa
-ulkopuolista lupaa (Colliersin sitaatti, Microsoftin logo).
+Kaksi odottaa ulkopuolista lupaa (Colliersin sitaatti, Microsoftin
+logo); loput ovat sinun tiedossasi tai kameran takana.
 
 Kuvapaikat ovat olemassa oikeissa kuvasuhteissa ja kuvatekstit on
 kirjoitettu, joten ne kertovat mitä kuvassa pitää näkyä. Layout ei
@@ -519,47 +533,65 @@ Lähteet: casejen sisältö on `content/cases/fi.ts`, aiemmat työt
 
 ---
 
-#### 01 · Colliers Asunnot — 6 kuvaa, 3 faktaa, 1 lupa, 1 logo
+#### Kuvapaikat
 
-| # | Suhde | Mitä |
-|---|---|---|
-| 1 | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, **min. 2800 px leveä** |
-| 2 | 4:3 | Viikko 1: skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä |
-| 3 | 4:3 | Sama näkymä julkaistussa palvelussa — **sama rajaus kuin 2** |
-| 4 | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
-| 5 | 4:5 | Vuokraa heti -polku, yksi vaihe |
-| 6 | 4:5 | Strapi-editori sisältöä muokattaessa |
+Luettelo on luotu sisällöstä: tiedoston nimi on paikan tunniste, ja
+`Mitä kuvassa` on sen kuvateksti — eli myös `alt`-teksti, joka kertoo
+mitä kuvan pitää näyttää.
+
+<!-- luotu:kuvapaikat -->
+| | Missä | Tiedosto | Suhde | Mitä kuvassa |
+|---|---|---|---|---|
+|  | Colliers Asunnot | `colliers-hero.png` | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
+|  | Colliers Asunnot | `colliers-viikko-1.png` | 4:3 | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
+|  | Colliers Asunnot | `colliers-julkaisu.png` | 4:3 | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
+|  | Colliers Asunnot | `colliers-haku.png` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
+|  | Colliers Asunnot | `colliers-vuokraus.png` | 4:5 | Vuokraa heti -polku, yksi vaihe |
+|  | Colliers Asunnot | `colliers-strapi.png` | 4:5 | Strapi-editori sisältöä muokattaessa |
+| ✓ | Blokbook | `blokbook-hero.png` | hero | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
+|  | Blokbook | `blokbook-asukas.png` | 4:3 | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
+|  | Blokbook | `blokbook-hallinta.png` | 4:3 | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
+|  | Blokbook | `blokbook-web.png` | 3:4 | Web — varausnäkymä kapeana |
+|  | Blokbook | `blokbook-ios.png` | 3:4 | iOS — natiivisovellus, ei laitekehystä |
+|  | Blokbook | `blokbook-android.png` | 3:4 | Android — sama näkymä |
+| ✓ | Pivo | `pivo-kirjautuminen-ennen.png` + `pivo-kirjautuminen-jalkeen.png` | 3:4 | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
+|  | Elisa Aisti | `aisti-tyopoyta.png` | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
+|  | Elisa Aisti | `aisti-mobiili.png` | 4:5 | Mobiilikartta ja toimipisteen tila |
+|  | Elisa Aisti | `aisti-tiketti.png` | 4:3 | Tiketti aikaennusteineen |
+|  | OP Vahinkoapuri | `op-aloitus.png` | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+|  | OP Vahinkoapuri | `op-vaurio.png` | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+|  | OP Vahinkoapuri | `op-polku.png` | 4:3 | Mukautuva kysymyspolku |
+| ✓ | Tietoa-sivu | `muotokuva.png` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+
+3/20 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+<!-- /luotu -->
+
+#### Faktat ja luvat casettain
+
+**01 · Colliers Asunnot**
 
 - [ ] "Mitä tekisin toisin" — yksi rehellinen lause
 - [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
 - [ ] Mittarit. Teksti sanoo nyt "Mittareita ei ole vielä julkaistu" —
       joko luvut tai lause pois
-- [ ] Logo. `kuvat/logo/colliers.png` on tumma laatikko
-      harmaine palkkeineen; muut logorivin merkit ovat läpinäkyviä
-      sanamerkkejä. Nykyinen ei istu riviin
+- [ ] Logo. `kuvat/logo/colliers.png` on tumma laatikko harmaine
+      palkkeineen; muut logorivin merkit ovat läpinäkyviä
+      sanamerkkejä. Merkitty `blocked`-tilaan `content/logos.ts`:ssä,
+      eli se ei näy rivillä ennen kuin korvataan
 
-#### 02 · Blokbook — 6 kuvaa, 5 faktaa
-
-| # | Suhde | Mitä |
-|---|---|---|
-| 1 | hero | Varausnäkymä työpöydällä — **oikeaa dataa, ei demosisältöä** |
-| 2 | 4:3 | Asukas varaa ja maksaa: vapaat vuorot ja maksu |
-| 3 | 4:3 | Isännöinnin hallintanäkymä: tilat, vuorot, maksut, käyttöoikeudet |
-| 4 | 3:4 | Web — varausnäkymä kapeana |
-| 5 | 3:4 | iOS — natiivisovellus, **ei laitekehystä** |
-| 6 | 3:4 | Android — sama näkymä |
+**02 · Blokbook**
 
 - [ ] Stack
 - [ ] Julkaisuvuosi
 - [ ] Taloyhtiöiden määrä (jos saa kertoa)
 - [ ] Isännöitsijän tai hallituksen lause
 - [ ] "Mitä tekisin toisin"
+- [ ] Hero-kuva ja sen kuvateksti eivät vastaa toisiaan. Teksti lupaa
+      *"varausnäkymä työpöydällä, oikeaa dataa"*; nykyinen kuva on
+      vinoja puhelinmockuppeja markkinointiasetelmassa. Kuvateksti on
+      myös `alt`, joten ristiriita kuuluu ruudunlukijalle
 
-#### 03 · Tämä sivusto — valmis
-
-Ei kuvapaikkoja, ei puuttuvia faktoja. Kaikki viisi artefaktia ovat
-julkaistuja ja linkitettyjä: Storybook, Figma-tiedosto, Code
-Connect -kytkennät, repo ja sivu itse.
+**03 · Tämä sivusto** — ei puuttuvia faktoja
 
 - [ ] Poista vanhentunut `todo`-lohko `content/cases/fi.ts`:stä. Se
       pyytää viittä URL-osoitetta, komponenttinäkymän koodia ja
@@ -567,32 +599,18 @@ Connect -kytkennät, repo ja sivu itse.
       renderöidy tuotannossa, joten se ei näy lukijalle, mutta se
       valehtelee lähdekoodissa
 
-#### 04 · Pivo — kuva valmis, 1 fakta
-
-Ennen/jälkeen-kuva on olemassa (`pivo-ennen.png`, `pivo-jalkeen.png`).
+**04 · Pivo** — kuva valmis
 
 - [ ] Saavutettavuusuudistuksen kriteerit ja saavutettu taso
 
-#### 05 · Elisa Aisti — 3 kuvaa, 1 fakta
-
-| # | Suhde | Mitä |
-|---|---|---|
-| 1 | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
-| 2 | 4:5 | Mobiilikartta ja toimipisteen tila |
-| 3 | 4:3 | Tiketti aikaennusteineen |
+**05 · Elisa Aisti**
 
 - [ ] Kuinka suuri osa front endistä oli omaa työtä? Nyt lukee
       "Front end -toteutus" ilman rajausta
 - [ ] Nykyiset kaappaukset ovat laitemockuppeja — rajattava
       näyttöalueeseen ennen käyttöä
 
-#### 06 · OP Vahinkoapuri — 3 kuvaa, 1 fakta
-
-| # | Suhde | Mitä |
-|---|---|---|
-| 1 | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-| 2 | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-| 3 | 4:3 | Mukautuva kysymyspolku |
+**06 · OP Vahinkoapuri**
 
 - [ ] Onko korvauskäsittelyn nopeutumisesta julkaistavia lukuja?
 - [ ] Nykyiset kaappaukset ovat laitemockuppeja — rajattava

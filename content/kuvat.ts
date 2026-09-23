@@ -9,10 +9,11 @@ import type { Ratio } from '@/components/Media';
  * samat muodot, samat koot ja saman tarkistuksen. Ilman tätä
  * rekisteriä se olisi jäänyt ainoaksi käsin ylläpidetyksi kuvaksi.
  */
-export const erilliset: { id: string; ratio: Ratio; caption: string }[] = [
+export const erilliset: { id: string; ratio: Ratio; caption: string; missa: string }[] = [
   {
     id: 'muotokuva',
     ratio: '1:1',
+    missa: 'Tietoa-sivu',
     caption: 'Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä.',
   },
 ];

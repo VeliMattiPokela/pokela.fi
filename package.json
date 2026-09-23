@@ -21,12 +21,13 @@
     "check:code-connect": "node scripts/check-code-connect.mjs",
     "check:hardcoded": "node scripts/check-hardcoded.mjs",
     "check:figma": "node scripts/check-figma.mjs",
-    "check:docs": "node scripts/check-docs.mjs",
-    "docs:korjaa": "node scripts/check-docs.mjs --korjaa",
+    "check:docs": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs.mjs",
+    "docs:korjaa": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs.mjs --korjaa",
     "build:favicon": "node scripts/build-favicon.mjs",
     "check:favicon": "node scripts/check-favicon.mjs",
     "kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat.mjs",
-    "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs"
+    "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs",
+    "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",
