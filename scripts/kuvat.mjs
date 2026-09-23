@@ -283,9 +283,15 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
       )
         .webp({ lossless: true, effort: 6 })
         .toFile(kohde);
-      /* Vanha lähde toisella päätteellä pois, ettei kahta jää. */
+      /* Vanha lähde toisella päätteellä pois, ettei kahta jää.
+         Sivutiedosto EI ole vanha lähde: se on paikan asetukset
+         (alue, rajaus, sovita, vuoto) ja sen pitää säilyä kuvan
+         vaihtuessa. Ilman tätä rajaustaan kerran säätänyt paikka
+         palasi oletuksiin heti kun kuva päivitettiin — hiljaa, koska
+         mikään ei kerro poistetusta tiedostosta. */
       for (const vanha of readdirSync(LAHTEET)) {
-        if (vanha.slice(0, vanha.lastIndexOf('.')) === nimi && !vanha.endsWith(LAHDEPAATE)) {
+        const sama = vanha.slice(0, vanha.lastIndexOf('.')) === nimi;
+        if (sama && !vanha.endsWith(LAHDEPAATE) && !vanha.endsWith('.json')) {
           rmSync(join(LAHTEET, vanha));
         }
       }
