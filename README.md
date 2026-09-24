@@ -255,6 +255,22 @@ README väitti `Border`-kokoelmassa olevan 4 muuttujaa (5) eikä tuntenut
 `Icon`-kokoelmaa lainkaan. Ensimmäinen ajo tällä tarkistuksella kaatui
 omaan sääntöönsä: `check-docs` ei ollut itse dokumentoitu.
 
+**Luodut tekstit Figmassa.** Figma-tiedostossa on väitteitä
+prosessista — montako kokoelmaa, mitä build tarkistaa. Ne ovat samaa
+lajia kuin README:n luodut lohkot: johdettavissa olevaa tietoa, joka
+käsin kirjoitettuna vanhenee hiljaa.
+
+Niin kävikin. Kannessa luki *6 kokoelmaa · 77 muuttujaa ·
+9 tekstityyliä* kun todellisuus oli *7 · 83 · 10* — tiedostossa jonka
+kansi lupaa ettei yhtäkään arvoa ole kopioitu käsin.
+
+Sopimus: Figman tekstisolmu jonka **nimi** on `luotu:<id>` saa
+sisältönsä tiedostosta `scripts/figma-teksti.mjs`. `check:figma` lukee
+solmut rajapinnalla ja vertaa. Nimi on sopimus, sisältö on johdettu.
+
+Todistettu molempiin suuntiin: tekstin muuttaminen Figmassa kaataa
+ajon, ja lähteessä oleva id jolle ei ole solmua kaataa myös.
+
 **Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
 `tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
 generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa

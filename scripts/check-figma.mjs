@@ -37,6 +37,7 @@
  */
 
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { tekstit } from './figma-teksti.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -262,10 +263,53 @@ for (const connection of connections) {
 
 /* ---- raportti ------------------------------------------------------ */
 
+/* ---- 4. luodut tekstit ---------------------------------------------
+   Figmassa on väitteitä prosessista: montako kokoelmaa, mitä build
+   tarkistaa. Ne ovat johdettavissa, joten käsin kirjoitettuna ne
+   vanhenevat hiljaa — ja vanhenivat: kannessa luki 6 · 77 · 9 kun
+   todellisuus oli 7 · 83 · 10.
+
+   Sopimus on sama kuin README:n luoduilla lohkoilla: tekstisolmu
+   jonka nimi on `luotu:<id>` saa sisältönsä scripts/figma-teksti.mjs
+   :stä. Nimi on sopimus, sisältö johdettu.
+
+   Vaatii koko puun, koska solmut voivat olla missä tahansa ja
+   tyylien laskenta tarvitsee tiedoston styles-kartan.            */
+
+const kokoPuu = await figma('');
+const odotetut = tekstit(kokoPuu);
+const loydetyt = new Set();
+
+const kayLapi = (solmu) => {
+  if (!solmu || typeof solmu !== 'object') return;
+  if (solmu.type === 'TEXT' && typeof solmu.name === 'string' && solmu.name.startsWith('luotu:')) {
+    const id = solmu.name.slice('luotu:'.length);
+    loydetyt.add(id);
+    const odotettu = odotetut[id];
+    if (odotettu === undefined) {
+      drift.push({ file: `luotu:${id}`, issue: 'tuntematon luotu teksti — ei lähdettä figma-teksti.mjs:ssä' });
+    } else if ((solmu.characters ?? '').trim() !== odotettu.trim()) {
+      drift.push({
+        file: `luotu:${id}`,
+        issue: `teksti eriytynyt\n${' '.repeat(6)}on:      ${solmu.characters}\n${' '.repeat(6)}pitäisi: ${odotettu}`,
+      });
+    }
+  }
+  for (const lapsi of solmu.children ?? []) kayLapi(lapsi);
+};
+kayLapi(kokoPuu.document);
+
+for (const id of Object.keys(odotetut)) {
+  if (!loydetyt.has(id)) {
+    drift.push({ file: `luotu:${id}`, issue: 'lähde on olemassa, mutta Figmassa ei ole tekstisolmua tällä nimellä' });
+  }
+}
+
 if (drift.length === 0) {
   console.log(
     `✓ Figma synkassa — ${library.length}/${library.length} komponenttia kytketty, ` +
-      `${connections.length} osoitetta ja niiden propertyt tarkistettu (${tree.name})`,
+      `${connections.length} osoitetta ja niiden propertyt tarkistettu, ` +
+      `${loydetyt.size} luotua tekstiä (${tree.name})`,
   );
   if (helpers.length) {
     console.log(`  · ${helpers.length} apukomponenttia ei vaadi kytkentää: ${helpers.map((h) => h.name).join(', ')}`);
