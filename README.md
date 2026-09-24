@@ -712,7 +712,7 @@ mitä kuvan pitää näyttää.
 | ✓ | 4 | Colliers Asunnot | `colliers-haku` | 4:5 · ≥880 px | AI-haku: kirjoitettu kuvaus + tulokset |
 |  | 5 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
 |  | 6 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
-| ✓ | 7 | Blokbook | `blokbook-hero` + `blokbook-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
+| ✓ | 7 | Blokbook | `blokbook-hero` + `blokbook-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Blokbookin näkymiä puhelimessa: pesutuvan ja saunan vuorot, korttimaksu, oven etäavaus ja chat. |
 |  | 8 | Blokbook | `blokbook-asukas` | 4:3 · ≥1344 px | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
 |  | 9 | Blokbook | `blokbook-hallinta` | 4:3 · ≥1344 px | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
 |  | 10 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — varausnäkymä kapeana |

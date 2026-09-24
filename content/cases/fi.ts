@@ -156,7 +156,7 @@ const blokbook: Case = {
         id: 'blokbook-hero',
         ratio: 'hero',
         caption:
-          'Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä.',
+          'Blokbookin näkymiä puhelimessa: pesutuvan ja saunan vuorot, korttimaksu, oven etäavaus ja chat.',
       },
     },
     {
