@@ -132,20 +132,24 @@ function caseBlockKinds() {
  * korvaus on synkroninen eikä voi odottaa sisällön importtia.
  */
 const kuvapaikatRivit = await (async () => {
-  const { paikat, lahteet, muoto } = await import('./kuvat.mjs');
+  const { paikat, lahteet, muoto, taynna } = await import('./kuvat.mjs');
   const lista = (await paikat()).sort((a, b) => a.jarjestys - b.jarjestys);
   const rivit = ['| | # | Missä | Tunniste | Muoto | Mitä kuvassa |', '|---|---|---|---|---|---|'];
   for (const p of lista) {
-    const on = lahteet(p).every((l) => l.tiedosto) ? '✓' : '';
-    const nimet = lahteet(p).map((l) => `\`${l.nimi}\``).join(' + ');
+    const on = taynna(p) ? '✓' : '';
+    /* Valinnainen osa merkitään: hero ilman omaa mobiilikuvaa on
+       valmis, ja taulukko ei saa väittää muuta. */
+    const nimet = lahteet(p)
+      .map((l) => `\`${l.nimi}\`${l.pakollinen ? '' : ' *(valinn.)*'}`)
+      .join(' + ');
     rivit.push(
       `| ${on} | ${p.numero} | ${p.missa} | ${nimet} | ${muoto(p).suhde} · ≥${muoto(p).leveys} px | ` +
         `${p.caption.replace(/\|/g, '\\|')} |`,
     );
   }
-  const taynna = lista.filter((p) => lahteet(p).every((l) => l.tiedosto)).length;
+  const valmiit = lista.filter(taynna).length;
   rivit.push('');
-  rivit.push(`${taynna}/${lista.length} täynnä. Sama luettelo komennolla \`npm run kuvat:lista\`.`);
+  rivit.push(`${valmiit}/${lista.length} täynnä. Sama luettelo komennolla \`npm run kuvat:lista\`.`);
   return rivit.join('\n');
 })();
 

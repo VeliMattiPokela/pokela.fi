@@ -333,9 +333,17 @@ sivulla:
 ```
 4.png                       → paikka 4
 13-ennen.png / 13-jalkeen   → vertailupari, kaksi tiedostoa
+7.png  +  7-mobiili.png     → hero, toinen valinnainen
 ```
 
-Tämä on ainoa sääntö. **Päätteellä ei ole väliä** — pudota png, jpg,
+Tämä on ainoa sääntö. Paikka kertoo itse mitä se hyväksyy, jos nimi
+ei kelpaa:
+
+```
+4-mobiili.png    4 (colliers-haku) hyväksyy: 4
+13-mobiili.png   13 (pivo-kirjautuminen) hyväksyy: 13-ennen, 13-jalkeen
+7-tabletti.png   7 (blokbook-hero) hyväksyy: 7, 7-mobiili (valinnainen)
+``` **Päätteellä ei ole väliä** — pudota png, jpg,
 heic tai mitä kamerasta tuleekin; putki muuntaa sen kerran.
 
 Mikään muu ei kelpaa, eikä mitään arvata. `colliers4.png` ja
@@ -488,6 +496,36 @@ piirtyy kahden pikselin näytöllä. Sitä ei voi korjata skaalaamalla —
 kuva näkyy pehmeänä ja se on otettava uudelleen. Arvio tulee
 lohkotyypistä (`scripts/kuvat.mjs`, `LOHKOLEVEYS`) tai paikan omasta
 `tarveLeveys`-kentästä.
+
+### Hero: valinnainen mobiilikuva
+
+`hero` rajataan kolmeen kuvasuhteeseen — 4:5 puhelimessa, 16:9
+tabletissa, 21:9 työpöydällä. Leveästä lähteestä mobiilin 4:5 leikkaa
+helposti yli puolet leveydestä.
+
+Sille voi antaa oman kuvan:
+
+```
+7.png           pakollinen   → 16:9 ja 21:9
+7-mobiili.png   valinnainen  → 4:5
+```
+
+**Ilman mobiilikuvaa kaikki kolme lasketaan pääkuvasta, kuten ennenkin.**
+Paikka on täysi yhdellä tiedostolla — valinnainen osa ei jätä sitä
+vajaaksi eikä tuota varoitusta.
+
+Putki huomauttaa asiasta vain silloin kun sille on tekemistä, eli kun
+base-rajaus leikkaa yli viidenneksen eikä omaa mobiilikuvaa ole:
+
+```
+Rajaukset:
+    7  blokbook-hero    −55 % leveydestä (base) · −24 % korkeudesta (lg)
+       ↳ oma mobiilikuva: 7-mobiili
+```
+
+Tämä ei poista sitä että hero on kolme kuvasuhdetta. `lg` (21:9)
+leikkaa yhä korkeutta 16:9-lähteestä, ja siihen tarvittaisiin kolmas
+lähde. Kaksi on hallittavissa; kolme alkaisi olla kuvapankki.
 
 ### Video
 
@@ -668,13 +706,13 @@ mitä kuvan pitää näyttää.
 <!-- luotu:kuvapaikat -->
 | | # | Missä | Tunniste | Muoto | Mitä kuvassa |
 |---|---|---|---|---|---|
-|  | 1 | Colliers Asunnot | `colliers-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
+|  | 1 | Colliers Asunnot | `colliers-hero` + `colliers-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
 |  | 2 | Colliers Asunnot | `colliers-viikko-1` | 4:3 · ≥1344 px | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
 |  | 3 | Colliers Asunnot | `colliers-julkaisu` | 4:3 · ≥1344 px | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
 | ✓ | 4 | Colliers Asunnot | `colliers-haku` | 4:5 · ≥880 px | AI-haku: kirjoitettu kuvaus + tulokset |
 |  | 5 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
 |  | 6 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
-| ✓ | 7 | Blokbook | `blokbook-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
+| ✓ | 7 | Blokbook | `blokbook-hero` + `blokbook-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
 |  | 8 | Blokbook | `blokbook-asukas` | 4:3 · ≥1344 px | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
 |  | 9 | Blokbook | `blokbook-hallinta` | 4:3 · ≥1344 px | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
 |  | 10 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — varausnäkymä kapeana |
@@ -687,7 +725,7 @@ mitä kuvan pitää näyttää.
 |  | 17 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
 |  | 18 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
 |  | 19 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
-|  | 20 | Etusivu | `etusivu-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Täysleveä kuva 21:9 — työn hero tai valokuva |
+|  | 20 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Täysleveä kuva 21:9 — työn hero tai valokuva |
 |  | 21 | Etusivu | `etusivu-colliers` | 4:3 · ≥1580 px | Colliers — asuntohaku |
 |  | 22 | Etusivu | `etusivu-blokbook` | 4:5 · ≥880 px | Blokbook — varausnäkymä |
 |  | 23 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |

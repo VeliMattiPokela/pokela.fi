@@ -174,10 +174,48 @@ export async function paikat() {
 
 /* ---- lähdetiedostot ------------------------------------------------ */
 
-/** Paikan lähteet levyllä. Vertailupari tarvitsee kaksi. */
+/**
+ * Paikan osat: mitkä tiedostot se tarvitsee tai sallii.
+ *
+ * Useimmat paikat ovat yksi tiedosto. Kaksi poikkeusta, ja molemmat
+ * ovat sama idea — paikka tarvitsee useamman lähteen:
+ *
+ *   vertailupari   ennen + jalkeen, molemmat pakollisia
+ *   hero           pääkuva pakollinen, mobiili valinnainen
+ *
+ * Hero rajataan kolmeen kuvasuhteeseen (4:5 → 16:9 → 21:9), ja
+ * mobiilin 4:5 leikkaa leveästä lähteestä yli puolet. Oma
+ * mobiilikuva antaa siihen hallinnan. Se on valinnainen: ilman sitä
+ * base lasketaan pääkuvasta kuten ennenkin, eikä paikka jää vajaaksi.
+ *
+ * Taulukko eikä ehtolause, jotta nimeäminen ja lähdehaku lukevat
+ * saman listan. Ennen tämä oli `vertailu ? ... : ...` kahdessa
+ * paikassa, ja kolmas tapaus olisi tarkoittanut kolmatta haaraa
+ * molempiin.
+ */
+function osat(paikka) {
+  if (paikka.vertailu) {
+    return [
+      { osa: 'ennen', pakollinen: true },
+      { osa: 'jalkeen', pakollinen: true },
+    ];
+  }
+  if (paikka.ratio === 'hero') {
+    return [
+      { osa: null, pakollinen: true },
+      { osa: 'mobiili', pakollinen: false },
+    ];
+  }
+  return [{ osa: null, pakollinen: true }];
+}
+
+/** Osan lähdenimi: `colliers-hero` tai `colliers-hero-mobiili`. */
+const osanNimi = (paikka, osa) => (osa ? `${paikka.id}-${osa}` : paikka.id);
+
+/** Paikan lähteet levyllä, osa kerrallaan. */
 export function lahteet(paikka) {
-  const nimet = paikka.vertailu ? [`${paikka.id}-ennen`, `${paikka.id}-jalkeen`] : [paikka.id];
-  return nimet.map((nimi) => {
+  return osat(paikka).map(({ osa, pakollinen }) => {
+    const nimi = osanNimi(paikka, osa);
     const osuma = readdirSync(LAHTEET, { withFileTypes: true }).find(
       (d) =>
         d.isFile() &&
@@ -185,10 +223,15 @@ export function lahteet(paikka) {
         !d.name.endsWith('.json') &&
         d.name.slice(0, d.name.lastIndexOf('.')) === nimi,
     )?.name;
-    return { nimi, tiedosto: osuma ? join(LAHTEET, osuma) : null };
+    return { nimi, osa, pakollinen, tiedosto: osuma ? join(LAHTEET, osuma) : null };
   });
 }
 
+/**
+ * Onko paikka täynnä. Valinnainen osa ei vaikuta: hero ilman omaa
+ * mobiilikuvaa on valmis, ei kesken.
+ */
+export const taynna = (paikka) => lahteet(paikka).every((l) => l.tiedosto || !l.pakollinen);
 
 /* ---- postilaatikko -------------------------------------------------- */
 
@@ -216,29 +259,26 @@ export function lahteet(paikka) {
  */
 function paikkaNimelle(tiedosto) {
   const kanta = tiedosto.slice(0, tiedosto.lastIndexOf('.')).trim().toLowerCase();
-  const osuma = /^(\d{1,3})(?:[-\s]?(ennen|jalkeen|jälkeen))?$/u.exec(kanta);
+  const osuma = /^(\d{1,3})(?:[-\s]?([a-zäö]+))?$/u.exec(kanta);
   if (!osuma) return { virhe: 'nimeksi tarvitaan numero, esim. 4.png' };
 
   const numero = Number(osuma[1]);
-  const puoli = osuma[2]?.replace('ä', 'a');
+  const osa = osuma[2] ? osuma[2].replace('ä', 'a').replace('ö', 'o') : null;
 
   const paikka = numerolista.find((p) => p.numero === numero);
   if (!paikka) return { virhe: `numeroa ${numero} ei ole` };
 
-  if (paikka.vertailu && !puoli) {
-    return { virhe: `${numero} on vertailupari — nimeä ${numero}-ennen ja ${numero}-jalkeen` };
-  }
-  if (!paikka.vertailu && puoli) {
-    return { virhe: `${numero} (${paikka.id}) ei ole vertailupari — jätä "-${puoli}" pois` };
+  const sallitut = osat(paikka);
+  if (!sallitut.some((o) => o.osa === osa)) {
+    const vaihtoehdot = sallitut
+      .map((o) => (o.osa ? `${numero}-${o.osa}` : `${numero}`) + (o.pakollinen ? '' : ' (valinnainen)'))
+      .join(', ');
+    return { virhe: `${numero} (${paikka.id}) hyväksyy: ${vaihtoehdot}` };
   }
 
-  return { nimi: puoli ? `${paikka.id}-${puoli}` : paikka.id, paikka };
+  return { nimi: osanNimi(paikka, osa), paikka };
 }
 
-/**
- * Siirtää postilaatikon tiedostot normalisoiduiksi lähteiksi.
- * Kuva skaalataan enintään LAHDE_MAX:iin mutta EI rajata.
- */
 /** Paikkalista numeroiden selvittämistä varten. Asetetaan rakenna():ssa. */
 let numerolista = [];
 
@@ -396,8 +436,8 @@ function portaat(maxLeveys) {
  * mitoista, ei sisällössä ilmoitetusta suhteesta. Rajattuna
  * puhelinkaappauksesta olisi kadonnut kolmannes ruudusta.
  */
-async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {}) {
-  const omat = asetukset(nimi);
+async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true, koot = null, asetusNimi = nimi } = {}) {
+  const omat = asetukset(asetusNimi);
   const sovita = omat.sovita === true;
 
   const hukat = [];
@@ -418,7 +458,7 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
   const alue = omat.alue ? alueeksi(omat.alue, koko) : null;
   const lahdeKuva = () => (alue ? sharp(lahde).extract(alue) : sharp(lahde));
   const meta = alue ? { width: alue.width, height: alue.height } : koko;
-  const kohta = rajauskohta(nimi);
+  const kohta = rajauskohta(asetusNimi);
   const ulos = [];
 
   const rajaukset = rajaa
@@ -426,6 +466,10 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
     : [{ nimi: 'base', suhde: meta.width / meta.height, media: null }];
 
   for (const { nimi: koko, suhde, media } of rajaukset) {
+    /* `koot` rajaa mitkä kuvasuhteet tästä lähteestä lasketaan.
+       Hero voi ottaa base-koon omasta mobiilikuvastaan ja loput
+       pääkuvasta. */
+    if (koot && !koot.includes(koko)) continue;
     /* Rajattu alue lähteestä: koko leveys tai koko korkeus, kumpi
        mahtuu. Tästä johdetaan suurin mahdollinen leveys. */
     const maxLeveys = rajaa
@@ -611,7 +655,7 @@ export async function rakenna({ kirjoita = true } = {}) {
 
   for (const paikka of lista) {
     const omat = lahteet(paikka);
-    if (omat.some((l) => !l.tiedosto)) {
+    if (!taynna(paikka)) {
       puuttuvat.push(paikka);
       continue;
     }
@@ -622,28 +666,69 @@ export async function rakenna({ kirjoita = true } = {}) {
       continue;
     }
 
-    const osat = {};
-    for (const { nimi, tiedosto } of omat) {
-      const tulos = await teeKuva(nimi, tiedosto, paikka.ratio, {
+    /* Mistä lähteestä mikäkin kuvasuhde lasketaan.
+       Tavallisesti yksi lähde kattaa kaikki. Vertailuparilla
+       kummallakin puolella on oma lähteensä ja oma nimensä. Herolla
+       on yksi ulostulonimi mutta mahdollisesti kaksi lähdettä:
+       mobiilin 4:5 omastaan, loput pääkuvasta. */
+    const paa = omat.find((l) => !l.osa) ?? omat[0];
+    const mobiili = omat.find((l) => l.osa === 'mobiili' && l.tiedosto);
+
+    const palat = paikka.vertailu
+      ? omat.map((l) => ({ ulos: l.nimi, lahde: l, koot: null }))
+      : mobiili
+        ? [
+            { ulos: paikka.id, lahde: mobiili, koot: ['base'] },
+            { ulos: paikka.id, lahde: paa, koot: ['sm', 'lg'] },
+          ]
+        : [{ ulos: paikka.id, lahde: paa, koot: null }];
+
+    const tulokset = {};
+    for (const pala of palat) {
+      const tulos = await teeKuva(pala.ulos, pala.lahde.tiedosto, paikka.ratio, {
         rajaa: !paikka.vertailu,
         kirjoita,
+        koot: pala.koot,
+        asetusNimi: pala.lahde.nimi,
       });
 
-      if (tulos.hukat.length) rajaukset.push({ nimi, paikka, hukat: tulos.hukat });
+      if (tulos.hukat.length) {
+        /* Hero jonka base-rajaus leikkaa paljon ja jolla ei ole omaa
+           mobiilikuvaa: kerro että sellaisen voi antaa. Vihje vain
+           silloin kun sille on tekemistä. */
+        const vihje =
+          paikka.ratio === 'hero' &&
+          !mobiili &&
+          tulos.hukat.some((h) => h.koko === 'base' && h.osuus > 0.2)
+            ? `oma mobiilikuva: ${paikka.numero}-mobiili`
+            : null;
+        rajaukset.push({ nimi: pala.lahde.nimi, paikka, hukat: tulos.hukat, vihje });
+      }
 
       /* Lähde kapeampi kuin mitä paikka piirtyy kahden pikselin
-         näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä. */
-      const tarve = tarvittavaLeveys(paikka);
+         näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä.
+         Mobiilikuvalta ei vaadita työpöytäleveyttä. */
+      const tarve = pala.koot?.length === 1 && pala.koot[0] === 'base' ? 880 : tarvittavaLeveys(paikka);
       if (tulos.lahdeLeveys < tarve * 0.75) {
         huomiot.push({
-          nimi,
+          nimi: pala.lahde.nimi,
           paikka,
           teksti: `lähde on ${tulos.lahdeLeveys} px leveä, paikka tarvitsee noin ${tarve} px`,
         });
       }
 
-      osat[nimi] = tulos;
+      tulokset[pala.ulos] = [...(tulokset[pala.ulos] ?? []), ...tulos];
     }
+
+    /* Rajaukset pienimmästä suurimpaan, koska Media kääntää listan
+       ja odottaa base ensin. */
+    const jarjestys = SUHTEET[paikka.ratio].map((r) => r.nimi);
+    const osat = Object.fromEntries(
+      Object.entries(tulokset).map(([k, v]) => [
+        k,
+        [...v].sort((a, b) => jarjestys.indexOf(a.koko) - jarjestys.indexOf(b.koko)),
+      ]),
+    );
     manifesti[paikka.id] = { tyyppi: paikka.vertailu ? 'vertailu' : 'kuva', osat };
   }
 
@@ -708,6 +793,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         .map((h) => `−${Math.round(h.osuus * 100)} % ${h.suunta}${r.hukat.length > 1 ? ` (${h.koko})` : ''}`)
         .join(' · ');
       console.log(`  ${String(r.paikka.numero).padStart(3)}  ${r.nimi.padEnd(26)} ${osat}`);
+      if (r.vihje) console.log(`       ↳ ${r.vihje}`);
     }
   }
 
