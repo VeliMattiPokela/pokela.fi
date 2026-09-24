@@ -132,14 +132,15 @@ function caseBlockKinds() {
  * korvaus on synkroninen eikä voi odottaa sisällön importtia.
  */
 const kuvapaikatRivit = await (async () => {
-  const { paikat, lahteet } = await import('./kuvat.mjs');
+  const { paikat, lahteet, muoto } = await import('./kuvat.mjs');
   const lista = (await paikat()).sort((a, b) => a.jarjestys - b.jarjestys);
-  const rivit = ['| | # | Missä | Tunniste | Suhde | Mitä kuvassa |', '|---|---|---|---|---|---|'];
+  const rivit = ['| | # | Missä | Tunniste | Muoto | Mitä kuvassa |', '|---|---|---|---|---|---|'];
   for (const p of lista) {
     const on = lahteet(p).every((l) => l.tiedosto) ? '✓' : '';
     const nimet = lahteet(p).map((l) => `\`${l.nimi}\``).join(' + ');
     rivit.push(
-      `| ${on} | ${p.numero} | ${p.missa} | ${nimet} | ${p.ratio} | ${p.caption.replace(/\|/g, '\\|')} |`,
+      `| ${on} | ${p.numero} | ${p.missa} | ${nimet} | ${muoto(p).suhde} · ≥${muoto(p).leveys} px | ` +
+        `${p.caption.replace(/\|/g, '\\|')} |`,
     );
   }
   const taynna = lista.filter((p) => lahteet(p).every((l) => l.tiedosto)).length;

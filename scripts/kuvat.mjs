@@ -72,6 +72,35 @@ const SUHTEET = {
   '1:1': [{ nimi: 'base', suhde: 1, media: null }],
 };
 
+/**
+ * Paikan muoto ihmiselle: kuvasuhde ja tarvittava lähdeleveys.
+ *
+ * Sama laskenta menee manifestiin (paikanvaraajan merkintä) ja
+ * luetteloon. Kaksi laskentaa olisi kaksi mahdollisuutta olla eri
+ * mieltä siitä minkä muotoinen kuva paikkaan kuuluu.
+ */
+export function muoto(paikka) {
+  return {
+    suhde: paikka.vertailu
+      ? /* Vertailuparia ei rajata: kehys ottaa kuvan oman suhteen,
+           joten sisällön ratio ei koske sitä. */
+        'vapaa'
+      : paikka.ratio === 'hero'
+        ? /* Hero näyttää kaikki kolme suhdettaan. Se on samalla
+             varoitus: kuva rajataan kolmeen eri muotoon. */
+          SUHTEET.hero.map((r) => suhdeTeksti(r.suhde)).join(' · ')
+        : paikka.ratio,
+    leveys: tarvittavaLeveys(paikka),
+  };
+}
+
+/** Suhdeluku luettavaan muotoon: 0.8 → "4:5". */
+function suhdeTeksti(suhde) {
+  const parit = [[4, 5], [3, 4], [1, 1], [4, 3], [16, 9], [21, 9]];
+  const osuma = parit.find(([a, b]) => Math.abs(a / b - suhde) < 0.01);
+  return osuma ? `${osuma[0]}:${osuma[1]}` : suhde.toFixed(2);
+}
+
 const KUVAPAATTEET = ['.png', '.jpg', '.jpeg', '.webp', '.avif', '.tif', '.tiff', '.heic'];
 const VIDEOPAATTEET = ['.mp4', '.mov', '.m4v', '.webm'];
 
@@ -338,6 +367,11 @@ function asetukset(nimi) {
  */
 const LOHKOLEVEYS = { media: 2736, compare: 880, pair: 1344, trio: 880 };
 
+/** Paikan tarvitsema lähdeleveys. Yksi laskenta, kaksi käyttäjää:
+    varoitus liian pienestä lähteestä ja paikanvaraajan merkintä. */
+const tarvittavaLeveys = (paikka) =>
+  paikka.tarveLeveys ?? LOHKOLEVEYS[paikka.lohko] ?? 1344;
+
 /**
  * Leveysportaat yhdelle rajaukselle.
  *
@@ -599,7 +633,7 @@ export async function rakenna({ kirjoita = true } = {}) {
 
       /* Lähde kapeampi kuin mitä paikka piirtyy kahden pikselin
          näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä. */
-      const tarve = paikka.tarveLeveys ?? LOHKOLEVEYS[paikka.lohko] ?? 1344;
+      const tarve = tarvittavaLeveys(paikka);
       if (tulos.lahdeLeveys < tarve * 0.75) {
         huomiot.push({
           nimi,
@@ -619,6 +653,13 @@ export async function rakenna({ kirjoita = true } = {}) {
      numeronsa nimenomaan silloin kun kuvaa ei vielä ole. */
   const numerot = Object.fromEntries(lista.map((p) => [p.id, p.numero]));
 
+  /* Paikanvaraajan merkintä: numero, muoto ja tarvittava leveys.
+     Muoto tulee SUHTEET-taulukosta eikä komponentista, jotta
+     `hero` ei voi tarkoittaa kahta eri asiaa eri puolilla.
+     Hero näyttää kaikki kolme suhdettaan — se on samalla varoitus
+     siitä että kuva rajataan kolmeen eri muotoon. */
+  const muodot = Object.fromEntries(lista.map((p) => [p.id, muoto(p)]));
+
   /* Lähteet joille ei ole paikkaa: nimi on kirjoitettu väärin tai
      paikka on poistettu sisällöstä. Kumpikin on hiljainen vika —
      tiedosto on olemassa mutta ei näy missään. */
@@ -634,7 +675,7 @@ export async function rakenna({ kirjoita = true } = {}) {
     .map((d) => (d.name.includes('.') ? d.name.slice(0, d.name.lastIndexOf('.')) : d.name))
     .filter((n) => !tunnetut.has(n));
 
-  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot, huomiot, rajaukset };
+  return { manifesti: { paikat: manifesti, numerot, muodot, logot }, lista, puuttuvat, posti, orvot, huomiot, rajaukset };
 }
 
 /* ---- suoraan ajettaessa --------------------------------------------- */

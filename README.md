@@ -291,9 +291,21 @@ eikä koodia tarvitse koskea.
 
 ### Mistä tiedät miksi kuva pitää nimetä
 
-**Sivulta.** Kehitystilassa jokaisessa tyhjässä kuvapaikassa näkyy
-järjestysnumero vasemmassa ylänurkassa ja tunniste kuvatekstin alla.
-Katsot sivua, luet numeron, nimeät tiedoston. Ei terminaalia väliin.
+**Sivulta.** Kehitystilassa jokaisessa tyhjässä kuvapaikassa lukee
+numero, tunniste ja se millainen kuva siihen kuuluu:
+
+```
+4   colliers-haku                        4:5 · ≥880 px
+AI-HAKU: KIRJOITETTU KUVAUS + TULOKSET
+```
+
+Numero on tiedostonimi, muoto ja vähimmäisleveys kertovat millainen
+kuva tarvitaan, kuvateksti mitä siinä pitää näkyä. Koko näkymän voi
+siis käydä läpi sivulta ilman terminaalia.
+
+`hero` näyttää kaikki kolme kuvasuhdettaan (`4:5 · 16:9 · 21:9`) — se
+on samalla varoitus siitä että kuva rajataan kolmeen eri muotoon.
+Vertailuparin muoto on `vapaa`, koska sitä ei rajata lainkaan.
 
 Merkinnät näkyvät vain kehityksessä (`Media.tsx` päättää sen
 `NODE_ENV`:n perusteella) — julkaistussa sivustossa numero laatikon
@@ -654,32 +666,32 @@ Luettelo on luotu sisällöstä: tiedoston nimi on paikan tunniste, ja
 mitä kuvan pitää näyttää.
 
 <!-- luotu:kuvapaikat -->
-| | # | Missä | Tunniste | Suhde | Mitä kuvassa |
+| | # | Missä | Tunniste | Muoto | Mitä kuvassa |
 |---|---|---|---|---|---|
-|  | 1 | Colliers Asunnot | `colliers-hero` | hero | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
-|  | 2 | Colliers Asunnot | `colliers-viikko-1` | 4:3 | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
-|  | 3 | Colliers Asunnot | `colliers-julkaisu` | 4:3 | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
-| ✓ | 4 | Colliers Asunnot | `colliers-haku` | 4:5 | AI-haku: kirjoitettu kuvaus + tulokset |
-|  | 5 | Colliers Asunnot | `colliers-vuokraus` | 4:5 | Vuokraa heti -polku, yksi vaihe |
-|  | 6 | Colliers Asunnot | `colliers-strapi` | 4:5 | Strapi-editori sisältöä muokattaessa |
-| ✓ | 7 | Blokbook | `blokbook-hero` | hero | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
-|  | 8 | Blokbook | `blokbook-asukas` | 4:3 | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
-|  | 9 | Blokbook | `blokbook-hallinta` | 4:3 | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
-|  | 10 | Blokbook | `blokbook-web` | 3:4 | Web — varausnäkymä kapeana |
-|  | 11 | Blokbook | `blokbook-ios` | 3:4 | iOS — natiivisovellus, ei laitekehystä |
-|  | 12 | Blokbook | `blokbook-android` | 3:4 | Android — sama näkymä |
-| ✓ | 13 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | 3:4 | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | 14 | Elisa Aisti | `aisti-tyopoyta` | 4:3 | Toimipistelista ja kartta työpöydällä — päänäkymä |
-|  | 15 | Elisa Aisti | `aisti-mobiili` | 4:5 | Mobiilikartta ja toimipisteen tila |
-|  | 16 | Elisa Aisti | `aisti-tiketti` | 4:3 | Tiketti aikaennusteineen |
-|  | 17 | OP Vahinkoapuri | `op-aloitus` | 4:3 | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-|  | 18 | OP Vahinkoapuri | `op-vaurio` | 4:5 | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-|  | 19 | OP Vahinkoapuri | `op-polku` | 4:3 | Mukautuva kysymyspolku |
-|  | 20 | Etusivu | `etusivu-hero` | hero | Täysleveä kuva 21:9 — työn hero tai valokuva |
-|  | 21 | Etusivu | `etusivu-colliers` | 4:3 | Colliers — asuntohaku |
-|  | 22 | Etusivu | `etusivu-blokbook` | 4:5 | Blokbook — varausnäkymä |
-|  | 23 | Työlista | `tyot-storybook` | 4:3 | Nosto: Storybook-näkymä |
-| ✓ | 24 | Tietoa-sivu | `muotokuva` | 1:1 | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+|  | 1 | Colliers Asunnot | `colliers-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
+|  | 2 | Colliers Asunnot | `colliers-viikko-1` | 4:3 · ≥1344 px | Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä. |
+|  | 3 | Colliers Asunnot | `colliers-julkaisu` | 4:3 · ≥1344 px | Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla. |
+| ✓ | 4 | Colliers Asunnot | `colliers-haku` | 4:5 · ≥880 px | AI-haku: kirjoitettu kuvaus + tulokset |
+|  | 5 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
+|  | 6 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
+| ✓ | 7 | Blokbook | `blokbook-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Varausnäkymä työpöydällä — tuotteen ydin yhdessä kuvassa. Oikeaa dataa, ei demosisältöä. |
+|  | 8 | Blokbook | `blokbook-asukas` | 4:3 · ≥1344 px | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
+|  | 9 | Blokbook | `blokbook-hallinta` | 4:3 · ≥1344 px | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
+|  | 10 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — varausnäkymä kapeana |
+|  | 11 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — natiivisovellus, ei laitekehystä |
+|  | 12 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
+| ✓ | 13 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
+|  | 14 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Toimipistelista ja kartta työpöydällä — päänäkymä |
+|  | 15 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
+|  | 16 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
+|  | 17 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+|  | 18 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+|  | 19 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
+|  | 20 | Etusivu | `etusivu-hero` | 4:5 · 16:9 · 21:9 · ≥2736 px | Täysleveä kuva 21:9 — työn hero tai valokuva |
+|  | 21 | Etusivu | `etusivu-colliers` | 4:3 · ≥1580 px | Colliers — asuntohaku |
+|  | 22 | Etusivu | `etusivu-blokbook` | 4:5 · ≥880 px | Blokbook — varausnäkymä |
+|  | 23 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |
+| ✓ | 24 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
 4/24 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /luotu -->

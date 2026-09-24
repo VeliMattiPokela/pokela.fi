@@ -145,6 +145,104 @@
     "pivo-kirjautuminen": 13,
     "tyot-storybook": 23
   },
+  "muodot": {
+    "aisti-mobiili": {
+      "suhde": "4:5",
+      "leveys": 2736
+    },
+    "aisti-tiketti": {
+      "suhde": "4:3",
+      "leveys": 2736
+    },
+    "aisti-tyopoyta": {
+      "suhde": "4:3",
+      "leveys": 2736
+    },
+    "blokbook-android": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "blokbook-asukas": {
+      "suhde": "4:3",
+      "leveys": 1344
+    },
+    "blokbook-hallinta": {
+      "suhde": "4:3",
+      "leveys": 1344
+    },
+    "blokbook-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
+    },
+    "blokbook-ios": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "blokbook-web": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "colliers-haku": {
+      "suhde": "4:5",
+      "leveys": 880
+    },
+    "colliers-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
+    },
+    "colliers-julkaisu": {
+      "suhde": "4:3",
+      "leveys": 1344
+    },
+    "colliers-strapi": {
+      "suhde": "4:5",
+      "leveys": 880
+    },
+    "colliers-viikko-1": {
+      "suhde": "4:3",
+      "leveys": 1344
+    },
+    "colliers-vuokraus": {
+      "suhde": "4:5",
+      "leveys": 880
+    },
+    "etusivu-blokbook": {
+      "suhde": "4:5",
+      "leveys": 880
+    },
+    "etusivu-colliers": {
+      "suhde": "4:3",
+      "leveys": 1580
+    },
+    "etusivu-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
+    },
+    "muotokuva": {
+      "suhde": "1:1",
+      "leveys": 880
+    },
+    "op-aloitus": {
+      "suhde": "4:3",
+      "leveys": 2736
+    },
+    "op-polku": {
+      "suhde": "4:3",
+      "leveys": 2736
+    },
+    "op-vaurio": {
+      "suhde": "4:5",
+      "leveys": 2736
+    },
+    "pivo-kirjautuminen": {
+      "suhde": "vapaa",
+      "leveys": 880
+    },
+    "tyot-storybook": {
+      "suhde": "4:3",
+      "leveys": 2736
+    }
+  },
   "logot": {
     "sanoma": {
       "muoto": "png",

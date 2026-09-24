@@ -250,9 +250,10 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
    vilkaistaan, tunniste se joka kopioidaan. Tunniste ilman
    versaalimuunnosta, koska se on kopioitava tiedostonimi. */
 .media__teksti { display: flex; flex-direction: column; gap: var(--space-8); }
-.media__merkinta { display: flex; align-items: baseline; gap: var(--space-12); }
+.media__merkinta { display: flex; align-items: baseline; gap: var(--space-12); flex-wrap: wrap; }
 .media__numero { color: var(--ink); font-variant-numeric: tabular-nums; }
 .media__tunnus { color: var(--ink-faint); text-transform: none; }
+.media__muoto { color: var(--ink-faint); margin-inline-start: auto; text-transform: none; }
 
 
 /* ---- reveal --------------------------------------------------------- */

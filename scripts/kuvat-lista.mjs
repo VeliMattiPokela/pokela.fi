@@ -14,7 +14,7 @@
  * Aja:  npm run kuvat:lista
  */
 
-import { paikat, lahteet } from './kuvat.mjs';
+import { paikat, lahteet, muoto } from './kuvat.mjs';
 
 const LOHKO = {
   media: 'yksittäinen kuva',
@@ -46,7 +46,11 @@ for (const [missa, omat] of ryhmat) {
        ei ole väliä, vain nimellä. Putki muuntaa sen kerran. */
     const nimet = lahteet(p).map((l) => l.nimi);
     const numero = String(p.numero).padStart(2, ' ');
-    console.log(`  ${tila(p)} ${numero}  ${nimet.join('  +  ').padEnd(42)} ${p.ratio.padEnd(6)} ${LOHKO[p.lohko] ?? p.lohko}`);
+    const m = muoto(p);
+    const muotoTeksti = `${m.suhde} · ≥${m.leveys} px`;
+    console.log(
+      `  ${tila(p)} ${numero}  ${nimet.join('  +  ').padEnd(30)} ${muotoTeksti.padEnd(26)} ${LOHKO[p.lohko] ?? p.lohko}`,
+    );
     console.log(`      ${p.caption}`);
   }
   console.log();

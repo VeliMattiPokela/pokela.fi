@@ -38,6 +38,7 @@ type Merkinta =
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
 const NUMEROT = manifesti.numerot as unknown as Record<string, number>;
+const MUODOT = manifesti.muodot as unknown as Record<string, { suhde: string; leveys: number }>;
 
 /**
  * Näytetäänkö paikanvaraajan tunnistemerkintä.
@@ -147,6 +148,7 @@ export default function Media({
 
   if (!osat) {
     const numero = id ? NUMEROT[id] : undefined;
+    const muoto = id ? MUODOT[id] : undefined;
     return (
       <div className={luokka} role="img" aria-label={caption ?? ''}>
         <span className="media__teksti">
@@ -154,6 +156,14 @@ export default function Media({
             <span className="meta meta--s media__merkinta" aria-hidden="true">
               <span className="media__numero">{numero}</span>
               <span className="media__tunnus">{id}</span>
+              {/* Muoto ja vähimmäisleveys kertovat millainen kuva
+                  tähän kuuluu — sen näkee silloin kun katsoo paikkaa,
+                  eikä sitä tarvitse käydä hakemassa luettelosta. */}
+              {muoto ? (
+                <span className="media__muoto">
+                  {muoto.suhde} · ≥{muoto.leveys} px
+                </span>
+              ) : null}
             </span>
           ) : null}
           {caption ? <span className="meta meta--s">{caption}</span> : null}
