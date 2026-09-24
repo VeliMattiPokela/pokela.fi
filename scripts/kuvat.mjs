@@ -161,95 +161,59 @@ export function lahteet(paikka) {
 }
 
 
-/* ---- postilaatikko --------------------------------------------------
-   Tiedostonimi normalisoidaan kevyesti: pienet kirjaimet, välit ja
-   alaviivat viivoiksi, ja lopusta pois selaimen ja Finderin lisäämät
-   kaksoiskappalemerkinnät (" 2", "(1)", "-kopio"). Fuzzy-haku
-   nimien kesken olisi voinut sijoittaa kuvan väärään paikkaan
-   hiljaa, joten tunnistamaton tiedosto raportoidaan eikä arvata.  */
+/* ---- postilaatikko -------------------------------------------------- */
 
 /**
- * Tiedostonimen ehdokkaat paikan tunnisteeksi, paras ensin.
+ * Tiedostonimi → paikan lähdenimi.
  *
- * Ensimmäinen on pelkkä siivous: pienet kirjaimet, ääkköset pois,
- * välit ja alaviivat viivoiksi. Toinen poistaa lisäksi lopusta
- * Finderin ja selaimen kaksoiskappalemerkinnän (" 2", "(1)",
- * "-kopio").
+ * Nimi on numero: sama joka lukee paikanvaraajassa sivulla.
+ * Vertailupari tarvitsee kaksi tiedostoa, joten sille myös puoli —
+ * `13-ennen` ja `13-jalkeen`.
  *
- * Järjestys on olennainen. Kaksoiskappalemerkinnän poisto nappaa myös
- * aidon numeron: paikka `colliers-viikko-1` on olemassa, ja oikein
- * nimetty `colliers-viikko-1.png` olisi lyhentynyt muotoon
- * `colliers-viikko` eikä olisi osunut mihinkään. Siksi tarkka nimi
- * kokeillaan ensin ja lyhennystä vasta jos se ei kelvannut.
+ * Tämä on ainoa sääntö. Tapoja oli aiemmin viisi: tunniste,
+ * lyhennetty tunniste, numero, etuliite+numero ja puoli. Neljä
+ * viidestä oli olemassa vain koska muita sallittiin, ja ne törmäsivät
+ * toisiinsa — kaksoiskappalemerkinnän poisto söi paikan
+ * `colliers-viikko-1` lopusta numeron, ja etuliitteen hyväksyminen
+ * vaati oman tarkistuksensa ettei `blokbook2` mene paikkaan 2.
+ *
+ * Numero elää vain tämän komennon ajan: lähde nimetään heti
+ * tunnisteeksi, joten kuvat/-kansio pysyy luettavana eikä sivun
+ * uudelleenjärjestys voi muuttaa jo paikallaan olevan kuvan
+ * merkitystä.
+ *
+ * Palauttaa { nimi, paikka } tai { virhe }. Ei arvauksia: väärä
+ * arvaus panisi oikean kuvan väärään kohtaan huomaamatta.
  */
-function nimiehdokkaat(tiedosto) {
-  const pohja = tiedosto
-    .slice(0, tiedosto.lastIndexOf('.'))
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[\s_]+/g, '-');
+function paikkaNimelle(tiedosto) {
+  const kanta = tiedosto.slice(0, tiedosto.lastIndexOf('.')).trim().toLowerCase();
+  const osuma = /^(\d{1,3})(?:[-\s]?(ennen|jalkeen|jälkeen))?$/u.exec(kanta);
+  if (!osuma) return { virhe: 'nimeksi tarvitaan numero, esim. 4.png' };
 
-  const lyhennetty = pohja.replace(/[-\s]*(kopio|copy|\(\d+\)|\d)$/u, '').replace(/-+$/, '');
+  const numero = Number(osuma[1]);
+  const puoli = osuma[2]?.replace('ä', 'a');
 
-  return lyhennetty && lyhennetty !== pohja ? [pohja, lyhennetty] : [pohja];
+  const paikka = numerolista.find((p) => p.numero === numero);
+  if (!paikka) return { virhe: `numeroa ${numero} ei ole` };
+
+  if (paikka.vertailu && !puoli) {
+    return { virhe: `${numero} on vertailupari — nimeä ${numero}-ennen ja ${numero}-jalkeen` };
+  }
+  if (!paikka.vertailu && puoli) {
+    return { virhe: `${numero} (${paikka.id}) ei ole vertailupari — jätä "-${puoli}" pois` };
+  }
+
+  return { nimi: puoli ? `${paikka.id}-${puoli}` : paikka.id, paikka };
 }
 
 /**
  * Siirtää postilaatikon tiedostot normalisoiduiksi lähteiksi.
  * Kuva skaalataan enintään LAHDE_MAX:iin mutta EI rajata.
  */
-/**
- * Numero tiedostonimenä → paikan lähdenimi.
- *
- * Numero on sivujärjestys, ei tunniste. Se on tarkoituksella
- * kertakäyttöinen: tiedosto nimetään heti tunnisteeksi, joten numero
- * ei jää mihinkään elämään. Näin sivun uudelleenjärjestys ei voi
- * muuttaa jo paikallaan olevan kuvan merkitystä.
- *
- * Riski jää silti siihen hetkeen kun katsot sivua ja ajat komennon:
- * jos välissä lisätään kuvapaikka, numero osoittaa toiseen kohtaan.
- * Siksi putki tulostaa mihin numero osui ja minkä kuvatekstin kanssa
- * — väärä osuma on tarkoitus nähdä heti, ei kuukauden päästä.
- *
- * Vertailupari tarvitsee kaksi tiedostoa, joten pelkkä numero ei
- * riitä: `7-ennen` ja `7-jalkeen`.
- */
-function numeroon(tiedosto, selita = false) {
-  const kanta = tiedosto.slice(0, tiedosto.lastIndexOf('.')).trim().toLowerCase();
-  const osuma = /^(\d{1,3})(?:[-\s]*(ennen|jalkeen|jälkeen))?$/u.exec(kanta);
-  if (!osuma) return null;
-
-  const paikka = numerolista.find((p) => p.numero === Number(osuma[1]));
-  if (!paikka) {
-    return selita ? `numero ${osuma[1]} — ei sellaista paikkaa` : null;
-  }
-
-  const puoli = osuma[2]?.replace('ä', 'a');
-
-  if (paikka.vertailu && !puoli) {
-    return selita
-      ? `numero ${osuma[1]} on vertailupari — nimeä ${osuma[1]}-ennen ja ${osuma[1]}-jalkeen`
-      : null;
-  }
-
-  /* Puoli annettu paikkaan joka ei ole vertailupari: älä hyväksy
-     hiljaa. Ilman tätä `19-ennen` olisi mennyt paikkaan 19 ikään kuin
-     puolta ei olisi kirjoitettu, ja kuva olisi päätynyt väärään
-     kohtaan siinä uskossa että se on pari. */
-  if (!paikka.vertailu && puoli) {
-    return selita
-      ? `numero ${osuma[1]} (${paikka.id}) ei ole vertailupari — jätä "-${puoli}" pois`
-      : null;
-  }
-
-  return selita ? null : { nimi: puoli ? `${paikka.id}-${puoli}` : paikka.id, paikka };
-}
-
 /** Paikkalista numeroiden selvittämistä varten. Asetetaan rakenna():ssa. */
 let numerolista = [];
 
-async function tyhjennaPostilaatikko(kaikkiNimet) {
+async function tyhjennaPostilaatikko() {
   if (!existsSync(POSTILAATIKKO)) return { otetut: [], tuntemattomat: [] };
 
   const otetut = [];
@@ -259,33 +223,28 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
     if (tiedosto.startsWith('.')) continue;
     const polku = join(POSTILAATIKKO, tiedosto);
     const pate = extname(tiedosto).toLowerCase();
-    const ehdokkaat = nimiehdokkaat(tiedosto);
-    const numerolla = numeroon(tiedosto);
-    const nimi = ehdokkaat.find((e) => kaikkiNimet.has(e)) ?? numerolla?.nimi;
-
-    if (!nimi) {
-      tuntemattomat.push({
-        tiedosto,
-        arvattu: numeroon(tiedosto, true) ?? ehdokkaat.join(' tai '),
-      });
+    const osuma = paikkaNimelle(tiedosto);
+    if (osuma.virhe) {
+      tuntemattomat.push({ tiedosto, syy: osuma.virhe });
       continue;
     }
+    const { nimi, paikka: kohde } = osuma;
 
     if (KUVAPAATTEET.includes(pate)) {
       const kuva = sharp(polku, { failOn: 'error' }).rotate();
       const meta = await kuva.metadata();
       const pitka = Math.max(meta.width, meta.height);
-      const kohde = join(LAHTEET, `${nimi}${LAHDEPAATE}`);
+      const kohdePolku = join(LAHTEET, `${nimi}${LAHDEPAATE}`);
       await (pitka > LAHDE_MAX
         ? kuva.resize({ width: meta.width >= meta.height ? LAHDE_MAX : null,
                         height: meta.height > meta.width ? LAHDE_MAX : null })
         : kuva
       )
         .webp({ lossless: true, effort: 6 })
-        .toFile(kohde);
+        .toFile(kohdePolku);
       /* Vanha lähde toisella päätteellä pois, ettei kahta jää.
          Sivutiedosto EI ole vanha lähde: se on paikan asetukset
-         (alue, rajaus, sovita, vuoto) ja sen pitää säilyä kuvan
+         (alue, rajaus, sovita) ja sen pitää säilyä kuvan
          vaihtuessa. Ilman tätä rajaustaan kerran säätänyt paikka
          palasi oletuksiin heti kun kuva päivitettiin — hiljaa, koska
          mikään ei kerro poistetusta tiedostosta. */
@@ -295,16 +254,16 @@ async function tyhjennaPostilaatikko(kaikkiNimet) {
           rmSync(join(LAHTEET, vanha));
         }
       }
-      otetut.push({ tiedosto, nimi, tyyppi: 'kuva', mitat: `${meta.width}×${meta.height}`, numerolla });
+      otetut.push({ tiedosto, nimi, tyyppi: 'kuva', mitat: `${meta.width}×${meta.height}`, kohde });
     } else if (VIDEOPAATTEET.includes(pate)) {
-      const kohde = join(LAHTEET, `${nimi}.mp4`);
+      const kohdePolku = join(LAHTEET, `${nimi}.mp4`);
       /* Lähdevideo säilytetään alkuperäisenä koodekkina jos se on jo
          mp4/h264; muuten muunnetaan kerran, jottei arkistoon jää
          muotoa jota selaimet eivät lue. */
       execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', polku,
         '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
-        '-an', '-vf', `scale='min(${LAHDE_MAX},iw)':-2`, kohde]);
-      otetut.push({ tiedosto, nimi, tyyppi: 'video', mitat: '', numerolla });
+        '-an', '-vf', `scale='min(${LAHDE_MAX},iw)':-2`, kohdePolku]);
+      otetut.push({ tiedosto, nimi, tyyppi: 'video', mitat: '', kohde });
     } else {
       tuntemattomat.push({ tiedosto, arvattu: `tuntematon pääte ${pate}` });
       continue;
@@ -335,10 +294,33 @@ function rajauskohta(nimi) {
   return asetukset(nimi).rajaus ?? 'centre';
 }
 
-/** Alue sharpin extract-muotoon, nimet suomeksi sivutiedostossa. */
-function alueeksi({ x = 0, y = 0, leveys, korkeus }) {
-  if (!leveys || !korkeus) throw new Error('alue: leveys ja korkeus ovat pakollisia');
-  return { left: Math.round(x), top: Math.round(y), width: Math.round(leveys), height: Math.round(korkeus) };
+/**
+ * Alue murtolukuina → sharpin extract-muoto pikseleinä.
+ *
+ * Arvot ovat 0–1 eli osuuksia lähteestä, eivät pikseleitä. Syy on
+ * yksi: murtoluku ei vanhene. Pikselialue päti vain sille kuvalle
+ * jolle se oli tehty, ja kun kuva vaihdettiin, vanha alue leikkasi
+ * mielivaltaisen palan uudesta — hiljainen korruptio, koska tulos on
+ * kelvollinen kuva eikä mikään kaadu. Se vaati oman leimansa
+ * sivutiedostoon ja oman virheluokkansa. Molemmat poistuivat tämän
+ * myötä.
+ *
+ * Puuttuva x ja y ovat 0, puuttuva leveys ja korkeus loppuun asti.
+ */
+function alueeksi({ x = 0, y = 0, leveys = 1 - x, korkeus = 1 - y }, koko) {
+  for (const [nimi, arvo] of Object.entries({ x, y, leveys, korkeus })) {
+    if (!(arvo >= 0 && arvo <= 1)) {
+      throw new Error(`alue.${nimi} = ${arvo}: arvojen on oltava 0–1 (osuus lähteestä)`);
+    }
+  }
+  if (x + leveys > 1 || y + korkeus > 1) throw new Error('alue ei mahdu lähteeseen');
+
+  return {
+    left: Math.round(x * koko.width),
+    top: Math.round(y * koko.height),
+    width: Math.max(1, Math.round(leveys * koko.width)),
+    height: Math.max(1, Math.round(korkeus * koko.height)),
+  };
 }
 
 /** Lähteen omat asetukset, jos sellaiset on annettu. */
@@ -384,15 +366,6 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
   const omat = asetukset(nimi);
   const sovita = omat.sovita === true;
 
-  /* `vuoto: true` = sommittelu on tarkoitettu vuotamaan reunojen yli.
-     Laitekollaasi jossa puhelimet jatkuvat kuvan ulkopuolelle on
-     tehokeino, ei vahinko, ja silloin rajauksen hukka on päätös joka
-     on jo tehty. Ilman kuittausmahdollisuutta varoitus toistuisi joka
-     ajossa asiasta jolle ei ole tekemistä — ja varoitus jota ei voi
-     kuitata on varoitus jonka oppii ohittamaan.
-
-     Tarkkuusvaroitus jää voimaan: vuotava sommittelu tarvitsee yhtä
-     paljon pikseleitä kuin mikä tahansa muu. */
   const hukat = [];
 
   /* Alue: taiteellinen rajaus datana, ei tiedostoon poltettuna.
@@ -406,10 +379,11 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
      alkuperäisestä. Tiedostoon leikattu rajaus olisi lopullinen.
 
      Muoto: { "alue": { "x": 0, "y": 300, "leveys": 622, "korkeus": 777 } } */
-  const lahdeKuva = () => (omat.alue ? sharp(lahde).extract(alueeksi(omat.alue)) : sharp(lahde));
-  const meta = omat.alue
-    ? { width: omat.alue.leveys, height: omat.alue.korkeus }
-    : await sharp(lahde).metadata();
+  const koko = await sharp(lahde).metadata();
+
+  const alue = omat.alue ? alueeksi(omat.alue, koko) : null;
+  const lahdeKuva = () => (alue ? sharp(lahde).extract(alue) : sharp(lahde));
+  const meta = alue ? { width: alue.width, height: alue.height } : koko;
   const kohta = rajauskohta(nimi);
   const ulos = [];
 
@@ -458,25 +432,20 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true } = {
       korkeus: Math.round(leveydet[leveydet.length - 1] / suhde),
     });
 
-    /* Rajauksen hukka: paljonko lähteestä jää pois. Ei virhe, mutta
-       42 % pois leikattua korkeutta on päätös jonka pitää olla
-       tiedossa eikä vahinko. */
-    if (rajaa && !sovita && !omat.vuoto) {
+    /* Rajauksen hukka on tieto, ei varoitus.
+       Aiemmin tämä oli varoitus jonka sai vaiennettua `vuoto`-
+       asetuksella. Vaiennettava varoitus on huono kahdesti: se vaatii
+       oman asetuksensa, ja sen oppii ohittamaan — myös silloin kun se
+       on oikeassa. Nyt luku näkyy yhtenä rivinä normaalia tulostetta
+       ja vuotava sommittelu on vain sommittelu. */
+    if (rajaa && !sovita) {
       const lahdeSuhde = meta.width / meta.height;
-      const hukka =
-        lahdeSuhde < suhde
-          ? 1 - (meta.width / suhde) / meta.height /* korkeutta pois */
-          : 1 - meta.height * suhde / meta.width; /* leveyttä pois */
-      if (hukka > 0.2) {
-        hukat.push({
-          nimi,
-          koko,
-          suunta: lahdeSuhde < suhde ? 'korkeudesta' : 'leveydestä',
-          osuus: hukka,
-          lahdeSuhde,
-          kohdeSuhde: suhde,
-          kohta,
-        });
+      const pystysuunta = lahdeSuhde < suhde;
+      const osuus = pystysuunta
+        ? 1 - meta.width / suhde / meta.height
+        : 1 - (meta.height * suhde) / meta.width;
+      if (osuus > 0.01) {
+        hukat.push({ koko, suunta: pystysuunta ? 'korkeudesta' : 'leveydestä', osuus });
       }
     }
   }
@@ -599,14 +568,12 @@ export async function rakenna({ kirjoita = true } = {}) {
 
   const lista = await paikat();
   numerolista = lista;
-  const kaikkiNimet = new Set(lista.flatMap((p) => lahteet(p).map((l) => l.nimi)));
-  const posti = kirjoita
-    ? await tyhjennaPostilaatikko(kaikkiNimet)
-    : { otetut: [], tuntemattomat: [] };
+  const posti = kirjoita ? await tyhjennaPostilaatikko() : { otetut: [], tuntemattomat: [] };
 
   const manifesti = {};
   const puuttuvat = [];
   const huomiot = [];
+  const rajaukset = [];
 
   for (const paikka of lista) {
     const omat = lahteet(paikka);
@@ -628,18 +595,7 @@ export async function rakenna({ kirjoita = true } = {}) {
         kirjoita,
       });
 
-      /* Rajaus leikkaa yli viidenneksen: kerro paljonko ja mistä. */
-      for (const h of tulos.hukat) {
-        huomiot.push({
-          nimi,
-          paikka,
-          laji: 'rajaus',
-          teksti:
-            `rajaus poistaa ${Math.round(h.osuus * 100)} % ${h.suunta} ` +
-            `(lähde ${h.lahdeSuhde.toFixed(2)}, paikka ${paikka.ratio} = ${h.kohdeSuhde.toFixed(2)}` +
-            `${h.koko !== 'base' ? `, ${h.koko}-koko` : ''})`,
-        });
-      }
+      if (tulos.hukat.length) rajaukset.push({ nimi, paikka, hukat: tulos.hukat });
 
       /* Lähde kapeampi kuin mitä paikka piirtyy kahden pikselin
          näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä. */
@@ -648,7 +604,6 @@ export async function rakenna({ kirjoita = true } = {}) {
         huomiot.push({
           nimi,
           paikka,
-          laji: 'tarkkuus',
           teksti: `lähde on ${tulos.lahdeLeveys} px leveä, paikka tarvitsee noin ${tarve} px`,
         });
       }
@@ -679,13 +634,13 @@ export async function rakenna({ kirjoita = true } = {}) {
     .map((d) => (d.name.includes('.') ? d.name.slice(0, d.name.lastIndexOf('.')) : d.name))
     .filter((n) => !tunnetut.has(n));
 
-  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot, huomiot };
+  return { manifesti: { paikat: manifesti, numerot, logot }, lista, puuttuvat, posti, orvot, huomiot, rajaukset };
 }
 
 /* ---- suoraan ajettaessa --------------------------------------------- */
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const { manifesti, lista, puuttuvat, posti, huomiot } = await rakenna();
+  const { manifesti, lista, puuttuvat, posti, huomiot, rajaukset } = await rakenna();
   writeFileSync(MANIFESTI, JSON.stringify(manifesti, null, 2) + '\n');
 
   if (posti.otetut.length) {
@@ -694,32 +649,31 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log(`    ${o.tiedosto}  →  kuvat/${o.nimi}  ${o.mitat}`);
       /* Numerolla pudotettu: näytä mihin se osui ja millä
          kuvatekstillä, jotta väärä numero näkyy heti. */
-      if (o.numerolla) console.log(`      ↳ ${o.numerolla.paikka.missa}: ${o.numerolla.paikka.caption}`);
+      console.log(`      ↳ ${o.kohde.missa}: ${o.kohde.caption}`);
     }
   }
 
   if (posti.tuntemattomat.length) {
     console.log(`\n!  Tunnistamatta ${posti.tuntemattomat.length} — jätetty postilaatikkoon:`);
-    for (const t of posti.tuntemattomat) console.log(`    ${t.tiedosto}   (tulkittu: ${t.arvattu})`);
+    for (const t of posti.tuntemattomat) console.log(`    ${t.tiedosto}   ${t.syy}`);
     console.log('\n   Vapaat paikat:');
     for (const p of puuttuvat) console.log(`    ${p.id.padEnd(22)} ${p.ratio.padEnd(6)} ${p.caption}`);
   }
 
+  if (rajaukset.length) {
+    console.log('\nRajaukset:');
+    for (const r of rajaukset) {
+      const osat = r.hukat
+        .map((h) => `−${Math.round(h.osuus * 100)} % ${h.suunta}${r.hukat.length > 1 ? ` (${h.koko})` : ''}`)
+        .join(' · ');
+      console.log(`  ${String(r.paikka.numero).padStart(3)}  ${r.nimi.padEnd(26)} ${osat}`);
+    }
+  }
+
   if (huomiot.length) {
-    console.log(`\n!  Huomioita ${huomiot.length}:`);
+    console.log(`\n!  Liian pieni lähde — ota kuva uudelleen leveämpänä:`);
     for (const h of huomiot) {
-      console.log(`    ${h.paikka.numero}  ${h.nimi}`);
-      console.log(`       ${h.teksti}`);
-      if (h.laji === 'rajaus') {
-        console.log(`       korjaa: kuvat/${h.nimi}.json`);
-        console.log(`         { "sovita": true }        koko kuva laatikkoon, ei rajausta`);
-        console.log(`         { "rajaus": "top" }       pidä yläosa`);
-        console.log(`         { "alue": { "y": 300, "leveys": 622, "korkeus": 777 } }`);
-        console.log(`                                   rajaa alue lähteestä`);
-        console.log(`       tai vaihda paikan kuvasuhde sisällössä.`);
-      } else {
-        console.log(`       korjaa: ota kuva uudelleen leveämpänä.`);
-      }
+      console.log(`  ${String(h.paikka.numero).padStart(3)}  ${h.nimi.padEnd(26)} ${h.teksti}`);
     }
   }
 

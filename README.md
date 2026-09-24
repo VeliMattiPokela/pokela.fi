@@ -315,62 +315,52 @@ ei ole eikä unohtaa niitä jotka ovat.
 
 ### Miten tiedosto löytää paikkansa
 
-Kaksi tapaa, molemmat kelpaavat.
+Tiedoston nimi on **numero** — sama joka lukee paikanvaraajassa
+sivulla:
 
-**Numerolla.** `5.png` menee paikkaan jonka numero on 5. Numero on se
-joka näkyy sivulla paikanvaraajassa.
+```
+4.png                       → paikka 4
+13-ennen.png / 13-jalkeen   → vertailupari, kaksi tiedostoa
+```
 
-**Tunnisteella.** `colliers-vuokraus.png` menee paikkaan jonka `id` on
-`colliers-vuokraus`.
+Tämä on ainoa sääntö. **Päätteellä ei ole väliä** — pudota png, jpg,
+heic tai mitä kamerasta tuleekin; putki muuntaa sen kerran.
 
-**Päätteellä ei ole väliä** — pudota png, jpg, heic tai mitä kamerasta
-tuleekin; putki muuntaa sen kerran.
+Mikään muu ei kelpaa, eikä mitään arvata. `colliers4.png` ja
+`colliers-haku.png` jäävät postilaatikkoon ja putki kertoo mitä
+nimeksi tarvitaan. Väärä arvaus panisi oikean kuvan väärään kohtaan
+ilman että kukaan huomaa.
 
-Vertailupari tarvitsee puolen: `13-ennen` ja `13-jalkeen`, tai
-`pivo-kirjautuminen-ennen` ja `-jalkeen`.
-
-#### Miksi numero ei ole tunniste
+#### Miksi numero eikä tunniste
 
 Numero on sivujärjestys. Jos kuvapaikka lisätään keskelle, kaikki sen
 jälkeiset numerot siirtyvät — ja `7.png` jonka nimesit eilen kuuluisi
 tänään eri paikkaan.
 
 Siksi numero on **kertakäyttöinen**: putki nimeää tiedoston heti
-tunnisteeksi, joten numero ei jää elämään mihinkään. Tunniste on
-tyypissä pakollinen (`content/cases/types.ts`), joten kuvapaikkaa ei
-voi lisätä ilman että kuvaputki tietää siitä.
+tunnisteeksi, joten `kuvat/`-kansio pysyy luettavana eikä numero jää
+elämään mihinkään. Tunniste on tyypissä pakollinen
+(`content/cases/types.ts`), joten kuvapaikkaa ei voi lisätä ilman että
+kuvaputki tietää siitä.
 
 Riski jää siihen hetkeen jolloin katsot sivua ja ajat komennon. Siksi
 putki tulostaa mihin numero osui **ja minkä kuvatekstin kanssa**:
 
 ```
 ✓ Postilaatikosta otettu 1:
-    5.png  →  kuvat/colliers-vuokraus  2400×3000
-      ↳ Colliers Asunnot: Vuokraa heti -polku, yksi vaihe
+    4.png  →  kuvat/colliers-haku  2400×3000
+      ↳ Colliers Asunnot: AI-haku: kirjoitettu kuvaus + tulokset
 ```
 
-Väärä osuma on tarkoitus nähdä heti, ei kuukauden päästä. Numero jota
-ei ole, tai puoli väärään paikkaan, ei mene läpi arvaamalla:
+Väärä osuma on tarkoitus nähdä heti, ei kuukauden päästä.
 
-```
-!  Tunnistamatta 2 — jätetty postilaatikkoon:
-    99.png         (tulkittu: numero 99 — ei sellaista paikkaa)
-    19-ennen.png   (tulkittu: numero 19 (op-polku) ei ole vertailupari
-                    — jätä "-ennen" pois)
-```
-
-Nimi normalisoidaan kevyesti: isot kirjaumet, välilyönnit, ääkköset ja
-Finderin lisäämät kaksoiskappalemerkinnät siivotaan. `Colliers hero
-2.png` osuu siis oikeaan paikkaan. Tunnistamatonta tiedostoa **ei
-arvata** — se jää postilaatikkoon ja skripti listaa vapaat paikat
-kuvateksteineen.
-
-Vertailupari tarvitsee kaksi tiedostoa: `<id>-ennen` ja `<id>-jalkeen`.
-
-Casejen ja aiempien töiden kuvapaikat luetaan sisältötiedostoista.
-Kuvat jotka eivät kuulu mihinkään caseen — tällä hetkellä muotokuva —
-ovat omassa rekisterissään `content/kuvat.ts`. Ilman sitä muotokuva
-olisi jäänyt ainoaksi käsin ylläpidetyksi kuvaksi sivustolla.
+**Tapoja oli aiemmin viisi:** tunniste, lyhennetty tunniste, numero,
+etuliite+numero ja puoli. Neljä viidestä oli olemassa vain koska muita
+sallittiin, ja ne törmäsivät toisiinsa — kaksoiskappalemerkinnän
+poisto söi paikan `colliers-viikko-1` lopusta numeron, ja etuliitteen
+hyväksyminen vaati oman tarkistuksensa ettei `blokbook2` mene paikkaan
+2. Yksi sääntö on lyhyempi kuin viisi sääntöä ja niiden
+yhteisvaikutukset.
 
 ### Kolme kansiota
 
@@ -414,16 +404,22 @@ pienempi**, ilman näkyvää eroa gradientissa tai tekstin reunoissa.
 
 ### Kun lähde ei mahdu paikkaan
 
-Putki kertoo, paljonko rajaus poistaa ja mistä suunnasta. Yli
-viidenneksen hukka raportoidaan, koska se on päätös eikä vahinko:
+Putki kertoo jokaisesta kuvasta paljonko rajaus poistaa ja mistä
+suunnasta. Se on **tieto, ei varoitus** — vuotava sommittelu jossa
+laitteet jatkuvat reunojen yli on tehokeino, ja varoitus jota ei voi
+kuitata on varoitus jonka oppii ohittamaan:
 
 ```
-!  Huomioita 2:
-    4  colliers-haku
-       rajaus poistaa 42 % korkeudesta (lähde 0.46, paikka 4:5 = 0.80)
-    4  colliers-haku
-       lähde on 622 px leveä, paikka tarvitsee noin 880 px
+Rajaukset:
+    7  blokbook-hero    −55 % leveydestä (base) · −24 % korkeudesta (lg)
+    4  colliers-haku    −42 % korkeudesta
+
+!  Liian pieni lähde — ota kuva uudelleen leveämpänä:
+    4  colliers-haku    lähde on 622 px leveä, paikka tarvitsee noin 880 px
 ```
+
+Varoituksia on siis yksi laji: liian pieni lähde. Sitä ei voi korjata
+skaalaamalla, joten se on aina tekemistä vaativa.
 
 Puhelinkaappaus on tyypillisesti 0,46-suhteinen eikä se mahdu
 4:5-laatikkoon kokonaisena eikä rajattuna järkevästi — kokeiltuna
@@ -432,15 +428,25 @@ sisällöstä lukukelvottoman pientä.
 
 Kolme vaihtoehtoa, kaikki `kuvat/<nimi>.json`:iin:
 
+Kolme vaihtoehtoa, kaikki `kuvat/<nimi>.json`:iin:
+
 ```json
-{ "alue": { "x": 0, "y": 350, "leveys": 622, "korkeus": 777 } }
+{ "alue": { "y": 0.26, "korkeus": 0.58 } }
 ```
 
 **Alue** on taiteellinen rajaus datana. Se kertoo mikä osa lähteestä
 on kuva — yleensä yksi paneeli, ei koko ruutu. Lähde säilyy
 koskemattomana, joten alueen voi muuttaa milloin tahansa ja
 kuvasuhteen vaihtuessa uusi rajaus lasketaan samasta alkuperäisestä.
-Tiedostoon leikattu rajaus olisi lopullinen.
+
+Arvot ovat **osuuksia lähteestä (0–1), eivät pikseleitä.** Syy on
+yksi: murtoluku ei vanhene. Pikselialue päti vain sille kuvalle jolle
+se oli tehty, ja kun kuva vaihdettiin, vanha alue leikkasi
+mielivaltaisen palan uudesta — hiljainen korruptio, koska tulos on
+kelvollinen kuva eikä mikään kaadu. Se vaati oman leimansa
+sivutiedostoon ja oman virheluokkansa; molemmat poistuivat tämän
+myötä. Puuttuva `x` ja `y` ovat 0, puuttuva `leveys` ja `korkeus`
+loppuun asti.
 
 ```json
 { "sovita": true }
@@ -462,18 +468,6 @@ arvot ovat sharpin sijainnit: `top`, `right top`, `right`,
 
 Neljäs vaihtoehto on vaihtaa paikan kuvasuhde sisällössä. Se on
 oikea silloin kun useampi kuva samassa lohkossa on samaa muotoa.
-
-```json
-{ "vuoto": true }
-```
-
-**Vuoto** kuittaa rajausvaroituksen. Laitekollaasi jossa puhelimet
-jatkuvat kuvan ulkopuolelle on tehokeino, ei vahinko — silloin hukka
-on päätös joka on jo tehty. Varoitus jota ei voi kuitata on varoitus
-jonka oppii ohittamaan.
-
-Tarkkuusvaroitus jää voimaan myös vuotavalle sommittelulle: se
-tarvitsee yhtä paljon pikseleitä kuin mikä tahansa muu.
 
 ### Liian pieni lähde
 
