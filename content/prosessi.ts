@@ -24,37 +24,37 @@ export const pystytys: Vaihe[] = [
     numero: 1,
     otsikko: 'Tokenit yhdeksi lähteeksi',
     teksti:
-      'Värit, typografia, välistys ja liike yhteen koneluettavaan tiedostoon (tokens.json). Tyylit ja Figman muuttujat lukevat samaa lähdettä, eikä kumpikaan saa oikeutta poiketa siitä.',
+      'Värit, typografia, välistys ja liike kirjataan yhteen tiedostoon. Sekä koodi että Figma lukevat sitä. Kummallakaan ei ole omaa versiotaan arvoista.',
   },
   {
     numero: 2,
     otsikko: 'Komponentit koodiin',
     teksti:
-      'Komponentti rakennetaan kerran, koodiin, tokeneita käyttäen. Storybook (komponenttien selainkatalogi) on sen katselmointipinta ja testialusta samalla — sama koodi jota tuote ajaa.',
+      'Komponentti rakennetaan kerran, koodiin. Storybook näyttää sen selaimessa kaikissa tiloissaan — sama koodi jota valmis tuote ajaa, ei erillinen malli.',
   },
   {
     numero: 3,
-    otsikko: 'Muuttujat Figmaan generoituna',
+    otsikko: 'Arvot Figmaan automaattisesti',
     teksti:
-      'Setupin mukana tulee pieni Figma-plugin, joka kirjoitetaan tätä varten — ei valmisohjelma Figman kirjastosta. Suunnittelija asentaa sen kerran ja ajaa sen Figmasta: se hakee julkaistun tokens.jsonin ja luo tai päivittää muuttujat nimen perusteella, poistamatta mitään. Suunta on tarkoituksella generointi eikä vertailu, koska Figman muuttujarajapinta on Enterprise-tasoa: arvoja ei voi verrata automaattisesti, mutta generoituna ne eivät voi syntyä erilaisina.',
+      'Setupin mukana tulee pieni työkalu, jonka suunnittelija ajaa Figmasta kun arvot muuttuvat. Se päivittää värit, tekstityylit ja välistykset kerralla. Kukaan ei kirjoita niitä käsin, joten ne eivät voi mennä eri suuntiin.',
   },
   {
     numero: 4,
     otsikko: 'Kirjasto Figmaan',
     teksti:
-      'Komponentit rakennetaan Figmaan käsin, kerran, koodin rajapinnan mukaan: samat variantit, samat propertyt, samat nimet. Tämä on setupin ainoa vaihe jota ei voi generoida — mutta kun se on tehty, suunnittelijalla on työkalut joilla ei voi piirtää jotain mitä ei voi toteuttaa.',
+      'Komponentit rakennetaan Figmaan käsin, kerran, samoilla nimillä ja tiloilla kuin koodissa. Tämä on ainoa vaihe jota ei voi automatisoida. Sen jälkeen suunnittelija ei voi vahingossa piirtää jotain mitä ei voi toteuttaa.',
   },
   {
     numero: 5,
-    otsikko: 'Code Connect -kytkennät',
+    otsikko: 'Kytkennät koodin ja Figman välille',
     teksti:
-      'Jokainen Figman komponentti osoitetaan koodin komponenttiin Figman Code Connectilla. Dev Modessa näkyy oikea koodi oikean komponentin kohdalla — ei arvausta eikä käsin ylläpidettyä taulukkoa.',
+      'Jokainen Figman komponentti kytketään koodin vastineeseensa. Kehittäjä näkee Figmassa suoraan oikean koodin eikä joudu arvailemaan mikä komponentti on kyseessä.',
   },
   {
     numero: 6,
-    otsikko: 'Tarkistukset CI:hin',
+    otsikko: 'Tarkistukset automaattisiksi',
     teksti:
-      'Jokainen väite jonka setup tekee ajetaan tarkistuksena joka buildissa (CI). Eriytymä pysäyttää putken ja kertoo mikä eriytyi — ei vain että jokin eriytyi.',
+      'Jokainen lupaus tarkistetaan koneella aina kun koodia muutetaan. Jos jokin on mennyt eri suuntaan, työ pysähtyy ja kone kertoo mikä.',
   },
 ];
 
@@ -63,15 +63,15 @@ export const suunnat: { otsikko: string; teksti: string }[] = [
   {
     otsikko: 'Muutos koodissa',
     teksti:
-      'Komponentti tai token muuttuu. Tarkistusketju ajetaan ennen mergeä ja kertoo mikä Figman puolella on nyt jäljessä. Muuttujat päivitetään pluginilla, kirjasto käsin — mutta kumpikaan ei jää huomaamatta.',
+      'Kehittäjä muuttaa komponenttia tai väriä. Tarkistus kertoo heti mikä Figman puolella on nyt jäljessä, eikä muutos mene läpi ennen kuin molemmat ovat samaa mieltä.',
   },
   {
     otsikko: 'Muutos Figmassa',
     teksti:
-      'Suunnittelija poistaa variantin tai nimeää propertyn uudelleen. Figma-tarkistus avaa tiedoston rajapinnalla ja kaataa ajon nimeten kohdan. Tämä on se suunta joka yleensä puuttuu.',
+      'Suunnittelija poistaa tilan tai nimeää jotain uudelleen. Sama tarkistus avaa Figma-tiedoston ja kertoo mikä koodissa ei enää vastaa sitä. Tämä suunta puuttuu useimmista setupeista.',
   },
 ];
 
 /** Mitä setup ei lupaa. Rajat kuuluvat tuotekuvaukseen. */
 export const rajat =
-  'Tarkistus näkee rakenteen, ei laatua. Se tietää että komponentilla on story, ei sitä onko story hyvä. Se tietää että kytkentä osoittaa olemassa olevaan komponenttiin, ei sitä onko toteutus oikea. Jokaisen tarkistuksen sokea kohta on kirjattu ja näkyvissä.';
+  'Kone tarkistaa rakenteen, ei laatua. Se tietää onko komponentista esimerkki, ei sitä onko esimerkki hyvä. Se tietää osoittaako kytkentä olemassa olevaan komponenttiin, ei sitä onko toteutus oikea. Jokaisen tarkistuksen sokea kohta on kirjattu näkyviin.';
