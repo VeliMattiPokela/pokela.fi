@@ -271,6 +271,20 @@ solmut rajapinnalla ja vertaa. Nimi on sopimus, sisältö on johdettu.
 Todistettu molempiin suuntiin: tekstin muuttaminen Figmassa kaataa
 ajon, ja lähteessä oleva id jolle ei ole solmua kaataa myös.
 
+**Prosessiosio Figmassa.** Tiedoston alussa on kaksi sivua ennen
+Perustaa: **Pystytys** (kuusi vaihetta järjestyksessä) ja **Jatkuva
+kehitys** (molemmat suunnat, tarkistuslista ja rajat). Ne ovat
+tuotekuvaus — miten setup pystytetään organisaatiossa ja miten se
+toimii sen jälkeen.
+
+Teksti tulee yhdestä lähteestä: `content/prosessi.ts` proosalle ja
+`lib/checks.ts` tarkistuslistalle. Molemmat päät ovat tarkistuksessa —
+muutos Figmassa ja muutos lähteessä kaatavat ajon yhtä lailla.
+
+Tarkistuslistaa ei kirjoiteta `content/prosessi.ts`:ään. Se johdetaan
+samasta rekisteristä jota casesivu käyttää, jotta Figma ei voi luvata
+tarkistuksia joita ei ajeta.
+
 **Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
 `tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
 generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa

@@ -277,7 +277,7 @@ for (const connection of connections) {
    tyylien laskenta tarvitsee tiedoston styles-kartan.            */
 
 const kokoPuu = await figma('');
-const odotetut = tekstit(kokoPuu);
+const odotetut = await tekstit(kokoPuu);
 const loydetyt = new Set();
 
 const kayLapi = (solmu) => {

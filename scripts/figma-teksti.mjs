@@ -47,17 +47,46 @@ const monikko = (n, yksi, moni) => `${n} ${n === 1 ? yksi : moni}`;
  *   tyylien laskemiseen — `/styles`-päätepiste vastaa 403, mutta
  *   puun `styles`-kartta listaa ne.
  */
-export function tekstit(tiedosto) {
+export async function tekstit(tiedosto) {
   const kokoelmat = spec();
   const muuttujia = kokoelmat.reduce((a, k) => a + k.variables.length, 0);
   const tyylit = Object.values(tiedosto?.styles ?? {});
   const tekstityylit = tyylit.filter((s) => s.styleType === 'TEXT').length;
 
-  return {
+  const { pystytys, suunnat, rajat } = await import(join(root, 'content/prosessi.ts'));
+  const { checks } = await import(join(root, 'lib/checks.ts'));
+  const ajossa = checks().filter((c) => c.runs);
+
+  const ulos = {
     'kansi-luvut': [
       monikko(kokoelmat.length, 'kokoelma', 'kokoelmaa'),
       monikko(muuttujia, 'muuttuja', 'muuttujaa'),
       monikko(tekstityylit, 'tekstityyli', 'tekstityyliä'),
     ].join(' · '),
+
+    /* Tarkistuslista johdetaan lib/checks.ts:stä, joka lukee
+       package.jsonin ja CI:n työnkulun. Figma saa yleiskuvan,
+       casesivu yksityiskohdat sokeine kohtineen — sama lähde, ei
+       samaa tekstiä kahdesti. */
+    tarkistukset:
+      `${monikko(ajossa.length, 'tarkistus', 'tarkistusta')} joka buildissa: ` +
+      ajossa.map((c) => c.title).join(' · '),
+
+    rajat,
   };
+
+  for (const v of pystytys) {
+    /* Numero otsikkoon eikä erilliseksi staattiseksi tekstiksi:
+       vaiheiden järjestys on sisältöä, ja käsin kirjoitettu numero
+       jäisi paikalleen jos vaiheet järjestetään uudelleen. */
+    ulos[`pystytys-${v.numero}-otsikko`] =
+      `${String(v.numero).padStart(2, '0')} · ${v.otsikko}`;
+    ulos[`pystytys-${v.numero}-teksti`] = v.teksti;
+  }
+  suunnat.forEach((s, i) => {
+    ulos[`suunta-${i + 1}-otsikko`] = s.otsikko;
+    ulos[`suunta-${i + 1}-teksti`] = s.teksti;
+  });
+
+  return ulos;
 }
