@@ -24,19 +24,19 @@ export const pystytys: Vaihe[] = [
     numero: 1,
     otsikko: 'Tokenit yhdeksi lähteeksi',
     teksti:
-      'Värit, typografia, välistys ja liike yhteen koneluettavaan tiedostoon. Tyylit ja Figman muuttujat lukevat samaa lähdettä, eikä kumpikaan saa oikeutta poiketa siitä.',
+      'Värit, typografia, välistys ja liike yhteen koneluettavaan tiedostoon (tokens.json). Tyylit ja Figman muuttujat lukevat samaa lähdettä, eikä kumpikaan saa oikeutta poiketa siitä.',
   },
   {
     numero: 2,
     otsikko: 'Komponentit koodiin',
     teksti:
-      'Komponentti rakennetaan kerran, koodiin, tokeneita käyttäen. Storybook on sen katselmointipinta ja testialusta samalla — sama koodi jota tuote ajaa.',
+      'Komponentti rakennetaan kerran, koodiin, tokeneita käyttäen. Storybook (komponenttien selainkatalogi) on sen katselmointipinta ja testialusta samalla — sama koodi jota tuote ajaa.',
   },
   {
     numero: 3,
     otsikko: 'Muuttujat Figmaan generoituna',
     teksti:
-      'Plugin lukee tokenit ja kirjoittaa kokoelmat, moodit ja arvot Figmaan. Käsin kopiointia ei ole missään vaiheessa, joten arvot eivät voi syntyä erilaisina.',
+      'Oma Figma-plugin (repossa, figma-plugin/) lukee tokens.jsonin ja kirjoittaa kokoelmat, moodit ja arvot Figmaan. Käsin kopiointia ei ole missään vaiheessa, joten arvot eivät voi syntyä erilaisina.',
   },
   {
     numero: 4,
@@ -48,13 +48,13 @@ export const pystytys: Vaihe[] = [
     numero: 5,
     otsikko: 'Code Connect -kytkennät',
     teksti:
-      'Jokainen Figman komponentti osoitetaan koodin komponenttiin. Dev Modessa näkyy oikea koodi oikean komponentin kohdalla — ei arvausta eikä käsin ylläpidettyä taulukkoa.',
+      'Jokainen Figman komponentti osoitetaan koodin komponenttiin Figman Code Connectilla. Dev Modessa näkyy oikea koodi oikean komponentin kohdalla — ei arvausta eikä käsin ylläpidettyä taulukkoa.',
   },
   {
     numero: 6,
     otsikko: 'Tarkistukset CI:hin',
     teksti:
-      'Jokainen väite jonka setup tekee ajetaan tarkistuksena joka buildissa. Eriytymä pysäyttää putken ja kertoo mikä eriytyi — ei vain että jokin eriytyi.',
+      'Jokainen väite jonka setup tekee ajetaan tarkistuksena joka buildissa (CI). Eriytymä pysäyttää putken ja kertoo mikä eriytyi — ei vain että jokin eriytyi.',
   },
 ];
 
