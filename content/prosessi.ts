@@ -36,7 +36,7 @@ export const pystytys: Vaihe[] = [
     numero: 3,
     otsikko: 'Arvot Figmaan automaattisesti',
     teksti:
-      'Setupin mukana tulee pieni työkalu, jonka suunnittelija ajaa Figmasta kun arvot muuttuvat. Se päivittää värit, tekstityylit ja välistykset kerralla. Kukaan ei kirjoita niitä käsin, joten ne eivät voi mennä eri suuntiin.',
+      'Setupin mukana tulee pieni työkalu, joka asennetaan Figmaan kerran. Kun arvot muuttuvat, suunnittelija avaa sen ja painaa nappia — värit, tekstityylit ja välistykset päivittyvät kerralla. Ajaa voi niin usein kuin haluaa: mikään ei kahdennu eikä katoa.',
   },
   {
     numero: 4,
@@ -74,4 +74,4 @@ export const suunnat: { otsikko: string; teksti: string }[] = [
 
 /** Mitä setup ei lupaa. Rajat kuuluvat tuotekuvaukseen. */
 export const rajat =
-  'Kone tarkistaa rakenteen, ei laatua. Se tietää onko komponentista esimerkki, ei sitä onko esimerkki hyvä. Se tietää osoittaako kytkentä olemassa olevaan komponenttiin, ei sitä onko toteutus oikea. Jokaisen tarkistuksen sokea kohta on kirjattu näkyviin.';
+  'Kone tarkistaa rakenteen, ei laatua: se tietää onko komponentista esimerkki, ei sitä onko esimerkki hyvä. Yksi kohta jää myös ihmisen muistin varaan — kun arvot muuttuvat koodissa, mikään ei muistuta suunnittelijaa ajamaan työkalua, joten Figman arvot voivat olla jäljessä. Jokaisen tarkistuksen sokea kohta on kirjattu näkyviin.';
