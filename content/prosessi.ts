@@ -36,13 +36,13 @@ export const pystytys: Vaihe[] = [
     numero: 3,
     otsikko: 'Muuttujat Figmaan generoituna',
     teksti:
-      'Oma Figma-plugin (repossa, figma-plugin/) lukee tokens.jsonin ja kirjoittaa kokoelmat, moodit ja arvot Figmaan. Käsin kopiointia ei ole missään vaiheessa, joten arvot eivät voi syntyä erilaisina.',
+      'Setupin mukana tulee pieni Figma-plugin, joka kirjoitetaan tätä varten — ei valmisohjelma Figman kirjastosta. Suunnittelija asentaa sen kerran ja ajaa sen Figmasta: se hakee julkaistun tokens.jsonin ja luo tai päivittää muuttujat nimen perusteella, poistamatta mitään. Suunta on tarkoituksella generointi eikä vertailu, koska Figman muuttujarajapinta on Enterprise-tasoa: arvoja ei voi verrata automaattisesti, mutta generoituna ne eivät voi syntyä erilaisina.',
   },
   {
     numero: 4,
     otsikko: 'Kirjasto Figmaan',
     teksti:
-      'Komponentit rakennetaan Figmaan koodin rajapinnan mukaan: samat variantit, samat propertyt, samat nimet. Suunnittelija saa työkalut joilla ei voi piirtää jotain mitä ei voi toteuttaa.',
+      'Komponentit rakennetaan Figmaan käsin, kerran, koodin rajapinnan mukaan: samat variantit, samat propertyt, samat nimet. Tämä on setupin ainoa vaihe jota ei voi generoida — mutta kun se on tehty, suunnittelijalla on työkalut joilla ei voi piirtää jotain mitä ei voi toteuttaa.',
   },
   {
     numero: 5,
