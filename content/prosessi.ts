@@ -36,7 +36,7 @@ export const pystytys: Vaihe[] = [
     numero: 3,
     otsikko: 'Arvot Figmaan automaattisesti',
     teksti:
-      'Setupin mukana tulee pieni työkalu, joka asennetaan Figmaan kerran. Kun arvot muuttuvat, suunnittelija avaa sen ja painaa nappia — värit, tekstityylit ja välistykset päivittyvät kerralla. Ajaa voi niin usein kuin haluaa: mikään ei kahdennu eikä katoa.',
+      'Setupin mukana tulee Figma-plugin, joka asennetaan kerran. Kun arvot muuttuvat, suunnittelija avaa sen ja painaa nappia — värit, tekstityylit ja välistykset päivittyvät kerralla. Ajaa voi niin usein kuin haluaa: mikään ei kahdennu eikä katoa.',
   },
   {
     numero: 4,
