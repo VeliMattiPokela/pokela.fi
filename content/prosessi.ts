@@ -42,7 +42,7 @@ export const pystytys: Vaihe[] = [
     numero: 4,
     otsikko: 'Kirjasto Figmaan',
     teksti:
-      'Komponentit rakennetaan Figmaan käsin, kerran, samoilla nimillä ja tiloilla kuin koodissa. Tämä on ainoa vaihe jota ei voi automatisoida. Sen jälkeen suunnittelija ei voi vahingossa piirtää jotain mitä ei voi toteuttaa.',
+      'Komponentit rakennetaan Figmaan kerran, samoilla nimillä ja tiloilla kuin koodissa. Tätä vaihetta ei voi generoida, mutta sen voi tehdä AI-avusteisesti koodin pohjalta — kukaan ei piirrä laatikoita yksitellen. Sen jälkeen suunnittelija ei voi vahingossa piirtää jotain mitä ei voi toteuttaa.',
   },
   {
     numero: 5,
