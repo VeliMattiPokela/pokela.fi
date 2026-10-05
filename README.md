@@ -147,7 +147,32 @@ Se havaitsee kolme hiljaista eriytymää:
 eikä mikään huomaa jos olennainen kohta jää sen ulkopuolelle. Tyhjä
 paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia.
 
-**6. Saavutettavuus** (`npm run test:stories`) — jokainen story
+**6. Kuvasuhteet** (`scripts/check-suhteet.mjs`) — sama kuvasuhde on
+kirjoitettu kahteen paikkaan, ja kumpikin on elossa:
+
+| Lähde | Mitä se tekee |
+|---|---|
+| `scripts/kuvat.mjs` (`SUHTEET`) | rajaa kuvan levylle ja kirjoittaa `<picture>`:n media-kyselyt |
+| `styles/base.css` (`.media-*`) | piirtää kuvan selaimeen |
+| `components/Media.tsx` (`Ratio`) | mitä nimiä sisältö saa kirjoittaa |
+
+Jos nämä eriytyvät, **mikään ei kaadu.** Kuva rajataan yhteen muotoon ja
+näytetään toisessa: selain venyttää tai rajaa uudelleen, ja lopputulos on
+huonompi kuin kumpikaan luku lupasi. Virhe näkyy vain silmällä, ja vain
+jos sattuu katsomaan oikeaa kuvaa oikealla leveydellä. Juuri siksi se on
+tarkistuksen arvoinen — hiljainen vika ei löydy katselmoinnissa.
+
+Tarkistus lukee suhteet samasta taulusta jota generointi käyttää, joten se
+ei voi laskea eri tavalla. Se vertaa jokaisen portaan erikseen: `hero`
+vaihtaa muotoa kahdesti (`4 / 5` → `16 / 9` 600 pikselissä → `21 / 9` 900:ssa),
+ja jokaisen vaihdoksen on oltava molemmissa lähteissä samassa kohdassa.
+
+**Raja:** ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat
+samaa. Ei myöskään näe luokkanimen muunnosta — `Media.tsx` kirjoittaa
+`4:3` → `media-4-3` omalla rivillään, ja jos se muuttuisi, tarkistus
+vertaisi yhä vanhaa nimeä.
+
+**7. Saavutettavuus** (`npm run test:stories`) — jokainen story
 renderöidään Chromiumissa ja tarkistetaan axella. Kontrastivirhe,
 puuttuva saavutettava nimi tai rikkoutunut otsikkohierarkia kaataa ajon
 ja raportti kertoo elementin, mitatun arvon ja vaaditun rajan:
@@ -170,7 +195,7 @@ se on oikea; se ei kerro onko ruudunlukijan lukujärjestys mielekäs eikä
 toimiiko ennen/jälkeen-jakaja näppäimistöllä järkevästi. Tarkistus estää
 regression, se ei korvaa läpikäyntiä.
 
-**7. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
+**8. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
 koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
 komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
 koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
@@ -184,7 +209,7 @@ sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
 `check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
 Figmaan lisätty komponentti ei ilmesty siihen itsestään.
 
-**8. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
+**9. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
 Figma-tiedoston. Se varmistaa kolme asiaa: jokaisen kytkennän
 `node-id` osoittaa olemassa olevaan komponenttiin ja nimi täsmää,
 jokaisella kirjaston komponentilla on kytkentä, ja **jokainen property
@@ -213,7 +238,7 @@ Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
 mukana". Nyt väite on totta rakenteeltaan. Oikeus:
 *Development → Write and change component code*.
 
-**9. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
+**10. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
 mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`

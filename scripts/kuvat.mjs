@@ -60,7 +60,7 @@ const LAHDEPAATE = '.webp';
 const PORTAAT = [480, 800, 1200, 1600, 2000, 2800];
 
 /** Kuvasuhteet numeroina. `hero` on kolme, ks. tiedoston alku. */
-const SUHTEET = {
+export const SUHTEET = {
   hero: [
     { nimi: 'base', suhde: 4 / 5, media: null },
     { nimi: 'sm', suhde: 16 / 9, media: '(min-width: 600px)' },

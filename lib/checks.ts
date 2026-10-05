@@ -77,6 +77,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
       'Ei arvioi kuvaa. Rajaus on oletuksena keskeltä, eikä mikään huomaa jos kuvan olennainen kohta jää sen ulkopuolelle. Tyhjä paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia — se vain raportoidaan.',
   },
   {
+    id: 'suhteet',
+    title: 'Kuvasuhteet',
+    proves:
+      'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
+    blind:
+      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä.',
+  },
+  {
     id: 'figma',
     title: 'Figma',
     proves:

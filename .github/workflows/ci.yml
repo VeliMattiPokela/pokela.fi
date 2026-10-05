@@ -63,6 +63,13 @@ jobs:
       - name: Kuvat vastaavat sisältöä
         run: npm run check:kuvat
 
+      # Sama kuvasuhde on kahdessa elävässä paikassa: kuvat.mjs rajaa
+      # kuvan levylle, base.css piirtää sen selaimeen. Jos ne eroavat,
+      # kuva rajataan yhteen muotoon ja näytetään toisessa — mikään ei
+      # kaadu, virhe näkyy vain silmällä ja vain oikealla leveydellä.
+      - name: Kuvasuhteet synkassa (rajaus ↔ esitys)
+        run: npm run check:suhteet
+
       # Ainoa tarkistus joka avaa Figma-tiedoston. Ei ole
       # check:sync-ketjussa: ketjun pitää toimia ilman verkkoa ja
       # ilman salaisuuksia, eikä Figman katkos saa estää buildia.

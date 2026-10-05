@@ -12,7 +12,7 @@
     "build-storybook": "storybook build",
     "check": "npm run check:sync && npx tsc --noEmit && npm run test:stories",
     "check:stories": "node scripts/check-stories.mjs",
-    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded && npm run check:favicon && npm run check:kuvat && npm run check:docs",
+    "check:sync": "npm run check:tokens && npm run check:stories && npm run check:code-connect && npm run check:hardcoded && npm run check:favicon && npm run check:kuvat && npm run check:suhteet && npm run check:docs",
     "test:stories": "vitest run --project=storybook",
     "test:stories:watch": "vitest --project=storybook",
     "publish:tokens": "node scripts/publish-tokens.mjs",
@@ -27,6 +27,7 @@
     "check:favicon": "node scripts/check-favicon.mjs",
     "kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat.mjs",
     "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs",
+    "check:suhteet": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-suhteet.mjs",
     "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs"
   },
   "dependencies": {
