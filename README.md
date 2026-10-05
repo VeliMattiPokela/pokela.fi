@@ -21,6 +21,7 @@ npm run build-storybook  # → storybook-static/
 npm run check:hardcoded  # kovakoodatut arvot tyyleissä
 npm run figma:check      # Code Connect -kytkennät (dry run, vaatii tokenin)
 npm run figma:publish    # kytkennät Figmaan (vaatii FIGMA_ACCESS_TOKENin)
+npm run paketti          # tokenit npm-paketiksi → packages/tokens/
 ```
 
 Storytestit ajetaan oikeassa selaimessa, joten Chromium asennetaan kerran:
@@ -369,6 +370,57 @@ tasolla eikä unohdus.
 Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
 kukaan oli kokeillut. Lopputulos oli sama, mutta väite oli kuulopuhetta.
 Nyt se on kokeiltu.
+
+## Tokenit npm-pakettina
+
+```bash
+npm run paketti
+```
+
+Tokenit ovat tässä repossa `tokens.json`, eikä mikään muu projekti pääse
+niihin käsiksi. `scripts/paketti.mjs` rakentaa niistä asennettavan
+paketin hakemistoon `packages/tokens/`.
+
+**Miksi:** Figma Make osaa lukea design-systeemin vain npm-pakettina. Ilman
+tätä se arvaa värit ja mitat itse, ja prototyyppi näyttää siltä miltä malli
+kuvittelee — ei siltä mitä koodissa on. Sama paketti kelpaa myös muille
+projekteille, ja silloin sivusto ei ole ainoa joka tietää mitä `--ink` on.
+
+**Paketti on kokonaan johdettu, myös sen `package.json`.** Versio tulee
+kohdasta `$meta.version`, joten sitä ei tarvitse nostaa kahdessa paikassa,
+eikä paketissa voi olla tokenia jota lähteessä ei ole. Hakemisto on
+`.gitignore`ssa ja rakennetaan uudelleen joka ajolla — johdannaista ei
+säilytetä versionhallinnassa, koska kopio voi vanhentua.
+
+Mitä paketista tulee ulos:
+
+| Tiedosto | Mitä |
+|---|---|
+| `index.js` | tokenit JavaScript-objekteina |
+| `index.d.ts` | tyypit — tuntematon tokenin nimi on käännösvirhe |
+| `tokens.css` | CSS-muuttujat, sama tiedosto jota sivusto käyttää |
+| `tokens.json` | lähde sellaisenaan, työkaluille |
+
+```js
+import tokens, { color, space } from '@pokela/tokens';
+import '@pokela/tokens/tokens.css';
+
+color.light.ink;   // '#101112'
+space['24'];       // '24px'
+```
+
+Tyypeillä on käytännön merkitys: `color.light.muste` ei käänny, koska
+sellaista tokenia ei ole. Kirjoitusvirhe löytyy kääntäjältä eikä
+selaimesta.
+
+Paketilla ei ole riippuvuuksia. Se on Figma Maken vaatimus — siellä
+workspace-riippuvuudet eivät toimi — ja muutenkin oikein, koska tokenit
+ovat dataa eivätkä koodia.
+
+**Ennen julkaisua on päätettävä kaksi asiaa:** lisenssi (reposssa ei ole
+LICENSE-tiedostoa, joten kenttä on jätetty pois) ja se, julkaistaanko
+paketti julkisena vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
+Pro-tiimillä tai organisaatiolla.
 
 ## Kuvat
 

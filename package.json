@@ -28,7 +28,8 @@
     "kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat.mjs",
     "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs",
     "check:suhteet": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-suhteet.mjs",
-    "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs"
+    "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs",
+    "paketti": "node scripts/paketti.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

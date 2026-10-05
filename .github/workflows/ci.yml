@@ -107,6 +107,12 @@ jobs:
       - name: Kuvat ja videot
         run: npm run kuvat
 
+      # Tokenien npm-paketti. Ei tarvita sivuston buildiin, mutta se
+      # rakennetaan täällä jotta generaattorin rikkova muutos
+      # tokens.jsoniin huomataan heti eikä vasta julkaisuhetkellä.
+      - name: Tokenien npm-paketti
+        run: npm run paketti
+
       - name: Sivuston build
         run: npx next build
 
