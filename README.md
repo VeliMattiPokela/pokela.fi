@@ -238,6 +238,43 @@ Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
 mukana". Nyt väite on totta rakenteeltaan. Oikeus:
 *Development → Write and change component code*.
 
+**Figma-tiedostolla on yksi tila, repolla on monta committia.** Tämä on
+tarkistuksen rakenteellinen rajoite, ei vika, ja se kannattaa tietää
+ennen kuin siihen törmää.
+
+Kun Figmaa muutetaan niin että tarkistuksen odotus muuttuu, **jokainen
+vanhempi commit muuttuu samalla hetkellä punaiseksi**. Figma ei ole
+versioitu repon mukana: siinä on se tila joka siinä nyt on.
+
+Niin kävi 5.10.2026, kun generoitujen tekstisolmujen etuliite nimettiin
+`luotu:` → `generated:`. Sillä hetkellä kun Figman 19 solmua nimettiin,
+edellinen commit lakkasi menemästä läpi — se odotti yhä vanhoja nimiä.
+
+Sama koskee sisältöä, ei vain nimiä: jos `content/prosessi.ts`:n sanamuoto
+muuttuu, tarkistus odottaa Figmaan uutta tekstiä heti kun muutos on
+repossa.
+
+Yhden tekijän työssä tämä ei haittaa — muutos ja Figman päivitys ovat
+minuuttien päässä toisistaan. Pull request -käytännössä se tarkoittaa
+yhtä asiaa, joka on sanottava ääneen:
+
+> Tällainen muutos **ei voi olla vihreä sekä ennen mergeä että sen
+> jälkeen.** Valinta on kumpi.
+
+Käytäntö joka toimii:
+
+1. Muutokset jotka koskevat sopimusta (solmujen nimet, generoidun
+   tekstin lähde) tehdään **omassa pull requestissaan**, ei muun työn
+   mukana.
+2. Figma päivitetään **mergen yhteydessä**, ei ennen. Siihen asti
+   `check:figma` on punaisena juuri siinä yhdessä PR:ssä, ja syy
+   kirjoitetaan PR:n kuvaukseen.
+3. Muut avoimet pull requestit ajetaan uudelleen heti mergen jälkeen.
+
+Vaihtoehto olisi versioida Figma-tiedosto haaroittain. Figmassa on
+haarat, mutta ne eivät seuraa gitin haaroja, joten se vaihtaisi ongelman
+toiseen eikä poistaisi sitä.
+
 **10. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
