@@ -14,7 +14,7 @@
  *
  * Neljä sääntöä:
  *
- *   1. Luodut lohkot. `<!-- luotu:<id> -->…<!-- /luotu -->` -väli
+ *   1. Luodut lohkot. `<!-- generated:<id> -->…<!-- /generated -->` -väli
  *      verrataan generaattorin tulokseen. Korjaa `--korjaa`.
  *   2. Polut. Dokumentissa mainittu tiedostopolku on olemassa.
  *   3. Komennot. Mainittu `npm run x` on package.jsonissa.
@@ -175,7 +175,7 @@ for (const doc of DOCS) {
   let rewritten = false;
 
   /* 1. luodut lohkot — sekä HTML- että MDX-kommenttimuoto */
-  const block = /(<!--|\{\/\*)\s*luotu:([a-z-]+)\s*(-->|\*\/\})([\s\S]*?)(<!--|\{\/\*)\s*\/luotu\s*(-->|\*\/\})/g;
+  const block = /(<!--|\{\/\*)\s*generated:([a-z-]+)\s*(-->|\*\/\})([\s\S]*?)(<!--|\{\/\*)\s*\/generated\s*(-->|\*\/\})/g;
   source = source.replace(block, (whole, open, id, closeOpen, body, endOpen, endClose) => {
     blocks++;
     const generator = GENERATORS[id];
@@ -193,7 +193,7 @@ for (const doc of DOCS) {
          yksirivisen on pysyttävä yhdellä rivillä. */
       const body2 = expected.trim();
       const head = whole.slice(0, whole.indexOf(closeOpen) + closeOpen.length);
-      const tail = `${endOpen} /luotu ${endClose}`;
+      const tail = `${endOpen} /generated ${endClose}`;
       return body2.includes('\n') ? `${head}\n${body2}\n${tail}` : `${head}${body2}${tail}`;
     }
     /* Monirivisestä lohkosta näytetään vain ensimmäinen poikkeava

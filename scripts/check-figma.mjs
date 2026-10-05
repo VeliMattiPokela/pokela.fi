@@ -270,7 +270,7 @@ for (const connection of connections) {
    todellisuus oli 7 · 83 · 10.
 
    Sopimus on sama kuin README:n luoduilla lohkoilla: tekstisolmu
-   jonka nimi on `luotu:<id>` saa sisältönsä scripts/figma-teksti.mjs
+   jonka nimi on `generated:<id>` saa sisältönsä scripts/figma-teksti.mjs
    :stä. Nimi on sopimus, sisältö johdettu.
 
    Vaatii koko puun, koska solmut voivat olla missä tahansa ja
@@ -282,15 +282,15 @@ const loydetyt = new Set();
 
 const kayLapi = (solmu) => {
   if (!solmu || typeof solmu !== 'object') return;
-  if (solmu.type === 'TEXT' && typeof solmu.name === 'string' && solmu.name.startsWith('luotu:')) {
-    const id = solmu.name.slice('luotu:'.length);
+  if (solmu.type === 'TEXT' && typeof solmu.name === 'string' && solmu.name.startsWith('generated:')) {
+    const id = solmu.name.slice('generated:'.length);
     loydetyt.add(id);
     const odotettu = odotetut[id];
     if (odotettu === undefined) {
-      drift.push({ file: `luotu:${id}`, issue: 'tuntematon luotu teksti — ei lähdettä figma-teksti.mjs:ssä' });
+      drift.push({ file: `generated:${id}`, issue: 'tuntematon luotu teksti — ei lähdettä figma-teksti.mjs:ssä' });
     } else if ((solmu.characters ?? '').trim() !== odotettu.trim()) {
       drift.push({
-        file: `luotu:${id}`,
+        file: `generated:${id}`,
         issue: `teksti eriytynyt\n${' '.repeat(6)}on:      ${solmu.characters}\n${' '.repeat(6)}pitäisi: ${odotettu}`,
       });
     }
@@ -301,7 +301,7 @@ kayLapi(kokoPuu.document);
 
 for (const id of Object.keys(odotetut)) {
   if (!loydetyt.has(id)) {
-    drift.push({ file: `luotu:${id}`, issue: 'lähde on olemassa, mutta Figmassa ei ole tekstisolmua tällä nimellä' });
+    drift.push({ file: `generated:${id}`, issue: 'lähde on olemassa, mutta Figmassa ei ole tekstisolmua tällä nimellä' });
   }
 }
 

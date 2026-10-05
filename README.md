@@ -263,8 +263,8 @@ requestissa. Vihreä CI väitti enemmän kuin se katsoi.
 Johdettavat kohdat merkitään luoduksi lohkoksi eikä kirjoiteta käsin:
 
 ```
-<!-- luotu:LOHKON-NIMI -->   ← tähän väliin generoitu sisältö
-<!-- /luotu -->
+<!-- generated:LOHKON-NIMI -->   ← tähän väliin generoitu sisältö
+<!-- /generated -->
 ```
 
 Käytössä olevat lohkot: `figma-kokoelmat` (pluginin README) ja
@@ -289,7 +289,7 @@ Niin kävikin. Kannessa luki *6 kokoelmaa · 77 muuttujaa ·
 9 tekstityyliä* kun todellisuus oli *7 · 83 · 10* — tiedostossa jonka
 kansi lupaa ettei yhtäkään arvoa ole kopioitu käsin.
 
-Sopimus: Figman tekstisolmu jonka **nimi** on `luotu:<id>` saa
+Sopimus: Figman tekstisolmu jonka **nimi** on `generated:<id>` saa
 sisältönsä tiedostosta `scripts/figma-teksti.mjs`. `check:figma` lukee
 solmut rajapinnalla ja vertaa. Nimi on sopimus, sisältö on johdettu.
 
@@ -696,9 +696,9 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       on **Lohkot**-pohja molemmissa koissa, jossa ovat ne lohkot
       joita casepohjissa ei ollut.
 
-      <!-- luotu:case-lohkot -->
+      <!-- generated:case-lohkot -->
       12 lohkotyyppiä: text, media, pair, band, trio, scope, artefacts, checks, steps, choices, component, todo
-      <!-- /luotu -->
+      <!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.
@@ -758,7 +758,7 @@ Luettelo on luotu sisällöstä: tiedoston nimi on paikan tunniste, ja
 `Mitä kuvassa` on sen kuvateksti — eli myös `alt`-teksti, joka kertoo
 mitä kuvan pitää näyttää.
 
-<!-- luotu:kuvapaikat -->
+<!-- generated:kuvapaikat -->
 | | # | Missä | Tunniste | Muoto | Mitä kuvassa |
 |---|---|---|---|---|---|
 |  | 1 | Colliers Asunnot | `colliers-hero` + `colliers-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
@@ -787,7 +787,7 @@ mitä kuvan pitää näyttää.
 | ✓ | 24 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
 4/24 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
-<!-- /luotu -->
+<!-- /generated -->
 
 #### Faktat ja luvat casettain
 

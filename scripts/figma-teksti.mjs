@@ -11,7 +11,7 @@
  * 9 tekstityyliä" kun todellisuus oli 7 · 83 · 10. Tiedostossa jonka
  * kansi lupaa ettei yhtäkään arvoa ole kopioitu käsin.
  *
- * Sopimus: Figman tekstisolmu jonka **nimi** on `luotu:<id>` saa
+ * Sopimus: Figman tekstisolmu jonka **nimi** on `generated:<id>` saa
  * sisältönsä täältä. `check:figma` lukee solmut rajapinnalla ja
  * vertaa. Nimi on sopimus, sisältö on johdettu.
  *
