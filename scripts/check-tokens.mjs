@@ -263,7 +263,6 @@ const simple = {
   'ease-standard': json.motion.easing.standard,
   'ease-out': json.motion.easing.out,
   'reveal-shift': json.motion.reveal.translate,
-  'reveal-stagger': json.motion.reveal.stagger,
 };
 for (const [name, expected] of Object.entries(simple)) {
   if (!base.has(name)) { report('token', `--${name}`, '(puuttuu)', expected); continue; }

@@ -295,7 +295,7 @@ export function MotionTable() {
     { name: 'Nappi, linkki', token: '--dur-fast', value: tokens.motion.duration.fast, what: 'Taustan ja tekstin väri' },
     { name: 'Listarivi', token: '--dur-base', value: tokens.motion.duration.base, what: 'Pinnan käännös, ei liikettä' },
     { name: 'Sivunvaihto', token: '--dur-slow', value: tokens.motion.duration.slow, what: 'Ristihäivytys, ei slaidausta' },
-    { name: 'Reveal', token: '--dur-reveal', value: tokens.motion.duration.reveal, what: `${tokens.motion.reveal.translate} nousu, stagger ${tokens.motion.reveal.stagger}` },
+    { name: 'Reveal', token: '--dur-reveal', value: tokens.motion.duration.reveal, what: `${tokens.motion.reveal.translate} nousu` },
     { name: 'Ennen / jälkeen', token: '—', value: '0ms', what: 'Jakaja seuraa osoitinta 1:1' },
   ];
   return (

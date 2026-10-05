@@ -93,7 +93,6 @@
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --reveal-shift: 12px;
-  --reveal-stagger: 70ms;
 
   /* ---- colour ----------------------------------------------------
      Arvot määritellään KERRAN parina: -l on vaalea, -d tumma.
