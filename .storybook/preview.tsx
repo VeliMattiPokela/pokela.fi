@@ -73,8 +73,9 @@ const withCanvas: Decorator = (Story, context) =>
   );
 
 /* Katselukoot suoraan tokeneista — ei toista listaa jota pitäisi
-   muistaa päivittää. */
-const bp = tokens.layout.breakpoints;
+   muistaa päivittää. Lähde on moodiakseli, ei layout-ryhmä: nämä
+   luvut määrittelevät viewport-moodit, eivät ole tyylin arvoja. */
+const bp = tokens.$modes.viewport.minWidth;
 const viewports = {
   base: { name: `base — 0–${parseInt(bp.sm) - 1}px`, styles: { width: '390px', height: '844px' } },
   sm: { name: `sm — ${bp.sm}`, styles: { width: bp.sm, height: '900px' } },

@@ -147,7 +147,8 @@ export function GridDemo({ columns = 12 }: { columns?: number }) {
 }
 
 export function GridTable() {
-  const { columns, gutter, pagePadding, breakpoints, sectionGap } = tokens.layout;
+  const { columns, gutter, pagePadding, sectionGap } = tokens.layout;
+  const breakpoints = tokens.$modes.viewport.minWidth;
   const levels = ['base', 'sm', 'md', 'lg'] as const;
   return (
     <table className="spec-table sb-unstyled">
