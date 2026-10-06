@@ -442,9 +442,9 @@ ovat dataa eivätkä koodia.
 
 ### Komponentit
 
-`scripts/paketti-komponentit.mjs` vie viisi komponenttia: `Icon`, `ListRow`,
-`Accordion`, `Grid` ja `Reveal`. Lähde on `components/` — **samat tiedostot
-joita sivusto ajaa**, ei kopioita. Ne siirretään sellaisenaan ja käännetään
+`scripts/paketti-komponentit.mjs` vie seitsemän komponenttia: `Icon`,
+`ListRow`, `Accordion`, `Grid`, `Reveal`, `ThemeScript` ja `ThemeToggle`.
+Lähde on `components/` — **samat tiedostot joita sivusto ajaa**, ei kopioita. Ne siirretään sellaisenaan ja käännetään
 TypeScriptillä, joten paketin komponentti ei voi erota siitä jota sivusto
 ajaa.
 
@@ -469,7 +469,6 @@ Ulkopuolelle jäävät ja miksi — lista on generaattorissa, ei vain tässä:
 | Nav, Footer | tarvitsevat sanakirjan ja reitityksen |
 | BeforeAfter | rakentuu Median varaan |
 | ComponentView, PrintCv | riippumattomia, mutta sivuston ominaisuuksia — eivät design systemin osia |
-| ThemeToggle, ThemeScript | käyttävät luokkaa `.nav__toggle`, joka on Navin tyyleissä. Kytkentä on lähteessä, joten se korjataan CSS:ää siistimällä eikä listaa muuttamalla |
 
 ### Lisenssi
 

@@ -38,7 +38,7 @@ const TEKIJA = 'Veli-Matti Pokela';
 const VUOSI = 2026;
 
 /** Komponentit jotka paketti vie. Ks. tiedoston alku. */
-export const VIETAVAT = ['Icon', 'ListRow', 'Accordion', 'Grid', 'Reveal'];
+export const VIETAVAT = ['Icon', 'ListRow', 'Accordion', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle'];
 
 /**
  * CSS jonka vietävät komponentit tarvitsevat.
@@ -66,8 +66,6 @@ export const ULKOPUOLELLA = [
   ['BeforeAfter', 'rakentuu Median varaan, ja Media lukee kuvamanifestia'],
   ['ComponentView, PrintCv',
    'ovat riippumattomia mutta sivuston ominaisuuksia — lähdekoodinäkymä ja CV:n tulostusasu — eivät design systemin osia'],
-  ['ThemeToggle, ThemeScript',
-   'teemanvaihto käyttää luokkaa `.nav__toggle`, joka on määritelty Navin tyyleissä. Kytkentä on lähteessä eikä paketoinnissa, joten se korjataan CSS:ää siistimällä eikä tätä listaa muuttamalla'],
 ];
 
 /* ---- vientien poiminta --------------------------------------------- */

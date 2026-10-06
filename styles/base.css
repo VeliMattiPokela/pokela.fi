@@ -165,6 +165,27 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
   border-bottom: var(--hairline) solid currentColor;
 }
 
+/* Hiljainen kytkin: teemanvaihto ja vastaavat. Ei .btn-perheen jäsen —
+   typografia tulee .meta:sta ja nappimaisuus riisutaan kokonaan, joten
+   se ei kilpaile sivun oikeiden toimintojen kanssa. Kosketusalue on
+   silti täysi: padding kasvattaa sen ja yhtä suuri negatiivinen margin
+   kumoaa vaikutuksen taittoon.
+
+   Ei ollut navigaatiokohtainen, vaikka asui aiemmin nav.css:ssä nimellä
+   .nav__toggle. Nimi esti ThemeTogglen viennin komponenttipakettiin,
+   koska komponentti olisi tarvinnut Navin tyylit. */
+.toggle {
+  background: none;
+  border: 0;
+  padding: var(--space-12);
+  margin: calc(var(--space-12) * -1);
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.toggle:hover { color: var(--ink); }
+
 /* Tekstinapilla ei ole pintaa jota kääntää, joten hover on sama liike
    kuin .case-linkillä: viiva paksunee. Padding kevenee saman verran
    kuin viiva kasvaa, jotta napin korkeus ei muutu eikä ympärillä oleva

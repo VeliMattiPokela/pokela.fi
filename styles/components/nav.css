@@ -46,20 +46,6 @@
 
 .nav__tools { display: flex; align-items: center; gap: var(--space-8); }
 
-/* Teema- ja kielivalitsin: tekstinappeja, ei ikoneita. */
-.nav__toggle {
-  background: none;
-  border: 0;
-  padding: var(--space-12);
-  margin: calc(var(--space-12) * -1);
-  min-width: var(--tap-min);
-  min-height: var(--tap-min);
-  cursor: pointer;
-  transition: color var(--dur-fast) var(--ease-standard);
-}
-.nav__toggle:hover { color: var(--ink); }
-.nav__toggle[aria-pressed='true'] { color: var(--ink); }
-
 /* Mobiilivalikon avaus: kaksi viivaa, ei hampurilaisikonia. */
 .nav__menu-btn {
   display: inline-flex;

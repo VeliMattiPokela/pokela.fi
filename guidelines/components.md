@@ -8,6 +8,8 @@ Use these instead of building an equivalent.
 - `Accordion`, `useAccordionGroup`
 - `Grid`, `Col`
 - `Reveal`
+- `ThemeScript`, `THEME_STORAGE_KEY`
+- `ThemeToggle`
 <!-- /generated -->
 
 `ListRow` is the signature component. Use it for any list of items — a work

@@ -49,7 +49,7 @@ export default function ThemeToggle({
   return (
     <button
       type="button"
-      className="meta meta--s nav__toggle"
+      className="meta meta--s toggle"
       onClick={() => apply(order[(order.indexOf(theme) + 1) % order.length])}
       aria-label={`${labels.theme}: ${label}`}
       /* Ennen hydraatiota näytetään neutraali merkintä, jottei
