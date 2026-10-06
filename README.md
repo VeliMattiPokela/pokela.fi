@@ -493,15 +493,23 @@ Paketit ovat npm:ssä, joten Figma Make osaa lukea ne. Mutta paketti kertoo
 Makelle vain *mitä* on olemassa — ei sitä *milloin* mitäkin käytetään. Sen
 kertovat ohjeet, ja Figman mukaan ne ratkaisevat tuloksen laadun.
 
-Ohjeet ovat tiedostossa `guidelines/pokela.md` — **repossa, eivät Figman
-käyttöliittymässä.** Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
+Ohjeet ovat hakemistossa `guidelines/` — **repossa, eivät Figman
+käyttöliittymässä.** Tiedostonimet ovat samat kuin Figma Maken omat, joten
+kopiointi on tiedosto tiedostolta eikä tulkintaa:
+
+| Tiedosto | Mitä |
+|---|---|
+| `guidelines/setup.md` | asennus, molemmat paketit, tyylien tuonti |
+| `guidelines/tokens.md` | ei aksenttiväriä, ei varjoja, välistysasteikko |
+| `guidelines/styles.md` | typografia, ei Tailwind-luokkia, grid |
+| `guidelines/components.md` | komponenttien käyttö, `as`-propsi | Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
 versioituja ja katselmoitavia, ja muutos niihin näkyy pull requestissa siinä
 missä koodimuutos.
 
 Kolme asiaa ohjaavat niiden kirjoittamista:
 
 **Lyhyys on sääntö, ei tyyli.** Figma sanoo suoraan: *"More context isn't
-always better. It can confuse the LLM."* Nykyinen tiedosto on alle 400 sanaa.
+always better. It can confuse the LLM."* Kaikki neljä tiedostoa ovat yhteensä alle 500 sanaa.
 
 **Propseja ei toisteta.** Make lukee paketin TypeScript-tyypit itse. Jos
 ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se
@@ -525,12 +533,38 @@ Figmassa:
 1. Make-tiedosto → Settings → **Create a kit**
 2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
 3. Mahdolliset erityisasetukset
-4. **Ohjeet** — `guidelines/pokela.md`
+4. **Ohjeet** — kopioi `guidelines/`-hakemiston neljä tiedostoa samannimisten päälle
 5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
 6. Julkaise kit
 
-Askel 5 on se joka kertoo onnistuiko tämä. Jos Make piirtää oman listarivin
-sen sijaan että käyttäisi `ListRow`:ta, ohjeet eivät vielä riitä.
+### Ensimmäinen ajo, 6.10.2026
+
+Testattu kehotteella *"Build a work index: six projects, each with a title, a
+one-line description, and a role on the right."* Make tuotti:
+
+```jsx
+import { Col, Grid, ListRow, Reveal } from "@pokela/components";
+```
+
+Oikea tuonti, oikeat propsit, `Reveal` osion ympärillä eikä yksittäisen
+elementin. Ei yhtään Tailwind-luokkaa, ei väriä, ei pyöristyksiä. Korostettu
+rivi oli musta käännös, kuten ohjeissa sanottiin.
+
+**Odottamaton osa:** Make käytti myös oikeita utility-luokkia — `.meta`,
+`.meta--ink`, `.display-xl`, `.body-s`, `.list-rows`, `.page`, `.bleed` —
+vaikka ohjeissa ei lueteltu yhtäkään niistä. Se luki ne paketin
+tyylitiedostosta. Luokkia ei siis tarvitse dokumentoida, kunhan ne ovat
+paketissa.
+
+Kaksi virhettä, molemmat nyt ohjeissa:
+
+| Virhe | Sääntö joka lisättiin |
+|---|---|
+| `<p className="display-xl">` pääotsikkona | luokka ja elementti ovat eri päätös; otsikko on `<h1>` |
+| `className="bleed"` ListRowille | `ListRow` lisää sen jo itse |
+
+Ensimmäinen on saavutettavuusvirhe: ruudunlukija ei saa otsikkorakennetta.
+Sivustolla axe kaatuisi siihen, Makessa ei kukaan huomaa.
 
 ## Vaihe 0 — olemassa olevaan taloon
 

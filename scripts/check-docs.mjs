@@ -46,7 +46,7 @@ const DOCS = [
      käyttöliittymässä, jotta ne ovat versioituja ja katselmoitavia —
      sama vaatimus kuin koodille. Komponenttilista on luotu lohko,
      jottei ohje voi luvata komponenttia jota paketti ei vie. */
-  'guidelines/pokela.md',
+  ...readdirSync(join(root, 'guidelines')).map((f) => `guidelines/${f}`),
   ...readdirSync(join(root, 'stories/perusta')).map((f) => `stories/perusta/${f}`),
 ];
 
