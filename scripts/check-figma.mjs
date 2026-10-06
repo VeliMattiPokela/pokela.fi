@@ -314,7 +314,11 @@ if (drift.length === 0) {
   if (helpers.length) {
     console.log(`  · ${helpers.length} apukomponenttia ei vaadi kytkentää: ${helpers.map((h) => h.name).join(', ')}`);
   }
-  console.log('  · Muuttujia ei tarkisteta: Figman variables-rajapinta vaatii Enterprise-tason.');
+  console.log(
+    '  · Muuttujia ei tarkisteta: file_variables:read on Figman mukaan\n' +
+      '    "Enterprise plan only", eikä sitä voi myöntää tälle tilille (tier: org).\n' +
+      '    Kokeiltu: 403 "This endpoint requires the file_variables:read scope".',
+  );
   process.exit(0);
 }
 

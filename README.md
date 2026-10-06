@@ -74,9 +74,11 @@ eriytyy, putki pysähtyy ja raportti kertoo **mikä** eriytyi.
 Lisäksi CI ajaa erikseen `npm run check:figma`, joka tarvitsee verkon:
 
 ```
-✓ Figma synkassa — 8/8 komponenttia kytketty, 8 osoitetta ja niiden propertyt tarkistettu (Pokela — Design System)
+✓ Figma synkassa — 8/8 komponenttia kytketty, 8 osoitetta ja niiden propertyt tarkistettu, 19 luotua tekstiä (Pokela — Design System)
   · 1 apukomponenttia ei vaadi kytkentää: Nav / Link
-  · Muuttujia ei tarkisteta: Figman variables-rajapinta vaatii Enterprise-tason.
+  · Muuttujia ei tarkisteta: file_variables:read on Figman mukaan
+    "Enterprise plan only", eikä sitä voi myöntää tälle tilille (tier: org).
+    Kokeiltu: 403 "This endpoint requires the file_variables:read scope".
 ```
 
 **1. Tokenit** (`scripts/check-tokens.mjs`) — vertaa `tokens.css`:n ja
@@ -368,8 +370,21 @@ sisällä muuttujia. Sitä ei siis voi rastittaa, joten rajoitus on tilin
 tasolla eikä unohdus.
 
 Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
-kukaan oli kokeillut. Lopputulos oli sama, mutta väite oli kuulopuhetta.
-Nyt se on kokeiltu.
+kukaan oli kokeillut. Nyt se on sekä kokeiltu että varmistettu lähteestä:
+Figman scope-dokumentaatio sanoo oikeuksista `file_variables:read` ja
+`file_variables:write` saman asian — *"Note: Enterprise plan only"* — ja
+päätepistedokumentaatio *"This API is available to full members of
+Enterprise orgs."*
+
+Väite oli siis oikein, mutta se perustui kuulopuheeseen siihen asti.
+Huomaa myös mitä 403 **ei** sano: se puhuu puuttuvasta oikeudesta eikä
+mainitse tilitasoa lainkaan. Pelkän virheilmoituksen perusteella syytä ei
+voi päätellä — se selviää vain dokumentaatiosta.
+
+Käytännön seuraus: olemassa olevan asiakkaan Figma-muuttujia ei voi lukea
+rajapinnan yli, ellei asiakkaalla ole Enterprise-tasoa. Se on vaiheen 0.1
+inventaarion suurin yksittäinen rajoite, eikä se ole kierrettävissä
+koodilla.
 
 ## npm-paketit
 
@@ -471,6 +486,85 @@ ohjelmistolisenssillä.
 **Ennen julkaisua on vielä päätettävä yksi asia:** julkaistaanko paketit
 julkisena npm:ssä vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
 Pro-tiimillä tai organisaatiolla.
+
+## Vaihe 0 — olemassa olevaan taloon
+
+Kaikki tässä repossa kuvattu olettaa puhdasta pöytää: tokenit ovat yhdessä
+paikassa, komponenteilla on kytkennät, tarkistukset ovat vihreitä
+ensimmäisestä päivästä. **Yksikään yritys ei ole siinä tilassa.**
+
+Tyypillinen lähtötilanne on toinen. Figma-tiedostoja on useita, osa puoliksi
+hylättyjä. Sovelluksessa on kolme Button-komponenttia joista kaksi on
+kuollutta. Tokeneita on jossain, mutta puolet arvoista on kovakoodattu. Ja
+se vaikein: **kukaan ei tiedä kumpi puoli on oikeassa.**
+
+Siksi ennen vaiheita 1–6 on vaihe 0. Se ei ole käännös eikä siivous. Se on
+sovittelu kahden olemassa olevan totuuden välillä.
+
+Vaiheessa on kolme askelta, ja vain kaksi niistä on koneen työtä.
+
+### 0.1 Inventaario ja ero — kone
+
+Luetaan molemmat puolet ja kerrotaan missä ne eroavat. **Ei vielä oteta
+kantaa kumpi on oikeassa** — se on seuraavan askeleen tehtävä, ja jos työkalu
+ottaa kannan tässä, se on jo päättänyt sen puolesta jonka pitäisi päättää.
+
+Tuloste ei ole pass/fail vaan luettava luettelo: montako väriä kummallakin
+puolella, montako täsmää, montako eroaa, mitkä ovat vain toisessa. Sama
+typografialle, välistykselle ja komponenteille.
+
+Tämän askeleen oikea mittari ei ole tarkkuus vaan se, kelpaako tuloste
+pöydälle asetettavaksi vaiheessa 0.2.
+
+### 0.2 Kumpi voittaa — ihminen
+
+**Tässä kohtaa palkataan asiantuntija.** Askelta ei voi automatisoida eikä
+pidä yrittää.
+
+Koko tämän repon prosessi olettaa että **koodi on totuus**. Olemassa olevassa
+talossa se ei ole annettu, ja se voi olla väärin: jos Figma-kirjasto on kypsä
+ja sovellus sekava, suunnittelijat ovat oikeassa ja koodi väärässä. Silloin
+tarkistukset pakottaisivat Figman vastaamaan huonompaa totuutta.
+
+Päätös tehdään asiaryhmä kerrallaan, ei kerralla:
+
+| Ryhmä | Kysymys |
+|---|---|
+| Värit | Figman kirjasto vai koodin tokenit? |
+| Typografia | kumman skaala jää? |
+| Välistys | kumman asteikko? |
+| Komponenttien rajapinnat | kumman nimet ja variantit? |
+| Nimeäminen | nimetäänkö uudelleen vai ei (ks. alla) |
+
+Työ on keskustelua: inventaarion läpikäynti suunnittelun ja kehityksen
+kanssa, erimielisyyksien ratkaisu, ja niiden perustelujen kirjaaminen.
+Sidosryhmiä on yleensä enemmän kuin kaksi — myös se joka maksaa ja se joka
+joutuu elämään päätöksen kanssa.
+
+**Yksi suositus on valmis:** tokenien nimiä ei nimetä uudelleen. Nimien
+vaihto koskee jokaista olemassa olevaa tiedostoa ja tekee migraatiosta
+riskin, jota kukaan ei halua omistaa. Rakenne saa muuttua, nimet eivät.
+
+Askeleen tulos ei ole mielipide vaan **kirjattu päätös**, jota kone voi sen
+jälkeen valvoa. Ilman kirjausta vaihe 0.3 ei tiedä mitä vastaan verrata.
+
+### 0.3 Lähtötaso ja räikkä — kone
+
+Tämän repon tarkistukset ovat ehdottomia: nolla rikkomusta tai build kaatuu.
+Olemassa olevassa koodipohjassa se tarkoittaa tuhansia virheitä ensimmäisellä
+ajolla — ja tarkistus kytketään pois samana päivänä.
+
+Siksi tarvitaan lähtötaso. Nykyinen rikkomustaso kirjataan kerran, ja build
+kaatuu vain jos luku **kasvaa**. Vanhaa velkaa saa maksaa pois omassa
+tahdissa; uutta ei synny.
+
+Räikkä on myös se mittari jolla työn edistyminen näytetään: laskeva luku on
+näyttö siitä että asetelma toimii. Lähtötaso saa laskea, ei nousta.
+
+---
+
+Askel 0.2 on syy miksi tämä ostetaan ihmiseltä eikä ladata GitHubista.
+Työkalut voi kopioida; sen päätöksen ohjaamista ei voi.
 
 ## Kuvat
 
