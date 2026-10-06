@@ -550,16 +550,75 @@ jälkeen valvoa. Ilman kirjausta vaihe 0.3 ei tiedä mitä vastaan verrata.
 
 ### 0.3 Lähtötaso ja räikkä — kone
 
+**Tämä on toteutettu** (`scripts/lahtotaso.mjs`). Toistaiseksi kytkettynä
+tarkistukseen `check:hardcoded`, joka on se joka legacy-koodipohjassa
+räjähtäisi pahiten.
+
 Tämän repon tarkistukset ovat ehdottomia: nolla rikkomusta tai build kaatuu.
 Olemassa olevassa koodipohjassa se tarkoittaa tuhansia virheitä ensimmäisellä
-ajolla — ja tarkistus kytketään pois samana päivänä.
+ajolla — ja tarkistus kytketään pois samana päivänä. Tarkistus joka ei voi
+olla vihreä ei ole tarkistus.
 
-Siksi tarvitaan lähtötaso. Nykyinen rikkomustaso kirjataan kerran, ja build
-kaatuu vain jos luku **kasvaa**. Vanhaa velkaa saa maksaa pois omassa
-tahdissa; uutta ei synny.
+```bash
+npm run lahtotaso:kirjaa   # kirjaa nykytilan kerran
+npm run lahtotaso          # näytä paljonko velkaa on maksettu
+```
 
-Räikkä on myös se mittari jolla työn edistyminen näytetään: laskeva luku on
-näyttö siitä että asetelma toimii. Lähtötaso saa laskea, ei nousta.
+Kirjaus syntyy tiedostoon `lahtotaso.json`, joka **kuuluu versionhallintaan**:
+se ei ole johdannainen vaan päätös siitä mitä hyväksyttiin ja milloin.
+
+Build kaatuu vain jos rikkomus on **uusi**:
+
+```
+✓ Ei kovakoodattuja arvoja — 25 arvoa tarkistettu, 22 kirjattua poikkeusta,
+  2 lähtötasolla (4 → 2, 50 % maksettu)
+
+✗ Kovakoodatut arvot: 1 kohtaa
+  UUSI kirjaamaton arvo:
+    components/work.css:43    border-radius: 9px
+    (4 aiemmin kirjattua rikkomusta ei lasketa — ne ovat lähtötasolla.)
+```
+
+**Tunnisteet, ei lukumäärä.** Lähtötaso tallentaa rikkomusten tunnisteet ja
+niiden esiintymismäärän, ei kokonaislukua. Muuten yhden korjaaminen ja toisen
+lisääminen menisi läpi nollasummana. Tunniste on muotoa
+`tiedosto|ominaisuus:arvo` eikä sisällä rivinumeroa — rivit siirtyvät kun
+yläpuolelle lisätään koodia, ja koskematon rikkomus näyttäisi silloin uudelta.
+
+**Räikkä kiertyy vain yhteen suuntaan.** Kirjaus hylätään jos nykytila on
+kirjattua suurempi:
+
+```
+Error: Lähtötasoa ei nosteta: hardcoded oli 2, nyt 5.
+```
+
+**Ja se on myös myynnin mittari.** `alku` kirjataan kerran eikä se muutu,
+joten edistymisen voi näyttää numerona:
+
+```
+  Velan maksu
+
+  hardcoded        ██████████··········   50 %
+                   4 → 2   (lähtötaso kirjattu 2026-10-06)
+```
+
+Laskeva luku on näyttö siitä että asetelma toimii — räikkä ei ole vain
+sietomekanismi vaan se mittari jolla työn tulos osoitetaan.
+
+**Tässä repossa mekanismi on lepotilassa.** Rikkomuksia ei ole, joten
+`lahtotaso.json`-tiedostoa ei ole, ja ilman sitä kaikki on uutta — eli
+tarkistukset käyttäytyvät täsmälleen kuten ennenkin.
+
+**Lähtötaso ei korvaa `EXEMPT`-listaa.** Ne ovat eri mekanismit eikä toista
+pidä venyttää toisen tilalle:
+
+| | Periaate | Mittakaava | Kesto |
+|---|---|---|---|
+| `EXEMPT` | poikkeus vaatii kirjoitetun syyn | kymmeniä | pysyvä |
+| Lähtötaso | vanha velka hyväksytään ilman syytä | tuhansia | tilapäinen |
+
+Neljäätuhatta rikkomusta ei perustella yksitellen. Mutta niitä ei myöskään
+hyväksytä pysyvästi.
 
 ---
 

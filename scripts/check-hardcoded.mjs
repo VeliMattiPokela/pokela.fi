@@ -23,6 +23,7 @@
  */
 
 import { readdirSync, readFileSync } from 'node:fs';
+import { vertaa, kirjaa, edistyminen } from './lahtotaso.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -142,20 +143,59 @@ for (const [short, entries] of Object.entries(EXEMPT)) {
   }
 }
 
-if (unrecorded.length === 0 && stale.length === 0) {
-  const recorded = Object.values(EXEMPT).reduce((n, e) => n + Object.keys(e).length, 0);
-  console.log(
-    `✓ Ei kovakoodattuja arvoja — ${scanned} arvoa tarkistettu, ${recorded} kirjattua poikkeusta`,
-  );
+/* ---- lähtötaso ------------------------------------------------------
+   Rikkomus tunnistetaan muodossa `tiedosto|ominaisuus:arvo` ja sen
+   esiintymien lukumäärästä. Rivinumero EI ole osa tunnistetta: rivit
+   siirtyvät kun yläpuolelle lisätään koodia, ja koskematon rikkomus
+   näyttäisi silloin uudelta. Lukumäärä on mukana, jotta saman arvon
+   toistaminen samassa tiedostossa ei mahdu kirjatun sisään.
+
+   Ilman lahtotaso.json-tiedostoa kaikki on uutta — eli täsmälleen
+   nykyinen käyttäytyminen. Ks. scripts/lahtotaso.mjs. */
+const nykyiset = new Map();
+for (const hit of unrecorded) {
+  const tunniste = `${hit.file}|${hit.key}`;
+  nykyiset.set(tunniste, (nykyiset.get(tunniste) ?? 0) + 1);
+}
+/* --kirjaa lukitsee nykytilan lähtötasoksi. Tätä ajetaan kerran
+   käyttöönotossa ja sen jälkeen aina kun velkaa on maksettu pois. */
+if (process.argv.includes('--kirjaa')) {
+  const { nyt, alku } = kirjaa('hardcoded', nykyiset);
+  console.log(`\n✓ Lähtötaso kirjattu — hardcoded: ${nyt} rikkomusta`);
+  console.log(`  Alkuperäinen taso ${alku.maara} (${alku.pvm}) — build kaatuu vain jos luku kasvaa.\n`);
   process.exit(0);
 }
 
-console.error(`\n✗ Kovakoodatut arvot: ${unrecorded.length + stale.length} kohtaa\n`);
+const taso = vertaa('hardcoded', nykyiset);
+const uudet = unrecorded.filter((hit) =>
+  taso.uudet.some((u) => u.tunniste === `${hit.file}|${hit.key}`),
+);
 
-if (unrecorded.length) {
-  console.error('  Kirjaamaton arvo:');
-  for (const hit of unrecorded) {
+if (uudet.length === 0 && stale.length === 0) {
+  const recorded = Object.values(EXEMPT).reduce((n, e) => n + Object.keys(e).length, 0);
+  let rivi = `✓ Ei kovakoodattuja arvoja — ${scanned} arvoa tarkistettu, ${recorded} kirjattua poikkeusta`;
+  if (taso.kaytossa) {
+    const e = edistyminen('hardcoded');
+    rivi += `, ${taso.nyt} lähtötasolla`;
+    if (e) rivi += ` (${e.alku} → ${e.nyt}, ${e.maksettu} % maksettu)`;
+  }
+  console.log(rivi);
+  if (taso.korjatut.length) {
+    console.log(`  · ${taso.korjatut.length} rikkomusta korjattu kirjauksen jälkeen —`);
+    console.log('    lukitse edistyminen: npm run lahtotaso:kirjaa');
+  }
+  process.exit(0);
+}
+
+console.error(`\n✗ Kovakoodatut arvot: ${uudet.length + stale.length} kohtaa\n`);
+
+if (uudet.length) {
+  console.error(taso.kaytossa ? '  UUSI kirjaamaton arvo:' : '  Kirjaamaton arvo:');
+  for (const hit of uudet) {
     console.error(`    ${`${hit.file}:${hit.line}`.padEnd(38)} ${hit.decl.slice(0, 50)}`);
+  }
+  if (taso.kaytossa) {
+    console.error(`\n    (${taso.kirjattu} aiemmin kirjattua rikkomusta ei lasketa — ne ovat lähtötasolla.)`);
   }
   console.error('');
 }
