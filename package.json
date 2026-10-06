@@ -30,6 +30,7 @@
     "check:suhteet": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-suhteet.mjs",
     "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs",
     "paketti": "npm run paketti:tokens && npm run paketti:komponentit",
+    "inventaario": "node scripts/inventaario.mjs",
     "lahtotaso": "node scripts/lahtotaso.mjs",
     "lahtotaso:kirjaa": "node scripts/check-hardcoded.mjs --kirjaa",
     "paketti:tokens": "node scripts/paketti-tokens.mjs",

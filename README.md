@@ -617,6 +617,39 @@ typografialle, välistykselle ja komponenteille.
 Tämän askeleen oikea mittari ei ole tarkkuus vaan se, kelpaako tuloste
 pöydälle asetettavaksi vaiheessa 0.2.
 
+```bash
+npm run inventaario
+```
+
+**Tämä on toteutettu** (`scripts/inventaario.mjs`). Se lukee Figma-tiedoston
+rajapinnan yli ja repon tiedostoista, ja tulostaa luettelon: montako
+komponenttia kummallakin puolella, mitkä ovat vain toisessa, mitä propertyjä
+ja variantteja Figmassa on, ja montako tokenia koodissa on ryhmittäin.
+
+**Se ei kaadu eikä tuomitse.** Lukeminen on yhteistä `check:figma`:n kanssa
+(`scripts/figma-rajapinta.mjs`), mutta tuloste on luetteloa eikä pass/fail.
+
+Ensimmäinen ajo 6.10.2026 löysi kaksi asiaa joita yksikään tarkistus ei
+nähnyt:
+
+**Kuvasuhteet ovat neljässä paikassa, eivät kolmessa.** Figman
+`Media`-komponentilla on `Ratio = hero | 4:3 | 4:5 | 3:4 | 1:1` — sama tieto
+kuin `kuvat.mjs`:ssä, `base.css`:ssä ja `Media.tsx`:ssä. `check:suhteet`
+rakennettiin vartioimaan kolmea lähdettä, ja neljäs jäi ulkopuolelle. Rajoite
+on nyt kirjattu tarkistuksen sokeaan pisteeseen.
+
+**Kytkentä voi osoittaa tyylitiedostoon.** Ensimmäinen versio raportista
+väitti `Button`in puuttuvan koodista. Se on kytketty — mutta
+`styles/base.css`:ään, koska nappi on luokkasopimus (`.btn`) eikä React-
+komponentti. Raportti vertasi vain `.tsx`-tiedostoihin. Korjattu: kohde
+luetaan kytkennästä ja näytetään.
+
+Mitä se **ei** näe: Figman muuttujia. `file_variables:read` on Figman mukaan
+*"Enterprise plan only"*, joten tokeniryhmä raportoidaan vain koodin
+puolelta. Kierto on oman pluginin lukutila — Plugin API ei ole saman
+rajoitteen takana — mutta se vaatii ihmisen avaamaan Figman, eikä sitä ole
+vielä rakennettu.
+
 ### 0.2 Kumpi voittaa — ihminen
 
 **Tässä kohtaa palkataan asiantuntija.** Askelta ei voi automatisoida eikä

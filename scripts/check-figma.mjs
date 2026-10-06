@@ -40,56 +40,16 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { tekstit } from './figma-teksti.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { lukija } from './figma-rajapinta.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const componentsDir = join(root, 'components');
 
-/* ---- tunnus -------------------------------------------------------- */
+/* ---- Figman luku ---------------------------------------------------
+   Tunnus, avain ja haku ovat scripts/figma-rajapinta.mjs:ssä, koska
+   inventaario lukee saman tiedoston samalla tavalla. */
 
-function token() {
-  if (process.env.FIGMA_ACCESS_TOKEN) return process.env.FIGMA_ACCESS_TOKEN.trim();
-  const envFile = join(root, '.env.local');
-  if (existsSync(envFile)) {
-    const match = /^FIGMA_ACCESS_TOKEN=(.+)$/m.exec(readFileSync(envFile, 'utf8'));
-    if (match) return match[1].trim();
-  }
-  return null;
-}
-
-const accessToken = token();
-if (!accessToken) {
-  console.error('\n✗ FIGMA_ACCESS_TOKEN puuttuu.\n');
-  console.error('  Paikallisesti:  .env.local → FIGMA_ACCESS_TOKEN=…');
-  console.error('  CI:ssä:         gh secret set FIGMA_ACCESS_TOKEN\n');
-  console.error('  Tarvittava oikeus: Files → "Read the contents of … files".\n');
-  process.exit(1);
-}
-
-/* ---- tiedoston avain luetaan sieltä missä osoite asuu --------------- */
-
-const artefacts = readFileSync(join(root, 'content/artefacts.ts'), 'utf8');
-const figmaUrl = /figma:\s*'([^']+)'/.exec(artefacts)?.[1] ?? null;
-const fileKey = figmaUrl ? /\/design\/([0-9a-zA-Z]+)/.exec(figmaUrl)?.[1] : null;
-
-if (!fileKey) {
-  console.error('\n✗ Figma-tiedoston avainta ei löydy content/artefacts.ts:stä.\n');
-  process.exit(1);
-}
-
-/* ---- haku ---------------------------------------------------------- */
-
-async function figma(path) {
-  const response = await fetch(`https://api.figma.com/v1/files/${fileKey}${path}`, {
-    headers: { 'X-Figma-Token': accessToken },
-  });
-  if (!response.ok) {
-    const body = await response.text();
-    console.error(`\n✗ Figma vastasi ${response.status} ${response.statusText}`);
-    console.error(`  ${body.slice(0, 200)}\n`);
-    process.exit(1);
-  }
-  return response.json();
-}
+const { avain: fileKey, hae: figma } = lukija();
 
 /* ---- kytkentätiedostot --------------------------------------------- */
 

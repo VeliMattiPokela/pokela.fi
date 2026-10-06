@@ -82,7 +82,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     proves:
       'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
     blind:
-      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä.',
+      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Eikä se näe Figmaa: Media-komponentilla on siellä sama Ratio-variantti, eli neljäs paikka samalle tiedolle. Inventaario (npm run inventaario) löysi sen; tarkistus ei kata sitä.',
   },
   {
     id: 'figma',
