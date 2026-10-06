@@ -166,3 +166,40 @@ Se on siis redundanssia, ei riskiä.
 Siistiys ei ole syy.
 
 *Päätetty 6.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 6. Make kittiä ei julkaista Loihteen organisaatiolle
+
+**Ehdotus:** kit julkaistaisiin organisaation käyttöön, jolloin se olisi
+saatavilla kaikissa Loihteen Make-tiedostoissa.
+
+**Päätös:** ei julkaista.
+
+**Perustelu:** julkaisu on jakelua, ei toiminnallisuutta — kit toimii omassa
+Make-tiedostossa täsmälleen samoin julkaisematta. Eikä sille ole yleisöä:
+tämä on yhden portfolion design system, eikä kukaan Loihteella rakenna
+prototyyppejä Pokelan paletilla.
+
+Lisäksi se veisi henkilökohtaisen projektin työnantajan jaettuun
+työkaluvalikoimaan, näkyviin koko organisaatiolle. Sama omistajuuskysymys
+kuin Figma-tiedoston kohdalla, mutta aktiivisempana.
+
+Ainoa asia jonka siitä oppisi on **lisääkö julkaiseminen kitkaa** —
+hyväksyntäkierros, versiointi, oikeudet. Se tieto saadaan asiakkaan kanssa
+silloin kun se on oikeasti edessä; adminin ajan pyytäminen henkilökohtaisen
+projektin julkaisuun pelkän käyttöliittymän opettelemiseksi on huono
+vaihtokauppa.
+
+**Mutta asiakasprojektissa tämä askel on tarpeen,** ja se kannattaa tietää
+etukäteen:
+
+> Kitin julkaisu organisaatiolle on se tapa jolla asiakkaan suunnittelijat
+> saavat sen käyttöönsä, ja **se vaatii heidän Figma-organisaationsa
+> adminin.** Riippuvuus on mainittava myyntikeskustelussa, ei löydettävä
+> käyttöönoton puolivälistä.
+
+Sama koskee kahta muuta asiaa jotka vaativat asiakkaan adminin: yksityisen
+npm-rekisterin scopen luonti ja AI-ominaisuuksien kytkeminen päälle.
+
+*Päätetty 6.10.2026 — Veli-Matti Pokela*
