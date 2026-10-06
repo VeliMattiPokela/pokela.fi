@@ -26,6 +26,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { vertaa, kirjaa, edistyminen } from './lahtotaso.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const componentsDir = join(root, 'components');
@@ -103,12 +104,41 @@ if (!fileKey) {
   problems.broken.push('content/artefacts.ts — Figma-osoitetta ei löytynyt, tiedostoa ei voi tarkistaa');
 }
 
-const count = Object.values(problems).reduce((n, list) => n + list.length, 0);
+/* ---- lähtötaso ------------------------------------------------------
+   Räikkä kattaa vain PUUTTUVAN kytkennän. Rikkinäinen, vanhentunut tai
+   väärään tiedostoon osoittava kytkentä jää ehdottomaksi: se näyttää
+   Dev Modessa koodia jota ei ole, eli väärää tietoa. Se ei ole velkaa
+   jonka voi maksaa myöhemmin — se oli väärin myös ensimmäisenä
+   päivänä. Ks. scripts/lahtotaso.mjs. */
+const puuttuvienNimet = IN_FIGMA.filter((name) => !connectFiles.includes(`${name}.figma.ts`));
+const nykyiset = new Map(puuttuvienNimet.map((name) => [name, 1]));
+
+if (process.argv.includes('--kirjaa')) {
+  const { nyt, alku } = kirjaa('code-connect', nykyiset);
+  console.log(`\n✓ Lähtötaso kirjattu — code-connect: ${nyt} puuttuvaa kytkentää`);
+  console.log(`  Alkuperäinen taso ${alku.maara} (${alku.pvm}).\n`);
+  process.exit(0);
+}
+
+const taso = vertaa('code-connect', nykyiset);
+const uudetPuuttuvat = problems.missing.filter((rivi) =>
+  taso.uudet.some((u) => rivi.startsWith(`${u.tunniste} —`)),
+);
+
+const count =
+  uudetPuuttuvat.length + problems.stale.length + problems.wrongFile.length + problems.broken.length;
 
 if (count === 0) {
+  const e = taso.kaytossa ? edistyminen('code-connect') : null;
   console.log(
-    `✓ Code Connect ehjä — ${ok.length}/${IN_FIGMA.length} kytkentää, Figma-tiedosto ${fileKey}`,
+    `✓ Code Connect ehjä — ${ok.length}/${IN_FIGMA.length} kytkentää, Figma-tiedosto ${fileKey}` +
+      (taso.kaytossa ? `, ${taso.nyt} lähtötasolla` : '') +
+      (e ? ` (${e.alku} → ${e.nyt}, ${e.maksettu} % maksettu)` : ''),
   );
+  if (taso.korjatut.length) {
+    console.log(`  · ${taso.korjatut.length} kytkentää lisätty kirjauksen jälkeen —`);
+    console.log('    lukitse edistyminen: npm run lahtotaso:kirjaa');
+  }
   process.exit(0);
 }
 
@@ -121,7 +151,7 @@ const section = (title, list) => {
   console.error('');
 };
 
-section('Puuttuva kytkentä', problems.missing);
+section(taso.kaytossa ? 'UUSI puuttuva kytkentä' : 'Puuttuva kytkentä', uudetPuuttuvat);
 section('Vanhentunut kytkentä', problems.stale);
 section('Väärä Figma-tiedosto', problems.wrongFile);
 section('Rikkinäinen kytkentä', problems.broken);

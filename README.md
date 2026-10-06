@@ -718,9 +718,10 @@ inventaario ei ota kantaa.
 
 ### 0.3 Lähtötaso ja räikkä — kone
 
-**Tämä on toteutettu** (`scripts/lahtotaso.mjs`). Toistaiseksi kytkettynä
-tarkistukseen `check:hardcoded`, joka on se joka legacy-koodipohjassa
-räjähtäisi pahiten.
+**Tämä on toteutettu** (`scripts/lahtotaso.mjs`), ja kytkettynä kolmeen
+tarkistukseen: `check:hardcoded`, `check:stories` ja `check:code-connect`.
+Ne ovat ne jotka legacy-koodipohjassa räjähtäisivät pahiten — kuvittele 200
+komponenttia ja 20 storya.
 
 Tämän repon tarkistukset ovat ehdottomia: nolla rikkomusta tai build kaatuu.
 Olemassa olevassa koodipohjassa se tarkoittaa tuhansia virheitä ensimmäisellä
@@ -776,6 +777,21 @@ sietomekanismi vaan se mittari jolla työn tulos osoitetaan.
 **Tässä repossa mekanismi on lepotilassa.** Rikkomuksia ei ole, joten
 `lahtotaso.json`-tiedostoa ei ole, ja ilman sitä kaikki on uutta — eli
 tarkistukset käyttäytyvät täsmälleen kuten ennenkin.
+
+**Räikkä kattaa puuttumisen, ei rikkinäisyyttä.** Tämä on se ratkaisu joka
+tekee siitä turvallisen:
+
+| Rikkomus | Räikkä | Miksi |
+|---|---|---|
+| komponentilla ei ole storya | **kyllä** | perittyä velkaa, maksetaan kun ehditään |
+| Figman komponentilla ei ole kytkentää | **kyllä** | sama |
+| kytkentä osoittaa poistettuun komponenttiin | **ei** | näyttää Dev Modessa koodia jota ei ole |
+| poikkeus jonka sääntö ei päde | **ei** | lista ei vastaa koodia |
+
+Rikkinäinen kytkentä on **väärää tietoa**, ei velkaa. Se oli väärin myös
+ensimmäisenä päivänä, eikä sitä korjaa ajan kuluminen. Jos räikkä hyväksyisi
+sen, koodipohja voisi kantaa pysyvästi rikkinäistä kytkentää lähtötason
+suojassa.
 
 **Lähtötaso ei korvaa `EXEMPT`-listaa.** Ne ovat eri mekanismit eikä toista
 pidä venyttää toisen tilalle:

@@ -39,6 +39,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { vertaa, kirjaa, edistyminen } from './lahtotaso.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const componentsDir = join(root, 'components');
@@ -193,23 +194,61 @@ for (const storyFile of stories) {
   if (gaps.length) weak.push({ storyFile, gaps });
 }
 
+/* ---- lähtötaso ------------------------------------------------------
+   Räikkä kattaa PUUTTUMISEN (missing, weak) muttei RIKKINÄISYYTTÄ
+   (staleExempt, badExempt). Puuttuva story on perittyä velkaa jonka
+   voi maksaa pois; vanhentunut tai perustelematon poikkeus on väärää
+   tietoa, ja se oli väärin myös ensimmäisenä päivänä.
+
+   Ilman lahtotaso.json-tiedostoa kaikki on uutta — eli nykyinen
+   käyttäytyminen. Ks. scripts/lahtotaso.mjs. */
+const nykyiset = new Map();
+for (const file of missing) nykyiset.set(`puuttuu|${file}`, 1);
+for (const { storyFile, gaps } of weak) {
+  for (const gap of gaps) nykyiset.set(`heikko|${storyFile}|${gap}`, 1);
+}
+
+if (process.argv.includes('--kirjaa')) {
+  const { nyt, alku } = kirjaa('stories', nykyiset);
+  console.log(`\n✓ Lähtötaso kirjattu — stories: ${nyt} rikkomusta`);
+  console.log(`  Alkuperäinen taso ${alku.maara} (${alku.pvm}).\n`);
+  process.exit(0);
+}
+
+const taso = vertaa('stories', nykyiset);
+const uusiaMissing = missing.filter((f) => taso.uudet.some((u) => u.tunniste === `puuttuu|${f}`));
+const uusiaWeak = weak
+  .map(({ storyFile, gaps }) => ({
+    storyFile,
+    gaps: gaps.filter((g) => taso.uudet.some((u) => u.tunniste === `heikko|${storyFile}|${g}`)),
+  }))
+  .filter((w) => w.gaps.length);
+
 const covered = components.length - missing.length - exemptUsed.length;
-const problems = missing.length + staleExempt.length + weak.length + badExempt.length;
+const problems = uusiaMissing.length + staleExempt.length + uusiaWeak.length + badExempt.length;
 
 if (problems === 0) {
   console.log(
     `✓ Storyt kattavat komponentit — ${covered}/${components.length} storylla, ` +
       `${exemptUsed.length} poikkeusta joiden sääntö tarkistettu ` +
-      `(${[...new Set(exemptUsed.map((e) => e.syy))].join(', ')})`,
+      `(${[...new Set(exemptUsed.map((e) => e.syy))].join(', ')})` +
+      (taso.kaytossa ? `, ${taso.nyt} lähtötasolla` : '') +
+      (taso.kaytossa && edistyminen('stories')
+        ? ` (${edistyminen('stories').alku} → ${edistyminen('stories').nyt}, ${edistyminen('stories').maksettu} % maksettu)`
+        : ''),
   );
+  if (taso.korjatut.length) {
+    console.log(`  · ${taso.korjatut.length} rikkomusta korjattu kirjauksen jälkeen —`);
+    console.log('    lukitse edistyminen: npm run lahtotaso:kirjaa');
+  }
   process.exit(0);
 }
 
 console.error(`\n✗ Story-kattavuus: ${problems} kohtaa\n`);
 
-if (missing.length) {
-  console.error('  Komponentti ilman storya:');
-  for (const file of missing) {
+if (uusiaMissing.length) {
+  console.error(taso.kaytossa ? '  UUSI komponentti ilman storya:' : '  Komponentti ilman storya:');
+  for (const file of uusiaMissing) {
     console.error(`    ${file.padEnd(24)} → puuttuu ${file.replace(/\.tsx$/, '.stories.tsx')}`);
   }
   console.error('');
@@ -230,9 +269,9 @@ if (staleExempt.length) {
   console.error('');
 }
 
-if (weak.length) {
-  console.error('  Story ilman pakollista tilaa:');
-  for (const { storyFile, gaps } of weak) {
+if (uusiaWeak.length) {
+  console.error(taso.kaytossa ? '  UUSI story ilman pakollista tilaa:' : '  Story ilman pakollista tilaa:');
+  for (const { storyFile, gaps } of uusiaWeak) {
     console.error(`    ${storyFile.padEnd(30)} puuttuu: ${gaps.join(', ')}`);
   }
   console.error('');
