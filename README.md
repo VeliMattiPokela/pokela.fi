@@ -417,9 +417,18 @@ Paketilla ei ole riippuvuuksia. Se on Figma Maken vaatimus — siellä
 workspace-riippuvuudet eivät toimi — ja muutenkin oikein, koska tokenit
 ovat dataa eivätkä koodia.
 
-**Ennen julkaisua on päätettävä kaksi asiaa:** lisenssi (reposssa ei ole
-LICENSE-tiedostoa, joten kenttä on jätetty pois) ja se, julkaistaanko
-paketti julkisena vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
+**Lisenssi on MIT, ja se koskee vain tätä pakettia.** Paketissa on sivuston
+omat väri- ja mitta-arvot, joilla ei ole arvoa muille, joten vapaa lisenssi
+ei anna pois mitään — ja ilman lisenssiä npm-paketti on monelle yritykselle
+automaattinen ei. Myytävä asia ei ole paketti vaan tämän pystyttäminen
+asiakkaan koodipohjaan.
+
+**Repon juuressa ei ole LICENSE-tiedostoa eikä sellaista lisätä.** Repossa on
+asiakastyön kuvia ja casetekstejä, joita ei voi lisensoida
+ohjelmistolisenssillä.
+
+**Ennen julkaisua on vielä päätettävä yksi asia:** julkaistaanko paketti
+julkisena npm:ssä vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
 Pro-tiimillä tai organisaatiolla.
 
 ## Kuvat

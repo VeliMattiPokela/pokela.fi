@@ -29,6 +29,9 @@ export const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const PAKETTI = join(root, 'packages/tokens');
 
 const NIMI = '@pokela/tokens';
+const LISENSSI = 'MIT';
+const TEKIJA = 'Veli-Matti Pokela';
+const VUOSI = 2026;
 
 /* Selitykset ovat lähteessä tokenien sisarina (`typeNote`,
    `spaceNote`, …). Paketissa ne eivät ole dataa vaan dokumentaatiota,
@@ -183,14 +186,22 @@ export function rakenna({ kirjoita = true } = {}) {
   tiedostot['tokens.json'] = JSON.stringify(lahde, null, 2) + '\n';
 
   /* --- package.json ---
-     Lisenssikenttää ei ole, koska reposssa ei ole LICENSE-tiedostoa.
-     Se on päätettävä ennen julkaisua, eikä sitä keksitä tässä. */
+     Lisenssi on MIT ja koskee VAIN tätä pakettia, ei repoa. Paketissa
+     on omat väri- ja mitta-arvot, joilla ei ole arvoa muille, joten
+     vapaa lisenssi ei anna pois mitään. Ilman lisenssiä paketti taas
+     olisi monelle yritykselle automaattinen ei.
+
+     Repon juuressa ei ole LICENSE-tiedostoa eikä sellaista lisätä
+     tässä: repossa on asiakastyön kuvia ja casetekstejä, joita ei voi
+     lisensoida ohjelmistolisenssillä. */
   tiedostot['package.json'] =
     JSON.stringify(
       {
         name: NIMI,
         version: lahde.$meta.version,
         description: `Design-tokenit: ${lahde.$meta.name}. Generoitu, ei käsin ylläpidetty.`,
+        license: LISENSSI,
+        author: TEKIJA,
         type: 'module',
         sideEffects: ['*.css'],
         exports: {
@@ -198,7 +209,7 @@ export function rakenna({ kirjoita = true } = {}) {
           './tokens.css': './tokens.css',
           './tokens.json': './tokens.json',
         },
-        files: ['index.js', 'index.d.ts', 'tokens.css', 'tokens.json', 'README.md'],
+        files: ['index.js', 'index.d.ts', 'tokens.css', 'tokens.json', 'README.md', 'LICENSE'],
         repository: {
           type: 'git',
           url: 'git+https://github.com/VeliMattiPokela/pokela.fi.git',
@@ -208,6 +219,9 @@ export function rakenna({ kirjoita = true } = {}) {
       null,
       2,
     ) + '\n';
+
+  /* --- LICENSE --- */
+  tiedostot['LICENSE'] = lisenssiteksti();
 
   /* --- README --- */
   tiedostot['README.md'] = lueMinut(lahde, viedytNimet);
@@ -221,6 +235,31 @@ export function rakenna({ kirjoita = true } = {}) {
   }
 
   return { tiedostot, viedytNimet, versio: lahde.$meta.version };
+}
+
+function lisenssiteksti() {
+  return `MIT License
+
+Copyright (c) ${VUOSI} ${TEKIJA}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+`;
 }
 
 function lueMinut(lahde, nimet) {
@@ -254,6 +293,10 @@ sitä se seuraa käyttöjärjestelmää.
 ## Viennit
 
 ${nimet.map((n) => `- \`${n}\``).join('\n')}
+
+## Lisenssi
+
+${LISENSSI}. Koskee tätä pakettia, ei sitä repoa josta se on generoitu.
 
 ## Moodit
 
