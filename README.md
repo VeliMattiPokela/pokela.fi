@@ -487,6 +487,51 @@ ohjelmistolisenssillä.
 julkisena npm:ssä vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
 Pro-tiimillä tai organisaatiolla.
 
+## Figma Make
+
+Paketit ovat npm:ssä, joten Figma Make osaa lukea ne. Mutta paketti kertoo
+Makelle vain *mitä* on olemassa — ei sitä *milloin* mitäkin käytetään. Sen
+kertovat ohjeet, ja Figman mukaan ne ratkaisevat tuloksen laadun.
+
+Ohjeet ovat tiedostossa `guidelines/pokela.md` — **repossa, eivät Figman
+käyttöliittymässä.** Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
+versioituja ja katselmoitavia, ja muutos niihin näkyy pull requestissa siinä
+missä koodimuutos.
+
+Kolme asiaa ohjaavat niiden kirjoittamista:
+
+**Lyhyys on sääntö, ei tyyli.** Figma sanoo suoraan: *"More context isn't
+always better. It can confuse the LLM."* Nykyinen tiedosto on alle 400 sanaa.
+
+**Propseja ei toisteta.** Make lukee paketin TypeScript-tyypit itse. Jos
+ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se
+vika jota koko tämä repo vastustaa.
+
+**Komponenttilista on luotu lohko.** Se johdetaan siitä mitä
+`@pokela/components` oikeasti vie. Ohje ei siis voi luvata komponenttia jota
+paketissa ei ole; jos vientilista muuttuu, `check:docs` kaatuu.
+
+Sisältö on kieltoja enemmän kuin käskyjä, koska mallin oletukset ovat
+vahvoja ja väärään suuntaan: ei aksenttiväriä, ei pyöristyksiä, ei varjoja,
+ei ikonikirjastoa, ei muita fonttipainoja kuin ladatut kolme. Ilman niitä
+Make tekee sinisen napin pyöristetyillä kulmilla, koska niin se on oppinut
+tekemään.
+
+### Make kitin kokoaminen
+
+Figman kuusi askelta. Ohjeet (askel 4) ovat tässä repossa, loput tehdään
+Figmassa:
+
+1. Make-tiedosto → Settings → **Create a kit**
+2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
+3. Mahdolliset erityisasetukset
+4. **Ohjeet** — `guidelines/pokela.md`
+5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
+6. Julkaise kit
+
+Askel 5 on se joka kertoo onnistuiko tämä. Jos Make piirtää oman listarivin
+sen sijaan että käyttäisi `ListRow`:ta, ohjeet eivät vielä riitä.
+
 ## Vaihe 0 — olemassa olevaan taloon
 
 Kaikki tässä repossa kuvattu olettaa puhdasta pöytää: tokenit ovat yhdessä

@@ -33,6 +33,7 @@ import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { VIETAVAT, viennit } from './paketti-komponentit.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const fix = process.argv.includes('--korjaa');
@@ -41,6 +42,11 @@ const DOCS = [
   'README.md',
   'figma-plugin/README.md',
   'stories/Aloita.mdx',
+  /* Figma Maken ohjeet. Ne elävät repossa eivätkä Figman
+     käyttöliittymässä, jotta ne ovat versioituja ja katselmoitavia —
+     sama vaatimus kuin koodille. Komponenttilista on luotu lohko,
+     jottei ohje voi luvata komponenttia jota paketti ei vie. */
+  'guidelines/pokela.md',
   ...readdirSync(join(root, 'stories/perusta')).map((f) => `stories/perusta/${f}`),
 ];
 
@@ -153,7 +159,17 @@ const kuvapaikatRivit = await (async () => {
   return rivit.join('\n');
 })();
 
+/** Komponentit jotka @pokela/components oikeasti vie, vientinimineen. */
+const makeKomponentit = () =>
+  VIETAVAT.map((nimi) => {
+    const lahde = readFileSync(join(root, `components/${nimi}.tsx`), 'utf8');
+    const { oletus, arvot } = viennit(lahde);
+    const nimet = [oletus ? nimi : null, ...arvot].filter(Boolean);
+    return `- ${nimet.map((n) => `\`${n}\``).join(', ')}`;
+  }).join('\n');
+
 const GENERATORS = {
+  'make-komponentit': makeKomponentit,
   'figma-kokoelmat': figmaCollections,
   'perusta-sivut': perustaPages,
   'case-lohkot': caseBlockKinds,
