@@ -103,3 +103,66 @@ tarkoituksella kapea, koska koodi ja Figma eivät ole sama asia."*
 eroa pois.
 
 *Päätetty 6.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 4. Alias-lohkoja ei generoida
+
+**Ehdotus:** `tokens.css`:n kolme teemalohkoa (51 riviä, sama 17 nimen lista
+kolmesti) generoitaisiin värilistasta sen sijaan että ne kirjoitetaan käsin.
+
+**Päätös:** ei tehdä.
+
+**Perustelu:** luulin että se sulkee aukon. Testattu: ei sulje. Poistin yhden
+alias-rivin kustakin kolmesta lohkosta, ja `check:tokens` kaatui joka kerta ja
+kertoi minkä rivin. Kaikki 51 riviä ovat jo tarkistuksen alla, molempiin
+suuntiin.
+
+Jäljelle jäisi siis vain vähemmän näppäilyä — ja rivejä kirjoitetaan kerran
+uutta väritokenia kohden, mikä on harvoin.
+
+Hinta olisi suurempi kuin hyöty: `tokens.css` on ladottu käsin, ja osittainen
+generointi tekisi tiedostosta puoliksi käsin ja puoliksi koneella
+kirjoitetun ilman näkyvää rajaa. Sama syy jolla hylättiin tavu tavulta
+toistava generaattori.
+
+**Vertailukohta:** `check:suhteet` hyväksyttiin vakuutuksena *hiljaista* vikaa
+vastaan — kuva rajataan väärin eikä mikään kaadu. Tässä vika on äänekäs.
+
+*Päätetty 6.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 5. Tokenien uudelleenjärjestelyä ei tehdä
+
+**Ehdotus:** `tokens.json` järjesteltäisiin uudelleen moodipohjaiseksi — yksi
+token, arvot moodeittain, komposiitit viittauksina, selitykset
+`$description`-kenttiin.
+
+**Päätös:** ei tehdä. Luonnos jää talteen, mutta sitä ei toteuteta ilman uutta
+syytä.
+
+**Perustelu:** kaikki kolme alkuperäistä perustetta ovat poistuneet.
+
+| Peruste | Tila |
+|---|---|
+| Make kit tarvitsee kulutettavan paketin | **poistunut** — paketti on julkaistu ja toimii nykyisellä rakenteella |
+| 51 riviä kolminkertaista käsityötä | **poistunut** — ks. päätös 4 |
+| Sama luku kahdesti typografiassa | **poistunut** — ks. alla |
+
+Typografian kahdennus on todellinen: `type.display-xl.size` ja
+`typeScale.display-xl.lg` ovat molemmat `136px`. Mutta **ne eivät voi eriytyä
+hiljaa.** Molemmat verrataan samaan CSS-arvoon, joten toisen muuttaminen
+kaataa tarkistuksen. Testattu muuttamalla `typeScale`ä ja CSS:ää yhdessä ja
+jättämällä `type.size` jälkeen: `check:tokens` kaatui.
+
+Se on siis redundanssia, ei riskiä.
+
+`$modes`-lohko jäi paikalleen (vaiheen 5 ainoa toteutettu osa) — siellä ovat
+`viewport.values` ja `minWidth`, ja kaksi lukijaa käyttää niitä.
+
+**Jos tähän joskus palataan**, syy on oltava uusi: esimerkiksi toinen alusta
+(iOS, Android) joka tarvitsee tokenit muodossa jota nykyinen rakenne ei anna.
+Siistiys ei ole syy.
+
+*Päätetty 6.10.2026 — Veli-Matti Pokela*
