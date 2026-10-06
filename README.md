@@ -635,8 +635,25 @@ nähnyt:
 **Kuvasuhteet ovat neljässä paikassa, eivät kolmessa.** Figman
 `Media`-komponentilla on `Ratio = hero | 4:3 | 4:5 | 3:4 | 1:1` — sama tieto
 kuin `kuvat.mjs`:ssä, `base.css`:ssä ja `Media.tsx`:ssä. `check:suhteet`
-rakennettiin vartioimaan kolmea lähdettä, ja neljäs jäi ulkopuolelle. Rajoite
-on nyt kirjattu tarkistuksen sokeaan pisteeseen.
+rakennettiin vartioimaan kolmea lähdettä, ja neljäs jäi ulkopuolelle. **Nyt
+katettu:** `check:figma` vertaa Figman varianttia `SUHTEET`-tauluun molempiin
+suuntiin.
+
+**Ja yksi asia jota ei osattu odottaa.** Sivupohjien layout gridit on sidottu
+muuttujiin, ja rajapinta palauttaa myös niiden **ratkaistut** arvot:
+
+```
+Etusivu · lg 1440    count 12 · gutterSize 24 · offset 36
+Etusivu · base 390   count  4 · gutterSize 16 · offset 20
+```
+
+Eli grid on tarkistettavissa `layout.columns`, `layout.gutter` ja
+`layout.pagePadding` -tokeneita vastaan **vaikka muuttujia itseään ei voi
+lukea.** Enterprise-rajoite ei estä tätä. `check:figma` tekee sen nyt
+kuudelle gridille, ja moodi luetaan kehyksen nimestä (`Etusivu · lg 1440`).
+
+Grid on sivuston perusta: jos Figman sarakemäärä eroaa koodista, jokainen
+leiska on väärä eikä mikään kaadu.
 
 **Kytkentä voi osoittaa tyylitiedostoon.** Ensimmäinen versio raportista
 väitti `Button`in puuttuvan koodista. Se on kytketty — mutta

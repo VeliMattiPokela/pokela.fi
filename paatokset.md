@@ -38,9 +38,13 @@ käytöstä, ja liike on jo kuvattu `motion`-tokeneissa.
 komponentille muttei edellytä että jokainen koodin komponentti on Figmassa.
 Epäsymmetria oli jo olemassa; nyt sillä on perustelu.
 
-**Avoinna:** sarakemäärittely (4 / 8 / 12, gutterit) pitäisi olla Figmassa
-layout gridinä. Inventaario ei tarkista sitä, eikä kukaan ole varmistanut että
-se vastaa `layout.columns`-tokeneita.
+**Suljettu 6.10.2026:** sarakemäärittely *on* Figmassa layout gridinä, ja
+gridit on sidottu muuttujiin. `check:figma` vertaa nyt jokaisen sivupohjan
+gridin `layout.columns`, `layout.gutter` ja `layout.pagePadding` -tokeneihin
+sillä moodilla jonka kehyksen nimi kertoo. Kuusi gridiä, kaikki täsmäävät.
+
+Huomionarvoista: rajapinta palauttaa gridin **ratkaistut** arvot, joten tämä
+on tarkistettavissa vaikka muuttujia itseään ei voi lukea.
 
 *Päätetty 6.10.2026 — Veli-Matti Pokela*
 
@@ -68,10 +72,10 @@ riippumatta siitä mitä muut sanovat.
 
 **Tämä on eriytymä, ei käännös.** Neljän paikan pitää sanoa samaa.
 
-**Avoinna:** `check:suhteet` kattaa kolme neljästä. Figman variantti jäi
-ulkopuolelle, koska tarkistus rakennettiin ennen kuin inventaario paljasti
-neljännen paikan. Oikea koti laajennukselle on `check:figma`, joka lukee
-Figman komponenttien propertyt jo nyt.
+**Suljettu 6.10.2026:** neljäs paikka on nyt katettu. `check:figma` vertaa
+Figman `Media`-komponentin `Ratio`-variantin `SUHTEET`-taulun avaimiin
+molempiin suuntiin. Laajennus meni `check:figma`:an eikä `check:suhteet`:iin,
+koska se tarvitsee verkon eikä saa kuulua `check:sync`-ketjuun.
 
 *Päätetty 6.10.2026 — Veli-Matti Pokela*
 

@@ -82,13 +82,13 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     proves:
       'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
     blind:
-      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Eikä se näe Figmaa: Media-komponentilla on siellä sama Ratio-variantti, eli neljäs paikka samalle tiedolle. Inventaario (npm run inventaario) löysi sen; tarkistus ei kata sitä.',
+      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Figman neljäs paikka — Media-komponentin Ratio-variantti — on katettu, mutta check:figmassa: se tarvitsee verkon eikä kuulu tähän ketjuun.',
   },
   {
     id: 'figma',
     title: 'Figma',
     proves:
-      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta.',
+      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta. Lisäksi: sivupohjien layout grid vastaa layout-tokeneita jokaisella moodilla, ja Media-komponentin Ratio-variantti vastaa kuvaputken SUHTEET-taulua.',
     blind:
       'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
   },

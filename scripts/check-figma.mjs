@@ -41,6 +41,7 @@ import { tekstit } from './figma-teksti.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { lukija } from './figma-rajapinta.mjs';
+import { SUHTEET } from './kuvat.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const componentsDir = join(root, 'components');
@@ -221,6 +222,81 @@ for (const connection of connections) {
   }
 }
 
+/* ---- 4. kuvasuhteet myös Figmassa ----------------------------------
+   Sama viisi kuvasuhdetta on neljässä paikassa. check:suhteet vartioi
+   kolmea — kuvat.mjs, base.css ja Media.tsx — mutta neljäs on tässä:
+   Figman Media-komponentin Ratio-variantti. Se jäi ulkopuolelle koska
+   tarkistus rakennettiin ennen kuin inventaario paljasti sen.
+
+   Lähde on SUHTEET (paatokset.md, päätös 2), joten vertailu tehdään
+   sitä vastaan. Figmassa ovat vain nimet, joten nimet riittää.      */
+
+const mediaId = byName.get('Media');
+if (mediaId) {
+  const maaritykset = propsOf(mediaId);
+  const ratioAvain = Object.keys(maaritykset).find((k) => bare(k) === 'Ratio');
+  if (!ratioAvain) {
+    drift.push({ file: 'Figma: Media', issue: 'Ratio-varianttia ei ole — kuvasuhteita ei voi verrata' });
+  } else {
+    const figmassa = new Set(maaritykset[ratioAvain].variantOptions ?? []);
+    const koodissa = new Set(Object.keys(SUHTEET));
+    for (const nimi of koodissa) {
+      if (!figmassa.has(nimi)) {
+        drift.push({ file: 'Figma: Media', issue: `kuvasuhde "${nimi}" puuttuu Ratio-variantista (on scripts/kuvat.mjs:ssä)` });
+      }
+    }
+    for (const nimi of figmassa) {
+      if (!koodissa.has(nimi)) {
+        drift.push({ file: 'Figma: Media', issue: `Ratio-variantissa on "${nimi}" jota ei ole scripts/kuvat.mjs:n SUHTEET-taulussa` });
+      }
+    }
+  }
+}
+
+/* ---- 5. sivupohjien layout grid ------------------------------------
+   Grid on sivuston perusta: jos Figman sarakemäärä eroaa koodista,
+   jokainen leiska on väärä eikä mikään kaadu. Figmassa gridit on
+   sidottu muuttujiin, ja rajapinta palauttaa myös ratkaistut arvot —
+   siksi tämä on tarkistettavissa vaikka muuttujia itseään ei voi
+   lukea (file_variables:read on Enterprise-tason takana).
+
+   Moodi luetaan kehyksen nimestä ("Etusivu · lg 1440"). Nimi on tässä
+   tiedostossa sopimus, samoin kuin generated:-etuliite.            */
+
+const tokenit = JSON.parse(readFileSync(join(root, 'tokens.json'), 'utf8'));
+const moodit = tokenit.$modes.viewport.values;
+const px = (arvo) => (typeof arvo === 'string' ? parseFloat(arvo) : arvo);
+
+const gridKentat = [
+  ['count', 'columns', 'saraketta'],
+  ['gutterSize', 'gutter', 'gutter'],
+  ['offset', 'pagePadding', 'sivun padding'],
+];
+
+let gridejaTarkistettu = 0;
+for (const sivu of tree.document.children) {
+  for (const kehys of sivu.children ?? []) {
+    const gridit = kehys.layoutGrids?.filter((g) => g.pattern === 'COLUMNS') ?? [];
+    if (!gridit.length) continue;
+    const moodi = moodit.find((m) => kehys.name.includes(` ${m} `));
+    if (!moodi) continue;
+
+    for (const grid of gridit) {
+      gridejaTarkistettu++;
+      for (const [figmaKentta, tokenRyhma, selite] of gridKentat) {
+        const odotettu = px(tokenit.layout[tokenRyhma][moodi]);
+        const on = grid[figmaKentta];
+        if (on !== odotettu) {
+          drift.push({
+            file: `Figma: ${kehys.name}`,
+            issue: `${selite} on ${on}, tokeneissa ${odotettu} (layout.${tokenRyhma}.${moodi})`,
+          });
+        }
+      }
+    }
+  }
+}
+
 /* ---- raportti ------------------------------------------------------ */
 
 /* ---- 4. luodut tekstit ---------------------------------------------
@@ -269,7 +345,8 @@ if (drift.length === 0) {
   console.log(
     `✓ Figma synkassa — ${library.length}/${library.length} komponenttia kytketty, ` +
       `${connections.length} osoitetta ja niiden propertyt tarkistettu, ` +
-      `${loydetyt.size} luotua tekstiä (${tree.name})`,
+      `${loydetyt.size} luotua tekstiä, ${gridejaTarkistettu} layout gridiä, ` +
+      `${Object.keys(SUHTEET).length} kuvasuhdetta (${tree.name})`,
   );
   if (helpers.length) {
     console.log(`  · ${helpers.length} apukomponenttia ei vaadi kytkentää: ${helpers.map((h) => h.name).join(', ')}`);
