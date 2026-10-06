@@ -566,6 +566,28 @@ Kaksi virhettä, molemmat nyt ohjeissa:
 Ensimmäinen on saavutettavuusvirhe: ruudunlukija ei saa otsikkorakennetta.
 Sivustolla axe kaatuisi siihen, Makessa ei kukaan huomaa.
 
+### Toinen ajo — muuttuivatko ohjeet tulokseksi
+
+Molemmat säännöt lisättiin ohjeisiin ja sama kehote ajettiin uudelleen:
+
+```diff
+- <p className="display-xl">Selected work</p>
++ <h1 className="display-xl">Selected work</h1>
+
+- <ListRow … size="m" className="bleed" />
++ <ListRow … size="m" />
+```
+
+Lisäksi muutos jota ei pyydetty: `Reveal` siirtyi osion sisältä sen ympärille.
+Sääntö *"wrap sections, not single elements"* oli ollut ohjeissa alusta asti,
+ja Make sovelsi sen nyt kirjaimellisesti.
+
+**Tämä on se kohta jossa prosessi eroaa onnekkaasta kehotteesta.** Ensimmäinen
+ajo todisti että Make käyttää oikeita komponentteja. Toinen todisti että
+ohjeet ohjaavat sitä — muutos tekstissä muutti tulosta, täsmälleen niiltä
+kohdin kuin oli kirjoitettu. Ilman tätä ei tiedettäisi onko lopputulos
+ohjauksen vai sattuman tulos.
+
 ## Vaihe 0 — olemassa olevaan taloon
 
 Kaikki tässä repossa kuvattu olettaa puhdasta pöytää: tokenit ovat yhdessä
