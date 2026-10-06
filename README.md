@@ -679,8 +679,25 @@ joutuu elämään päätöksen kanssa.
 vaihto koskee jokaista olemassa olevaa tiedostoa ja tekee migraatiosta
 riskin, jota kukaan ei halua omistaa. Rakenne saa muuttua, nimet eivät.
 
-Askeleen tulos ei ole mielipide vaan **kirjattu päätös**, jota kone voi sen
-jälkeen valvoa. Ilman kirjausta vaihe 0.3 ei tiedä mitä vastaan verrata.
+Askeleen tulos ei ole mielipide vaan **kirjattu päätös**. Tässä repossa ne
+ovat tiedostossa `paatokset.md`: mitä päätettiin, miksi, ja milloin.
+
+**Ero ei ole sama asia kuin eriytymä.** Inventaario ei voi tietää kumpaa se
+katsoo, ja siinä se on oikeassa:
+
+- **eriytymä** — toinen puoli on vanhentunut, ja se korjataan
+- **käännös** — molemmat ovat oikeassa omassa välineessään, ja ero kirjataan
+  tarkoitukselliseksi
+
+Ensimmäisellä kierroksella 6.10.2026 inventaario löysi kolme eroa, ja
+**kaksi niistä oli käännöksiä.** `Grid` ja `Reveal` eivät kuulu Figmaan, koska
+Figma ilmaisee asettelun ja liikkeen toisin. `ListRow`in boolean-propertyt
+kuuluvat Figmaan muttei koodiin, koska Figman instanssissa ei ole
+määrittelemätöntä arvoa.
+
+Työkalu joka olisi pakottanut voittajan jokaiseen eroon olisi tuottanut kaksi
+väärää korjausta kolmesta. Siksi tämä askel on ihmisen eikä koneen — ja siksi
+inventaario ei ota kantaa.
 
 ### 0.3 Lähtötaso ja räikkä — kone
 

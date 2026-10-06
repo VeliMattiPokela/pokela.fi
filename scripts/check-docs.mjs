@@ -40,6 +40,7 @@ const fix = process.argv.includes('--korjaa');
 
 const DOCS = [
   'README.md',
+  'paatokset.md',
   'figma-plugin/README.md',
   'stories/Aloita.mdx',
   /* Figma Maken ohjeet. Ne elävät repossa eivätkä Figman
