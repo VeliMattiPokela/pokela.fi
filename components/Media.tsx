@@ -110,7 +110,10 @@ function Video({ id, leveys, korkeus, caption }: {
       poster={`/kuva/${id}-juliste.webp`}
       width={leveys}
       height={korkeus}
-      aria-label={caption ?? ''}
+      /* Nimi vain jos se on olemassa. aria-label="" ei jätä nimeä
+         tyhjäksi vaan poistaa sen, ja video on kontrolleineen
+         interaktiivinen elementti jolla pitää olla nimi. */
+      {...(caption ? { 'aria-label': caption } : {})}
     >
       <source src={`/kuva/${id}.webm`} type="video/webm" />
       <source src={`/kuva/${id}.mp4`} type="video/mp4" />
@@ -150,7 +153,13 @@ export default function Media({
     const numero = id ? NUMEROT[id] : undefined;
     const muoto = id ? MUODOT[id] : undefined;
     return (
-      <div className={luokka} role="img" aria-label={caption ?? ''}>
+      /* Ei role="img" eikä aria-label: tässä EI OLE kuvaa. Paikanvaraaja
+         on laatikko johon kuva tulee myöhemmin, ja 20 paikkaa 24:stä on
+         tällaisia. role="img" kertoisi ruudunlukijalle että sisältöä on
+         — ja aria-label lukisi sille kuvauksen kuvasta jota ei ole.
+         Näkyvä kuvateksti jää, ja se luetaan tavallisena tekstinä.
+         Oikea kuva alempana käyttää <img alt=…>, kuten pitääkin. */
+      <div className={luokka}>
         <span className="media__teksti">
           {MERKINTA && numero ? (
             <span className="meta meta--s media__merkinta" aria-hidden="true">
