@@ -29,7 +29,9 @@
     "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs",
     "check:suhteet": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-suhteet.mjs",
     "kuvat:lista": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat-lista.mjs",
-    "paketti": "node scripts/paketti.mjs"
+    "paketti": "npm run paketti:tokens && npm run paketti:komponentit",
+    "paketti:tokens": "node scripts/paketti-tokens.mjs",
+    "paketti:komponentit": "node scripts/paketti-komponentit.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

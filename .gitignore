@@ -23,7 +23,7 @@ portfolio-pokela/
 kuvat/uudet/
 public/kuva/
 
-# npm-paketti tokeneista. Kokonaan johdettu tokens.json:sta, myös sen
-# package.json — versio tulee $meta.versionista. Syntyy komennolla
-# `npm run paketti`. Johdannaista ei säilytetä versionhallinnassa.
-packages/tokens/
+# npm-paketit. Kokonaan johdettuja — myös niiden package.json. Versio
+# tulee tokens.jsonin $meta.versionista. Syntyvät komennolla
+# `npm run paketti`. Johdannaisia ei säilytetä versionhallinnassa.
+packages/

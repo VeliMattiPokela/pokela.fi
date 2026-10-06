@@ -83,6 +83,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="list-rows">
           {work.leads.map((lead) => (
             <ListRow
+              as={Link}
               key={lead.slug}
               title={lead.title}
               description={lead.tagline}

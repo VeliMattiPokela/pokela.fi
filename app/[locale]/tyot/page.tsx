@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { isLocale, path, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
@@ -43,6 +44,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
       <section className="list-rows" aria-label={dict.home.selectedWork}>
         {work.leads.map((lead) => (
           <ListRow
+            as={Link}
             key={lead.slug}
             size="m"
             number={lead.number}

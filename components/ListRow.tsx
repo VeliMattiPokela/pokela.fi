@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import type { ElementType } from 'react';
 
 export type ListRowProps = {
   /** Työn nimi. */
@@ -14,6 +14,13 @@ export type ListRowProps = {
   href: string;
   /** Lisäluokka, esim. `invert` kun tila näytetään staattisena. */
   className?: string;
+  /**
+   * Linkkikomponentti. Oletus on tavallinen `<a>`, jotta komponentti ei
+   * ole sidottu mihinkään reititykseen — se on ehto sille että tämä voi
+   * elää npm-paketissa. Next.js-sovellus antaa tähän `next/link`:n ja
+   * saa reitityksen takaisin.
+   */
+  as?: ElementType;
 };
 
 /**
@@ -35,6 +42,9 @@ export type ListRowProps = {
  *
  * `.bleed` hoitaa vaakapaddingin, jotta rivi ulottuu reunaan mutta
  * teksti pysyy .page:n linjassa.
+ *
+ * Linkki tulee `as`-propsina eikä tuontina. Siksi komponentti ei tiedä
+ * Next.js:stä mitään ja kelpaa sellaisenaan mihin tahansa projektiin.
  */
 export default function ListRow({
   title,
@@ -44,6 +54,7 @@ export default function ListRow({
   size = 's',
   href,
   className,
+  as: Link = 'a',
 }: ListRowProps) {
   return (
     <Link

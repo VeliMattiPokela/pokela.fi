@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { isLocale, path, type Locale } from '@/lib/i18n';
 import { getWork } from '@/content/work';
@@ -204,6 +205,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         <div className="list-rows">
           {getWork(locale as Locale).leads.slice(0, 2).map((lead) => (
             <ListRow
+              as={Link}
               key={lead.slug}
               title={lead.title}
               description={lead.tagline}

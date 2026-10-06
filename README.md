@@ -21,7 +21,7 @@ npm run build-storybook  # → storybook-static/
 npm run check:hardcoded  # kovakoodatut arvot tyyleissä
 npm run figma:check      # Code Connect -kytkennät (dry run, vaatii tokenin)
 npm run figma:publish    # kytkennät Figmaan (vaatii FIGMA_ACCESS_TOKENin)
-npm run paketti          # tokenit npm-paketiksi → packages/tokens/
+npm run paketti          # tokenit ja komponentit npm-paketeiksi → packages/
 ```
 
 Storytestit ajetaan oikeassa selaimessa, joten Chromium asennetaan kerran:
@@ -371,15 +371,23 @@ Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
 kukaan oli kokeillut. Lopputulos oli sama, mutta väite oli kuulopuhetta.
 Nyt se on kokeiltu.
 
-## Tokenit npm-pakettina
+## npm-paketit
 
 ```bash
 npm run paketti
 ```
 
-Tokenit ovat tässä repossa `tokens.json`, eikä mikään muu projekti pääse
-niihin käsiksi. `scripts/paketti.mjs` rakentaa niistä asennettavan
-paketin hakemistoon `packages/tokens/`.
+Kaksi pakettia hakemistoon `packages/`:
+
+| Paketti | Mitä | Lähde |
+|---|---|---|
+| `@pokela/tokens` | värit, mitat, typografia | `tokens.json` |
+| `@pokela/components` | React-komponentit ja niiden tyylit | `components/` |
+
+### Tokenit
+
+`scripts/paketti-tokens.mjs` rakentaa `tokens.json`:sta asennettavan
+paketin.
 
 **Miksi:** Figma Make osaa lukea design-systeemin vain npm-pakettina. Ilman
 tätä se arvaa värit ja mitat itse, ja prototyyppi näyttää siltä miltä malli
@@ -417,7 +425,40 @@ Paketilla ei ole riippuvuuksia. Se on Figma Maken vaatimus — siellä
 workspace-riippuvuudet eivät toimi — ja muutenkin oikein, koska tokenit
 ovat dataa eivätkä koodia.
 
-**Lisenssi on MIT, ja se koskee vain tätä pakettia.** Paketissa on sivuston
+### Komponentit
+
+`scripts/paketti-komponentit.mjs` vie viisi komponenttia: `Icon`, `ListRow`,
+`Accordion`, `Grid` ja `Reveal`. Lähde on `components/` — **samat tiedostot
+joita sivusto ajaa**, ei kopioita. Ne siirretään sellaisenaan ja käännetään
+TypeScriptillä, joten paketin komponentti ei voi erota siitä jota sivusto
+ajaa.
+
+**Ehto vientiin:** komponentti ei saa tuoda mitään sivustokohtaista — ei
+`@/content`, ei `@/lib`, ei `next/*`. Generaattori tarkistaa sen ja
+**pysähtyy** jos ehto rikkoutuu. Siksi `ListRow` ottaa linkkikomponentin
+propsina:
+
+```jsx
+import Link from 'next/link';
+<ListRow as={Link} title="Työn nimi" href="/tyot/esimerkki" />
+```
+
+Oletuksena se on tavallinen `<a>`. Sivusto antaa Nextin linkin ja säilyttää
+reitityksen; paketin käyttäjä antaa oman.
+
+Ulkopuolelle jäävät ja miksi — lista on generaattorissa, ei vain tässä:
+
+| Komponentit | Miksi ei |
+|---|---|
+| Media, LogoRow, CaseText, CaseBlock, CaseBlocks, CaseBlockDerived, ListRowShowcase | lukevat sivuston omaa sisältöä |
+| Nav, Footer | tarvitsevat sanakirjan ja reitityksen |
+| BeforeAfter | rakentuu Median varaan |
+| ComponentView, PrintCv | riippumattomia, mutta sivuston ominaisuuksia — eivät design systemin osia |
+| ThemeToggle, ThemeScript | käyttävät luokkaa `.nav__toggle`, joka on Navin tyyleissä. Kytkentä on lähteessä, joten se korjataan CSS:ää siistimällä eikä listaa muuttamalla |
+
+### Lisenssi
+
+**Lisenssi on MIT, ja se koskee vain näitä paketteja.** Paketissa on sivuston
 omat väri- ja mitta-arvot, joilla ei ole arvoa muille, joten vapaa lisenssi
 ei anna pois mitään — ja ilman lisenssiä npm-paketti on monelle yritykselle
 automaattinen ei. Myytävä asia ei ole paketti vaan tämän pystyttäminen
@@ -427,7 +468,7 @@ asiakkaan koodipohjaan.
 asiakastyön kuvia ja casetekstejä, joita ei voi lisensoida
 ohjelmistolisenssillä.
 
-**Ennen julkaisua on vielä päätettävä yksi asia:** julkaistaanko paketti
+**Ennen julkaisua on vielä päätettävä yksi asia:** julkaistaanko paketit
 julkisena npm:ssä vai Figman yksityiseen rekisteriin. Yksityinen onnistuu
 Pro-tiimillä tai organisaatiolla.
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { readCodeConnect, readSource, readStories, readTokenGroups } from '@/lib/source';
 import { componentArtefacts } from '@/lib/artefacts';
 import { highlight } from '@/lib/highlight';
@@ -68,6 +69,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
             <>
               <div className="list-rows cview__demo">
                 <ListRow
+                  as={Link}
                   title={leads[0].title}
                   description={leads[0].tagline}
                   meta={leads[0].meta}
@@ -77,6 +79,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                     `invert`-utilitylla — samat tokenit kuin hoverissa,
                     ei omaa sääntöä. Kosketuslaitteella hoveria ei ole. */}
                 <ListRow
+                  as={Link}
                   title={leads[1].title}
                   description={leads[1].tagline}
                   meta={dict.showcase.hoverDemo}
@@ -84,6 +87,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                   className="invert"
                 />
                 <ListRow
+                  as={Link}
                   title={leads[2].title}
                   description={leads[2].tagline}
                   meta={leads[2].meta}
