@@ -203,3 +203,129 @@ Sama koskee kahta muuta asiaa jotka vaativat asiakkaan adminin: yksityisen
 npm-rekisterin scopen luonti ja AI-ominaisuuksien kytkeminen päälle.
 
 *Päätetty 6.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 7. EHDOTUS — typografian nimeämisperiaate
+
+> **Tätä ei ole päätetty.** Kirjattu ennen muutoksia, koska väärin tehty
+> korjaus jättäisi saman ongelman uudella nimellä.
+
+### Löydös
+
+Claude rakensi 7.10.2026 Figmaan `Tietoa`-sivupohjan olemassa olevista
+komponenteista. Testi onnistui, mutta 15 tekstisolmua jäi ilman
+tekstityyliä. Syy ei ollut Figmassa vaan koodissa.
+
+Komponenttien CSS:ssä on **36 omaa typografiamäärittelyä**. Niistä:
+
+| | |
+|---|---|
+| 14 | kirjoittaa nimetyn luokan uudelleen sanasta sanaan |
+| 6 | asettaa vain koon, vaikka luokka antaisi koon ja rivivälin |
+| 16 | kokoaa yhdistelmän jolla ei ole nimeä missään |
+
+`.body-s` on kirjoitettu uudelleen **11 kertaa**. `.display-s` kahdesti.
+
+### Juurisyy
+
+**Nimetyt tyylit eivät ole rajapinta — raakatokenit ovat.** Komponentit
+kokoavat typografian tokeneista sen sijaan että käyttäisivät nimettyä
+luokkaa. Figma voi peilata vain nimettyjä tyylejä, joten se ei voi peilata
+sitä millä ei ole nimeä.
+
+Ja yhtä tasoa syvemmällä: **luokat on nimetty paikan mukaan, ei tehtävän
+mukaan.** `.about__service-body` kertoo missä se on, ei mitä se tekee — ja
+paikan nimi houkuttelee kirjoittamaan kaiken mitä se tarvitsee, koska se ei
+kerro mitään siitä mikä on jo olemassa.
+
+Mitattu seuraus: seitsemän eri nimistä luokkaa tekee saman asian.
+
+```css
+.about__service-body   { color: var(--ink-muted) }
+.case__trio p          { color: var(--ink-muted) }
+.case__artefact-body   { color: var(--ink-muted) }
+.case__check-body      { color: var(--ink-muted) }
+.case__scope-note      { color: var(--ink-muted) }
+.cview__fact-value     { color: var(--ink-muted) }
+.list-row__description { color: var(--ink-muted) }
+```
+
+Kolme luokkaa katoaisi kokonaan, koska nimetty luokka tekee jo kaiken —
+myös `margin: 0`. Niistä jää jäljelle vain kommentti, joka kuvaa ongelmaa
+jonka luokka ratkaisee:
+
+```css
+/* <h3> saisi selaimelta lihavan, jota Bodonista ei ole. */
+```
+
+`.display-s` asettaa painon 400:aan. Ongelma oli olemassa vain koska
+luokkaa ei käytetty.
+
+### Mikä EI ole vikana
+
+**Arvot eivät voi ajautua erilleen.** Jokainen noista säännöistä käyttää
+tokeneita, joten rivivälin muutos muuttuu kaikkialla. `check:tokens` ja
+`check:hardcoded` tekevät työnsä oikein.
+
+Vahinko on toinen: tyyppiasteikko ei ole käytössä rajapintana, CSS on
+moninkertainen tarpeeseen nähden, ja syntyy yhdistelmiä joilla ei ole nimeä.
+
+### Vaihtoehdot
+
+**A — Käytä nimettyjä luokkia, säilytä BEM-nimet siellä missä jotain jää.**
+3 luokkaa poistuu, 7 kutistuu yhteen riviin, 4 säilyy. Pienin muutos, mutta
+jättää seitsemän nimeä yhdelle tehtävälle.
+
+**B — Nimetyt luokat + jaettu värimodifioija.** Kuten A, mutta ne seitsemän
+korvataan yhdellä nimellä. Systeemissä on jo tämän idean alku: `.meta--ink`
+on värimodifioija, sitä ei vain yleistetty.
+
+**C — Typografia ja väri utilityiksi, komponenttiluokat vain asettelulle.**
+Suurin muutos, koskee kaikkia komponenttitiedostoja.
+
+### Suositus: B
+
+A ei korjaa juurisyytä — seitsemän nimeä yhdelle tehtävälle jää. C on
+uudelleenkirjoitus, eikä siihen ole osoitettua tarvetta.
+
+B on pienin muutos joka korjaa mitatun ongelman, ja se on linjassa sen
+kanssa mitä systeemissä jo on.
+
+**Periaate joka pitäisi kirjata samalla:** luokka ansaitsee nimen vain jos
+sillä on tehtävä jota olemassa oleva nimi ei kata, ja nimi kuvaa tehtävää
+eikä paikkaa.
+
+### Avoin alakysymys
+
+Värimodifioijan nimi. `.meta--ink` on BEM-modifioija; erillinen `.ink-muted`
+olisi utility ja nimeäisi itsensä tokenin mukaan. Kaksi eri konventiota, ja
+valinta kannattaa tehdä tietoisesti.
+
+### Erillinen päätös: `body-l + paino 500`
+
+Tätä yhdistelmää käytetään neljässä paikassa eikä sillä ole nimeä
+koodissa, tokeneissa eikä Figmassa:
+
+```
+.about__service-title · .detail__section-title · .case__item-h · .case__trio h4
+```
+
+Joko se saa nimen tyyppiasteikkoon, tai ne neljä paikkaa käyttävät
+olemassa olevaa tyyliä. Tämä on design system -päätös, ei siivous.
+
+Sama toisin päin: `.btn` on `body-s + paino 500`, ja sillä **on** nimi
+Figmassa (`Button`) muttei koodissa.
+
+### Mitä EI pidä tehdä ensin
+
+Ehdotin tarkistusta joka vertaisi `tokens.json`:n `type`-ryhmää Figman
+tekstityyleihin. **Se olisi mennyt läpi** — ne täsmäävät 9/10, ja ongelma
+on CSS-kerroksessa jota se ei katso.
+
+Tarkistus tulee vasta kun toteutus on korjattu, ja se on eri tarkistus:
+*komponentin CSS ei saa asettaa `font-size`, `font-family` tai
+`font-weight`:ia; typografia tulee nimetystä luokasta.* Se olisi löytänyt
+kaikki 36.
+
+*Ehdotus kirjattu 7.10.2026 — päätöstä odotetaan*
