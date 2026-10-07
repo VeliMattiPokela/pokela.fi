@@ -4,6 +4,7 @@ import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
 import { checks, liveCheckCount } from '@/lib/checks';
+import { ketju } from '@/content/prosessi';
 import type { Locale } from '@/lib/i18n';
 
 /**
@@ -12,6 +13,8 @@ import type { Locale } from '@/lib/i18n';
  *
  *   artefacts   artefaktien tila ja osoitteet (lib/artefacts.ts)
  *   checks      ajossa olevat synkkatarkistukset (lib/checks.ts)
+ *   ketju       prosessin lenkit (content/prosessi.ts) ja niiden
+ *               vartijat (lib/checks.ts)
  *   component   komponentin lähdekoodi (ListRowShowcase)
  *
  * Juuri siksi ne eivät voi vanhentua — eikä niillä voi olla storya:
@@ -19,7 +22,7 @@ import type { Locale } from '@/lib/i18n';
  * ListRowShowcase on kirjattu poikkeukseksi, ja se on kirjattu myös
  * tälle tiedostolle scripts/check-stories.mjs:ssä.
  */
-export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' }>;
+export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' | 'ketju' }>;
 
 export default function CaseBlockDerived({
   block,
@@ -133,6 +136,66 @@ export default function CaseBlockDerived({
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
+        </Reveal>
+      );
+    }
+    case 'ketju': {
+      /* Vartijat nimetään tunnisteella, ja nimi luetaan rekisteristä.
+         Vartija jota ei ajeta kaataa buildin: ketju ei saa luvata
+         tarkistusta jota ei ole, samasta syystä kuin checks-lohkon
+         luku ei saa olla käsin kirjoitettu. */
+      const ajossa = new Map(checks().filter((c) => c.runs).map((c) => [c.id, c.title]));
+      for (const lenkki of ketju) {
+        for (const id of lenkki.vartijat) {
+          if (!ajossa.has(id)) {
+            throw new Error(
+              `Ketjun lenkki ${lenkki.numero} "${lenkki.otsikko}": vartija '${id}' ei ole ajossa. ` +
+                `Kytke tarkistus tai poista se lenkiltä (content/prosessi.ts).`,
+            );
+          }
+        }
+      }
+      if (!block.title.includes('{n}')) {
+        throw new Error(
+          `Case-lohko 'ketju': otsikosta puuttuu {n}. ` +
+            `Lenkkien määrä on johdettava, ei kirjoitettava. Nyt: "${block.title}"`,
+        );
+      }
+      return (
+        <Reveal>
+          <section className="page case__section">
+            <h2 className="meta">{block.label}</h2>
+            <div className="case__section-body">
+              <h3 className="display-m case__h">
+                {block.title.replace('{n}', String(ketju.length))}
+              </h3>
+              <p className="body-l measure case__p">{block.body}</p>
+              <ol className="case__scope">
+                {ketju.map((lenkki) => (
+                  <li
+                    key={lenkki.numero}
+                    className={[
+                      'case__scope-item case__scope-item--wide',
+                      lenkki.tulossa ? 'case__scope-item--pending' : '',
+                    ].join(' ')}
+                  >
+                    <span className="meta">{String(lenkki.numero).padStart(2, '0')}</span>
+                    <span>
+                      <span className="body-s">{lenkki.otsikko}</span>
+                      <span className="body-s muted">{lenkki.teksti}</span>
+                      <span className="meta faint">
+                        {lenkki.tulossa
+                          ? 'Tulossa'
+                          : lenkki.vartijat.length
+                            ? `Vartija: ${lenkki.vartijat.map((id) => ajossa.get(id)).join(' · ')}`
+                            : 'Ei vartijaa'}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </section>
         </Reveal>

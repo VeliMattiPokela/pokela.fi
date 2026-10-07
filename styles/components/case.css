@@ -179,6 +179,9 @@ a.case__artefact:hover .meta { color: var(--invert-faint); }
 /* Putken askel: nimi + selite samalla rivillä. */
 .case__scope-item--wide { align-items: baseline; }
 .case__scope-item--wide > span:last-child { display: flex; flex-direction: column; gap: var(--space-4); }
+/* Ketjun lenkki joka ei vielä toimi: näkyy, mutta ei valmiina. */
+.case__scope-item--pending { border-bottom-style: dashed; }
+.case__scope-item--pending .body-s { color: var(--ink-faint); }
 
 /* Kaksi vaihtoehtoa rinnakkain. */
 .case__choice { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-20); border-top: var(--hairline) solid var(--line-strong); }

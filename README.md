@@ -371,13 +371,15 @@ Todistettu molempiin suuntiin: tekstin muuttaminen Figmassa kaataa
 ajon, ja lähteessä oleva id jolle ei ole solmua kaataa myös.
 
 **Prosessiosio Figmassa.** Tiedoston alussa on kaksi sivua ennen
-Perustaa: **Pystytys** (kuusi vaihetta järjestyksessä) ja **Jatkuva
+Perustaa: **Pystytys** (prosessin ketju, lenkit 0–7) ja **Jatkuva
 kehitys** (molemmat suunnat, tarkistuslista ja rajat). Ne ovat
 tuotekuvaus — miten setup pystytetään organisaatiossa ja miten se
 toimii sen jälkeen.
 
 Teksti tulee yhdestä lähteestä: `content/prosessi.ts` proosalle ja
-`lib/checks.ts` tarkistuslistalle. Molemmat päät ovat tarkistuksessa —
+`lib/checks.ts` tarkistuslistalle. Sama ketju renderöityy case 03:lle,
+jossa jokaisen lenkin vartija luetaan `lib/checks.ts`:stä — vartija jota
+ei ajeta kaataa buildin. Molemmat päät ovat tarkistuksessa —
 muutos Figmassa ja muutos lähteessä kaatavat ajon yhtä lailla.
 
 Tarkistuslistaa ei kirjoiteta `content/prosessi.ts`:ään. Se johdetaan
@@ -632,7 +634,7 @@ hylättyjä. Sovelluksessa on kolme Button-komponenttia joista kaksi on
 kuollutta. Tokeneita on jossain, mutta puolet arvoista on kovakoodattu. Ja
 se vaikein: **kukaan ei tiedä kumpi puoli on oikeassa.**
 
-Siksi ennen vaiheita 1–6 on vaihe 0. Se ei ole käännös eikä siivous. Se on
+Siksi ketju alkaa nollasta: ennen lenkkejä 1–7 on vaihe 0. Se ei ole käännös eikä siivous. Se on
 sovittelu kahden olemassa olevan totuuden välillä.
 
 Vaiheessa on kolme askelta, ja vain kaksi niistä on koneen työtä.
@@ -1205,9 +1207,7 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       on **Lohkot**-pohja molemmissa koissa, jossa ovat ne lohkot
       joita casepohjissa ei ollut.
 
-      <!-- generated:case-lohkot -->
-      12 lohkotyyppiä: text, media, pair, band, trio, scope, artefacts, checks, steps, choices, component, todo
-      <!-- /generated -->
+      <!-- generated:case-lohkot -->13 lohkotyyppiä: text, media, pair, band, trio, scope, artefacts, checks, ketju, steps, choices, component, todo<!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.
