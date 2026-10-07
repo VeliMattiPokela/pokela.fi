@@ -27,3 +27,7 @@ public/kuva/
 # tulee tokens.jsonin $meta.versionista. Syntyvät komennolla
 # `npm run paketti`. Johdannaisia ei säilytetä versionhallinnassa.
 packages/
+
+# Tyylivedos: lasketut tyylit ennen ja jälkeen muutoksen. Työkalu yhtä
+# refaktorointia varten, ei tarkistus eikä osa ketjua.
+.tyylivedos/

@@ -53,6 +53,15 @@ img, svg, video { display: block; max-width: 100%; }
 .body-l { font-size: var(--text-body-l); line-height: var(--lh-body-l); margin: 0; }
 .body-s { font-size: var(--text-body-s); line-height: var(--lh-body-s); margin: 0; }
 
+/* Pieni otsikko joka ei ole display: UI-fontti painolla 500. Tätä
+   yhdistelmää käytettiin neljässä paikassa ilman nimeä, joten Figmassa
+   ei voinut olla sille tyyliä — nimetön ei ole peilattavissa.
+
+   Fonttiperhe on mukana vaikka body antaa sen perintönä: <button> ei
+   peri fonttia selaimelta, ja .label osuu myös nappeihin. */
+.title { font-family: var(--font-ui); font-size: var(--text-body-l); line-height: var(--lh-body-l); font-weight: var(--weight-500); margin: 0; }
+.label { font-family: var(--font-ui); font-size: var(--text-body-s); line-height: var(--lh-body-s); font-weight: var(--weight-500); margin: 0; }
+
 /* Leipätekstin mitta. Ei koskaan yli 62 merkkiä. */
 .measure { max-width: var(--measure); }
 
@@ -71,6 +80,16 @@ img, svg, video { display: block; max-width: 100%; }
 }
 .meta--s { font-size: var(--text-meta-s); line-height: var(--lh-meta-s); letter-spacing: var(--tr-meta-s); }
 .meta--ink { color: var(--ink); }
+
+/* ---- värit -----------------------------------------------------------
+   Nimetty tokenin mukaan, ei paikan. Seitsemän komponenttiluokkaa teki
+   tämän omalla nimellään — seitsemän nimeä yhdelle tehtävälle.
+
+   Järjestys on merkitsevä: .meta asettaa oman värinsä, ja nämä ovat
+   samaa tarkkuutta, joten niiden on tultava sen jälkeen voittaakseen. */
+.ink { color: var(--ink); }
+.muted { color: var(--ink-muted); }
+.faint { color: var(--ink-faint); }
 
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }

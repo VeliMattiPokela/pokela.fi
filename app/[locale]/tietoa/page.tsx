@@ -113,8 +113,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {cv.services.map((service) => (
               <div key={service.number} className="about__service">
                 <span className="meta">{service.number}</span>
-                <h3 className="about__service-title">{service.title}</h3>
-                <p className="measure about__service-body">{service.body}</p>
+                <h3 className="title about__service-title">{service.title}</h3>
+                <p className="body-s muted measure about__service-body">{service.body}</p>
               </div>
             ))}
           </div>
@@ -134,8 +134,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <article key={job.period} className="cv-job">
             <div className="cv-job__head">
               <span className="meta">{job.period}</span>
-              <h3 className="cv-job__title">{job.title}</h3>
-              <span className="body-s cv-job__company">{job.company}</span>
+              <h3 className="display-s cv-job__title">{job.title}</h3>
+              <span className="body-s faint">{job.company}</span>
             </div>
             <dl className="cv-job__projects">
               {job.projects.map((project) => (
@@ -159,8 +159,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <dl className="cv-list">
               {cv.tools.map((row) => (
                 <div key={row.label} className="cv-list__row">
-                  <dt className="cv-list__label">{row.label}</dt>
-                  <dd className="cv-list__value">{row.items}</dd>
+                  <dt className="label">{row.label}</dt>
+                  <dd className="body-s muted">{row.items}</dd>
                 </div>
               ))}
             </dl>
@@ -171,8 +171,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <dl className="cv-list">
               {cv.education.map((row) => (
                 <div key={row.label} className="cv-list__row">
-                  <dt className="cv-list__label">{row.label}</dt>
-                  <dd className="cv-list__value">{row.items}</dd>
+                  <dt className="label">{row.label}</dt>
+                  <dd className="body-s muted">{row.items}</dd>
                 </div>
               ))}
             </dl>
