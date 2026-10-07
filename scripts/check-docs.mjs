@@ -19,7 +19,7 @@
  *   2. Polut. Dokumentissa mainittu tiedostopolku on olemassa.
  *   3. Komennot. Mainittu `npm run x` on package.jsonissa.
  *   4. Kattavuus. Jokainen `scripts/check-*.mjs` on mainittu
- *      README:ssä, ajetaan omana askeleenaan `ci.yml`:ssä ja on
+ *      käsikirjassa (docs/kasikirja.md), ajetaan omana askeleenaan `ci.yml`:ssä ja on
  *      kirjattu `lib/checks.ts`:n rekisteriin — uutta tarkistusta ei
  *      voi lisätä hiljaa eikä vanha voi jäädä ajamatta.
  *
@@ -40,6 +40,7 @@ const fix = process.argv.includes('--korjaa');
 
 const DOCS = [
   'README.md',
+  ...readdirSync(join(root, 'docs')).map((f) => `docs/${f}`),
   'paatokset.md',
   'figma-plugin/README.md',
   'stories/Aloita.mdx',
@@ -263,7 +264,7 @@ for (const doc of DOCS) {
       Tarkistus elää kolmessa paikassa, ja jokainen niistä voi jäädä
       päivittämättä erikseen:
 
-        README.md            mitä se todistaa ihmiselle
+        docs/kasikirja.md    mitä se todistaa ihmiselle
         ci.yml               ajetaanko se oikeasti ennen mergeä
         lib/checks.ts        näkyykö se casesivun listalla
 
@@ -277,7 +278,7 @@ for (const doc of DOCS) {
 
       Tiedostojärjestelmä on totuus: jos scripts/check-<id>.mjs on
       olemassa, sen on löydyttävä kaikista kolmesta.                */
-const readme = readFileSync(join(root, 'README.md'), 'utf8');
+const readme = readFileSync(join(root, 'docs/kasikirja.md'), 'utf8');
 const ci = readFileSync(join(root, '.github/workflows/ci.yml'), 'utf8');
 const rekisteri = readFileSync(join(root, 'lib/checks.ts'), 'utf8');
 const checkScripts = readdirSync(join(root, 'scripts')).filter((f) => /^check-.*\.mjs$/.test(f));
@@ -285,7 +286,7 @@ const checkScripts = readdirSync(join(root, 'scripts')).filter((f) => /^check-.*
 for (const script of checkScripts) {
   const id = script.replace(/^check-|\.mjs$/g, '');
   if (!readme.includes(`scripts/${script}`)) {
-    drift.push({ doc: 'README.md', issue: `tarkistus scripts/${script} ei ole dokumentoitu` });
+    drift.push({ doc: 'docs/kasikirja.md', issue: `tarkistus scripts/${script} ei ole dokumentoitu` });
   }
   if (!ci.includes(`npm run check:${id}`)) {
     drift.push({

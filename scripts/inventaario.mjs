@@ -144,7 +144,7 @@ for (const komponentti of figmanKirjasto) {
 
 otsikko('Tokenit');
 console.log('  Figman puolta ei voi lukea: file_variables:read on Figman mukaan');
-console.log('  "Enterprise plan only". Kierto on pluginin lukutila — ks. README.\n');
+console.log('  "Enterprise plan only". Kierto on pluginin lukutila — ks. docs/kasikirja.md.\n');
 for (const [ryhma, arvo] of Object.entries(tokenit)) {
   if (ryhma.startsWith('$') || ryhma.endsWith('Note')) continue;
   rivi(ryhma, `${lehdet(arvo)} koodissa · ? Figmassa`);

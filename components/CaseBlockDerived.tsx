@@ -4,6 +4,7 @@ import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
 import { checks, liveCheckCount } from '@/lib/checks';
+import { ketju } from '@/content/prosessi';
 import type { Locale } from '@/lib/i18n';
 
 /**
@@ -12,6 +13,8 @@ import type { Locale } from '@/lib/i18n';
  *
  *   artefacts   artefaktien tila ja osoitteet (lib/artefacts.ts)
  *   checks      ajossa olevat synkkatarkistukset (lib/checks.ts)
+ *   ketju       prosessin lenkit (content/prosessi.ts) ja niiden
+ *               vartijat (lib/checks.ts)
  *   component   komponentin lähdekoodi (ListRowShowcase)
  *
  * Juuri siksi ne eivät voi vanhentua — eikä niillä voi olla storya:
@@ -19,7 +22,7 @@ import type { Locale } from '@/lib/i18n';
  * ListRowShowcase on kirjattu poikkeukseksi, ja se on kirjattu myös
  * tälle tiedostolle scripts/check-stories.mjs:ssä.
  */
-export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' }>;
+export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' | 'ketju' }>;
 
 export default function CaseBlockDerived({
   block,
@@ -133,6 +136,46 @@ export default function CaseBlockDerived({
                   </div>
                 ))}
               </div>
+            </div>
+          </section>
+        </Reveal>
+      );
+    }
+    case 'ketju': {
+      /* Vartijan nimi luetaan rekisteristä, jotta se on sama kuin
+         tarkistuslistassa. Tuntematon tunniste näkyy sellaisenaan. */
+      const nimet = new Map(checks().map((c) => [c.id, c.title]));
+      return (
+        <Reveal>
+          <section className="page case__section">
+            <h2 className="meta">{block.label}</h2>
+            <div className="case__section-body">
+              <h3 className="display-m case__h">{block.title}</h3>
+              <p className="body-l measure case__p">{block.body}</p>
+              <ol className="case__scope">
+                {ketju.map((lenkki) => (
+                  <li
+                    key={lenkki.numero}
+                    className={[
+                      'case__scope-item case__scope-item--wide',
+                      lenkki.tulossa ? 'case__scope-item--pending' : '',
+                    ].join(' ')}
+                  >
+                    <span className="meta">{String(lenkki.numero).padStart(2, '0')}</span>
+                    <span>
+                      <span className="body-s">{lenkki.otsikko}</span>
+                      <span className="body-s muted">{lenkki.teksti}</span>
+                      <span className="meta faint">
+                        {lenkki.tulossa
+                          ? 'Tulossa'
+                          : lenkki.vartijat.length
+                            ? `Vartija: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
+                            : 'Ei vartijaa'}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </section>
         </Reveal>

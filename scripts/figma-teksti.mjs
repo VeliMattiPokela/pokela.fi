@@ -53,7 +53,7 @@ export async function tekstit(tiedosto) {
   const tyylit = Object.values(tiedosto?.styles ?? {});
   const tekstityylit = tyylit.filter((s) => s.styleType === 'TEXT').length;
 
-  const { pystytys, suunnat, rajat } = await import(join(root, 'content/prosessi.ts'));
+  const { ketju, suunnat, rajat } = await import(join(root, 'content/prosessi.ts'));
   const { checks } = await import(join(root, 'lib/checks.ts'));
   const ajossa = checks().filter((c) => c.runs);
 
@@ -75,13 +75,14 @@ export async function tekstit(tiedosto) {
     rajat,
   };
 
-  for (const v of pystytys) {
+  for (const l of ketju) {
     /* Numero otsikkoon eikä erilliseksi staattiseksi tekstiksi:
-       vaiheiden järjestys on sisältöä, ja käsin kirjoitettu numero
-       jäisi paikalleen jos vaiheet järjestetään uudelleen. */
-    ulos[`pystytys-${v.numero}-otsikko`] =
-      `${String(v.numero).padStart(2, '0')} · ${v.otsikko}`;
-    ulos[`pystytys-${v.numero}-teksti`] = v.teksti;
+       lenkkien järjestys on sisältöä, ja käsin kirjoitettu numero
+       jäisi paikalleen jos ketju järjestetään uudelleen. Sama koskee
+       tilaa: tulossa oleva lenkki ei saa näyttää valmiilta. */
+    ulos[`ketju-${l.numero}-otsikko`] =
+      `${String(l.numero).padStart(2, '0')} · ${l.otsikko}${l.tulossa ? ' · tulossa' : ''}`;
+    ulos[`ketju-${l.numero}-teksti`] = l.teksti;
   }
   suunnat.forEach((s, i) => {
     ulos[`suunta-${i + 1}-otsikko`] = s.otsikko;

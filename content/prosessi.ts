@@ -1,5 +1,5 @@
 /**
- * Prosessin kuvaus — pystytys ja jatkuva kehitys.
+ * Prosessin kuvaus — ketju ja jatkuva kehitys.
  *
  * Tämä on tuotteen teksti, ei tämän projektin kuvaus: se kertoo
  * miten setup pystytetään organisaatiossa ja miten se toimii sen
@@ -12,49 +12,83 @@
  * ajeta — niin kävi kerran jo.
  */
 
-export type Vaihe = {
-  /** Järjestysnumero. Vaiheet ovat riippuvaisia edellisestä. */
+export type Lenkki = {
+  /** Järjestysnumero. Lenkki nojaa edelliseen. 0 tehdään kerran, ja
+      vain olemassa olevassa talossa. */
   numero: number;
   otsikko: string;
   teksti: string;
+  /**
+   * Tarkistukset jotka vahtivat tätä lenkkiä: tunnisteet
+   * lib/checks.ts:stä. Tyhjä lista on rehellinen vastaus silloin kun
+   * konetta ei ole.
+   */
+  vartijat: string[];
+  /** Lenkki joka ei vielä toimi. Näytetään, mutta erotettuna. */
+  tulossa?: true;
 };
 
-export const pystytys: Vaihe[] = [
+/**
+ * Prosessi yhtenä ketjuna. Sama ketju renderöityy casesivulle ja
+ * Figman prosessisivulle, ja käsikirja viittaa siihen.
+ */
+export const ketju: Lenkki[] = [
+  {
+    numero: 0,
+    otsikko: 'Lähtötilanne',
+    teksti:
+      'Yksikään yritys ei aloita tyhjästä. Kone listaa missä koodi ja Figma eroavat, ottamatta kantaa. Ihminen päättää asiaryhmä kerrallaan kumpi on oikeassa, ja päätös kirjataan. Vanha velka sallitaan, uusi ei.',
+    vartijat: [],
+  },
   {
     numero: 1,
-    otsikko: 'Tokenit yhdeksi lähteeksi',
+    otsikko: 'Yksi lähde',
     teksti:
-      'Värit, typografia, välistys ja liike kirjataan yhteen tiedostoon. Sekä koodi että Figma lukevat sitä. Kummallakaan ei ole omaa versiotaan arvoista.',
+      'Värit, typografia, välistys ja liike kirjataan yhteen tiedostoon. Kaikki muu lukee sitä. Kenelläkään ei ole omaa versiotaan arvoista.',
+    vartijat: ['tokens', 'hardcoded'],
   },
   {
     numero: 2,
     otsikko: 'Komponentit koodiin',
     teksti:
       'Komponentti rakennetaan kerran, koodiin. Storybook näyttää sen selaimessa kaikissa tiloissaan — sama koodi jota valmis tuote ajaa, ei erillinen malli.',
+    vartijat: ['stories'],
   },
   {
     numero: 3,
-    otsikko: 'Arvot Figmaan automaattisesti',
+    otsikko: 'Arvot Figmaan',
     teksti:
-      'Setupin mukana tulee Figma-plugin, joka asennetaan kerran. Kun arvot muuttuvat, suunnittelija avaa sen ja painaa nappia — värit, tekstityylit ja välistykset päivittyvät kerralla. Ajaa voi niin usein kuin haluaa: mikään ei kahdennu eikä katoa.',
+      'Setupin mukana tulee Figma-plugin. Kun arvot muuttuvat, suunnittelija painaa nappia, ja värit, tekstityylit ja välistykset päivittyvät kerralla. Mikään ei kahdennu eikä katoa.',
+    vartijat: [],
   },
   {
     numero: 4,
     otsikko: 'Kirjasto Figmaan',
     teksti:
-      'Komponentit rakennetaan Figmaan kerran, samoilla nimillä ja tiloilla kuin koodissa. Tätä vaihetta ei voi generoida, mutta sen voi tehdä AI-avusteisesti koodin pohjalta — kukaan ei piirrä laatikoita yksitellen. Sen jälkeen suunnittelija ei voi vahingossa piirtää jotain mitä ei voi toteuttaa.',
+      'Komponentit rakennetaan Figmaan kerran, samoilla nimillä ja tiloilla kuin koodissa. Sitä ei voi generoida, mutta sen voi tehdä AI-avusteisesti koodin pohjalta. Sen jälkeen suunnittelija ei voi vahingossa piirtää jotain mitä ei voi toteuttaa.',
+    vartijat: ['figma'],
   },
   {
     numero: 5,
-    otsikko: 'Kytkennät koodin ja Figman välille',
+    otsikko: 'Kytkennät',
     teksti:
-      'Jokainen Figman komponentti kytketään koodin vastineeseensa. Kehittäjä näkee Figmassa suoraan oikean koodin eikä joudu arvailemaan mikä komponentti on kyseessä.',
+      'Jokainen Figman komponentti kytketään koodin vastineeseensa. Kehittäjä näkee Figmassa suoraan oikean koodin eikä joudu arvailemaan.',
+    vartijat: ['code-connect', 'figma'],
   },
   {
     numero: 6,
-    otsikko: 'Tarkistukset automaattisiksi',
+    otsikko: 'AI prototypoi oikeilla osilla',
     teksti:
-      'Jokainen lupaus tarkistetaan koneella aina kun koodia muutetaan. Jos jokin on mennyt eri suuntaan, työ pysähtyy ja kone kertoo mikä.',
+      'Tokenit ja komponentit julkaistaan paketteina, ja Figma Make lukee ne. Ohjeet kertovat milloin mitäkin käytetään. Prototyyppi tehdään samoilla komponenteilla kuin tuote, ei mallin arvauksilla.',
+    vartijat: ['paketti', 'docs'],
+  },
+  {
+    numero: 7,
+    otsikko: 'Takaisin tuotteeseen',
+    teksti:
+      'Prototyypistä tulee muutosehdotus tuotteen koodiin, ja se kulkee samojen tarkistusten läpi kuin mikä tahansa muu muutos.',
+    vartijat: [],
+    tulossa: true,
   },
 ];
 

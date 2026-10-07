@@ -276,7 +276,7 @@ const thisSite: Case = {
   eyebrow: 'Case 03 · Tämä sivusto',
   title: 'Yksi lähde, kaksi suuntaa',
   titleLines: ['Yksi lähde,', 'kaksi suuntaa'],
-  tagline: 'Design system elää koodissa. Figma pysyy synkassa. Asiakas valitsee lähtökohdan.',
+  tagline: 'Design system elää koodissa. Figma ja AI lukevat sitä. Kone huomaa, kun jokin eriytyy.',
   facts: [
     { label: 'Rooli', value: 'Kaikki — tämä on oma sivustoni' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
@@ -302,17 +302,10 @@ const thisSite: Case = {
       note: 'Jokainen väite tällä sivulla on tarkistettavissa. Tehty ja tulossa ovat eri asioita, eikä niitä esitetä samana — linkki ilmestyy sinä päivänä kun artefakti saa julkisen osoitteen.',
     },
     {
-      kind: 'steps',
-      label: 'Putki',
-      title: 'Viisi askelta, jokainen avattavissa',
-      body: 'Ketju kulkee tokeneista Figman komponenttiin. Osa askelista on automatisoitu — Figman muuttujat generoidaan tokens.jsonista — ja osa on käsityötä, jonka tarkistus vahtii. Jokainen askel on julkinen, joten ketjua ei tarvitse uskoa.',
-      items: [
-        { h: 'Tokenit', p: 'CSS-muuttujat, light ja dark. Yksi tiedosto.' },
-        { h: 'Komponentti koodissa', p: 'Lukee tokenit, ei kovakoodattuja arvoja.' },
-        { h: 'Story', p: 'Dokumentaatio ja tilat. Syntyy komponentista, ei erikseen.' },
-        { h: 'Figma-komponentti', p: 'Sama komponentti suunnittelijan työkalussa.' },
-        { h: 'Code Connect -kytkentä', p: 'Figmassa näkyy komponentin oikea koodi, ei arvaus.' },
-      ],
+      kind: 'ketju',
+      label: 'Prosessi',
+      title: 'Yksi ketju, nollasta seitsemään',
+      body: 'Ketju kulkee olemassa olevan talon lähtötilanteesta AI:n tekemään prototyyppiin ja sieltä takaisin tuotteeseen. Jokaisella lenkillä on vartija, joka huomaa kun jokin eriytyy — tai se sanotaan ääneen, kun vartijaa ei ole. Ketju kertoo miten tällainen prosessi rakennetaan, ei sitä että juuri tämä koodi siirretään sellaisenaan.',
     },
     {
       kind: 'component',
@@ -375,10 +368,6 @@ const thisSite: Case = {
           p: 'Kytkentä vaatii ylläpitoa, ja se maksaa itsensä takaisin vasta kun komponentteja on tarpeeksi ja tekijöitä useampi. Yhden hengen projektissa ja kymmenen komponentin kirjastossa se on ylimääräistä koneistoa. Kerron sen asiakkaalle suoraan.',
         },
       ],
-    },
-    {
-      kind: 'todo',
-      text: 'Täydennä: viisi URL-osoitetta, komponenttinäkymän oikea koodi, komponenttien ja kytkentöjen määrä. Tarkista Code Connectin lisenssivaatimus ennen kuin lupaat sen.',
     },
   ],
   next: { slug: 'colliers', title: 'Colliers Asunnot' },
