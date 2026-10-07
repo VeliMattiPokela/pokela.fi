@@ -173,4 +173,25 @@ for (const d of drift) {
 }
 console.error('  Figma Make lukee npm:ää, ei repoa. Niin kauan kuin nämä eroavat,');
 console.error('  prototyypit tehdään eri komponenteilla kuin sivusto.\n');
+
+/* Korjausohje komentoina. Julkaisu tehdään käsin, ja kahdesti se meni
+   väärin samasta syystä: komento ajettiin mainista, jossa versio oli
+   vielä vanha, ja npm kieltäytyi julkaisemasta samaa versiota uudelleen.
+   Siksi ohje nimeää haaran, ja CI:ssä se on pull requestin haara. */
+const haara =
+  process.env.GITHUB_HEAD_REF ||
+  spawnSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: root, encoding: 'utf8' }).stdout.trim();
+const vainNosto = drift.every((d) => d.syy.includes('versio on sama'));
+console.error('  Korjaus:');
+if (vainNosto) {
+  console.error('    1. Nosta tokens.jsonin $meta.version ja pushaa.');
+  console.error('    2. Julkaise alla olevalla komennolla.');
+}
+console.error(`    git fetch origin && git checkout ${haara} && git pull \\`);
+console.error('      && npm run paketti && npm publish ./packages/tokens && npm publish ./packages/components');
+console.error('');
+console.error('  Rakennuksen pitää näyttää repon versio, ei npm:n. npm kysyy');
+console.error('  kirjautumista selaimessa: odota että julkaisu kuittaa "+ @pokela/...".');
+console.error('  Tarkista: npm view @pokela/components version');
+console.error('  Aja sitten CI uudelleen.\n');
 process.exit(1);
