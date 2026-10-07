@@ -369,10 +369,6 @@ const thisSite: Case = {
         },
       ],
     },
-    {
-      kind: 'todo',
-      text: 'Täydennä: viisi URL-osoitetta, komponenttinäkymän oikea koodi, komponenttien ja kytkentöjen määrä. Tarkista Code Connectin lisenssivaatimus ennen kuin lupaat sen.',
-    },
   ],
   next: { slug: 'colliers', title: 'Colliers Asunnot' },
 };

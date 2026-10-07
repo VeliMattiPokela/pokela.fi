@@ -13,7 +13,7 @@
  *
  * Huom: Oikotien ja Colliersin logotiedostot ovat laatikoita eivätkä
  * sanamerkkejä. Se näkyy sekä sivustolla että Figmassa — vika on
- * tiedostossa, ja se on kirjattu README:n avoimiin kohtiin.
+ * tiedostossa, ja se on kirjattu käsikirjan (docs/kasikirja.md) avoimiin kohtiin.
  */
 
 import figma from 'figma';

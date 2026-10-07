@@ -30,7 +30,7 @@ export type Lenkki = {
 
 /**
  * Prosessi yhtenä ketjuna. Sama ketju renderöityy casesivulle ja
- * Figman prosessisivulle, ja README viittaa siihen.
+ * Figman prosessisivulle, ja käsikirja viittaa siihen.
  */
 export const ketju: Lenkki[] = [
   {
