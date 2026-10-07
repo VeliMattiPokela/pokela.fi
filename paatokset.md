@@ -408,3 +408,31 @@ Tarkistus tulee vasta kun toteutus on korjattu, ja se on eri tarkistus:
 kaikki 36.
 
 *Päätetty ja toteutettu 7.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 8. Uusi tarkistus vasta kun virhe on päässyt läpi
+
+**Ero:** ei koodin ja Figman välillä, vaan tarkistusten ja niiden hyödyn.
+Osa porteista on syntynyt varmuuden vuoksi eikä siksi, että jokin olisi
+mennyt rikki.
+
+**Päätös:** uutta tarkistusta tai porttia ei lisätä ennakkoon. Se lisätään
+vasta kun oikea virhe on päässyt läpi, ja virhe kirjataan perusteluksi.
+
+**Perustelu:** tarkistus ansaitsee paikkansa löytämällä jotain (päätökset 4
+ja 5). Tähän asti kannattaneet ovat kaikki löytäneet oikean virheen:
+`check:figma` kytkemättömän komponentin, `check:paketti` npm:n joka oli
+jäljessä, luodut tekstit kannen väärät luvut. Vartija joka vartioi
+vartijaa ei ole löytänyt mitään — se vain lisää koneistoa jota pitää
+selittää.
+
+**Ensimmäinen sovellus:** ketjun (`content/prosessi.ts`) vartijat näytetään
+casesivulla, mutta build ei tarkista onko vartija ajossa, eikä otsikko vaadi
+johdettua lukua. Kumpikin oli toteutettu ja todennettu, ja kumpikin
+poistettiin ennen mergeä tällä perusteella.
+
+**Mitä tämä ei tarkoita:** olemassa olevia tarkistuksia ei pureta. Ne jotka
+ovat löytäneet virheen, jäävät.
+
+*Päätetty 7.10.2026 — Veli-Matti Pokela*

@@ -378,8 +378,7 @@ toimii sen jälkeen.
 
 Teksti tulee yhdestä lähteestä: `content/prosessi.ts` proosalle ja
 `lib/checks.ts` tarkistuslistalle. Sama ketju renderöityy case 03:lle,
-jossa jokaisen lenkin vartija luetaan `lib/checks.ts`:stä — vartija jota
-ei ajeta kaataa buildin. Molemmat päät ovat tarkistuksessa —
+jossa jokaisen lenkin vartijan nimi luetaan `lib/checks.ts`:stä. Molemmat päät ovat tarkistuksessa —
 muutos Figmassa ja muutos lähteessä kaatavat ajon yhtä lailla.
 
 Tarkistuslistaa ei kirjoiteta `content/prosessi.ts`:ään. Se johdetaan

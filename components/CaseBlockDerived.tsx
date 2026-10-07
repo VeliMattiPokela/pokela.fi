@@ -142,35 +142,15 @@ export default function CaseBlockDerived({
       );
     }
     case 'ketju': {
-      /* Vartijat nimetään tunnisteella, ja nimi luetaan rekisteristä.
-         Vartija jota ei ajeta kaataa buildin: ketju ei saa luvata
-         tarkistusta jota ei ole, samasta syystä kuin checks-lohkon
-         luku ei saa olla käsin kirjoitettu. */
-      const ajossa = new Map(checks().filter((c) => c.runs).map((c) => [c.id, c.title]));
-      for (const lenkki of ketju) {
-        for (const id of lenkki.vartijat) {
-          if (!ajossa.has(id)) {
-            throw new Error(
-              `Ketjun lenkki ${lenkki.numero} "${lenkki.otsikko}": vartija '${id}' ei ole ajossa. ` +
-                `Kytke tarkistus tai poista se lenkiltä (content/prosessi.ts).`,
-            );
-          }
-        }
-      }
-      if (!block.title.includes('{n}')) {
-        throw new Error(
-          `Case-lohko 'ketju': otsikosta puuttuu {n}. ` +
-            `Lenkkien määrä on johdettava, ei kirjoitettava. Nyt: "${block.title}"`,
-        );
-      }
+      /* Vartijan nimi luetaan rekisteristä, jotta se on sama kuin
+         tarkistuslistassa. Tuntematon tunniste näkyy sellaisenaan. */
+      const nimet = new Map(checks().map((c) => [c.id, c.title]));
       return (
         <Reveal>
           <section className="page case__section">
             <h2 className="meta">{block.label}</h2>
             <div className="case__section-body">
-              <h3 className="display-m case__h">
-                {block.title.replace('{n}', String(ketju.length))}
-              </h3>
+              <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
               <ol className="case__scope">
                 {ketju.map((lenkki) => (
@@ -189,7 +169,7 @@ export default function CaseBlockDerived({
                         {lenkki.tulossa
                           ? 'Tulossa'
                           : lenkki.vartijat.length
-                            ? `Vartija: ${lenkki.vartijat.map((id) => ajossa.get(id)).join(' · ')}`
+                            ? `Vartija: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
                             : 'Ei vartijaa'}
                       </span>
                     </span>

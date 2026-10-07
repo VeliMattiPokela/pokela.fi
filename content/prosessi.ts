@@ -20,9 +20,8 @@ export type Lenkki = {
   teksti: string;
   /**
    * Tarkistukset jotka vahtivat tätä lenkkiä: tunnisteet
-   * lib/checks.ts:stä. Casesivu kaataa buildin, jos vartija ei ole
-   * ajossa — ketju ei voi luvata tarkistusta jota ei ajeta. Tyhjä
-   * lista on rehellinen vastaus silloin kun konetta ei ole.
+   * lib/checks.ts:stä. Tyhjä lista on rehellinen vastaus silloin kun
+   * konetta ei ole.
    */
   vartijat: string[];
   /** Lenkki joka ei vielä toimi. Näytetään, mutta erotettuna. */

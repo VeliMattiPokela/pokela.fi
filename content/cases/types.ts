@@ -54,8 +54,7 @@ export type Block =
   | { kind: 'checks'; label: string; title: string; note: string }
   /** Prosessi yhtenä ketjuna. Lenkit luetaan content/prosessi.ts:stä
       ja vartijat lib/checks.ts:stä build-aikana, joten casetekstiin
-      kirjoitetaan vain otsikko ja johdanto. `title` sisältää `{n}`
-      kuten checks-lohko: lenkkien määrä on johdettu. */
+      kirjoitetaan vain otsikko ja johdanto. */
   | { kind: 'ketju'; label: string; title: string; body: string }
   /** Numeroitu putki, ei linkkejä. */
   | { kind: 'steps'; label: string; title: string; body: string; items: { h: string; p: string }[] }

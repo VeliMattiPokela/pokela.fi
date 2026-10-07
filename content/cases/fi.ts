@@ -304,7 +304,7 @@ const thisSite: Case = {
     {
       kind: 'ketju',
       label: 'Prosessi',
-      title: 'Yksi ketju, {n} lenkkiä',
+      title: 'Yksi ketju, nollasta seitsemään',
       body: 'Ketju kulkee olemassa olevan talon lähtötilanteesta AI:n tekemään prototyyppiin ja sieltä takaisin tuotteeseen. Jokaisella lenkillä on vartija, joka huomaa kun jokin eriytyy — tai se sanotaan ääneen, kun vartijaa ei ole. Ketju kertoo miten tällainen prosessi rakennetaan, ei sitä että juuri tämä koodi siirretään sellaisenaan.',
     },
     {
