@@ -93,6 +93,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
       'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
   },
   {
+    id: 'paketti',
+    title: 'Paketit',
+    proves:
+      'npm:ssä julkaistu @pokela/tokens ja @pokela/components vastaavat tavulleen sitä mitä repo rakentaisi. Jos sisältö eroaa mutta versio on sama, se sanotaan erikseen — npm ei päästä julkaisemaan samaa versiota uudelleen, joten korjaus alkaa versionnostosta.',
+    blind:
+      'Ei julkaise mitään eikä voi. Se kertoo että npm on jäljessä, ei korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa — kit voi olla kiinnitetty vanhaan versioon vaikka npm ja repo olisivat synkassa.',
+  },
+  {
     id: 'docs',
     title: 'Dokumentaatio',
     proves:

@@ -278,7 +278,41 @@ Vaihtoehto olisi versioida Figma-tiedosto haaroittain. Figmassa on
 haarat, mutta ne eivät seuraa gitin haaroja, joten se vaihtaisi ongelman
 toiseen eikä poistaisi sitä.
 
-**10. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
+**10. Paketit** (`scripts/check-paketti.mjs`) — ketjun viimeinen lenkki.
+Figma Make lukee **npm:ää, ei repoa**. Jos julkaistu paketti jää jälkeen,
+prototyypit tehdään eri komponenteilla kuin sivusto — ja mikään ei kerro
+siitä.
+
+Tarkistus rakentaa paketit repostä, lataa julkaistut npm:stä ja vertaa
+tiedosto tiedostolta.
+
+Se syntyi omasta virheestä. 6.10.2026 `ThemeToggle` lisättiin pakettiin ja
+ohjeiden komponenttilista päivittyi, mutta npm:ssä oli yhä versio ilman sitä
+— eli **ohjeet lupasivat Makelle komponentteja joita paketti ei sisältänyt.**
+Mikään ei huomannut, koska mikään ei katsonut:
+
+```
+✗ Paketti eriytynyt npm:stä: 1 kohtaa
+
+  @pokela/components@1.1.0
+      sisältö eroaa mutta versio on sama — nosta $meta.version ja julkaise
+      · index.js — sisältö eroaa
+      · ThemeToggle.js — on repossa muttei npm:ssä
+```
+
+**Versio on oma virheensä.** Molemmat paketit saavat versionsa
+`tokens.json`:n `$meta.version`:stä, eikä npm päästä julkaisemaan samaa
+versiota uudelleen. Siksi "sisältö eroaa, versio sama" sanotaan erikseen:
+korjaus ei ala julkaisusta vaan nostosta.
+
+**Raja:** ei julkaise mitään eikä voi — se kertoo että npm on jäljessä, ei
+korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa: kit voi
+olla kiinnitetty vanhaan versioon vaikka npm ja repo olisivat synkassa.
+
+Tarvitsee verkon, joten tämä ei ole `check:sync`-ketjussa — sama syy kuin
+Figma-tarkistuksessa.
+
+**11. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
 eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
 väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
 mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`

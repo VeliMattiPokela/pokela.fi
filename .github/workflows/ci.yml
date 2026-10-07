@@ -78,6 +78,13 @@ jobs:
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
 
+      # Ketjun viimeinen lenkki: Figma Make lukee npm:ää, ei repoa.
+      # Jos julkaistu paketti jää jälkeen, prototyypit tehdään eri
+      # komponenteilla kuin sivusto — hiljaa. Tarvitsee verkon, joten
+      # ei ole check:sync-ketjussa.
+      - name: Paketit vastaavat npm:ää
+        run: npm run check:paketti
+
       - name: Dokumentaatio ajan tasalla
         run: npm run check:docs
 
