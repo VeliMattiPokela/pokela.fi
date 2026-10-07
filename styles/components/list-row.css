@@ -130,59 +130,54 @@
      pystykeskelle. Koko tulee .icon--l:stä. */
 }
 
-/* ---- käännös ------------------------------------------------------- */
+/* ---- hover ja käännös ---------------------------------------------
+
+   Hover on hiljainen pinta (--badge-surface), ei käännös. Täysi
+   musta/valkoinen-käännös jokaisella hiirenliikkeellä oli liian raju
+   molemmissa teemoissa. Käännös jää tilalle joka on oikeasti päällä:
+   avattu rivi (`aria-expanded`) ja staattinen `.invert`. */
+.list-row:hover,
+.list-row:focus-visible {
+  background: var(--badge-surface);
+  text-decoration: none;
+}
+/* Meta tummuu pinnalla: --ink-faint jäisi vaaleassa teemassa
+   --badge-surfacen päällä alle AA:n (4,49:1). */
+.list-row:hover .meta,
+.list-row:focus-visible .meta { color: var(--ink-muted); }
 
 /* `.invert` on mukana, jotta tila voidaan näyttää myös staattisena
    (esim. dokumentaatiossa) ilman omaa sääntöä — muuten .list-row:n
    oma `color` voittaisi utilityn samalla spesifisyydellä ja teksti
    jäisi näkymättömiin. `aria-expanded` on avatun rivin sama tila. */
-.list-row:hover,
-.list-row:focus-visible,
 .list-row.invert,
 .list-row[aria-expanded='true'] {
   background: var(--invert-surface);
   color: var(--invert-ink);
   text-decoration: none;
 }
-.list-row:hover .list-row__description,
-.list-row:focus-visible .list-row__description,
 .list-row.invert .list-row__description,
 .list-row[aria-expanded='true'] .list-row__description,
-.list-row:hover .meta,
-.list-row:focus-visible .meta,
 .list-row.invert .meta,
 .list-row[aria-expanded='true'] .meta { color: var(--invert-faint); }
 
-/* Focus-renkaan pitää näkyä käännetyllä pinnalla. */
-.list-row:focus-visible {
-  outline-color: var(--invert-ink);
-  outline-offset: calc(var(--focus-offset) * -2);
-}
+/* Focus-renkaan pitää näkyä myös käännetyllä pinnalla. */
+.list-row:focus-visible { outline-offset: calc(var(--focus-offset) * -2); }
+.list-row[aria-expanded='true']:focus-visible { outline-color: var(--invert-ink); }
 
 /* Sisarrivit vaimennetaan hoverin aikana. */
 .list-rows:hover .list-row:not(:hover) { color: var(--ink-faint); }
 .list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-faint); }
 
-/* Kosketus: ei hoveria, käännös :active-tilassa. Viimeisenä = voittaa. */
+/* Kosketus: ei hoveria, hiljainen pinta :active-tilassa. Viimeisenä = voittaa. */
 @media (hover: none) {
-  .list-row:hover {
-    background: transparent;
-    color: var(--ink);
-  }
-  .list-row:hover .list-row__description { color: var(--ink-muted); }
+  .list-row:hover { background: transparent; }
   .list-row:hover .meta { color: var(--ink-faint); }
   .list-rows:hover .list-row:not(:hover) { color: var(--ink); }
   .list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-muted); }
 
-  .list-row:active,
-  .list-row[aria-expanded='true'] {
-    background: var(--invert-surface);
-    color: var(--invert-ink);
-  }
-  .list-row:active .list-row__description,
-  .list-row[aria-expanded='true'] .list-row__description,
-  .list-row:active .meta,
-  .list-row[aria-expanded='true'] .meta { color: var(--invert-faint); }
+  .list-row:active { background: var(--badge-surface); }
+  .list-row:active .meta { color: var(--ink-muted); }
 }
 
 @media (prefers-reduced-motion: reduce) {
