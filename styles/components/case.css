@@ -119,9 +119,9 @@
 .case__artefact-link { grid-area: link; }
 @media (min-width: 600px) { .case__artefact-link { text-align: right; } }
 
-a.case__artefact:hover { background: var(--invert-surface); color: var(--invert-ink); text-decoration: none; }
-a.case__artefact:hover .case__artefact-body,
-a.case__artefact:hover .meta { color: var(--invert-faint); }
+/* Hiljainen pinta kuten listarivillä, ei käännöstä. */
+a.case__artefact:hover { background: var(--badge-surface); text-decoration: none; }
+a.case__artefact:hover .meta { color: var(--ink-muted); }
 .case__artefact--pending { color: var(--ink-faint); }
 .case__artefact--pending .case__artefact-name { color: var(--ink-faint); }
 
