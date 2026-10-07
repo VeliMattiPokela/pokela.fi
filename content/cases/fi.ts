@@ -337,7 +337,7 @@ const thisSite: Case = {
       items: [
         {
           h: 'Mitä tarkistetaan',
-          p: 'Onko jokaisella komponentilla story ja Code Connect -kytkentä. Vastaavatko tokenien arvot Figman muuttujia. Puuttuuko variantteja kumpaakaan puolelta.',
+          p: 'Onko jokaisella komponentilla story ja jokaisella Figman komponentilla kytkentä koodiin. Löytyvätkö kytkennän lukemat propertyt ja variantit Figmasta. Figman muuttujia ei tarkisteta, vaikka se olisi hyödyllistä: rajapinta avaa ne vain Enterprise-tasolla. Organisaatiossa jolla se on, sama tarkistus ulottuu myös muuttujiin.',
         },
         {
           h: 'Milloin',
