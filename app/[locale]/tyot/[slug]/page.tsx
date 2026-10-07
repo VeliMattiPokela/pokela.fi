@@ -54,7 +54,7 @@ export default async function CasePage({
           {item.facts.map((fact) => (
             <div key={fact.label} className="case__fact">
               <dt className="meta">{fact.label}</dt>
-              <dd className="case__fact-value">
+              <dd className="body-s">
                 {fact.value ?? (
                   /* Tyhjää faktaa ei täytetä arvauksella. */
                   <span className="case__fact-value--missing">{dict.common.toBeAdded}</span>

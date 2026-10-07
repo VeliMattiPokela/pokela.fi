@@ -119,10 +119,10 @@ export default function CaseBlockDerived({
                     ].join(' ')}
                   >
                     <span className="case__check-main">
-                      <span className="case__check-name">{check.title}</span>
-                      <span className="case__check-body">{check.proves}</span>
+                      <span className="display-s case__check-name">{check.title}</span>
+                      <span className="body-s muted">{check.proves}</span>
                       {check.blind ? (
-                        <span className="case__check-blind">
+                        <span className="body-s faint case__check-blind">
                           <strong>Ei näe:</strong> {check.blind}
                         </span>
                       ) : null}
@@ -162,8 +162,8 @@ function ArtefactBody({
     <>
       <span className="meta case__artefact-num">{item.number}</span>
       <span className="case__artefact-main">
-        <span className="case__artefact-name">{item.label}</span>
-        <span className="case__artefact-body">{item.body}</span>
+        <span className="display-s case__artefact-name">{item.label}</span>
+        <span className="body-s muted">{item.body}</span>
       </span>
       <span className="meta case__artefact-link">
         {item.href ? (

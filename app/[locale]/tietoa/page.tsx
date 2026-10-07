@@ -159,7 +159,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <dl className="cv-list">
               {cv.tools.map((row) => (
                 <div key={row.label} className="cv-list__row">
-                  <dt className="label">{row.label}</dt>
+                  <dt className="body-s cv-list__label">{row.label}</dt>
                   <dd className="body-s muted">{row.items}</dd>
                 </div>
               ))}
@@ -171,7 +171,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <dl className="cv-list">
               {cv.education.map((row) => (
                 <div key={row.label} className="cv-list__row">
-                  <dt className="label">{row.label}</dt>
+                  <dt className="body-s cv-list__label">{row.label}</dt>
                   <dd className="body-s muted">{row.items}</dd>
                 </div>
               ))}

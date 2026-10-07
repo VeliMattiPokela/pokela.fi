@@ -50,7 +50,7 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
   return (
     <>
       <nav className="nav page" aria-label={dict.meta.siteName}>
-        <Link href={path(locale)} className="meta meta--ink nav__mark">
+        <Link href={path(locale)} className="meta ink nav__mark">
           {dict.meta.siteName}
         </Link>
 
@@ -97,11 +97,11 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
       {open ? (
         <div className="menu" role="dialog" aria-modal="true" aria-label={dict.nav.menu}>
           <div className="menu__head">
-            <span className="meta meta--ink nav__mark">{dict.meta.siteName}</span>
+            <span className="meta ink nav__mark">{dict.meta.siteName}</span>
             <button
               ref={closeRef}
               type="button"
-              className="meta meta--s meta--ink menu__close"
+              className="meta meta--s ink menu__close"
               onClick={() => setOpen(false)}
             >
               {dict.nav.close} <Icon name="close" size="s" />
@@ -111,7 +111,11 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
           <ul className="menu__links">
             {links.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+                <Link
+                  href={link.href}
+                  className="display-l"
+                  aria-current={isCurrent(link.href) ? 'page' : undefined}
+                >
                   {link.label}
                 </Link>
               </li>
@@ -122,13 +126,13 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
           </ul>
 
           <div className="menu__foot">
-            <a href={`mailto:${dict.footer.email}`} className="meta meta--ink">
+            <a href={`mailto:${dict.footer.email}`} className="meta ink">
               {dict.footer.email}
             </a>
             <span className="meta">{dict.footer.location}</span>
             <a
               href={dict.footer.linkedinUrl}
-              className="meta meta--ink"
+              className="meta ink"
               target="_blank"
               rel="noreferrer"
             >

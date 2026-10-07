@@ -70,8 +70,8 @@ export default function ListRow({
     >
       {number ? <span className="meta list-row__number">{number}</span> : null}
       <span className="list-row__main">
-        <span className="list-row__title">{title}</span>
-        {description ? <span className="list-row__description">{description}</span> : null}
+        <span className={`list-row__title ${size === 'm' ? 'display-m' : 'display-s'}`}>{title}</span>
+        {description ? <span className="body-s muted list-row__description">{description}</span> : null}
       </span>
       {meta ? <span className="meta list-row__meta">{meta}</span> : null}
     </Link>

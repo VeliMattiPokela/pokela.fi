@@ -51,8 +51,8 @@ export function Accordion({
       >
         <span className="meta list-row__number">{number}</span>
         <span className="list-row__main">
-          <span className="list-row__title">{title}</span>
-          <span className="list-row__description">{description}</span>
+          <span className="display-s list-row__title">{title}</span>
+          <span className="body-s muted list-row__description">{description}</span>
         </span>
         <span className="meta list-row__meta">{meta}</span>
         <Icon name={open ? 'minus' : 'plus'} size="l" className="list-row__icon" />

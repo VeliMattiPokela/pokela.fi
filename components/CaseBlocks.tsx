@@ -56,7 +56,7 @@ export function CaseNext({
     <div className="page">
       <Link href={href} className="case__next">
         <span className="meta">{label}</span>
-        <span className="case__next-title">{title} →</span>
+        <span className="display-m">{title} →</span>
       </Link>
     </div>
   );

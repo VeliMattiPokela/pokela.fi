@@ -18,10 +18,6 @@
 }
 
 .footer__cta {
-  font-family: var(--font-display);
-  font-size: var(--text-display-l);
-  line-height: var(--lh-display-l);
-  letter-spacing: var(--tr-display-l);
 }
 .footer__cta:hover { text-decoration: none; }
 .footer__cta span { display: block; }

@@ -60,14 +60,14 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
       <div className="detail__role">
         <div className="detail__role-col">
           <h4 className="meta">{dict.common.role}</h4>
-          <p className="detail__role-title">{d.roleTitle}</p>
+          <p className="body-l detail__role-title">{d.roleTitle}</p>
           <p className="body-s detail__role-note">{d.roleNote}</p>
         </div>
         <div className="detail__role-col">
           <h4 className="meta">{dict.common.responsible}</h4>
           <ul className="detail__list">
             {d.responsible.map((line) => (
-              <li key={line}>{line}</li>
+              <li key={line} className="body-s">{line}</li>
             ))}
           </ul>
         </div>
@@ -75,7 +75,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
           <h4 className="meta">{dict.common.contributed}</h4>
           <ul className="detail__list detail__list--muted">
             {d.contributed.map((line) => (
-              <li key={line}>{line}</li>
+              <li key={line} className="body-s">{line}</li>
             ))}
           </ul>
         </div>
@@ -86,7 +86,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
         <div className="detail__sections-body">
           {d.sections.map((section) => (
             <div key={section.title} className="detail__section">
-              <h5 className="detail__section-title">{section.title}</h5>
+              <h5 className="title detail__section-title">{section.title}</h5>
               <p className="measure detail__section-body">{section.body}</p>
             </div>
           ))}

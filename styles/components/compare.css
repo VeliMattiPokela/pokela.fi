@@ -68,7 +68,6 @@
   justify-content: center;
   background: var(--ink);
   color: var(--paper);
-  font-size: var(--text-body-s);
   letter-spacing: 0.1em;
   pointer-events: none;
 }

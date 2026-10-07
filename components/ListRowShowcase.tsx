@@ -125,7 +125,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                       <dt className="meta">
                         {group.label} ({group.tokens.length})
                       </dt>
-                      <dd className="cview__fact-value cview__tokens">
+                      <dd className="body-s muted cview__tokens">
                         {group.tokens.map((token) => (
                           <code key={token} className="cview__token">
                             {token}
@@ -188,7 +188,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                       <span className="meta meta--s cview__state-num">
                         {String(i + 1).padStart(2, '0')}
                       </span>
-                      <span className="cview__state-text">{story.description}</span>
+                      <span className="body-s ink cview__state-text">{story.description}</span>
                     </li>
                   ))}
                 </ol>

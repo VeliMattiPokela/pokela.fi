@@ -110,7 +110,7 @@ export default function BeforeAfter({
         <span className="meta meta--s compare__label compare__label--after">{afterLabel}</span>
 
         <span className="compare__divider" aria-hidden="true" />
-        <span className="compare__handle" aria-hidden="true">
+        <span className="body-s compare__handle" aria-hidden="true">
           ‹ ›
         </span>
 

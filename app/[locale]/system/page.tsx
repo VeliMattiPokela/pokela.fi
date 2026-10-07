@@ -67,7 +67,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
                 style={{ background: `var(--${name})` }}
                 aria-hidden="true"
               />
-              <span className="sys__swatch-name">--{name}</span>
+              <span className="body-s sys__swatch-name">--{name}</span>
               <span className="meta meta--s sys__swatch-values">
                 {tokens.color.light[name]} / {tokens.color.dark[name]}
               </span>
@@ -93,7 +93,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             return (
               <div key={name} className="sys__type-row">
                 <div className="sys__type-meta">
-                  <span className="meta meta--ink">{name}</span>
+                  <span className="meta ink">{name}</span>
                   <span className="meta meta--s">
                     {spec.size} · lh {spec.lineHeight}
                     {'tracking' in spec ? ` · tr ${spec.tracking}` : ''}
@@ -155,7 +155,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         <ul className="sys__space">
           {spaceSteps.map(([step, value]) => (
             <li key={step} className="sys__space-row">
-              <span className="meta meta--ink">--space-{step}</span>
+              <span className="meta ink">--space-{step}</span>
               <span className="sys__space-bar" style={{ width: value }} aria-hidden="true" />
               <span className="meta meta--s">{value}</span>
             </li>

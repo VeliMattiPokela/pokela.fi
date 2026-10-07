@@ -89,12 +89,6 @@
   }
 }
 .cview__fact dt { margin: 0; }
-.cview__fact-value {
-  margin: 0;
-  font-size: var(--text-body-s);
-  line-height: var(--lh-body-s);
-  color: var(--ink-muted);
-}
 
 .cview__tokens { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-8); }
 .cview__token {
@@ -263,9 +257,4 @@
   .cview__state { grid-template-columns: var(--space-56) minmax(0, 1fr); gap: var(--space-24); }
 }
 .cview__state-num { color: var(--ink-faint); }
-.cview__state-text {
-  font-size: var(--text-body-s);
-  line-height: var(--lh-body-s);
-  color: var(--ink);
-  max-width: var(--measure);
-}
+.cview__state-text { max-width: var(--measure); }

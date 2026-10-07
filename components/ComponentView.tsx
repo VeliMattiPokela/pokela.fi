@@ -121,7 +121,7 @@ export default function ComponentView({
                 <a
                   key={link.label}
                   href={link.href}
-                  className="meta meta--ink cview__link"
+                  className="meta ink cview__link"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -174,7 +174,7 @@ export function FactList({ items }: { items: { label: string; value: ReactNode }
       {items.map((item) => (
         <div key={item.label} className="cview__fact">
           <dt className="meta">{item.label}</dt>
-          <dd className="cview__fact-value">{item.value}</dd>
+          <dd className="body-s muted">{item.value}</dd>
         </div>
       ))}
     </dl>

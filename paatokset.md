@@ -206,10 +206,10 @@ npm-rekisterin scopen luonti ja AI-ominaisuuksien kytkeminen päälle.
 
 ---
 
-## 7. EHDOTUS — typografian nimeämisperiaate
+## 7. Typografian nimeämisperiaate
 
-> **Tätä ei ole päätetty.** Kirjattu ennen muutoksia, koska väärin tehty
-> korjaus jättäisi saman ongelman uudella nimellä.
+> **Päätetty ja toteutettu 7.10.2026.** Ehdotus kirjattiin ensin, koska
+> väärin tehty korjaus olisi jättänyt saman ongelman uudella nimellä.
 
 ### Löydös
 
@@ -317,6 +317,85 @@ olemassa olevaa tyyliä. Tämä on design system -päätös, ei siivous.
 Sama toisin päin: `.btn` on `body-s + paino 500`, ja sillä **on** nimi
 Figmassa (`Button`) muttei koodissa.
 
+### Toteutus — mitä tehtiin
+
+**Valittiin B.** `base.css` sai yhden uuden nimetyn tyyppiluokan ja kolme
+väriutilityä:
+
+```css
+.title                  body-l + paino 500   — oli neljässä paikassa ilman nimeä
+.ink .muted .faint      nimetty tokenin mukaan, ei paikan
+```
+
+`.meta--ink` poistui ja korvautui `.ink`:llä kahdessatoista paikassa — kaksi
+konventiota samalle asialle oli juuri sitä sotkua jota tämä korjaa.
+
+**Ad hoc -typografia 39 → 9.** Jäljelle jääneet ja miksi:
+
+| | Miksi jää |
+|---|---|
+| `.cv-job__project-name`, `.cv-list__label` | yksi ominaisuus (paino), ei nimetyn tyylin toisto |
+| `.btn` | komponentti jolla on `line-height: 1` pystykeskitystä varten — **ei** sama asia kuin muu body-s |
+| `body` | globaali elementti |
+| 5 koodityypin sääntöä | ks. avoin kohta alla |
+
+**`.label`-luokka luotiin ja poistettiin saman päivän aikana.** Se oli
+tarkoitettu `.btn`:lle ja `.cv-list__label`:lle, mutta `.btn`:n riviväli on 1
+eikä `--lh-body-s` — ne eivät ole sama tyyli. Yhden käyttäjän nimetty luokka
+olisi ollut juuri sitä ylimitoitusta jota tässä vastustetaan.
+
+### Turvaverkko ja mitä se löysi
+
+`scripts/tyylivedos.mjs` ottaa vedoksen siitä mitä selain laskee jokaiselle
+tekstielementille: **2552 elementtiä kuudelta sivulta, kymmenen ominaisuutta
+kussakin.** Luokkanimen vaihto voi pudottaa tyylin hiljaa, eikä yksikään
+tarkistus näe sitä.
+
+Lopputulos: **40 eroa, kaksi lajia, molemmat tarkoitettuja.**
+
+```
+lineHeight: 23.1px → 22.4px   ×22   body-s saa oman rivivälinsä (1.6), ei perittyä (1.65)
+textWrap:   wrap → balance    ×18   display-luokat tasaavat rivityksen
+```
+
+Molemmissa nimetty luokka on **täydellisempi** kuin ad hoc -sääntö jonka se
+korvaa. Se on koko muutoksen pointti.
+
+Vedos löysi matkalla myös kaksi omaa virhettäni: `.case__trio`:n `<h4>` ja
+`<p>` jäivät ilman luokkaa kun poistin elementtivalitsimen, ja ensimmäisellä
+kierroksella `base.css`:n lisäykset olivat vahingossa peruttuina.
+
+### Ensimmäinen yritys oli väärä
+
+Tein 34 kohtaa kaavalla. Se poisti `print.css`:stä kolme **tulostussääntöä**,
+kaksi **tilasääntöä** (`.case__artefact--pending .case__artefact-name`) ja
+katkaisi yhden kommentin kesken. Kaikki peruttiin.
+
+**Luokka voi olla olemassa ilman ruututyyliä** — tulostuskoukkuna tai
+tilavalitsimen ankkurina. Tulostussääntöjen poisto olisi mennyt läpi myös
+vedoksesta, koska se mittaa ruutua eikä paperia. Tämä tehtiin lopulta
+tiedosto kerrallaan lukien.
+
+### Avoin: koodityypin viisi sääntöä
+
+`code`-typografia esiintyy viidessä säännössä kolmella eri määrittelyllä:
+
+```
+system.css          .code              code-koko  + code-perhe + taustapalkki
+component-view.css  .code__body pre    code-koko  + code-perhe
+component-view.css  .cview__token      body-s     + code-perhe + taustapalkki
+component-view.css  .code__path        code-perhe
+component-view.css  .cview__note code  code-perhe
+```
+
+Kaksi palkkia, kaksi eri kokoa. `code` on `tokens.json`:ssa mutta ei Figman
+tekstityyleissä, ja `Button` on Figmassa mutta ei tokeneissa.
+
+**Tätä ei yhtenäistetty**, koska se muuttaisi `.cview__token`:n koon ja
+`.code`:n rivivälin — eli se on design-päätös jolla on näkyvä seuraus, ei
+siivous. Sekoittaminen mekaaniseen refaktorointiin olisi tehnyt lopputuloksen
+mahdottomaksi todentaa.
+
 ### Mitä EI pidä tehdä ensin
 
 Ehdotin tarkistusta joka vertaisi `tokens.json`:n `type`-ryhmää Figman
@@ -328,4 +407,4 @@ Tarkistus tulee vasta kun toteutus on korjattu, ja se on eri tarkistus:
 `font-weight`:ia; typografia tulee nimetystä luokasta.* Se olisi löytänyt
 kaikki 36.
 
-*Ehdotus kirjattu 7.10.2026 — päätöstä odotetaan*
+*Päätetty ja toteutettu 7.10.2026 — Veli-Matti Pokela*

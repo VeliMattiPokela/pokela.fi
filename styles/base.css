@@ -57,10 +57,9 @@ img, svg, video { display: block; max-width: 100%; }
    yhdistelmää käytettiin neljässä paikassa ilman nimeä, joten Figmassa
    ei voinut olla sille tyyliä — nimetön ei ole peilattavissa.
 
-   Fonttiperhe on mukana vaikka body antaa sen perintönä: <button> ei
-   peri fonttia selaimelta, ja .label osuu myös nappeihin. */
+   Fonttiperhe on mukana vaikka body antaa sen perintönä — <h3> ja <h4>
+   eivät peri sitä kaikissa selaimissa. */
 .title { font-family: var(--font-ui); font-size: var(--text-body-l); line-height: var(--lh-body-l); font-weight: var(--weight-500); margin: 0; }
-.label { font-family: var(--font-ui); font-size: var(--text-body-s); line-height: var(--lh-body-s); font-weight: var(--weight-500); margin: 0; }
 
 /* Leipätekstin mitta. Ei koskaan yli 62 merkkiä. */
 .measure { max-width: var(--measure); }
@@ -79,7 +78,6 @@ img, svg, video { display: block; max-width: 100%; }
   color: var(--ink-faint);
 }
 .meta--s { font-size: var(--text-meta-s); line-height: var(--lh-meta-s); letter-spacing: var(--tr-meta-s); }
-.meta--ink { color: var(--ink); }
 
 /* ---- värit -----------------------------------------------------------
    Nimetty tokenin mukaan, ei paikan. Seitsemän komponenttiluokkaa teki

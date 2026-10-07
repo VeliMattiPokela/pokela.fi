@@ -64,18 +64,7 @@
   min-width: 0;
 }
 
-.list-row__title {
-  font-family: var(--font-display);
-  font-size: var(--text-display-s);
-  line-height: var(--lh-display-s);
-  letter-spacing: var(--tr-display-s);
-}
 
-.list-row__description {
-  font-size: var(--text-body-s);
-  line-height: var(--lh-body-s);
-  color: var(--ink-muted);
-}
 
 /* ---- numerollinen -------------------------------------------------- */
 
@@ -103,11 +92,6 @@
   .list-row--m.list-row--numbered { grid-template-columns: var(--space-56) minmax(0, 1fr) 260px; }
 }
 .list-row--m .list-row__main { gap: var(--space-12); }
-.list-row--m .list-row__title {
-  font-size: var(--text-display-m);
-  line-height: var(--lh-display-m);
-  letter-spacing: var(--tr-display-m);
-}
 .list-row--m .list-row__description { max-width: var(--measure); }
 
 /* ---- avautuva ------------------------------------------------------

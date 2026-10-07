@@ -82,7 +82,7 @@ export const Tekstissa: Story = {
       <a href="#" className="btn btn--text" style={{ alignSelf: 'flex-start' }}>
         Katso kaikki työt <Icon name="arrow-right" />
       </a>
-      <span className="meta meta--ink">
+      <span className="meta ink">
         LinkedIn <Icon name="arrow-up-right" size="s" />
       </span>
     </div>

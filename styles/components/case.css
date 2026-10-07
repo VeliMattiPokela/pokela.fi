@@ -34,7 +34,6 @@
   padding: var(--space-20) var(--space-20) var(--space-20) 0;
   border-bottom: var(--hairline) solid var(--line);
 }
-.case__fact-value { font-size: var(--text-body-s); line-height: var(--lh-body-s); }
 .case__fact-value--missing { color: var(--ink-faint); font-style: italic; }
 
 /* Jos osio alkaa heti faktarivin jälkeen, faktarivin alareuna toimii
@@ -57,7 +56,6 @@
 .case__h { margin: 0; }
 .case__p { margin: 0; color: var(--ink-muted); }
 .case__item { display: flex; flex-direction: column; gap: var(--space-8); }
-.case__item-h { margin: 0; font-size: var(--text-body-l); font-weight: var(--weight-500); }
 
 /* Faktarivi on <dl>; nollataan selaimen oletussisennys. */
 .case__facts dd { margin: 0; }
@@ -73,8 +71,7 @@
 /* Otsikko on h4, ei h3: osiossa on jo h2 (label) ja h3 (otsikko).
    Valitsin osoitti pitkään h3:een, jolloin nämä jäivät kokonaan
    tyylittelemättä ja putosivat selaimen oletukseen. */
-.case__trio h4 { margin: var(--space-12) 0 var(--space-8); font-size: var(--text-body-l); font-weight: var(--weight-500); }
-.case__trio p { margin: 0; color: var(--ink-muted); font-size: var(--text-body-s); line-height: var(--lh-body-s); }
+.case__trio h4 { margin: var(--space-12) 0 var(--space-8); }
 
 /* Käännetty väitepalkki casen keskellä. */
 .case__band { padding-block: var(--space-48); margin-block: var(--section-gap); }
@@ -96,7 +93,6 @@
   padding: var(--space-16) var(--space-20) var(--space-16) 0;
   border-bottom: var(--hairline) solid var(--line);
 }
-.case__scope-name { font-size: var(--text-body-s); }
 
 /* Artefaktilinkit (case 03). */
 .case__artefacts { border-top: var(--hairline) solid var(--line-strong); }
@@ -122,8 +118,6 @@
 .case__artefact-main { grid-area: main; display: flex; flex-direction: column; gap: var(--space-4); }
 .case__artefact-link { grid-area: link; }
 @media (min-width: 600px) { .case__artefact-link { text-align: right; } }
-.case__artefact-name { font-family: var(--font-display); font-size: var(--text-display-s); line-height: var(--lh-display-s); }
-.case__artefact-body { font-size: var(--text-body-s); line-height: var(--lh-body-s); color: var(--ink-muted); }
 
 a.case__artefact:hover { background: var(--invert-surface); color: var(--invert-ink); text-decoration: none; }
 a.case__artefact:hover .case__artefact-body,
@@ -154,15 +148,10 @@ a.case__artefact:hover .meta { color: var(--invert-faint); }
 .case__check-main { grid-area: main; display: flex; flex-direction: column; gap: var(--space-4); }
 .case__check-state { grid-area: state; }
 @media (min-width: 600px) { .case__check-state { text-align: right; } }
-.case__check-name { font-family: var(--font-display); font-size: var(--text-display-s); line-height: var(--lh-display-s); }
-.case__check-body { font-size: var(--text-body-s); line-height: var(--lh-body-s); color: var(--ink-muted); }
 
 /* Raja on eri asia kuin kuvaus, joten se erottuu myös typografisesti.
    Se on sivun rehellisin kohta: tarkistus kertoo mitä se ei näe. */
 .case__check-blind {
-  font-size: var(--text-body-s);
-  line-height: var(--lh-body-s);
-  color: var(--ink-faint);
   padding-left: var(--space-16);
   border-left: var(--hairline) solid var(--line);
 }
@@ -178,7 +167,6 @@ a.case__artefact:hover .meta { color: var(--invert-faint); }
   padding-block: var(--space-32);
   border-top: var(--hairline) solid var(--line-strong);
 }
-.case__next-title { font-family: var(--font-display); font-size: var(--text-display-m); line-height: var(--lh-display-m); }
 
 /* Täydennettävä kohta. Näkyy vain kehityksessä. */
 .todo {
@@ -186,25 +174,14 @@ a.case__artefact:hover .meta { color: var(--invert-faint); }
   padding: var(--space-12) var(--space-16);
   border: var(--hairline) dashed var(--line-strong);
   color: var(--ink-faint);
-  font-size: var(--text-body-s);
 }
 
 /* Putken askel: nimi + selite samalla rivillä. */
 .case__scope-item--wide { align-items: baseline; }
 .case__scope-item--wide > span:last-child { display: flex; flex-direction: column; gap: var(--space-4); }
-.case__scope-note { font-size: var(--text-body-s); line-height: var(--lh-body-s); color: var(--ink-muted); }
 
 /* Kaksi vaihtoehtoa rinnakkain. */
 .case__choice { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-20); border-top: var(--hairline) solid var(--line-strong); }
-.case__choice-title {
-  margin: 0;
-  font-family: var(--font-display);
-  /* <h4> saisi selaimelta lihavan, jota Bodonista ei ole. */
-  font-weight: var(--weight-400);
-  font-size: var(--text-display-s);
-  line-height: var(--lh-display-s);
-  letter-spacing: var(--tr-display-s);
-}
 .case__choice-body { margin: 0; color: var(--ink-muted); }
 .case__choice-note { color: var(--ink); }
 

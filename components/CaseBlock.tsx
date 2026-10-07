@@ -66,7 +66,7 @@ export default function CaseBlock({
                 const Heading = block.lead ? 'h4' : 'h3';
                 return (
                   <div key={i} className="case__item">
-                    {item.h ? <Heading className="case__item-h">{item.h}</Heading> : null}
+                    {item.h ? <Heading className="title">{item.h}</Heading> : null}
                     {item.p ? <p className="body-l measure case__p">{item.p}</p> : null}
                   </div>
                 );
@@ -141,8 +141,8 @@ export default function CaseBlock({
                       caption={item.media.caption}
                       sizes={SIZES.kolmikko}
                     />
-                    <h4>{item.h}</h4>
-                    <p>
+                    <h4 className="title">{item.h}</h4>
+                    <p className="body-s muted">
                       <CaseText text={item.p} locale={locale} currentSlug={slug} />
                     </p>
                   </div>
@@ -165,7 +165,7 @@ export default function CaseBlock({
                 {block.items.map((item, i) => (
                   <li key={item} className="case__scope-item">
                     <span className="meta">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="case__scope-name">{item}</span>
+                    <span className="body-s">{item}</span>
                   </li>
                 ))}
               </ol>
@@ -187,8 +187,8 @@ export default function CaseBlock({
                   <li key={item.h} className="case__scope-item case__scope-item--wide">
                     <span className="meta">{String(i + 1).padStart(2, '0')}</span>
                     <span>
-                      <span className="case__scope-name">{item.h}</span>
-                      <span className="case__scope-note">{item.p}</span>
+                      <span className="body-s">{item.h}</span>
+                      <span className="body-s muted">{item.p}</span>
                     </span>
                   </li>
                 ))}
@@ -207,7 +207,7 @@ export default function CaseBlock({
               <div className="case__pair">
                 {block.items.map((item) => (
                   <div key={item.h} className="case__choice">
-                    <h4 className="case__choice-title">{item.h}</h4>
+                    <h4 className="display-s">{item.h}</h4>
                     <p className="case__choice-body">{item.p}</p>
                     <p className="meta case__choice-note">
                       <CaseText text={item.note} locale={locale} currentSlug={slug} />
@@ -226,7 +226,7 @@ export default function CaseBlock({
       return (
         <div className="page case__section">
           <span className="meta">{dict.common.todo}</span>
-          <span className="todo">{block.text}</span>
+          <span className="body-s todo">{block.text}</span>
         </div>
       );
   }

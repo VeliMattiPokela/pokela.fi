@@ -42,7 +42,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </h1>
 
         <div className="home__intro-meta">
-          <p className="meta meta--ink home__role">{home.role}</p>
+          <p className="meta ink home__role">{home.role}</p>
           {home.availability ? (
             <p className="meta home__availability">{home.availability}</p>
           ) : null}
