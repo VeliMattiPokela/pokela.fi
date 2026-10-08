@@ -91,16 +91,16 @@ const leads: Lead[] = [
     tagline: 'Oman taloyhtiön ongelmasta myytäväksi palveluksi',
     lede:
       'Taloyhtiöiden tilojen varaus ja maksut webissä, iOS:llä ja Androidilla. Oma tuote ja yritys.',
-    meta: 'Perustaja — tuote, design, toteutus',
+    meta: 'Perustaja · tuote, design, toteutus',
     next: 'tama-sivusto',
   },
   {
     slug: 'tama-sivusto',
     number: '03',
     title: 'Tämä sivusto',
-    tagline: 'Yksi lähde, kaksi suuntaa — design system koodissa ja Figmassa',
+    tagline: 'Design system, joka pysyy samana koodissa ja Figmassa',
     lede:
-      'Design system elää koodissa ja pysyy synkassa Figman kanssa. Storybook, Code Connect ja automaattinen synkkatarkistus — kaikki avattavissa.',
+      'Design system on koodissa, ja Figmaa verrataan siihen automaattisesti. Storybook, Code Connect ja tarkistukset ovat kaikki avattavissa.',
     meta: 'Design system, Storybook, Code Connect',
     next: 'colliers',
   },
@@ -133,19 +133,19 @@ const previous: Previous[] = [
       sections: [
         {
           title: 'Käyttäjäymmärrys ja konseptointi',
-          body: 'Haastattelut, kyselyt, analytiikka ja käytettävyystestit. Näiden pohjalta rakennettiin uusien ominaisuuksien konseptit — ennen kuin yhtäkään näyttöä oli piirretty valmiiksi.',
+          body: 'Haastattelut, kyselyt, analytiikka ja käytettävyystestit. Niiden pohjalta tehtiin uusien ominaisuuksien konseptit ennen kuin näkymiä piirrettiin valmiiksi.',
         },
         {
           title: 'Käyttöliittymä ja interaktiot',
-          body: 'Näkymät ja vuorovaikutus iOS:lle ja Androidille. Prototyypit testattiin asiakkailla ennen toteutusta, ja animaatiot suunniteltiin osaksi käyttöliittymää — ei koristeeksi sen päälle.',
+          body: 'Näkymät ja vuorovaikutus iOS:lle ja Androidille. Prototyypit testattiin asiakkailla ennen toteutusta, ja animaatiot suunniteltiin samalla kuin muu käyttöliittymä.',
         },
         {
           title: 'Saavutettavuus koko sovelluksessa',
-          body: 'Kävimme sovelluksen läpi näkymä näkymältä ja korjasimme värikontrastit, kosketuskohteiden koon ja ruudunlukijatuen. Kertaluonteisen korjauksen sijaan siitä tuli osa tapaa tehdä.',
+          body: 'Kävimme sovelluksen läpi näkymä näkymältä ja korjasimme värikontrastit, kosketuskohteiden koon ja ruudunlukijatuen. Sen jälkeen saavutettavuus kuului tiimin tavalliseen työhön.',
         },
         {
           title: 'Designista toteutukseen',
-          body: 'Kehitin tiimin tapaa siirtää design toteutukseen. Se lanka johtaa suoraan siihen, että suunnittelen nykyään koodissa.',
+          body: 'Kehitin tiimin tapaa siirtää design toteutukseen. Siitä alkoi kiinnostus, jonka takia suunnittelen nykyään usein suoraan koodissa.',
         },
       ],
       media: [
@@ -193,11 +193,11 @@ const previous: Previous[] = [
         },
         {
           title: 'Tumma teema, kaikki laitekoot',
-          body: 'Järjestelmä on auki pitkiä jaksoja, joten tumma teema valittiin katselumukavuuden takia — ei tyylin. Palvelu toimii mobiilista työpöydälle.',
+          body: 'Järjestelmä on auki pitkiä jaksoja, joten tumma teema valittiin, koska se on silmille kevyempi. Palvelu toimii mobiilista työpöydälle.',
         },
       ],
       media: [
-        { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Toimipistelista ja kartta työpöydällä — päänäkymä' },
+        { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Päänäkymä: toimipistelista ja kartta työpöydällä' },
         { id: 'aisti-mobiili', kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
         { id: 'aisti-tiketti', kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
       ],

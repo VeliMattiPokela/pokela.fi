@@ -14,7 +14,7 @@ const colliers: Case = {
   title: 'Colliers Asunnot',
   tagline: 'Vuokra-asuntopalvelu, joka suunniteltiin koodissa.',
   facts: [
-    { label: 'Rooli', value: 'Senior Designer — design, front end, CMS' },
+    { label: 'Rooli', value: 'Senior Designer · design, front end, CMS' },
     { label: 'Kesto', value: '6 kuukautta konseptista julkaisuun' },
     { label: 'Tiimi', value: 'Pieni monialainen tiimi' },
     { label: 'Stack', value: 'Next.js, React, TypeScript, Storybook, Strapi' },
@@ -37,14 +37,14 @@ const colliers: Case = {
         },
         {
           h: 'Tehtävä',
-          p: 'Uusi palvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Suunnittelu ja toteutus samoissa käsissä, koska aikataulu ei kestänyt käännösvaihetta.',
+          p: 'Uusi palvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Tein sekä suunnittelun että toteutuksen, koska aikataulussa ei ollut tilaa erilliselle siirrolle suunnitelmista koodiin.',
         },
       ],
     },
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Ei Figmaa ensin. Koodi ensin.',
+      lead: 'Tässä projektissa aloitin suoraan koodista.',
       items: [
         {
           h: 'Valinta',
@@ -52,7 +52,7 @@ const colliers: Case = {
         },
         {
           h: 'Miksi',
-          p: 'Kuva palvelusta ei kerro miltä palvelu tuntuu. Kuuden kuukauden aikataulussa ei myöskään ollut tilaa piirtää samaa asiaa kahdesti.',
+          p: 'Aikataulu oli tiukka, eikä samaa asiaa ehtinyt tehdä kahdesti, ensin Figmaan ja sitten koodiin. Kun suunnittelin suoraan selaimeen, asiakas pääsi kokeilemaan palvelua alusta asti.',
         },
         {
           h: 'Seuraus',
@@ -80,8 +80,8 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Asiakas kommentoi toimivaa palvelua, ei kuvaa siitä.',
-      body: 'Klikattava skeleton oli hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu myöten olemassa jo ensimmäisinä viikkoina. Se toimi samalla projektin viestintävälineenä: kokonaisuus oli nähtävissä ennen kuin yhtäkään pikseliä oli viimeistelty.',
+      title: 'Asiakas kommentoi toimivaa palvelua.',
+      body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
       kind: 'trio',
@@ -95,23 +95,23 @@ const colliers: Case = {
         },
         {
           media: { id: 'colliers-vuokraus', ratio: '4:5', caption: 'Vuokraa heti -polku, yksi vaihe' },
-          h: 'Vuokraa heti — vuokraus verkossa',
+          h: 'Vuokraa heti: vuokraus verkossa',
           p: 'Monivaiheinen polku, joka on suunniteltu keskeytettäväksi ja jatkettavaksi. Suunnittelu ja toteutus iteroitiin suoraan koodissa.',
         },
         {
           media: { id: 'colliers-strapi', ratio: '4:5', caption: 'Strapi-editori sisältöä muokattaessa' },
           h: 'Sisällönhallinta ja whitelabel',
-          p: 'Strapi-pohjainen järjestelmä, jolla markkinointi tekee laskeutumissivut itse — myös asiakkaan omalla ilmeellä.',
+          p: 'Strapi-pohjainen järjestelmä, jolla markkinointi tekee laskeutumissivut itse, tarvittaessa myös asiakkaan omalla ilmeellä.',
         },
       ],
     },
     {
       kind: 'text',
       label: 'Design system',
-      lead: 'Yksi lähde, ja se on koodi',
+      lead: 'Design system on koodissa',
       items: [
         {
-          p: 'Tokenit, komponentit ja layoutit elävät Storybookissa. Ei erillistä designtiedostoa, joka vanhenee ensimmäisen sprintin aikana — dokumentaatio on sama asia kuin tuotantokoodi.',
+          p: 'Tokenit, komponentit ja layoutit ovat Storybookissa. Erillistä Figma-tiedostoa ei ollut, joten dokumentaatio ja tuotantokoodi pysyivät samana.',
         },
       ],
     },
@@ -120,7 +120,7 @@ const colliers: Case = {
       label: 'Vaikeinta',
       items: [
         {
-          p: 'Kuusi kuukautta koko palvelulle tarkoitti, että päätöksiä tehtiin nopeasti ja osa niistä jouduttiin perumaan. Se oli mahdollista vain koska muutos syntyi siihen samaan paikkaan jossa tuote eli.',
+          p: 'Kuusi kuukautta koko palvelulle tarkoitti, että päätöksiä tehtiin nopeasti ja osa niistä jouduttiin perumaan. Perumiseen riitti yleensä muutos koodiin, koska erillistä suunnitelmaa ei tarvinnut päivittää.',
         },
       ],
     },
@@ -144,7 +144,7 @@ const blokbook: Case = {
   title: 'Blokbook',
   tagline: 'Oman taloyhtiön ongelmasta myytäväksi palveluksi.',
   facts: [
-    { label: 'Rooli', value: 'Perustaja — tuote, design, toteutus' },
+    { label: 'Rooli', value: 'Perustaja · tuote, design, toteutus' },
     { label: 'Palvelun nykytila', value: 'Markkinoilla, käytössä useammassa taloyhtiössä' },
     { label: 'Alustat', value: 'Web, iOS, Android' },
     { label: 'Stack', value: null },
@@ -179,11 +179,11 @@ const blokbook: Case = {
       items: [
         {
           h: 'Valinta',
-          p: 'En lähtenyt validoimaan markkinaa vaan ratkaisemaan ongelman jonka tunsin itse. Ensimmäinen käyttäjä oli oma taloyhtiö.',
+          p: 'Aloitin ongelmasta, jonka tunsin itse, enkä tehnyt erillistä markkinaselvitystä. Ensimmäinen käyttäjä oli oma taloyhtiö.',
         },
         {
           h: 'Miksi',
-          p: 'Oikea käyttö kertoo enemmän kuin haastattelu. Palvelu oli tuotannossa oikeilla varauksilla ja oikeilla maksuilla ennen kuin sitä myytiin kenellekään.',
+          p: 'Oikeasta käytöstä näki nopeasti, mikä toimii. Palvelu oli tuotannossa oikeilla varauksilla ja oikeilla maksuilla ennen kuin sitä myytiin kenellekään.',
         },
         {
           h: 'Seuraus',
@@ -198,27 +198,27 @@ const blokbook: Case = {
         {
           id: 'blokbook-asukas',
           ratio: '4:3',
-          label: 'Asukas — varaa ja maksaa',
+          label: 'Asukas varaa ja maksaa',
           caption: 'Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu.',
         },
         {
           id: 'blokbook-hallinta',
           ratio: '4:3',
-          label: 'Isännöinti — hallinnoi',
+          label: 'Isännöinti hallinnoi',
           caption: 'Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet.',
         },
       ],
     },
     {
       kind: 'band',
-      title: 'Kun vastaa kaikesta, kokonaisuus on ainoa asia joka ratkaisee.',
-      body: 'Yksin tehdessä jokainen päätös osuu johonkin toiseen päätökseen: hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia, koodivalinta muuttaa sitä mitä voi myydä. Se vaatii vahvan käsityksen siitä mitä valinta tarkoittaa sekä tuotteena että toteutuksena — eikä kukaan ole tarkistamassa jälkiä.',
+      title: 'Kun tekee kaiken itse, päätökset vaikuttavat toisiinsa.',
+      body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
     },
     {
       kind: 'scope',
       label: 'Vastuualueet',
       title: 'Mistä kaikesta vastaan',
-      body: 'Tuotteen jokainen osa-alue konseptista ylläpitoon. Sama ihminen päättää hinnan, piirtää käyttöliittymän ja vastaa puhelimeen.',
+      body: 'Tuotteen kaikki osa-alueet konseptista ylläpitoon, hinnoittelusta asiakastukeen.',
       items: [
         'Konseptointi ja liikeidea',
         'Brändi ja ilme',
@@ -256,7 +256,7 @@ const blokbook: Case = {
     {
       kind: 'text',
       label: 'Tilanne nyt',
-      lead: 'Palvelu on markkinoilla ja kehittyy jatkuvasti.',
+      lead: 'Palvelu on markkinoilla, ja kehitys jatkuu.',
       items: [
         {
           p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on omani, joten tuotteen suunta on omissa käsissä.',
@@ -276,9 +276,9 @@ const thisSite: Case = {
   eyebrow: 'Case 03 · Tämä sivusto',
   title: 'Yksi lähde, kaksi suuntaa',
   titleLines: ['Yksi lähde,', 'kaksi suuntaa'],
-  tagline: 'Design system elää koodissa. Figma ja AI lukevat sitä. Kone huomaa, kun jokin eriytyy.',
+  tagline: 'Design system on koodissa. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja, ja automaattiset tarkistukset huomaavat, jos ne alkavat erota.',
   facts: [
-    { label: 'Rooli', value: 'Kaikki — tämä on oma sivustoni' },
+    { label: 'Rooli', value: 'Kaikki, tämä on oma sivustoni' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
     { label: 'Erityistä', value: 'Kaikki artefaktit ovat julkisia ja avattavissa' },
   ],
@@ -288,41 +288,41 @@ const thisSite: Case = {
       label: 'Miksi tämä on olemassa',
       items: [
         {
-          p: 'Oma tapani on suunnitella suoraan koodiin. Mutta konsulttina työskentelen asiakkaiden todellisuudessa, ja monessa organisaatiossa Figma on annettu lähtökohta — suunnittelijoita, sidosryhmiä ja prosesseja joita ei muuteta yhden tekijän mieltymyksen takia.',
+          p: 'Suunnittelen itse usein suoraan koodiin. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
         },
         {
           h: 'Mitä tein',
-          p: 'Rakensin tämän sivuston niin, että molemmat suunnat toimivat samasta lähteestä — ja niin, että sen voi tarkistaa. Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build varmistaa että ne pysyvät synkassa.',
+          p: 'Rakensin tämän sivuston niin, että kumpikin tapa toimii samasta lähteestä. Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
         },
       ],
     },
     {
       kind: 'artefacts',
       label: 'Avaa ja tarkista',
-      note: 'Jokainen väite tällä sivulla on tarkistettavissa. Tehty ja tulossa ovat eri asioita, eikä niitä esitetä samana — linkki ilmestyy sinä päivänä kun artefakti saa julkisen osoitteen.',
+      note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin. Se mikä ei vielä ole julkisesti auki, on merkitty tulossa olevaksi.',
     },
     {
       kind: 'ketju',
       label: 'Prosessi',
-      title: 'Yksi ketju, nollasta seitsemään',
-      body: 'Ketju kulkee olemassa olevan talon lähtötilanteesta AI:n tekemään prototyyppiin ja sieltä takaisin tuotteeseen. Jokaisella lenkillä on vartija, joka huomaa kun jokin eriytyy — tai se sanotaan ääneen, kun vartijaa ei ole. Ketju kertoo miten tällainen prosessi rakennetaan, ei sitä että juuri tämä koodi siirretään sellaisenaan.',
+      title: 'Prosessi vaihe vaiheelta',
+      body: 'Prosessi alkaa yrityksen nykytilanteesta ja päättyy siihen, että AI:lla tehty prototyyppi palaa tuotteen koodiin. Useimpia vaiheita valvoo automaattinen tarkistus, ja ne joita ei valvo, on merkitty. Tarkoitus on näyttää, miten tällaisen prosessin voi rakentaa. Koodia ei ole tarkoitettu kopioitavaksi sellaisenaan.',
     },
     {
       kind: 'component',
       label: 'Yksi komponentti',
-      title: 'Sama artefakti, neljä pintaa',
-      body: 'Listarivi on tämän sivuston tunnusomaisin komponentti. Alla se on auki kokonaan: renderöitynä, koodina, storynä ja Figman puolella. Ei neljä versiota samasta asiasta, vaan yksi asia neljästä suunnasta. Koodi luetaan oikeista tiedostoista build-aikana — käsin kopioitu ote vanhenisi, ja se on juuri se virhe jonka tämä case lupaa ratkaista.',
+      title: 'Yksi komponentti neljästä suunnasta',
+      body: 'Listarivi on tämän sivuston tunnusomaisin komponentti. Alla se näkyy valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan suoraan lähdetiedostoista buildin aikana, joten se on aina sama kuin käytössä oleva koodi.',
     },
     {
       kind: 'band',
-      title: 'Tarkistus on vain niin hyvä kuin se mitä se lukee.',
-      body: 'Jokainen build ajaa saman ketjun, ja eriytymä pysäyttää putken. Mutta tarkistuksella on raja, ja raja on osa väitettä: alla on lista siitä mitä kukin niistä todistaa — ja mitä se ei näe.',
+      title: 'Tarkistuksilla on rajansa.',
+      body: 'Jokainen build ajaa tarkistukset, ja ero koodin ja Figman välillä pysäyttää sen. Alla on lista siitä, mitä kukin tarkistus kattaa ja mitä se ei näe.',
     },
     {
       kind: 'checks',
       label: 'Mitä build tarkistaa',
       title: '{n} tarkistusta, ja niiden sokeat kohdat',
-      note: 'Lista ei ole kirjoitettu tähän vaan johdettu package.jsonista: tarkistus näkyy vasta kun se on kytketty ketjuun ja sen skripti on olemassa. Tämä sivu väitti kerran että Figmaa tarkistetaan — ei tarkistettu. Siksi väite luetaan nyt sieltä missä se on totta.',
+      note: 'Lista luetaan suoraan projektin asetuksista (package.json), joten siinä näkyvät vain tarkistukset, jotka oikeasti ajetaan.',
     },
     {
       kind: 'text',
@@ -330,32 +330,32 @@ const thisSite: Case = {
       items: [
         {
           h: 'Mitä tarkistetaan',
-          p: 'Onko jokaisella komponentilla story ja jokaisella Figman komponentilla kytkentä koodiin. Löytyvätkö kytkennän lukemat propertyt ja variantit Figmasta. Figman muuttujia ei tarkisteta, vaikka se olisi hyödyllistä: rajapinta avaa ne vain Enterprise-tasolla. Organisaatiossa jolla se on, sama tarkistus ulottuu myös muuttujiin.',
+          p: 'Onko jokaisella komponentilla story ja jokaisella Figman komponentilla kytkentä koodiin. Löytyvätkö kytkennän lukemat propertyt ja variantit Figmasta. Figman muuttujia ei tarkisteta, vaikka se olisi hyödyllistä: rajapinta avaa ne vain Enterprise-tasolla. Organisaatiossa, jolla Enterprise on, saman tarkistuksen voi ulottaa myös muuttujiin.',
         },
         {
           h: 'Milloin',
-          p: 'Joka buildissa ja jokaisessa pull requestissa. Eriytymä löytyy samana päivänä eikä kolmen kuukauden päästä.',
+          p: 'Joka buildissa ja jokaisessa pull requestissa, joten ero huomataan samana päivänä.',
         },
         {
-          h: 'Miksi se ratkaisee',
-          p: 'Design systemit eivät kuole huonoon suunnitteluun vaan hiljaiseen eriytymiseen. Automaatio on ainoa asia joka estää sen.',
+          h: 'Miksi',
+          p: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota toisistaan. Automaattinen tarkistus huomaa sen ajoissa.',
         },
       ],
     },
     {
       kind: 'choices',
       label: 'Kaksi tapaa aloittaa',
-      title: 'Asiakkaan prosessi ratkaisee',
+      title: 'Kumpi sopii, riippuu tiimistä',
       items: [
         {
           h: 'Koodi ensin',
-          p: 'Nopein reitti. Ei käännösvaihetta, muutos syntyy siihen paikkaan jossa tuote elää. Toimii kun tiimi on pieni ja tekijä osaa molemmat.',
+          p: 'Nopein tapa, kun tiimi on pieni ja sama ihminen suunnittelee ja koodaa. Muutokset tehdään suoraan tuotteeseen.',
           note: 'Näin tein Colliersissa ja Blokbookissa.',
         },
         {
           h: 'Figma ensin',
-          p: 'Organisaatio pääsee mukaan. Suunnittelijat, sidosryhmät ja hyväksynnät toimivat siinä työkalussa jonka he tuntevat — ja koodi pysyy silti totuutena, koska kytkentä hoitaa käännöksen.',
-          note: 'Tämä on useimman asiakkaan todellisuus.',
+          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa.',
+          note: 'Useimmissa asiakasprojekteissa työ alkaa näin.',
         },
       ],
     },
@@ -365,7 +365,7 @@ const thisSite: Case = {
       lead: 'Milloin tämä ei kannata',
       items: [
         {
-          p: 'Kytkentä vaatii ylläpitoa, ja se maksaa itsensä takaisin vasta kun komponentteja on tarpeeksi ja tekijöitä useampi. Yhden hengen projektissa ja kymmenen komponentin kirjastossa se on ylimääräistä koneistoa. Kerron sen asiakkaalle suoraan.',
+          p: 'Kytkentä vaatii ylläpitoa ja kannattaa vasta, kun komponentteja on tarpeeksi ja tekijöitä useampi. Yhden hengen projektissa tai kymmenen komponentin kirjastossa se on turhaa työtä.',
         },
       ],
     },

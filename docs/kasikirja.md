@@ -15,6 +15,27 @@ tulokset `docs/loki.md`:ssä.
 | **CV tulostuu, ei lataudu** | Sivustolla ei ole CV-PDF:ää eikä sellaista tehdä: se olisi toinen kopio samasta sisällöstä ja eriytyisi sivusta heti kun jompaakumpaa muokataan. Tietoa-sivu **on** CV, ja `styles/print.css` tekee siitä paperille kelpaavan — selain tuottaa PDF:n samasta lähteestä (`content/cv/fi.ts`), joten se ei voi vanhentua. Kaksi kohtaa jotka olisivat rikkoneet tulosteen hiljaa: `.reveal` on `opacity: 0` kunnes osio on selattu näkyviin, ja tumma teema tulostaisi valkoisen tekstin valkoiselle paperille koska selain ei tulosta taustoja. Molemmat pakotetaan tulostuksessa. |
 | **Nimeäminen** | Tokenit puhuvat materiaalista (`paper`, `ink`, `rule`, `bleed`, `measure`), komponentit käytöstä (`ListRow`, `Media`, `Button`). Jos komponentin nimi vaatii selityksen, se on väärä nimi. |
 
+## Sivun teksti
+
+Ääni on mutkaton, asiallinen ja rennon toteava: kuin kokenut tekijä
+kertoisi kollegalle mitä teki ja miten se meni. Sivu ei myy, ei opeta
+alaa eikä todista mitään.
+
+- Kerro mitä tehtiin ja mitä siitä seurasi, ei mitä design systemeille
+  yleensä tapahtuu.
+- Yksi asia lausetta kohden. Ei siteerattavia aforismeja eikä
+  "ei X vaan Y" -rakennetta: kerro se Y suoraan.
+- Ei absoluutteja ("ainoa", "jokainen") eikä muiden tapojen vähättelyä.
+  Koodi ensin on yksi tapa, Figma ensin toinen.
+- Arkikieltä sisäpiirin sanojen tilalle: "tarkistus", ei "vartija";
+  "vastaavat toisiaan", ei "synkassa".
+- Rajat ja epävarmuus kerrotaan ohimennen, ilman dramatiikkaa.
+- Ajatusviivoja korkeintaan yksi kappaleessa.
+
+Prosessiketjun tekstit (`content/prosessi.ts`) näkyvät myös Figmassa.
+Kun niitä muuttaa, Figman tekstit päivitetään samalla, muuten
+`check:figma` punastuu.
+
 ## Synkkatarkistus
 
 Ajetaan `npm run build`issa ja jokaisessa pull requestissa. Jos jokin
@@ -1144,7 +1165,7 @@ mitä kuvan pitää näyttää.
 |  | 11 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — natiivisovellus, ei laitekehystä |
 |  | 12 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
 | ✓ | 13 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | 14 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Toimipistelista ja kartta työpöydällä — päänäkymä |
+|  | 14 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
 |  | 15 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
 |  | 16 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
 |  | 17 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |

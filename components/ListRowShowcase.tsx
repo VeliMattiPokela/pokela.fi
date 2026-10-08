@@ -75,9 +75,9 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                   meta={leads[0].meta}
                   href={path(locale, 'work', leads[0].slug)}
                 />
-                {/* Keskimmäinen rivi näyttää käännetyn tilan staattisena
-                    `invert`-utilitylla — samat tokenit kuin hoverissa,
-                    ei omaa sääntöä. Kosketuslaitteella hoveria ei ole. */}
+                {/* Keskimmäinen rivi näyttää avatun rivin käännetyn tilan
+                    staattisena `invert`-utilitylla. Hover on hillitympi
+                    (badge-surface), joten sitä ei näytetä tässä. */}
                 <ListRow
                   as={Link}
                   title={leads[1].title}
