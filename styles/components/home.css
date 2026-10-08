@@ -6,13 +6,7 @@
 }
 @media (min-width: 900px) { .home__intro { padding-top: var(--space-56); padding-bottom: var(--space-40); } }
 
-/* Nimi katkeaa riveille, ei skaalaudu pieneksi. Työpöydällä yhdelle
-   riville, mobiilissa kolmelle — siksi rivit ovat omia elementtejään. */
-.home__name { margin: 0; }
-.home__name-line { display: block; }
-@media (min-width: 900px) {
-  .home__name-line { display: inline; white-space: pre; }
-}
+/* Nimi on oma komponenttinsa: styles/components/hero-name.css. */
 
 .home__intro-meta {
   display: flex;

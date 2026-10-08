@@ -504,3 +504,34 @@ alun perin pois kahdesta syystä: liikettä ei voinut pysäyttää, eikä
 lukeminen selaimessa poistavat molemmat syyt.
 
 *Päätetty 8.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 12. Etusivun nimi rakentuu fontin ääriviivoista
+
+**Ero:** etusivun nimi oli tavallinen otsikko. Heroon haettiin
+vuorovaikutteista elementtiä, joka tekee vaikutuksen sivulle tultaessa.
+Aiempi 3D-kokeilu oli raskas: kaksi läpäisevää materiaalia,
+jälkikäsittelyketju ja piirtosilmukka, joka ei pysähtynyt koskaan.
+
+**Päätös:** nimi on oma komponenttinsa (`HeroName`). Saapuessa nimen päälle
+piirtyvät apuviivat, sitten kirjainten ääriviivat, käyräpisteet ja kahvat, ja
+lopuksi kirjaimet täyttyvät. Osoittimen kohdalla linssi näyttää rakenteen ja
+lähimmän pisteen koordinaatit fontin yksiköissä, ja klikkaus avaa koko nimen
+rakenteen. Pisteet ovat Bodoni Modan oikeat ääriviivat samasta fontista jonka
+sivu lataa (`npm run nimi` → `content/nimi.generated.json`). Figmassa
+komponentilla on `Tila`-variantit `levossa` ja `rakenne`.
+
+**Perustelu:** vertailtiin kolmea prototyyppiä: musteena valuvaa nimeä
+(WebGL), painoakselilla elävää nimeä ja rakentuvaa nimeä. Lasiesine
+hylättiin jo aiemmin, koska irrallinen muoto tyhjässä tilassa jäi
+latteaksi. Rakentuva nimi valittiin, koska se kertoo saman tarinan kuin
+koko sivusto: suunnittelusta tulee koodia. Lisäksi se on kevyt: pelkkä SVG
+ilman kirjastoja, ja piirtäminen loppuu, kun mikään ei liiku. Oikea otsikko
+pysyy sivulla ruudunlukijaa ja valintaa varten. Vähemmän liikettä
+pyytäneelle saapuminen jätetään pois. Saapuminen kestää alle viisi
+sekuntia, joten taukonappia ei tarvita (WCAG 2.2.2, vrt. päätös 11).
+Painoakselilla elävä nimi oli myös hyvä, mutta sille ei ainakaan
+toistaiseksi löydy käyttöä, ettei sivu mene liiallisuuksiin.
+
+*Päätetty 8.10.2026 prototyyppien perusteella — Veli-Matti Pokela*

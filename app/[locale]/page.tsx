@@ -5,6 +5,7 @@ import { getWork } from '@/content/work';
 import { Grid, Col } from '@/components/Grid';
 import ListRow from '@/components/ListRow';
 import Media from '@/components/Media';
+import HeroName from '@/components/HeroName';
 import { kuvapaikka } from '@/content/kuvat';
 
 /* Kuinka leveänä kuva piirtyy. Sivu tietää sen, kuva ei.
@@ -30,16 +31,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       {/* ---- nimi + rooli --------------------------------------- */}
       <section className="page home__intro">
-        {/* Nimi katkeaa mobiilissa riveille, työpöydällä se luetaan
-            yhtenä. Yhdysmerkkiin päättyvän osan perään ei tule väliä. */}
-        <h1 className="display-xl home__name">
-          {home.nameLines.map((line, i) => (
-            <span key={line} className="home__name-line">
-              {line}
-              {i < home.nameLines.length - 1 && !line.endsWith('-') ? ' ' : ''}
-            </span>
-          ))}
-        </h1>
+        <HeroName lines={home.nameLines} />
 
         <div className="home__intro-meta">
           <p className="meta ink home__role">{home.role}</p>
