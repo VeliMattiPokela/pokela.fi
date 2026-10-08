@@ -269,6 +269,18 @@ Mikään ei huomannut, koska mikään ei katsonut:
 versiota uudelleen. Siksi "sisältö eroaa, versio sama" sanotaan erikseen:
 korjaus ei ala julkaisusta vaan nostosta.
 
+**Mitä nostetaan.** Numero kertoo paketin käyttäjälle, mitä hänen pitää
+tehdä, ei sitä, kuinka iso muutos oli:
+
+| Nosto | Milloin |
+|---|---|
+| patch (2.4.0 → 2.4.1) | tyylin hienosäätö, korjaus, uusi CSS-luokka sivuston omalle komponentille |
+| minor (2.4 → 2.5) | pakettiin tulee uusi komponentti, token tai props |
+| major (2 → 3) | jotain poistuu tai muuttuu niin, että käyttäjän koodi rikkoutuu |
+
+Kahdeksas lokakuuta minoria nostettiin herkästi: levyn varjokorjaus oli
+2.3.0, vaikka se oli patch. Ks. päätös 13.
+
 **Raja:** ei julkaise mitään eikä voi — se kertoo että npm on jäljessä, ei
 korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa: kit voi
 olla kiinnitetty vanhaan versioon vaikka npm ja repo olisivat synkassa.

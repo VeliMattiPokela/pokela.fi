@@ -23,4 +23,6 @@ muutoksessa. Ks. päätös 10.
 
 `styles/`- tai komponenttimuutos muuttaa @pokela-paketteja. Nosta
 `tokens.json`:n `$meta.version` samassa PR:ssä ja anna Vellulle
-julkaisukomento; julkaisu vaatii hänen npm-kirjautumisensa.
+julkaisukomento; julkaisu vaatii hänen npm-kirjautumisensa. Tyylimuutos
+ja korjaus ovat patch, uusi komponentti, token tai props paketissa on
+minor (käsikirja, päätös 13).

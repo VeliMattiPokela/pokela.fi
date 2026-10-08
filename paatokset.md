@@ -535,3 +535,22 @@ Painoakselilla elävä nimi oli myös hyvä, mutta sille ei ainakaan
 toistaiseksi löydy käyttöä, ettei sivu mene liiallisuuksiin.
 
 *Päätetty 8.10.2026 prototyyppien perusteella — Veli-Matti Pokela*
+
+---
+
+## 13. Versionumero kertoo käyttäjälle, mitä tehdä
+
+**Ero:** paketit nousivat yhdessä päivässä 2.2.0:sta 2.4.0:aan pienillä
+muutoksilla. Minoria nostettiin jokaisesta näkyvästä muutoksesta, myös
+levyn varjokorjauksesta.
+
+**Päätös:** semver paketin käyttäjän näkökulmasta. Tyylin hienosäätö,
+korjaus ja sivuston omien komponenttien CSS ovat patch. Minor nousee, kun
+pakettiin tulee uusi komponentti, token tai props. Major nousee, kun
+jotain poistuu tai muuttuu rikkovasti. Taulukko on käsikirjassa
+pakettitarkistuksen kohdalla, ja sääntö on agentille `CLAUDE.md`:ssä.
+
+**Perustelu:** numero ei kerro muutoksen kokoa vaan sen, pitääkö käyttäjän
+reagoida. Jo julkaistuja versioita ei muuteta.
+
+*Päätetty 8.10.2026 — Veli-Matti Pokela*
