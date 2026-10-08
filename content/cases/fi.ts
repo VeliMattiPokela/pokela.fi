@@ -44,7 +44,7 @@ const colliers: Case = {
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Tässä projektissa aloitin suoraan koodista.',
+      lead: 'Tässä projektissa tein suunnittelun suoraan koodissa.',
       items: [
         {
           h: 'Valinta',
