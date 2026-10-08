@@ -32,6 +32,15 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, extname, join } from 'node:path';
 import sharp from 'sharp';
+import ffmpegPolku from 'ffmpeg-static';
+import ffprobe from 'ffprobe-static';
+
+/* ffmpeg ja ffprobe tulevat npm-paketteina eivätkä koneelta. CI:n
+   ajokoneella ja Netlifyssä niitä ei ole, ja ensimmäinen video kaatoi
+   tarkistuksen (8.10.2026). Paketti tuo saman binäärin kaikkialle,
+   myös Macille ilman Homebrew'ta. */
+const FFMPEG = ffmpegPolku;
+const FFPROBE = ffprobe.path;
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -341,7 +350,7 @@ async function tyhjennaPostilaatikko() {
       /* Lähdevideo säilytetään alkuperäisenä koodekkina jos se on jo
          mp4/h264; muuten muunnetaan kerran, jottei arkistoon jää
          muotoa jota selaimet eivät lue. */
-      execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', polku,
+      execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', polku,
         '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
         '-an', '-vf', `scale='min(${LAHDE_MAX},iw)':-2`, kohdePolku]);
       /* Sama siivous kuin kuvalla: paikan vanha kuvalähde pois, jottei
@@ -585,20 +594,28 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true, koot
 /** Video: mp4 + webm + julistekuva. */
 async function teeVideo(nimi, lahde, { kirjoita = true, leveys = 1600 } = {}) {
   const koko = JSON.parse(
-    execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
+    execFileSync(FFPROBE, ['-v', 'error', '-select_streams', 'v:0',
       '-show_entries', 'stream=width,height', '-of', 'json', lahde]).toString(),
   ).streams[0];
   if (!kirjoita) return { leveys: koko.width, korkeus: koko.height };
 
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', lahde,
-    '-c:v', 'libx264', '-crf', '23', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-an',
+  /* Muunnos kestää kymmeniä sekunteja eikä ffmpeg tulosta mitään.
+     Ilman tätä riviä ajo näytti jumittuneelta ja katkaistiin. */
+  console.log(`  … video ${nimi}: muunnetaan mp4:ksi ja webm:ksi`);
+  /* Nopeusasetukset: VP9:n oletus (good, cpu-used 0) vei 27 sekunnin
+     klipiltä noin 6 minuuttia, ja muunnos ajetaan jokaisessa buildissa.
+     cpu-used 4 ja rivisäikeistys ovat suositus verkkovideolle; laatu
+     tulee crf:stä, ei nopeudesta. */
+  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
+    '-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-an',
     '-movflags', '+faststart', '-vf', `scale='min(${leveys},iw)':-2`,
     join(JULKAISU, `${nimi}.mp4`)]);
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', lahde,
+  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
     '-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0', '-an',
+    '-deadline', 'good', '-cpu-used', '4', '-row-mt', '1',
     '-vf', `scale='min(${leveys},iw)':-2`,
     join(JULKAISU, `${nimi}.webm`)]);
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', lahde,
+  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
     '-frames:v', '1', '-vf', `scale='min(${leveys},iw)':-2`,
     join(JULKAISU, `${nimi}-juliste.png`)]);
   await sharp(join(JULKAISU, `${nimi}-juliste.png`))

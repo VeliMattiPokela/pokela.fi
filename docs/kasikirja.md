@@ -1196,11 +1196,11 @@ mitä kuvan pitää näyttää.
 <!-- generated:kuvapaikat -->
 | | # | Missä | Tunniste | Muoto | Mitä kuvassa |
 |---|---|---|---|---|---|
-|  | 1 | Colliers Asunnot | `colliers-hero` + `colliers-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
+| ✓ | 1 | Colliers Asunnot | `colliers-hero` + `colliers-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
 |  | 2 | Colliers Asunnot | `colliers-runko-ennen` + `colliers-runko-jalkeen` | vapaa · ≥1344 px | Sama näkymä viikolla 1 ja julkaisussa: toimiva runko ja siitä jatkokehitetty valmis ilme. |
 | ✓ | 3 | Colliers Asunnot | `colliers-haku` | 4:5 · ≥880 px | AI-haku: kirjoitettu kuvaus + tulokset |
-|  | 4 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
-|  | 5 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
+| ✓ | 4 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
+| ✓ | 5 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
 | ✓ | 6 | Blokbook | `blokbook-hero` + `blokbook-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Blokbookin näkymiä puhelimessa: pesutuvan ja saunan vuorot, korttimaksu, oven etäavaus ja chat. |
 |  | 7 | Blokbook | `blokbook-asukas` | 4:3 · ≥1344 px | Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu. |
 |  | 8 | Blokbook | `blokbook-hallinta` | 4:3 · ≥1344 px | Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet. |
@@ -1220,7 +1220,7 @@ mitä kuvan pitää näyttää.
 |  | 22 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |
 | ✓ | 23 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-4/23 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+7/23 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain

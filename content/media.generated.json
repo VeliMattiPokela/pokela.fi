@@ -58,14 +58,55 @@
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.8037,
+            "suhde": 0.6944,
             "leveydet": [
               480,
-              800,
-              880
+              625
             ],
-            "leveys": 880,
-            "korkeus": 1095
+            "leveys": 625,
+            "korkeus": 900
+          }
+        ]
+      }
+    },
+    "colliers-hero": {
+      "tyyppi": "video",
+      "leveys": 2800,
+      "korkeus": 1410
+    },
+    "colliers-strapi": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "osat": {
+        "colliers-strapi": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.4944,
+            "leveydet": [
+              438
+            ],
+            "leveys": 438,
+            "korkeus": 886
+          }
+        ]
+      }
+    },
+    "colliers-vuokraus": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "osat": {
+        "colliers-vuokraus": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.6944,
+            "leveydet": [
+              480,
+              625
+            ],
+            "leveys": 625,
+            "korkeus": 900
           }
         ]
       }
