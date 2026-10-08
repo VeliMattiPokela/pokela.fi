@@ -951,6 +951,13 @@ sivutiedostoon ja oman virheluokkansa; molemmat poistuivat tämän
 myötä. Puuttuva `x` ja `y` ovat 0, puuttuva `leveys` ja `korkeus`
 loppuun asti.
 
+Murtoluku ei kuitenkaan auta, jos uusi kuva on eri sommitelma: alue
+osoittaa yhä samaan kohtaan ruutua. Niin kävi `colliers-haulle`
+8.10.2026, kun AI-haun kuvakaappaus vaihdettiin karttanäkymään. Siksi
+`npm run kuvat` sanoo nyt kuvan vaihtuessa, jos paikalla on vanha alue,
+ja antaa komennon sen poistamiseen. Aluetta ei poisteta automaattisesti,
+koska saman näkymän päivitetty kaappaus tarvitsee sen yhä.
+
 ```json
 { "sovita": true }
 ```

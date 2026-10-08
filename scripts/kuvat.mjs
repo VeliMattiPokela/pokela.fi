@@ -260,7 +260,19 @@ export const taynna = (paikka) => lahteet(paikka).every((l) => l.tiedosto || !l.
 function paikkaNimelle(tiedosto) {
   const kanta = tiedosto.slice(0, tiedosto.lastIndexOf('.')).trim().toLowerCase();
   const osuma = /^(\d{1,3})(?:[-\s]?([a-zäö]+))?$/u.exec(kanta);
-  if (!osuma) return { virhe: 'nimeksi tarvitaan numero, esim. 4.png' };
+  if (!osuma) {
+    /* Ei arvata, mutta näytetään mitä nimi luultavasti tarkoitti:
+       "colliers 3.png" → "3.png". Esimerkkinumero olisi johtanut
+       harhaan, kun oikea numero oli jo nimessä. */
+    const loydetty = /\d{1,3}/.exec(kanta)?.[0];
+    const ehdokas = loydetty && numerolista.find((p) => p.numero === Number(loydetty));
+    const paate = tiedosto.slice(tiedosto.lastIndexOf('.'));
+    return {
+      virhe: ehdokas
+        ? `nimeksi pelkkä numero: ${Number(loydetty)}${paate} (${ehdokas.id})`
+        : 'nimeksi pelkkä numero, esim. 4.png — numero näkyy paikanvaraajassa sivulla',
+    };
+  }
 
   const numero = Number(osuma[1]);
   const osa = osuma[2] ? osuma[2].replace('ä', 'a').replace('ö', 'o') : null;
@@ -776,6 +788,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       /* Numerolla pudotettu: näytä mihin se osui ja millä
          kuvatekstillä, jotta väärä numero näkyy heti. */
       console.log(`      ↳ ${o.kohde.missa}: ${o.kohde.caption}`);
+      /* Alue on rajattu edellisestä kuvasta. Se säilyy vaihdossa
+         tarkoituksella, mutta erilaiseen kuvaan se leikkaa väärän
+         kohdan — niin kävi colliers-haulle 8.10.2026, hiljaa. */
+      if (o.tyyppi === 'kuva' && asetukset(o.nimi).alue) {
+        console.log(`      !  Paikalla on edellisen kuvan rajaus: kuvat/${o.nimi}.json`);
+        console.log(`         Jos uusi kuva on eri sommitelma, poista se ja aja uudelleen:`);
+        console.log(`         rm kuvat/${o.nimi}.json && npm run kuvat`);
+      }
     }
   }
 
@@ -783,7 +803,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(`\n!  Tunnistamatta ${posti.tuntemattomat.length} — jätetty postilaatikkoon:`);
     for (const t of posti.tuntemattomat) console.log(`    ${t.tiedosto}   ${t.syy}`);
     console.log('\n   Vapaat paikat:');
-    for (const p of puuttuvat) console.log(`    ${p.id.padEnd(22)} ${p.ratio.padEnd(6)} ${p.caption}`);
+    for (const p of [...puuttuvat].sort((a, b) => a.numero - b.numero)) console.log(`  ${String(p.numero).padStart(3)}  ${p.id.padEnd(22)} ${p.ratio.padEnd(6)} ${p.caption}`);
   }
 
   if (rajaukset.length) {
