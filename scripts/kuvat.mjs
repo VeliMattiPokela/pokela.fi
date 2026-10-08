@@ -150,6 +150,7 @@ export async function paikat() {
         caption: solmu.caption ?? '',
         missa: oma ?? '(tuntematon)',
         tarveLeveys: solmu.tarveLeveys,
+        esitys: solmu.esitys,
         lohko: omaLohko ?? 'media',
         vertailu: solmu.kind === 'compare',
         video: solmu.kind === 'video',
@@ -376,29 +377,30 @@ function rajauskohta(nimi) {
 }
 
 /**
- * Miten kuva esitetään paikassaan.
+ * Miten kuva esitetään paikassaan. Sama arvo kuin Median `esitys`-
+ * propsilla, ja se tulee samasta paikasta kuin `ratio`: sisällöstä.
  *
  *   levy    Kuva näytetään kokonaisena, rajaamatta, hillityn taustalevyn
  *           keskellä. Oletus. Kuvakaappauksen oma tausta osui ennen
  *           suoraan sivun taustaa vasten, ja raja näytti
  *           sattumanvaraiselta; puhelinkaappaus taas rajautui 4:5:ksi ja
- *           menetti puolet ruudustaan. Levyllä jokainen kuva saa saman
- *           rajan ja sivu saman rytmin, oli kuva mikä tahansa.
+ *           menetti puolet ruudustaan.
  *   taysi   Kuva täyttää paikan ja rajataan sen kuvasuhteeseen.
- *           Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa
- *           rajattavanaan.
+ *           Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa.
  *
  * Hero on aina `taysi`: se on täysleveä nosto, ja sen tausta jatkuu
  * ruudun reunoihin (base.css). Vertailuparilla on oma esityksensä.
  *
- * Ohitus: `kuvat/<nimi>.json` sisältöä `{ "esitys": "taysi" }`.
+ * Ennen arvo luettiin `kuvat/<nimi>.json`:sta. Se ohitti Median
+ * propsit ja siten Code Connectin, eikä Figma-tarkistus nähnyt uutta
+ * tilaa lainkaan (päätös 10).
  */
 const ESITYKSET = ['levy', 'taysi'];
-function esitys(paikka, nimi) {
+function esitys(paikka) {
   if (paikka.ratio === 'hero' || paikka.vertailu) return 'taysi';
-  const oma = asetukset(nimi).esitys ?? 'levy';
+  const oma = paikka.esitys ?? 'levy';
   if (!ESITYKSET.includes(oma)) {
-    throw new Error(`kuvat/${nimi}.json: esitys "${oma}" — sallitut: ${ESITYKSET.join(', ')}`);
+    throw new Error(`Paikka ${paikka.id}: esitys "${oma}" — sallitut: ${ESITYKSET.join(', ')}`);
   }
   return oma;
 }
@@ -723,7 +725,7 @@ export async function rakenna({ kirjoita = true } = {}) {
           ]
         : [{ ulos: paikka.id, lahde: paa, koot: null }];
 
-    const tapa = esitys(paikka, paa.nimi);
+    const tapa = esitys(paikka);
     const tulokset = {};
     for (const pala of palat) {
       const tulos = await teeKuva(pala.ulos, pala.lahde.tiedosto, paikka.ratio, {

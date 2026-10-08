@@ -930,21 +930,29 @@ skaalaamalla, joten se on aina tekemistä vaativa.
 
 Oletuksena kuva näytetään **levyllä**: kokonaisena, rajaamatta,
 hillityn taustalevyn (`--badge-surface`) keskellä. Levyssä on
-hiusviiva ja terävät kulmat kuten muuallakin sivulla, ja kuvalla kevyt
-varjo. Syy: kuvakaappauksen oma tausta osui ennen suoraan sivun
+hiusviiva ja terävät kulmat kuten muuallakin sivulla. Kuvalla ei ole
+omaa kehystä, vain kevyt varjo, joka seuraa sen muotoa (`drop-shadow`):
+läpinäkyvä kuva, kuten pyöristetty laitemockup, ei saa ympärilleen
+suorakulmaista laatikkoa. Syy: kuvakaappauksen oma tausta osui ennen suoraan sivun
 taustaa vasten ja raja näytti sattumanvaraiselta. Puhelinkaappaus taas
 rajautui 4:5:ksi ja menetti puolet ruudustaan. Levyllä jokainen kuva
 saa saman rajan ja sivu saman rytmin. Päätetty 8.10.2026 mock-kuvan
 perusteella.
 
-```json
-{ "esitys": "taysi" }
+```ts
+{ id: 'esimerkki', ratio: '4:3', esitys: 'taysi', caption: '…' }
 ```
 
 **Täysi** täyttää paikan ja rajaa kuvan sen kuvasuhteeseen, kuten
 ennen. Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa.
 `sovita` ja `rajaus` alla koskevat vain täyttä esitystä; `alue`
 koskee kumpaakin.
+
+Esitys kirjoitetaan sisältöön paikan viereen, kuten `ratio`, eikä
+`kuvat/<nimi>.json`:iin. Se on Median `esitys`-propsi ja Figman
+`Esitys`-variantti, joten Figma-tarkistus vaatii saman tilan Figmaan.
+Ensimmäinen versio luki arvon json-tiedostosta, ohitti propsit ja jäi
+Figmasta kokonaan pois huomaamatta (päätös 10).
 
 **Hero** on aina täysi. Sen tausta jatkuu nauhana ruudun reunoihin, ja
 kuva pysyy sivun levyisenä (`.media-hero` base.css:ssä).

@@ -297,18 +297,23 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
   height: 100%;
   min-height: 0;
 }
-/* Varjo on aina tumma (--ink-l eikä teemaa seuraava --ink): vaalea
-   varjo tummalla levyllä olisi hehku, ei varjo. Tummassa teemassa se
-   jää lähes näkymättömäksi, ja hiusviiva kantaa rajan. */
+/* Varjo piirretään filterillä eikä box-shadow'lla: drop-shadow seuraa
+   kuvan alfakanavaa. Läpinäkyvä kuva (laitemockup, pyöristetyt
+   kulmat) saa varjon muotonsa mukaan, eikä sen ympärille piirry
+   suorakulmaista laatikkoa. Samasta syystä kuvalla ei ole omaa
+   hiusviivaa: raja olisi aina suorakulmio. Läpinäkymätön kaappaus
+   saa silti saman suorakulmaisen varjon kuin ennen.
+
+   Varjo on aina tumma (--ink-l eikä teemaa seuraava --ink): vaalea
+   varjo tummalla levyllä olisi hehku, ei varjo. */
 .media__levy-kuva {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
-  outline: var(--hairline) solid var(--line);
-  box-shadow: 0 var(--space-12) var(--space-32) calc(var(--space-8) * -1)
-    color-mix(in srgb, var(--ink-l) 22%, transparent);
+  filter: drop-shadow(0 var(--space-12) var(--space-16)
+    color-mix(in srgb, var(--ink-l) 18%, transparent));
 }
 
 /* Hero: tausta jatkuu ruudun reunoihin, kuva pysyy sivun levyisenä.

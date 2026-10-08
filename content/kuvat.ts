@@ -1,4 +1,4 @@
-import type { Ratio } from '@/components/Media';
+import type { Esitys, Ratio } from '@/components/Media';
 
 /**
  * Kuvapaikat jotka eivät ole casejen sisällössä.
@@ -32,6 +32,8 @@ export type Kuvapaikka = {
    * muotokuvalle — se on neljä saraketta kahdestatoista.
    */
   tarveLeveys?: number;
+  /** `taysi` valokuvalle. Oletus `levy`, ks. Media. */
+  esitys?: Esitys;
 };
 
 export const erilliset: Kuvapaikka[] = [
@@ -64,6 +66,7 @@ export const erilliset: Kuvapaikka[] = [
   {
     id: 'muotokuva',
     ratio: '1:1',
+    esitys: 'taysi',
     tarveLeveys: 880,
     caption: 'Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä.',
     missa: 'Tietoa-sivu',
