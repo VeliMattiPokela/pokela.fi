@@ -275,6 +275,59 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
 
 .media-fill { width: 100%; height: 100%; object-fit: cover; }
 
+/* Levy: kuva kokonaisena hillityn taustalevyn keskellä.
+   Kuvakaappauksen oma tausta osui ennen suoraan sivun taustaa vasten,
+   ja raja näytti sattumanvaraiselta. Levy antaa jokaiselle kuvalle
+   saman rajan, oli kuva vaalea, tumma tai kapea puhelinkaappaus.
+   Kulmat terävinä ja hiusviiva kuten muuallakin sivulla. */
+.media--levy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-24);
+  background: var(--badge-surface);
+  box-shadow: inset 0 0 0 var(--hairline) var(--line);
+}
+@media (min-width: 900px) { .media--levy { padding: var(--space-40); } }
+.media__levy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+/* Varjo on aina tumma (--ink-l eikä teemaa seuraava --ink): vaalea
+   varjo tummalla levyllä olisi hehku, ei varjo. Tummassa teemassa se
+   jää lähes näkymättömäksi, ja hiusviiva kantaa rajan. */
+.media__levy-kuva {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  outline: var(--hairline) solid var(--line);
+  box-shadow: 0 var(--space-12) var(--space-32) calc(var(--space-8) * -1)
+    color-mix(in srgb, var(--ink-l) 22%, transparent);
+}
+
+/* Hero: tausta jatkuu ruudun reunoihin, kuva pysyy sivun levyisenä.
+   border-image piirtää nauhan laatikon ulkopuolelle (outset) ilman
+   lisäelementtiä, joten jokainen hero saa sen samasta paikasta. Ulos
+   piirretty kuuluu näkyvään eikä vieritettävään ylivuotoon, joten
+   100vw ei tuo vaakavierityspalkkia. margin-block varaa nauhalle
+   tilan, ettei se peitä viereisiä osioita. */
+.media-hero {
+  border-image: linear-gradient(var(--badge-surface) 0 0) fill 0 / / var(--space-40) 100vw;
+  margin-block: var(--space-40);
+}
+@media (min-width: 900px) {
+  .media-hero {
+    border-image-outset: var(--space-72) 100vw;
+    margin-block: var(--space-72);
+  }
+}
+
 /* Paikanvaraajan merkintä: järjestysnumero ja tunniste. Vain
    kehityksessä (Media.tsx päättää), ja tarkoitus on että pudotettavan
    tiedoston nimen voi lukea suoraan sivulta ilman terminaalia.
