@@ -63,7 +63,7 @@ export const ULKOPUOLELLA = [
   ['Media, LogoRow, CaseText, CaseBlock, CaseBlocks, CaseBlockDerived, ListRowShowcase',
    'lukevat sivuston omaa sisältöä (`@/content`, `@/lib`)'],
   ['Nav, Footer', 'tarvitsevat sivuston sanakirjan ja reitityksen'],
-  ['BeforeAfter', 'rakentuu Median varaan, ja Media lukee kuvamanifestia'],
+  ['BeforeAfter, Video', 'rakentuvat Median varaan, ja Media lukee kuvamanifestia'],
   ['ComponentView, PrintCv',
    'ovat riippumattomia mutta sivuston ominaisuuksia — lähdekoodinäkymä ja CV:n tulostusasu — eivät design systemin osia'],
 ];

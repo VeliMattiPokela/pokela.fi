@@ -153,7 +153,6 @@ export async function paikat() {
         esitys: solmu.esitys,
         lohko: omaLohko ?? 'media',
         vertailu: solmu.kind === 'compare',
-        video: solmu.kind === 'video',
       });
     }
     Object.values(solmu).forEach((x) => kaiva(x, oma, omaLohko));
@@ -345,6 +344,14 @@ async function tyhjennaPostilaatikko() {
       execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', polku,
         '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',
         '-an', '-vf', `scale='min(${LAHDE_MAX},iw)':-2`, kohdePolku]);
+      /* Sama siivous kuin kuvalla: paikan vanha kuvalähde pois, jottei
+         paikalla ole kahta lähdettä joista haku poimisi sattumanvaraisen. */
+      for (const vanha of readdirSync(LAHTEET)) {
+        const sama = vanha.slice(0, vanha.lastIndexOf('.')) === nimi;
+        if (sama && !vanha.endsWith('.mp4') && !vanha.endsWith('.json')) {
+          rmSync(join(LAHTEET, vanha));
+        }
+      }
       otetut.push({ tiedosto, nimi, tyyppi: 'video', mitat: '', kohde });
     } else {
       tuntemattomat.push({ tiedosto, arvattu: `tuntematon pääte ${pate}` });
@@ -576,14 +583,13 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true, koot
 }
 
 /** Video: mp4 + webm + julistekuva. */
-async function teeVideo(nimi, lahde, { kirjoita = true } = {}) {
+async function teeVideo(nimi, lahde, { kirjoita = true, leveys = 1600 } = {}) {
   const koko = JSON.parse(
     execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0',
       '-show_entries', 'stream=width,height', '-of', 'json', lahde]).toString(),
   ).streams[0];
   if (!kirjoita) return { leveys: koko.width, korkeus: koko.height };
 
-  const leveys = 1600;
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', lahde,
     '-c:v', 'libx264', '-crf', '23', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-an',
     '-movflags', '+faststart', '-vf', `scale='min(${leveys},iw)':-2`,
@@ -702,8 +708,18 @@ export async function rakenna({ kirjoita = true } = {}) {
       continue;
     }
 
-    if (paikka.video) {
-      const { leveys, korkeus } = await teeVideo(paikka.id, omat[0].tiedosto, { kirjoita });
+    /* Video tunnistetaan lähdetiedostosta, ei sisällöstä. Paikka on
+       kuvan tai videon paikka sen mukaan, mitä siihen pudotetaan —
+       kuten kuvakin vaihtuu toiseen ilman sisältömuutosta. Ennen
+       videoksi kelpasi vain sisällössä `kind: 'video'` -merkitty
+       paikka, jollaista ei ollut yhtään, ja heroon pudotettu mp4
+       kaatui sharpiin (8.10.2026). */
+    const paa0 = omat.find((l) => !l.osa) ?? omat[0];
+    if (VIDEOPAATTEET.includes(extname(paa0.tiedosto).toLowerCase())) {
+      const { leveys, korkeus } = await teeVideo(paikka.id, paa0.tiedosto, {
+        kirjoita,
+        leveys: paikka.ratio === 'hero' ? 1920 : 1600,
+      });
       manifesti[paikka.id] = { tyyppi: 'video', leveys, korkeus };
       continue;
     }
