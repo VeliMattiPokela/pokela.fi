@@ -457,3 +457,28 @@ koska kaikki kuvat eivät ole ruutukaappauksia. Vahva editorial-reuna
 jokaisessa kuvassa olisi raskas ja veisi huomion sisällöltä.
 
 *Päätetty 8.10.2026 mock-kuvan perusteella — Veli-Matti Pokela*
+
+---
+
+## 10. Ulkoasun muutos menee Figmaan samassa muutoksessa
+
+**Ero:** koodin ja Figman välillä. Päätöksen 9 kuvalevy julkaistiin
+sivulle, mutta Figman Media-komponentissa ei ollut levyä eikä
+sivupohjissa heron nauhaa. `check:figma` oli vihreä.
+
+**Mitä tapahtui:** levy toi Medialle uuden tilan, mutta valinta luettiin
+kuvaputken datasta (`kuvat/<nimi>.json`) komponentin propsien ohi. Code
+Connect ei tuntenut tilaa, joten tarkistuksella ei ollut mitään
+verrattavaa. Prosessi ei ollut rikki, mutta toteutus kiersi sen.
+
+**Päätös:** uusi tila tehdään aina komponentin propsiksi ja Code Connectin
+variantiksi (`esitys` / `Esitys`), jolloin `check:figma` vaatii sen
+Figmaan. Jokainen ulkoasuun näkyvä muutos tehdään samassa PR:ssä myös
+Figmaan, ilman erillistä pyyntöä. Sääntö on kirjattu agentille
+`CLAUDE.md`:hen.
+
+**Perustelu:** päätöksen 8 mukaan sääntö lisätään vasta kun oikea virhe on
+päässyt läpi. Tämä on se virhe. Uutta tarkistusta ei lisätty: olemassa
+oleva varianttivertailu riittää, kun tila kulkee sen kautta.
+
+*Päätetty 8.10.2026 — Veli-Matti Pokela*

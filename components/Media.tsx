@@ -23,6 +23,14 @@ import manifesti from '@/content/media.generated.json';
  */
 export type Ratio = 'hero' | '4:3' | '4:5' | '3:4' | '1:1';
 
+/**
+ * Miten kuva istuu paikassaan: `levy` näyttää sen kokonaisena
+ * taustalevyn keskellä, `taysi` täyttää paikan rajattuna. Arvo
+ * kirjoitetaan sisältöön paikan viereen (kuten `ratio`), ja kuvaputki
+ * rajaa sen mukaan. Hero on aina täysi.
+ */
+export type Esitys = 'levy' | 'taysi';
+
 type Rajaus = {
   koko: string;
   media: string | null;
@@ -33,7 +41,7 @@ type Rajaus = {
 };
 
 type Merkinta =
-  | { tyyppi: 'kuva'; esitys: 'levy' | 'taysi'; osat: Record<string, Rajaus[]> }
+  | { tyyppi: 'kuva'; esitys: Esitys; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'video'; leveys: number; korkeus: number };
 
@@ -126,11 +134,14 @@ export default function Media({
   id,
   ratio = '4:3',
   caption,
+  esitys,
   sizes = '100vw',
   priority = false,
 }: {
   id?: string;
   ratio?: Ratio;
+  /** Oletus tulee kuvaputken manifestista, joka lukee sen sisällöstä. */
+  esitys?: Esitys;
   caption?: string;
   /** Kuinka leveänä kuva piirtyy. Lohko tietää sen, kuva ei. */
   sizes?: string;
@@ -186,7 +197,8 @@ export default function Media({
      on lähteessä pienimmästä suurimpaan, joten se käännetään. */
   const jarjestetyt = [...osat].reverse();
   const perus = osat[0];
-  const levy = merkinta?.tyyppi === 'kuva' && merkinta.esitys === 'levy';
+  const levy =
+    ratio !== 'hero' && merkinta?.tyyppi === 'kuva' && (esitys ?? merkinta.esitys) === 'levy';
 
   /* Levy: kuva kokonaisena taustalevyn keskellä (ks. esitys() kuvat.mjs).
      Laatikko pysyy samana kuin paikanvaraajalla, joten layout ei liiku;

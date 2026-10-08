@@ -1,4 +1,4 @@
-import type { Ratio } from '@/components/Media';
+import type { Esitys, Ratio } from '@/components/Media';
 
 /**
  * Casen sisältömalli.
@@ -21,6 +21,8 @@ export type MediaSlot = {
   id: string;
   ratio: Ratio;
   caption: string;
+  /** `taysi` valokuvalle tai kuvitukselle. Oletus `levy`, ks. Media. */
+  esitys?: Esitys;
   /** Kuvan alle tuleva merkintä, jos kuvapari tarvitsee sen. */
   label?: string;
 };
