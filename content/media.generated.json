@@ -58,13 +58,14 @@
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.4614,
+            "suhde": 0.8037,
             "leveydet": [
               480,
-              622
+              800,
+              880
             ],
-            "leveys": 622,
-            "korkeus": 1348
+            "leveys": 880,
+            "korkeus": 1095
           }
         ]
       }
