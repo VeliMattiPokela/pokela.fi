@@ -37,7 +37,7 @@ const colliers: Case = {
         },
         {
           h: 'Tehtävä',
-          p: 'Uusi palvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Tein sekä suunnittelun että toteutuksen, koska aikataulussa ei ollut tilaa erilliselle siirrolle suunnitelmista koodiin.',
+          p: 'Uusi palvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Suunnittelin ja toteutin palvelun itse, joten päätökset siirtyivät suoraan tuotteeseen.',
         },
       ],
     },
@@ -52,7 +52,7 @@ const colliers: Case = {
         },
         {
           h: 'Miksi',
-          p: 'Aikataulu oli tiukka, eikä samaa asiaa ehtinyt tehdä kahdesti, ensin Figmaan ja sitten koodiin. Kun suunnittelin suoraan selaimeen, asiakas pääsi kokeilemaan palvelua alusta asti.',
+          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä on käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pääsi kokeilemaan palvelua alusta asti.',
         },
         {
           h: 'Seuraus',
