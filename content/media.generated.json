@@ -120,30 +120,29 @@
     }
   },
   "numerot": {
-    "aisti-mobiili": 15,
-    "aisti-tiketti": 16,
-    "aisti-tyopoyta": 14,
-    "blokbook-android": 12,
-    "blokbook-asukas": 8,
-    "blokbook-hallinta": 9,
-    "blokbook-hero": 7,
-    "blokbook-ios": 11,
-    "blokbook-web": 10,
-    "colliers-haku": 4,
+    "aisti-mobiili": 14,
+    "aisti-tiketti": 15,
+    "aisti-tyopoyta": 13,
+    "blokbook-android": 11,
+    "blokbook-asukas": 7,
+    "blokbook-hallinta": 8,
+    "blokbook-hero": 6,
+    "blokbook-ios": 10,
+    "blokbook-web": 9,
+    "colliers-haku": 3,
     "colliers-hero": 1,
-    "colliers-julkaisu": 3,
-    "colliers-strapi": 6,
-    "colliers-viikko-1": 2,
-    "colliers-vuokraus": 5,
-    "etusivu-blokbook": 22,
-    "etusivu-colliers": 21,
-    "etusivu-hero": 20,
-    "muotokuva": 24,
-    "op-aloitus": 17,
-    "op-polku": 19,
-    "op-vaurio": 18,
-    "pivo-kirjautuminen": 13,
-    "tyot-storybook": 23
+    "colliers-runko": 2,
+    "colliers-strapi": 5,
+    "colliers-vuokraus": 4,
+    "etusivu-blokbook": 21,
+    "etusivu-colliers": 20,
+    "etusivu-hero": 19,
+    "muotokuva": 23,
+    "op-aloitus": 16,
+    "op-polku": 18,
+    "op-vaurio": 17,
+    "pivo-kirjautuminen": 12,
+    "tyot-storybook": 22
   },
   "muodot": {
     "aisti-mobiili": {
@@ -190,17 +189,13 @@
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
     },
-    "colliers-julkaisu": {
-      "suhde": "4:3",
+    "colliers-runko": {
+      "suhde": "vapaa",
       "leveys": 1344
     },
     "colliers-strapi": {
       "suhde": "4:5",
       "leveys": 880
-    },
-    "colliers-viikko-1": {
-      "suhde": "4:3",
-      "leveys": 1344
     },
     "colliers-vuokraus": {
       "suhde": "4:5",

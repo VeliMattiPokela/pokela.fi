@@ -61,22 +61,15 @@ const colliers: Case = {
       ],
     },
     {
-      kind: 'pair',
+      kind: 'compare',
       label: 'Viikko 1 → julkaisu',
-      items: [
-        {
-          id: 'colliers-viikko-1',
-          ratio: '4:3',
-          label: 'Viikko 1 — toimiva runko',
-          caption: 'Skeleton selaimessa. Screenshot, Git-historia tai varhainen Storybook-näkymä.',
-        },
-        {
-          id: 'colliers-julkaisu',
-          ratio: '4:3',
-          label: 'Julkaisu — sama runko jatkokehitettynä, valmis ilme',
-          caption: 'Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla.',
-        },
-      ],
+      id: 'colliers-runko',
+      ratio: '4:3',
+      tarveLeveys: 1344,
+      beforeLabel: 'Viikko 1',
+      afterLabel: 'Julkaisu',
+      caption:
+        'Sama näkymä viikolla 1 ja julkaisussa: toimiva runko ja siitä jatkokehitetty valmis ilme.',
     },
     {
       kind: 'band',

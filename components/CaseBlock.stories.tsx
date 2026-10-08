@@ -23,7 +23,7 @@ const meta = {
     docs: {
       description: {
         component: [
-          'Yhdeksän lohkoa, joista casesivu kootaan. Uusi case ei tuo mukanaan uutta',
+          'Kymmenen lohkoa, joista casesivu kootaan. Uusi case ei tuo mukanaan uutta',
           'layoutia — se on lista näitä.',
           '',
           'Lohko piirtää sen mitä sille annetaan. Ne kolme jotka lukevat totuuden',
@@ -69,6 +69,21 @@ export const Kuvapari: Story = {
         { id: 'demo-2', ratio: '4:3', caption: 'Luurankoversio', label: 'Viikko 1' },
         { id: 'demo-3', ratio: '4:3', caption: 'Julkaistu näkymä', label: 'Viikko 24' },
       ],
+    },
+  },
+};
+
+/** Ennen/jälkeen-vertailu yhdessä kehyksessä. */
+export const Vertailu: Story = {
+  args: {
+    block: {
+      kind: 'compare',
+      label: 'Viikko 1 → julkaisu',
+      id: 'pivo-kirjautuminen',
+      ratio: '3:4',
+      beforeLabel: 'Ennen',
+      afterLabel: 'Jälkeen',
+      caption: 'Kirjautuminen ennen ja jälkeen.',
     },
   },
 };

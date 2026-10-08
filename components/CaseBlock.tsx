@@ -1,5 +1,6 @@
 import type { Block } from '@/content/cases';
-import Media from './Media';
+import Media, { rajaukset } from './Media';
+import BeforeAfter from './BeforeAfter';
 
 /**
  * Kuinka leveänä kuva piirtyy kussakin lohkossa. Lohko tietää sen,
@@ -14,6 +15,8 @@ const SIZES = {
   /* Kaksi saraketta 600:sta ylöspäin. */
   pari: '(min-width: 1440px) 672px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
   /* Kolme saraketta 900:sta, kaksi 600:sta. */
+  /* Tekstisarakkeen levyinen: noin kolme neljäsosaa sisältöleveydestä. */
+  sarake: '(min-width: 1440px) 968px, (min-width: 900px) 70vw, (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
   kolmikko:
     '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
 };
@@ -34,11 +37,11 @@ import { getDictionary } from '@/content/dictionaries';
  * lohko joka lukee totuuden tiedostoista ovat eri asioita. Nyt sen
  * näkee tiedostorakenteesta.
  *
- * Yhdeksän lohkoa, ja niillä kaikilla on story.
+ * Kymmenen lohkoa, ja niillä kaikilla on story.
  */
 export type PureBlock = Extract<
   Block,
-  { kind: 'text' | 'media' | 'pair' | 'band' | 'trio' | 'scope' | 'steps' | 'choices' | 'todo' }
+  { kind: 'text' | 'media' | 'pair' | 'compare' | 'band' | 'trio' | 'scope' | 'steps' | 'choices' | 'todo' }
 >;
 
 export default function CaseBlock({
@@ -112,6 +115,34 @@ export default function CaseBlock({
           </section>
         </Reveal>
       );
+
+    case 'compare': {
+      /* BeforeAfter ei piirrä mitään ilman molempia lähteitä, joten
+         tyhjä paikka näytetään tavallisena paikanvaraajana. */
+      const taysi =
+        rajaukset(block.id, `${block.id}-ennen`) && rajaukset(block.id, `${block.id}-jalkeen`);
+      return (
+        <Reveal>
+          <section className="page case__section">
+            <h2 className="meta">{block.label}</h2>
+            <div className="case__section-body">
+              {taysi ? (
+                <BeforeAfter
+                  id={block.id}
+                  beforeLabel={block.beforeLabel}
+                  afterLabel={block.afterLabel}
+                  alt={block.caption}
+                  caption={block.caption}
+                  sizes={SIZES.sarake}
+                />
+              ) : (
+                <Media id={block.id} ratio={block.ratio} caption={block.caption} sizes={SIZES.sarake} />
+              )}
+            </div>
+          </section>
+        </Reveal>
+      );
+    }
 
     case 'band':
       return (
