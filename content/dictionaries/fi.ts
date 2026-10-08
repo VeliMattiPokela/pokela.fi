@@ -33,19 +33,19 @@ const fi = {
   home: {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-', 'Matti', 'Pokela'],
-    role: 'Senior Designer — suunnittelen käyttöliittymät ja koodaan ne tuotantoon',
+    role: 'Senior Designer, Helsinki',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
     availability: null as string | null,
-    statement: 'Rakennan tuotteita, jotka toimivat myös silloin kun demo on ohi.',
+    statement: 'Suunnittelen käyttöliittymiä ja koodaan ne itse tuotantoon asti.',
     lede:
-      'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon. Viimeisimmät kaksi projektia: Colliers Asunnot ja oma tuotteeni Blokbook — molemmissa design syntyi suoraan koodissa.',
+      'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuotteeni Blokbook. Kummassakin suunnittelin ja toteutin käyttöliittymän suoraan koodissa.',
     aboutLink: 'Tietoa minusta',
     selectedWork: 'Valitut työt',
     alsoWorked: 'Muita aiempia töitä',
     allWork: 'Katso kaikki työt',
-    bandTitle: 'Sama ihminen piirtää ja rakentaa.',
+    bandTitle: 'Teen yleensä sekä suunnittelun että toteutuksen.',
     bandBody:
-      'Design system, tuotesuunnittelu ja frontend-toteutus — tarpeen mukaan kaikki kolme.',
+      'Design system, tuotesuunnittelu ja front end. Projektista riippuen yksi näistä tai kaikki kolme.',
   },
 
   work: {
@@ -66,9 +66,9 @@ const fi = {
   about: {
     titleLines: ['Veli-Matti', 'Pokela'],
     lede:
-      'Senior Designer Helsingissä. Olen yhtä kotonani varhaisen konseptin luonnostelussa, käyttöliittymän suunnittelussa ja sen koodaamisessa toimivaksi ratkaisuksi.',
+      'Senior Designer Helsingissä. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
     body:
-      'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010 — usein samassa projektissa. Ymmärrän sekä liiketoiminnan että käyttäjän, kuvaan palvelun ja käyttöliittymän, ja muutan sen responsiiviseksi koodatuksi ratkaisuksi. Se monipuolisuus on se mikä pitää asiat liikkeessä ja auttaa tiimejä etenemään nopeammin.',
+      'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
     contact: 'Ota yhteyttä',
     /* Ei "Lataa PDF": PDF:ää ei ole eikä tehdä. Sivu tulostuu
        CV:ksi, ja selain tekee siitä tiedoston jos lukija haluaa. */
@@ -114,7 +114,7 @@ const fi = {
     name: 'Nimi',
     /* Keskimmäisen näyterivin meta ei ole sisältöä vaan selite siitä
        mitä rivi demonstroi. */
-    hoverDemo: 'Hover / :active — käännetty',
+    hoverDemo: 'Avattu rivi, käännetty',
   },
 
   common: {

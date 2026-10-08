@@ -142,7 +142,7 @@ export default function CaseBlockDerived({
       );
     }
     case 'ketju': {
-      /* Vartijan nimi luetaan rekisteristä, jotta se on sama kuin
+      /* Tarkistuksen nimi luetaan rekisteristä, jotta se on sama kuin
          tarkistuslistassa. Tuntematon tunniste näkyy sellaisenaan. */
       const nimet = new Map(checks().map((c) => [c.id, c.title]));
       return (
@@ -169,8 +169,8 @@ export default function CaseBlockDerived({
                         {lenkki.tulossa
                           ? 'Tulossa'
                           : lenkki.vartijat.length
-                            ? `Vartija: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
-                            : 'Ei vartijaa'}
+                            ? `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
+                            : 'Ei tarkistusta'}
                       </span>
                     </span>
                   </li>

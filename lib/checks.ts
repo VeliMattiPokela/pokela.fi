@@ -46,13 +46,13 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'stories',
     title: 'Storyt',
     proves: 'Jokaisella komponentilla on story, ja siinä on tumma teema ja mobiilikoko.',
-    blind: 'Poikkeuksen syy on nyt valinta kolmesta, ja jokaisella on sääntö jonka kone ajaa. Mutta se ei näe onko story hyvä — vain että se on olemassa ja kattaa tumman teeman ja mobiilikoon.',
+    blind: 'Ei näe onko story hyvä, vain että se on olemassa ja kattaa tumman teeman ja mobiilikoon. Poikkeuksen syy valitaan kolmesta vaihtoehdosta, ja jokaisella on oma sääntönsä.',
   },
   {
     id: 'code-connect',
     title: 'Code Connect',
     proves: 'Jokaisella kirjatulla Figma-komponentilla on kytkentätiedosto, ja se osoittaa oikeaan Figma-tiedostoon.',
-    blind: 'Ei avaa Figmaa itse — sen tekee Figma-tarkistus, joka ajetaan erikseen CI:ssä.',
+    blind: 'Ei avaa Figmaa itse. Sen tekee Figma-tarkistus, joka ajetaan erikseen CI:ssä.',
   },
   {
     id: 'hardcoded',
@@ -74,7 +74,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     proves:
       'Kuvamanifesti vastaa lähdetiedostoja ja sisällössä ilmoitettuja kuvasuhteita, eikä kuvat-kansiossa ole lähdettä jolle ei ole paikkaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa.',
     blind:
-      'Ei arvioi kuvaa. Rajaus on oletuksena keskeltä, eikä mikään huomaa jos kuvan olennainen kohta jää sen ulkopuolelle. Tyhjä paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia — se vain raportoidaan.',
+      'Ei arvioi kuvaa. Rajaus on oletuksena keskeltä, eikä mikään huomaa jos kuvan olennainen kohta jää sen ulkopuolelle. Tyhjä paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia. Se vain raportoidaan.',
   },
   {
     id: 'suhteet',
@@ -82,7 +82,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     proves:
       'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
     blind:
-      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Figman neljäs paikka — Media-komponentin Ratio-variantti — on katettu, mutta check:figmassa: se tarvitsee verkon eikä kuulu tähän ketjuun.',
+      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Figman neljäs paikka (Media-komponentin Ratio-variantti) on katettu, mutta check:figmassa: se tarvitsee verkon eikä kuulu tähän ketjuun.',
   },
   {
     id: 'figma',
@@ -96,9 +96,9 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'paketti',
     title: 'Paketit',
     proves:
-      'npm:ssä julkaistu @pokela/tokens ja @pokela/components vastaavat tavulleen sitä mitä repo rakentaisi. Jos sisältö eroaa mutta versio on sama, se sanotaan erikseen — npm ei päästä julkaisemaan samaa versiota uudelleen, joten korjaus alkaa versionnostosta.',
+      'npm:ssä julkaistu @pokela/tokens ja @pokela/components vastaavat tavulleen sitä mitä repo rakentaisi. Jos sisältö eroaa mutta versio on sama, se sanotaan erikseen. npm ei päästä julkaisemaan samaa versiota uudelleen, joten korjaus alkaa versionnostosta.',
     blind:
-      'Ei julkaise mitään eikä voi. Se kertoo että npm on jäljessä, ei korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa — kit voi olla kiinnitetty vanhaan versioon vaikka npm ja repo olisivat synkassa.',
+      'Ei julkaise mitään eikä voi. Se kertoo että npm on jäljessä, ei korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa — kit voi olla kiinnitetty vanhaan versioon vaikka npm ja repo vastaisivat toisiaan.',
   },
   {
     id: 'docs',

@@ -125,7 +125,7 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     {
       number: '01',
       label: 'Storybook',
-      body: 'Komponentit, tokenit ja tilat elävinä. Sama koodi jota tämä sivu käyttää.',
+      body: 'Komponentit, tokenit ja tilat selaimessa. Sama koodi, jota tämä sivu käyttää.',
       state: state(artefactUrls.storybook, hasStorybook),
       href: artefactUrls.storybook,
       detail: 'ei vielä julkinen',
@@ -133,7 +133,7 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     {
       number: '02',
       label: 'Figma-tiedosto',
-      body: 'Sama kirjasto Figman puolella — komponentit, variantit ja tokenit.',
+      body: 'Sama kirjasto Figmassa: komponentit, variantit ja tokenit.',
       state: state(artefactUrls.figma, hasFigma),
       href: artefactUrls.figma,
     },
@@ -147,12 +147,12 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
          ne näkyvät Dev Modessa, ja anonyymi katselija saa vain
          "Sign up to inspect". Se on rehellisempi sanoa kuin antaa
          ymmärtää että linkki riittäisi. */
-      detail: `${connections} kytkentää, julkaistu Figmaan — näkyy Dev Modessa, joka vaatii Figma-tilin`,
+      detail: `${connections} kytkentää, julkaistu Figmaan. Näkyvät Dev Modessa, joka vaatii Figma-tilin`,
     },
     {
       number: '04',
       label: 'Repo',
-      body: 'Koko sivusto, tokenit ja build-putki. Myös synkkatarkistus.',
+      body: 'Koko sivusto, tokenit, build ja tarkistukset.',
       state: state(remote, false),
       href: remote,
     },

@@ -34,6 +34,19 @@ export type Block =
   | { kind: 'media'; media: MediaSlot }
   /** Kuvapari, esim. skeleton → julkaisu. */
   | { kind: 'pair'; label?: string; items: MediaSlot[] }
+  /** Ennen/jälkeen-vertailu yhdessä kehyksessä. Lähteet ovat
+      `<id>-ennen` ja `<id>-jalkeen`. Tyhjänä näkyy paikanvaraaja. */
+  | {
+      kind: 'compare';
+      label: string;
+      id: string;
+      ratio: Ratio;
+      caption: string;
+      beforeLabel: string;
+      afterLabel: string;
+      /** Lähteen tarvitsema leveys: lohko on leveämpi kuin työlistan vertailu. */
+      tarveLeveys?: number;
+    }
   /** Käännetty väitepalkki. Yksi per case. */
   | { kind: 'band'; title: string; body: string }
   /** Kolme kuvaa otsikoin. */
