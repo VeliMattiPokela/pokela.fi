@@ -376,6 +376,34 @@ function rajauskohta(nimi) {
 }
 
 /**
+ * Miten kuva esitetään paikassaan.
+ *
+ *   levy    Kuva näytetään kokonaisena, rajaamatta, hillityn taustalevyn
+ *           keskellä. Oletus. Kuvakaappauksen oma tausta osui ennen
+ *           suoraan sivun taustaa vasten, ja raja näytti
+ *           sattumanvaraiselta; puhelinkaappaus taas rajautui 4:5:ksi ja
+ *           menetti puolet ruudustaan. Levyllä jokainen kuva saa saman
+ *           rajan ja sivu saman rytmin, oli kuva mikä tahansa.
+ *   taysi   Kuva täyttää paikan ja rajataan sen kuvasuhteeseen.
+ *           Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa
+ *           rajattavanaan.
+ *
+ * Hero on aina `taysi`: se on täysleveä nosto, ja sen tausta jatkuu
+ * ruudun reunoihin (base.css). Vertailuparilla on oma esityksensä.
+ *
+ * Ohitus: `kuvat/<nimi>.json` sisältöä `{ "esitys": "taysi" }`.
+ */
+const ESITYKSET = ['levy', 'taysi'];
+function esitys(paikka, nimi) {
+  if (paikka.ratio === 'hero' || paikka.vertailu) return 'taysi';
+  const oma = asetukset(nimi).esitys ?? 'levy';
+  if (!ESITYKSET.includes(oma)) {
+    throw new Error(`kuvat/${nimi}.json: esitys "${oma}" — sallitut: ${ESITYKSET.join(', ')}`);
+  }
+  return oma;
+}
+
+/**
  * Alue murtolukuina → sharpin extract-muoto pikseleinä.
  *
  * Arvot ovat 0–1 eli osuuksia lähteestä, eivät pikseleitä. Syy on
@@ -695,10 +723,11 @@ export async function rakenna({ kirjoita = true } = {}) {
           ]
         : [{ ulos: paikka.id, lahde: paa, koot: null }];
 
+    const tapa = esitys(paikka, paa.nimi);
     const tulokset = {};
     for (const pala of palat) {
       const tulos = await teeKuva(pala.ulos, pala.lahde.tiedosto, paikka.ratio, {
-        rajaa: !paikka.vertailu,
+        rajaa: !paikka.vertailu && tapa === 'taysi',
         kirjoita,
         koot: pala.koot,
         asetusNimi: pala.lahde.nimi,
@@ -720,7 +749,16 @@ export async function rakenna({ kirjoita = true } = {}) {
       /* Lähde kapeampi kuin mitä paikka piirtyy kahden pikselin
          näytöllä: kuva näkyy pehmeänä eikä mikään muu kerro siitä.
          Mobiilikuvalta ei vaadita työpöytäleveyttä. */
-      const tarve = pala.koot?.length === 1 && pala.koot[0] === 'base' ? 880 : tarvittavaLeveys(paikka);
+      let tarve = pala.koot?.length === 1 && pala.koot[0] === 'base' ? 880 : tarvittavaLeveys(paikka);
+      /* Levyllä kapea kuva piirtyy paikkaansa kapeampana: pystykuva
+         4:5-paikassa on korkeuden mittainen, ei leveyden. Vaatimus
+         lasketaan siitä, muuten jokainen puhelinkaappaus olisi
+         "liian pieni". */
+      if (tapa === 'levy') {
+        const paikanSuhde = SUHTEET[paikka.ratio][0].suhde;
+        const lahteenSuhde = tulos[0].suhde;
+        tarve = Math.round(Math.min(tarve, (tarve / paikanSuhde) * lahteenSuhde));
+      }
       if (tulos.lahdeLeveys < tarve * 0.75) {
         huomiot.push({
           nimi: pala.lahde.nimi,
@@ -741,7 +779,9 @@ export async function rakenna({ kirjoita = true } = {}) {
         [...v].sort((a, b) => jarjestys.indexOf(a.koko) - jarjestys.indexOf(b.koko)),
       ]),
     );
-    manifesti[paikka.id] = { tyyppi: paikka.vertailu ? 'vertailu' : 'kuva', osat };
+    manifesti[paikka.id] = paikka.vertailu
+      ? { tyyppi: 'vertailu', osat }
+      : { tyyppi: 'kuva', esitys: tapa, osat };
   }
 
   const logot = await teeLogot({ kirjoita });

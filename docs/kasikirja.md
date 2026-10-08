@@ -926,6 +926,30 @@ Rajaukset:
 Varoituksia on siis yksi laji: liian pieni lähde. Sitä ei voi korjata
 skaalaamalla, joten se on aina tekemistä vaativa.
 
+### Esitys: levy tai täysi
+
+Oletuksena kuva näytetään **levyllä**: kokonaisena, rajaamatta,
+hillityn taustalevyn (`--badge-surface`) keskellä. Levyssä on
+hiusviiva ja terävät kulmat kuten muuallakin sivulla, ja kuvalla kevyt
+varjo. Syy: kuvakaappauksen oma tausta osui ennen suoraan sivun
+taustaa vasten ja raja näytti sattumanvaraiselta. Puhelinkaappaus taas
+rajautui 4:5:ksi ja menetti puolet ruudustaan. Levyllä jokainen kuva
+saa saman rajan ja sivu saman rytmin. Päätetty 8.10.2026 mock-kuvan
+perusteella.
+
+```json
+{ "esitys": "taysi" }
+```
+
+**Täysi** täyttää paikan ja rajaa kuvan sen kuvasuhteeseen, kuten
+ennen. Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa.
+`sovita` ja `rajaus` alla koskevat vain täyttä esitystä; `alue`
+koskee kumpaakin.
+
+**Hero** on aina täysi. Sen tausta jatkuu nauhana ruudun reunoihin, ja
+kuva pysyy sivun levyisenä (`.media-hero` base.css:ssä).
+Vertailuparilla on oma esityksensä.
+
 Puhelinkaappaus on tyypillisesti 0,46-suhteinen eikä se mahdu
 4:5-laatikkoon kokonaisena eikä rajattuna järkevästi — kokeiltuna
 kumpikin ääripää oli huono: rajaus katkaisi otsikon, sovitus teki

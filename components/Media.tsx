@@ -33,7 +33,8 @@ type Rajaus = {
 };
 
 type Merkinta =
-  | { tyyppi: 'kuva' | 'vertailu'; osat: Record<string, Rajaus[]> }
+  | { tyyppi: 'kuva'; esitys: 'levy' | 'taysi'; osat: Record<string, Rajaus[]> }
+  | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'video'; leveys: number; korkeus: number };
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
@@ -185,6 +186,35 @@ export default function Media({
      on lähteessä pienimmästä suurimpaan, joten se käännetään. */
   const jarjestetyt = [...osat].reverse();
   const perus = osat[0];
+  const levy = merkinta?.tyyppi === 'kuva' && merkinta.esitys === 'levy';
+
+  /* Levy: kuva kokonaisena taustalevyn keskellä (ks. esitys() kuvat.mjs).
+     Laatikko pysyy samana kuin paikanvaraajalla, joten layout ei liiku;
+     vain sen sisältö on kuva levyllä eikä kuva reunasta reunaan. */
+  if (levy) {
+    return (
+      <div className={`${luokka} media--levy`}>
+        <picture className="media__levy">
+          {jarjestetyt.flatMap((r) =>
+            ['avif', 'webp'].map((muoto) => (
+              <source key={`${r.koko}-${muoto}`} type={`image/${muoto}`} srcSet={srcset(id!, r, muoto)} sizes={sizes} />
+            )),
+          )}
+          <img
+            src={`/kuva/${id}-${perus.koko}-${perus.leveys}.webp`}
+            alt={caption ?? ''}
+            width={perus.leveys}
+            height={perus.korkeus}
+            sizes={sizes}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding={priority ? 'sync' : 'async'}
+            fetchPriority={priority ? 'high' : undefined}
+            className="media__levy-kuva"
+          />
+        </picture>
+      </div>
+    );
+  }
 
   return (
     <picture className={`${luokka} media--kuva`}>

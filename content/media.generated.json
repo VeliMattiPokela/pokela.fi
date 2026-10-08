@@ -2,6 +2,7 @@
   "paikat": {
     "blokbook-hero": {
       "tyyppi": "kuva",
+      "esitys": "taysi",
       "osat": {
         "blokbook-hero": [
           {
@@ -51,24 +52,26 @@
     },
     "colliers-haku": {
       "tyyppi": "kuva",
+      "esitys": "levy",
       "osat": {
         "colliers-haku": [
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.8,
+            "suhde": 0.4614,
             "leveydet": [
               480,
               622
             ],
             "leveys": 622,
-            "korkeus": 778
+            "korkeus": 1348
           }
         ]
       }
     },
     "muotokuva": {
       "tyyppi": "kuva",
+      "esitys": "taysi",
       "osat": {
         "muotokuva": [
           {

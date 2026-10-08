@@ -65,3 +65,13 @@ export const Tumma: Story = {
   globals: { theme: 'dark' },
   args: { ratio: 'hero', caption: 'Raidoitus tulee --placeholder-a / -b -tokeneista' },
 };
+
+/**
+ * Kuva levyllä: kokonaisena, rajaamatta, taustalevyn keskellä.
+ * Oletusesitys kaikille muille kuin herolle (`kuvat/<nimi>.json`:n
+ * `{ "esitys": "taysi" }` palauttaa rajauksen).
+ */
+export const Levylla: Story = {
+  args: { id: 'colliers-haku', ratio: '4:5', caption: 'Asuntohaku puhelimessa' },
+  decorators: [(Tarina) => <div style={{ maxWidth: 480 }}><Tarina /></div>],
+};

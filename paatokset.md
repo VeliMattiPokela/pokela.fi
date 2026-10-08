@@ -436,3 +436,24 @@ poistettiin ennen mergeä tällä perusteella.
 ovat löytäneet virheen, jäävät.
 
 *Päätetty 7.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 9. Kuvat levyllä, hero reunasta reunaan
+
+**Ero:** ei koodin ja Figman välillä, vaan kuvan ja sivun välillä.
+Kuvakaappauksen oma tausta osui suoraan sivun taustaa vasten, ja raja
+näytti sattumanvaraiselta. Puhelinkaappaus rajautui 4:5:ksi ja menetti
+puolet ruudustaan.
+
+**Päätös:** jokainen casen kuva näytetään oletuksena kokonaisena,
+rajaamatta, hillityn taustalevyn (`--badge-surface`) keskellä. Valokuva tai
+kuvitus voi täyttää paikkansa asetuksella `{ "esitys": "taysi" }`. Herossa
+levyn sävy jatkuu nauhana ruudun reunoihin ja kuva pysyy sivun levyisenä.
+
+**Perustelu:** yksi kehys kaikille kuville antaa sivulle saman rytmin, oli
+kuva vaalea, tumma, kapea tai leveä. Laitekehykset hylättiin oletuksena,
+koska kaikki kuvat eivät ole ruutukaappauksia. Vahva editorial-reuna
+jokaisessa kuvassa olisi raskas ja veisi huomion sisällöltä.
+
+*Päätetty 8.10.2026 mock-kuvan perusteella — Veli-Matti Pokela*
