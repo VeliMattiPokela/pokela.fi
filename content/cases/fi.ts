@@ -12,10 +12,10 @@ const colliers: Case = {
   slug: 'colliers',
   eyebrow: 'Case 01 · 2026 · Colliers',
   title: 'Colliers Asunnot',
-  tagline: 'Vuokra-asuntopalvelu, joka suunniteltiin koodissa.',
+  tagline: 'Vuokra-asuntopalvelu, joka suunniteltiin suoraan koodissa.',
   facts: [
     { label: 'Rooli', value: 'Senior Designer · design, front end, CMS' },
-    { label: 'Kesto', value: '6 kuukautta konseptista julkaisuun' },
+    { label: 'Kesto', value: '8 kuukautta konseptista julkaisuun' },
     { label: 'Tiimi', value: 'Pieni monialainen tiimi' },
     { label: 'Stack', value: 'Next.js, React, TypeScript, Storybook, Strapi' },
   ],
@@ -37,7 +37,7 @@ const colliers: Case = {
         },
         {
           h: 'Tehtävä',
-          p: 'Uusi palvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Suunnittelin ja toteutin palvelun itse, joten päätökset siirtyivät suoraan tuotteeseen.',
+          p: 'Uusi palvelu kahdeksassa kuukaudessa: asuntohaku, verkkovuokraus, sisällönhallinta ja brändin modernisointi. Suunnittelin palvelun ja toteutin sen front endin, joten suunnittelupäätökset siirtyivät suoraan tuotteeseen.',
         },
       ],
     },
@@ -48,11 +48,11 @@ const colliers: Case = {
       items: [
         {
           h: 'Valinta',
-          p: 'Rakensin ensin klikattavan skeletonin suoraan koodiin. Design system ja layoutit syntyivät Storybookiin, eivät Figmaan.',
+          p: 'Tein ensin klikattavan rautalankamallin suoraan koodiin. Design system ja layoutit syntyivät Storybookiin koodina, eivät Figmaan.',
         },
         {
           h: 'Miksi',
-          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä on käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pääsi kokeilemaan palvelua alusta asti.',
+          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä on käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pystyi näkemään ja kokeilemaan palvelua alusta asti.',
         },
         {
           h: 'Seuraus',
@@ -73,7 +73,7 @@ const colliers: Case = {
         {
           id: 'colliers-julkaisu',
           ratio: '4:3',
-          label: 'Julkaisu — sama rakenne, valmis ilme',
+          label: 'Julkaisu — sama runko jatkokehitettynä, valmis ilme',
           caption: 'Sama näkymä julkaistussa palvelussa. Sama rajaus kuin vasemmalla.',
         },
       ],
@@ -90,18 +90,18 @@ const colliers: Case = {
       items: [
         {
           media: { id: 'colliers-haku', ratio: '4:5', caption: 'AI-haku: kirjoitettu kuvaus + tulokset' },
-          h: 'Asuntohaku, jolle voi kuvailla kodin',
-          p: 'Käyttäjä kirjoittaa millaista kotia etsii, ja siitä muodostuu haku. Vastasin käyttöliittymästä ja siitä, miten tulokset esitetään.',
+          h: 'Asuntohaku tekoälyllä ja kartalla',
+          p: 'Käyttäjä voi kuvailla omin sanoin, millaista kotia etsii, tai hakea asuntoja kartalta. Vastasin käyttöliittymästä ja front end -toteutuksesta.',
         },
         {
           media: { id: 'colliers-vuokraus', ratio: '4:5', caption: 'Vuokraa heti -polku, yksi vaihe' },
           h: 'Vuokraa heti: vuokraus verkossa',
-          p: 'Monivaiheinen polku, joka on suunniteltu keskeytettäväksi ja jatkettavaksi. Suunnittelu ja toteutus iteroitiin suoraan koodissa.',
+          p: 'Monivaiheinen polku, jolla asunnon voi vuokrata alusta loppuun verkossa. Suunnittelu ja toteutus iteroitiin suoraan koodissa.',
         },
         {
           media: { id: 'colliers-strapi', ratio: '4:5', caption: 'Strapi-editori sisältöä muokattaessa' },
           h: 'Sisällönhallinta ja whitelabel',
-          p: 'Strapi-pohjainen järjestelmä, jolla markkinointi tekee laskeutumissivut itse, tarvittaessa myös asiakkaan omalla ilmeellä.',
+          p: 'Strapi-pohjainen sisällönhallinta, jolla markkinointi tekee laskeutumissivut itse, tarvittaessa myös asiakkaan omalla ilmeellä. Suunnittelin ja toteutin Strapiin kymmeniä komponentteja variantteineen. Niistä kootaan sivupohjat eri tarpeisiin, kuten markkinointikampanjoihin ja sisältösivuihin.',
         },
       ],
     },
@@ -111,16 +111,16 @@ const colliers: Case = {
       lead: 'Design system on koodissa',
       items: [
         {
-          p: 'Tokenit, komponentit ja layoutit ovat Storybookissa. Erillistä Figma-tiedostoa ei ollut, joten dokumentaatio ja tuotantokoodi pysyivät samana.',
+          p: 'Tokenit, komponentit ja layoutit ovat Storybookissa. Erillistä Figma-tiedostoa ei ollut, joten dokumentaatio vastaa aina tuotannossa olevaa koodia.',
         },
       ],
     },
     {
       kind: 'text',
-      label: 'Vaikeinta',
+      label: 'Työtapa',
       items: [
         {
-          p: 'Kuusi kuukautta koko palvelulle tarkoitti, että päätöksiä tehtiin nopeasti ja osa niistä jouduttiin perumaan. Perumiseen riitti yleensä muutos koodiin, koska erillistä suunnitelmaa ei tarvinnut päivittää.',
+          p: 'Tiivis aikataulu tarkoitti, että päätöksiä tehtiin nopeasti ja tekemisen piti olla tehokasta. Toteutusta iteroitiin suoraan koodissa, koska koodi toimi samalla suunnittelun työkaluna.',
         },
       ],
     },
@@ -128,7 +128,7 @@ const colliers: Case = {
     {
       kind: 'text',
       label: 'Lopputulos',
-      lead: 'Palvelu julkaistiin ajallaan ja on nyt käytössä.',
+      lead: 'Palvelu on julkaistu ja käytössä.',
       items: [
         { p: 'Mittareita ei ole vielä julkaistu. Ne lisätään tähän kun dataa on.' },
       ],

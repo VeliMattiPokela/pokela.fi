@@ -80,7 +80,7 @@ const leads: Lead[] = [
     title: 'Colliers Asunnot',
     tagline: 'Vuokra-asuntopalvelu, joka suunniteltiin koodissa',
     lede:
-      'Vuokra-asuntopalvelu kuudessa kuukaudessa: asuntohaku, verkkovuokraus ja sisällönhallinta. Design ja toteutus samoissa käsissä.',
+      'Vuokra-asuntopalvelu alusta loppuun: asuntohaku, verkkovuokraus ja sisällönhallinta. Suunnittelin palvelun ja toteutin sen front endin.',
     meta: 'Design, front end, CMS',
     next: 'blokbook',
   },

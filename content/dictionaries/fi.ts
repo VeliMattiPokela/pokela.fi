@@ -38,7 +38,7 @@ const fi = {
     availability: null as string | null,
     statement: 'Suunnittelen käyttöliittymiä ja koodaan ne itse tuotantoon asti.',
     lede:
-      'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuotteeni Blokbook. Kummassakin suunnittelin näkymät suoraan koodiin.',
+      'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuotteeni Blokbook. Kummassakin suunnittelin ja toteutin käyttöliittymän suoraan koodissa.',
     aboutLink: 'Tietoa minusta',
     selectedWork: 'Valitut työt',
     alsoWorked: 'Muita aiempia töitä',
