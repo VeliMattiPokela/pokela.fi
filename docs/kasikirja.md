@@ -1051,14 +1051,19 @@ lähde. Kaksi on hallittavissa; kolme alkaisi olla kuvapankki.
 
 ### Video
 
-Sama putki. Pudota `mp4` tai `mov`, ja siitä syntyy mp4 (H.264) ja
-webm (VP9) sekä julistekuva. Sisällössä paikan `kind` on `video`.
+Sama putki ja samat numeroidut paikat. Paikkaa ei merkitä sisällössä
+kuvaksi tai videoksi: pudotettu tiedosto ratkaisee. `mp4`, `mov`, `m4v`
+tai `webm` mihin tahansa paikkaan, ja siitä syntyy mp4 (H.264,
+`faststart`) ja webm (VP9) sekä julistekuva ensimmäisestä ruudusta.
+Ääni poistetaan. Leveys on herossa enintään 1920 px, muualla 1600 px.
+Video täyttää paikkansa rajattuna samoin kuin `taysi`-kuva.
 
-Videota **ei toisteta automaattisesti**. Automaattitoisto vaatisi
-asiakaskomponentin jotta `prefers-reduced-motion` voidaan lukea, ja
-liikkuva kuva jota ei voi pysäyttää on saavutettavuusongelma silloinkin
-kun se on mykkä. Julistekuva näkyy heti, katsoja päättää lähteekö se
-liikkeelle. `preload="metadata"` hakee vain otsakkeet.
+Video **toistuu itsestään mykkänä silmukkana**, ja nurkassa on aina
+taukonappi. Jos käyttäjä on pyytänyt vähemmän liikettä
+(`prefers-reduced-motion`), video alkaa tauolla ja julistekuva näkyy.
+`autoPlay`-attribuuttia ei käytetä, koska se lähtisi liikkeelle ennen
+kuin asetus ehditään lukea. Ks. päätös 11 ja `components/Video.tsx`.
+Figmassa sama komponentti on `Video`, variantteina napin kaksi asua.
 
 ### Logot
 

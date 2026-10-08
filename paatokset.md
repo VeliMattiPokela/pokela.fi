@@ -482,3 +482,25 @@ päässyt läpi. Tämä on se virhe. Uutta tarkistusta ei lisätty: olemassa
 oleva varianttivertailu riittää, kun tila kulkee sen kautta.
 
 *Päätetty 8.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 11. Video toistuu itsestään, taukonappi aina näkyvissä
+
+**Ero:** käsikirjan mukaan videota ei toistettu automaattisesti, ja
+videoksi kelpasi vain sisällössä merkitty paikka. Heroon pudotettu mp4
+kaatui kuvaputkeen, koska yhtään videopaikkaa ei ollut merkitty.
+
+**Päätös:** jokainen mediapaikka ottaa kuvan tai videon, ja tiedosto
+ratkaisee kumpi. Video toistuu mykkänä silmukkana ja siinä on aina
+näkyvä taukonappi. Vähemmän liikettä pyytäneelle video alkaa tauolla.
+Video on oma komponenttinsa (`Video`) ja Figmassa oma komponenttinsa,
+jonka `Tila`-variantit ovat napin kaksi asua.
+
+**Perustelu:** hero-video on tunnelmaa eikä katsottava klippi, eikä
+toistonappi pysäytyskuvan päällä sovi heroon. Automaattitoisto jätettiin
+alun perin pois kahdesta syystä: liikettä ei voinut pysäyttää, eikä
+`prefers-reduced-motion`-asetusta luettu. Taukonappi ja asetuksen
+lukeminen selaimessa poistavat molemmat syyt.
+
+*Päätetty 8.10.2026 — Veli-Matti Pokela*

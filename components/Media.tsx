@@ -1,4 +1,5 @@
 import manifesti from '@/content/media.generated.json';
+import Video from './Video';
 
 /**
  * Kuvapaikka.
@@ -92,44 +93,6 @@ export function Lahteet({ nimi, r, sizes }: { nimi: string; r: Rajaus; sizes: st
   );
 }
 
-/**
- * Video.
- *
- * Ei automaattitoistoa. Kaksi syytä: automaattitoisto vaatisi
- * asiakaskomponentin jotta `prefers-reduced-motion` voidaan lukea,
- * ja liikkuva kuva jota ei voi pysäyttää on saavutettavuusongelma
- * siinäkin tapauksessa että se on mykkä. Julistekuva näkyy heti,
- * katsoja päättää lähteekö se liikkeelle.
- *
- * `preload="metadata"` lataa vain otsakkeet — koko tiedosto haetaan
- * vasta jos katsoja painaa toistoa.
- */
-function Video({ id, leveys, korkeus, caption }: {
-  id: string;
-  leveys: number;
-  korkeus: number;
-  caption?: string;
-}) {
-  return (
-    <video
-      className="media-fill"
-      controls
-      preload="metadata"
-      playsInline
-      poster={`/kuva/${id}-juliste.webp`}
-      width={leveys}
-      height={korkeus}
-      /* Nimi vain jos se on olemassa. aria-label="" ei jätä nimeä
-         tyhjäksi vaan poistaa sen, ja video on kontrolleineen
-         interaktiivinen elementti jolla pitää olla nimi. */
-      {...(caption ? { 'aria-label': caption } : {})}
-    >
-      <source src={`/kuva/${id}.webm`} type="video/webm" />
-      <source src={`/kuva/${id}.mp4`} type="video/mp4" />
-    </video>
-  );
-}
-
 export default function Media({
   id,
   ratio = '4:3',
@@ -153,7 +116,7 @@ export default function Media({
 
   if (merkinta?.tyyppi === 'video') {
     return (
-      <div className={`${luokka} media--kuva`}>
+      <div className={`${luokka} media--kuva media--video`}>
         <Video id={id!} leveys={merkinta.leveys} korkeus={merkinta.korkeus} caption={caption} />
       </div>
     );
