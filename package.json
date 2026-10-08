@@ -25,6 +25,7 @@
     "docs:korjaa": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs.mjs --korjaa",
     "build:favicon": "node scripts/build-favicon.mjs",
     "check:favicon": "node scripts/check-favicon.mjs",
+    "nimi": "node scripts/nimi-glyfit.mjs",
     "kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/kuvat.mjs",
     "check:kuvat": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-kuvat.mjs",
     "check:suhteet": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-suhteet.mjs",

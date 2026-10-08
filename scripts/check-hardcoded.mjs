@@ -47,6 +47,10 @@ const EXEMPT = {
     'mask-image:#000': 'Sama kuin yllä.',
     'grid-template-columns:300px': 'CV-rivin vuosisarake mitoitettu pisimmän vuosiluvun mukaan, ei asteikolta.',
   },
+  'hero-name.css': {
+    'stroke-width:5px':
+      'Nimikkeiden paperinvärinen reuna piirroksessa: irrottaa metatekstin kirjaimesta jonka päälle se osuu. Piirros, ei layout-mitta.',
+  },
   'case.css': {
     'grid-template-columns:200px': 'Osion otsikkosarake mitoitettu sisällön mukaan.',
     'grid-template-columns:170px': 'Metasarake mitoitettu pisimmän roolitekstin mukaan.',
