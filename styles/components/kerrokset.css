@@ -1,0 +1,53 @@
+/* Tämä sivusto räjäytyskuvana (components/SivuKerroksina.tsx). Levyn
+   sisältö käyttää sivun omia luokkia ja tokeneita; tässä on vain
+   levyjen asettelu. Yleinen osa on exploded-view.css. */
+
+.kerrokset__tokenit,
+.kerrokset__komponentit,
+.kerrokset__sivu {
+  height: 100%; box-sizing: border-box;
+  padding: var(--space-40);
+}
+
+/* 01 tokenit */
+.kerrokset__tokenit { display: grid; grid-template-columns: 5fr 4fr; gap: var(--space-40); }
+.kerrokset__varit {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-16);
+  align-content: start;
+}
+.kerrokset__vari { display: grid; gap: var(--space-4); }
+.kerrokset__siru { display: block; aspect-ratio: 1.4; border: var(--hairline) solid var(--line); margin-bottom: var(--space-4); }
+.kerrokset__tyyppi { display: grid; gap: var(--space-12); align-content: start; }
+.kerrokset__valit { display: flex; align-items: flex-end; gap: var(--space-8); margin-top: var(--space-8); }
+.kerrokset__valit i { display: block; width: var(--space-12); background: var(--ink); }
+
+/* 02 komponentit */
+.kerrokset__komponentit {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24); align-content: start;
+}
+.kerrokset__komp {
+  display: grid; gap: var(--space-12); align-content: start;
+  padding: var(--space-20);
+  border: var(--hairline) dashed var(--line);
+}
+.kerrokset__komp--leveä { grid-column: 1 / -1; }
+.kerrokset__tunnus { font-family: var(--font-code); font-size: var(--text-code); color: var(--ink-faint); }
+.kerrokset__komp .btn { justify-self: start; }
+.kerrokset__nav { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-16); }
+
+/* 03 sivu */
+.kerrokset__sivu { display: grid; gap: var(--space-16); align-content: start; }
+.kerrokset__rivi { display: flex; justify-content: space-between; align-items: baseline; }
+
+/* Levy on kapeampi kuin sivu: listarivi ja kuvapaikka eivät ulotu reunaan. */
+.kerrokset__komponentit .list-row,
+.kerrokset__sivu .list-row { margin-inline: 0; padding-inline: 0; }
+
+/* Kuvapaikka levyllä: suhde levyn mukaan, ei ikkunan, koska levy on
+   aina saman kokoinen. Heron nauha (border-image ruudun reunoihin)
+   jätetään pois: levyllä se peittäisi muut kerrokset. */
+.exploded .media-hero { border-image-source: none; margin-block: 0; }
+.kerrokset__komponentit .media-hero { aspect-ratio: 21 / 4; }
+.kerrokset__sivu .media-hero { aspect-ratio: 21 / 5; }

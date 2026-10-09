@@ -7,6 +7,7 @@ Use these instead of building an equivalent.
 - `ListRow`
 - `Accordion`, `useAccordionGroup`
 - `Timeline`, `TimelineItem`
+- `ExplodedView`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -44,6 +45,24 @@ the total duration.
   <TimelineItem label="0.03" title="Images" meta="5 min 32 s" variant="emphasis" weight={0.9} />
   <TimelineItem label="5.35" title="Site built" variant="end" />
 </Timeline>
+```
+
+`ExplodedView` shows layers as plates in 3D space: how a finished surface is
+built from its parts. Each layer is real markup, not an image. Give elements
+the same `data-kohde` in several layers and they light up together on hover.
+`tila="koottu"` starts with the layers collapsed into one surface. Put no
+links or buttons inside the layers; the whole view is one image to a screen
+reader, described by `label`.
+
+```jsx
+<ExplodedView
+  label="The page as three layers: tokens, components and the finished page."
+  layers={[
+    { name: '01 Tokens', source: 'tokens.json', content: <Tokens /> },
+    { name: '02 Components', content: <Components /> },
+    { name: '03 Page', content: <Page /> },
+  ]}
+/>
 ```
 
 `Reveal` fades its children in on scroll. Wrap sections, not single elements.

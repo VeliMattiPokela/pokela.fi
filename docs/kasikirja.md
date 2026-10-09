@@ -962,7 +962,7 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       `lg 1440` -koossa. Niiden lisäksi on **Lohkot**-pohja molemmissa
       koissa, jossa ovat ne lohkot joita casepohjissa ei ollut.
 
-      <!-- generated:case-lohkot -->15 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ajo, ketju, steps, choices, component, todo<!-- /generated -->
+      <!-- generated:case-lohkot -->16 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ajo, ketju, steps, kerrokset, choices, component, todo<!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.

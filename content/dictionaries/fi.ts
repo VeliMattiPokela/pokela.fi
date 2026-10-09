@@ -104,6 +104,13 @@ const fi = {
     rules: 'Radius 0 · viiva 1 px · ei varjoja',
     listRowHint: 'list-row — vie osoitin päälle',
     title: 'System',
+    kerroksetLabel:
+      'Tämä sivusto purettuna kolmeen kerrokseen: tokenit, komponentit ja valmis sivu.',
+    kerrokset: ['01 Tokenit', '02 Komponentit', '03 Sivu'],
+    layersTitle: '00 — Kerroksina',
+    layersMeta: 'Vie osoitin päälle, klikkaa',
+    layersNote:
+      'Sama sivu kolmena kerroksena. Kerrokset ovat sivuston omaa koodia, eivät kuvia: värit ja mitat luetaan tokens.json:sta ja komponentit ovat samat, joita sivu käyttää. Kun vierität ohi, kerrokset painuvat yhdeksi sivuksi.',
   },
 
   showcase: {

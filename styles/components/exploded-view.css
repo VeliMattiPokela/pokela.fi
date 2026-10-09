@@ -1,0 +1,74 @@
+/* Räjäytyskuva (components/ExplodedView.tsx). Levyt erottaa toisistaan
+   viiva ja taustan sävy, ei varjo: järjestelmässä ei ole varjoja.
+   Näyttämö on kiinteän kokoinen ja skaalataan
+   paikkaansa (--s), joten levyn sisältö käyttää sivun omia mittoja.
+   Kulmat, väli ja mittakaava tulevat skriptistä. */
+.exploded {
+  /* Levyn mitat: näyttämön koordinaatisto, ei layout-mitta. */
+  --levy-leveys: 960px;
+  --levy-korkeus: 600px;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--badge-surface);
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (min-width: 600px) { .exploded { aspect-ratio: 16 / 9; } }
+@media (min-width: 900px) { .exploded { aspect-ratio: 21 / 9; } }
+
+.exploded__stage {
+  position: absolute; inset: 0;
+  perspective: calc(var(--levy-leveys) * 2.3);
+  perspective-origin: 50% 40%;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+.exploded--valmis .exploded__stage { opacity: 1; }
+
+.exploded__stack {
+  --rx: 0deg; --ry: 0deg; --rz: 0deg; --vali: 0px; --nosto: 0px; --s: 1;
+  position: absolute; left: 50%; top: 50%;
+  width: var(--levy-leveys); height: var(--levy-korkeus);
+  margin-left: calc(var(--levy-leveys) / -2);
+  margin-top: calc(var(--levy-korkeus) / -2);
+  transform-style: preserve-3d;
+  transform: scale(var(--s)) translateY(var(--nosto)) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz))
+    translateZ(calc(var(--vali) * -1));
+}
+
+.exploded__layer {
+  --i: 0;
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--i) * var(--vali) + var(--korotus, 0px)));
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.exploded__layer--aktiivinen { --korotus: var(--space-40); }
+.exploded__layer--piilossa { visibility: hidden; }
+
+.exploded__plate {
+  position: absolute; inset: 0; overflow: hidden;
+  background: var(--paper); color: var(--ink);
+  border: var(--hairline) solid var(--line);
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+.exploded__name {
+  position: absolute; left: 0; bottom: 100%;
+  display: grid; gap: var(--space-4);
+  padding-bottom: var(--space-16);
+  white-space: nowrap;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+
+.exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__plate,
+.exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__name { opacity: 0.35; }
+
+/* Sama kohde kaikissa kerroksissa: katkoviiva muuttuu yhtenäiseksi. */
+.exploded [data-kohde] {
+  outline: var(--hairline) dashed transparent;
+  outline-offset: var(--space-4);
+  transition: outline-color var(--dur-fast) var(--ease-standard);
+}
+.exploded--valaistu { outline: var(--hairline-strong) solid var(--ink); }

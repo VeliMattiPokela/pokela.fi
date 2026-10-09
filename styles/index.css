@@ -17,6 +17,8 @@
 @import './components/about.css';
 @import './components/case.css';
 @import './components/system.css';
+@import './components/exploded-view.css';
+@import './components/kerrokset.css';
 @import './components/component-view.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
