@@ -101,7 +101,15 @@ try {
     const julkaistuVersio = tiedot['dist-tags'].latest;
 
     /* --- lataa ja pura julkaistu --- */
-    const pack = aja('npm', ['pack', `${nimi}@${julkaistuVersio}`, '--pack-destination', tmp, '--silent'], tmp);
+    /* Juuri julkaistun tarballin npm jakaa viiveellä (päätös 20), joten
+       latausta yritetään minuutin välein viisi kertaa. */
+    let pack;
+    for (let yritys = 1; yritys <= 5; yritys++) {
+      pack = aja('npm', ['pack', `${nimi}@${julkaistuVersio}`, '--pack-destination', tmp, '--silent', '--prefer-online'], tmp);
+      if (pack.status === 0 || yritys === 5) break;
+      console.log(`· ${nimi}@${julkaistuVersio} ei vielä lataudu, uusi yritys minuutin päästä (${yritys}/5)`);
+      await new Promise((r) => setTimeout(r, 60_000));
+    }
     if (pack.status !== 0) {
       console.error(`\n✗ Julkaistun paketin lataus epäonnistui: ${nimi}@${julkaistuVersio}\n`);
       console.error(pack.stdout + pack.stderr);

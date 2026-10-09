@@ -762,6 +762,12 @@ edelleen: sisältö muuttui, versio sama.
 tai vanhenee, vaihe kaatuu ja sanoo sen, mutta vasta kun julkaistavaa on.
 Kirjautumista ei voi tarkistaa etukäteen.
 
+npm jakaa uuden version tarballin viiveellä, joskus yli viisi minuuttia
+(tokens 2.8.0 ja 2.9.0). Julkaisu odottaa sitä noin 12 minuuttia ja
+jättää sen jälkeen varoituksen, ei punaista: versio on npm:ssä, joten
+julkaisu onnistui. `check:paketti` yrittää latausta vielä viisi kertaa
+minuutin välein ja kaatuu vasta, jos tiedosto todella puuttuu.
+
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
 
 
