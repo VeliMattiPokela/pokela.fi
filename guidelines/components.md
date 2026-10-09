@@ -10,6 +10,7 @@ Use these instead of building an equivalent.
 - `ExplodedView`
 - `PageHeader`
 - `Section`
+- `TextField`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -71,6 +72,16 @@ reader, described by `label`.
 />
 ```
 
+`TextField` is the form field: label, input, hint and error in one. Use it
+for every text input and text area (`multiline`) instead of a bare `<input>`.
+Pass `error` with a message to show the error state; never colour a field
+yourself. Mark an optional field with `optional="(optional)"`, not an asterisk
+on the required ones. Put form buttons after the fields with the `.btn`
+classes.
+
+```jsx
+<TextField label="Email" type="email" error="The address is missing a domain." />
+<TextField label="Message" optional="(optional)" multiline hint="Up to 500 characters." />
 ## Patterns
 
 `PageHeader` and `Section` are patterns: they add no look of their own, only

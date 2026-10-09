@@ -100,7 +100,8 @@ vanhat tuovat uskottavuuden.
 ## Säännöt jotka rikkoutuvat helpoimmin
 
 - **Ei aksenttiväriä.** Korostus on musta/valkoinen-käännös. Väri sivulle
-  tulee vain työn kuvista.
+  tulee työn kuvista. Ainoa poikkeus on virheen tilaväri `--danger`
+  (päätös 22).
 - **Ei kortteja.** Ei kehyksiä, varjoja eikä sävytettyjä pintoja sisällön
   ympärillä. Erottelu tehdään hiusviivalla tai käännetyllä pinnalla.
 - **Ei keskitettyä tekstiä.** Poikkeus: käännetyt lausuntapalkit ja

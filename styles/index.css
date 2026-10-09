@@ -21,6 +21,7 @@
 @import './components/exploded-view.css';
 @import './components/kerrokset.css';
 @import './components/component-view.css';
+@import './components/text-field.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
 @import './print.css';

@@ -52,6 +52,8 @@ const hexToRgb = (hex) => {
  */
 const colorScopes = (name) => {
   if (name === 'line' || name === 'line-strong') return ['STROKE_COLOR'];
+  /* Virhe: reunaviiva, teksti ja ikonin viiva. Ei pintaväriksi. */
+  if (name === 'danger') return ['STROKE_COLOR', 'TEXT_FILL'];
   if (name === 'ink') return ['SHAPE_FILL', 'TEXT_FILL'];
   if (/^(ink|invert-ink|invert-faint|code-ink|code-muted|code-faint)/.test(name)) return ['TEXT_FILL'];
   if (name === 'paper' || name === 'paper-alt' || name === 'code-surface') return ['FRAME_FILL'];

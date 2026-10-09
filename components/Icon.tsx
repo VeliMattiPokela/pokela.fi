@@ -18,6 +18,9 @@
  * Koot ovat tokeneita: --icon-s (12) tekstin seassa metan kanssa,
  * --icon-m (16) napin sisällä, --icon-l (24) omana painikkeenaan.
  *
+ * `alert` kulkee aina virhetekstin rinnalla, ei yksin: merkitys on
+ * tekstissä, ikoni ja --danger vain nopeuttavat sen löytämistä.
+ *
  * Nuoli on kahta lajia eikä yhtä: `arrow-right` vie sivustolla eteen-
  * päin, `arrow-up-right` ulos. Ero on lukijalle sama kuin
  * target="_blank" ruudunlukijalle.
@@ -29,7 +32,8 @@ export type IconName =
   | 'plus'
   | 'minus'
   | 'close'
-  | 'menu';
+  | 'menu'
+  | 'alert';
 
 export type IconSize = 's' | 'm' | 'l';
 
@@ -42,6 +46,10 @@ const PATHS: Record<IconName, string[]> = {
   minus: ['M2.5 8.5 H14.5'],
   close: ['M3.5 3.5 L12.5 12.5', 'M12.5 3.5 L3.5 12.5'],
   menu: ['M1 5.5 H15', 'M1 10.5 H15'],
+  /* Virhe. Neliö eikä kolmio tai ympyrä: kaaria ei ole, ja kolmion
+     vinot sivut eivät osu puolikkaan pikselin ruudukolle. Piste on
+     lyhyt viiva, koska täyttöä ei ole. */
+  alert: ['M2.5 2.5 H14.5 V14.5 H2.5 Z', 'M8.5 5 V10', 'M8.5 11.5 V12.5'],
 };
 
 export type IconProps = {
