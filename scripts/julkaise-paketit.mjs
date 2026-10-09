@@ -19,7 +19,8 @@
  * Tarvitsee NPM_TOKENin (npm:n granular token, oikeus Read and write
  * @pokela-paketteihin). Ilman sitä ajo kaatuu vain, jos julkaistavaa on.
  *
- * Exit 0 = npm:ssä on repon versio. Exit 1 = julkaisu epäonnistui.
+ * Exit 0 = npm:ssä on repon versio, vaikka tarball vielä viipyisi.
+ * Exit 1 = julkaisu epäonnistui.
  */
 
 import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
@@ -60,15 +61,19 @@ async function julkaistu(nimi, versio) {
  * jää CDN:n välimuistiin. 9.10.2026 tokens@2.8.0:n tarball ei näkynyt
  * viiteen minuuttiin, vaikka se latautui heti sen jälkeen. Todennäköisin
  * syy on välimuistiin jäänyt 404 (päätelty, ei todennettu), ja ajo
- * kaatui ennen kuin komponentit julkaistiin.
+ * kaatui ennen kuin komponentit julkaistiin. 9.10.2026 tokens@2.9.0:n
+ * tarball viipyi taas yli viisi minuuttia, vaikka komponenttien tarball
+ * näkyi heti. Siksi odotetaan pidempään ja harvenevin välein (10 s → 60 s,
+ * yhteensä noin 12 min).
  */
 async function odotaTarball(nimi, versio) {
   const lyhyt = nimi.split('/')[1];
   const osoite = `https://registry.npmjs.org/${nimi}/-/${lyhyt}-${versio}.tgz`;
-  for (let i = 0; i < 30; i++) {
+  const loppu = Date.now() + 12 * 60_000;
+  for (let tauko = 10_000; Date.now() < loppu; tauko = Math.min(tauko * 2, 60_000)) {
     const haku = await fetch(`${osoite}?t=${Date.now()}`, { method: 'HEAD' });
     if (haku.ok) return true;
-    await new Promise((r) => setTimeout(r, 10_000));
+    await new Promise((r) => setTimeout(r, tauko));
   }
   return false;
 }
@@ -118,12 +123,15 @@ try {
   rmSync(tmp, { recursive: true, force: true });
 }
 
-const viipyvat = [];
+/* Viipyvä tarball ei ole julkaisun virhe: versio on npm:ssä, ja npm jakaa
+   tiedoston myöhemmin. Punainen main kertoisi väärin, että julkaisu
+   epäonnistui, joten tästä tulee varoitus. check:paketti odottaa vielä
+   latausta ja kaatuu, jos tiedosto todella puuttuu. */
 for (const [nimi, , versio] of julkaistavat) {
-  if (!(await odotaTarball(nimi, versio))) viipyvat.push(`${nimi}@${versio}`);
-}
-if (viipyvat.length) {
-  console.error(`\n✗ Julkaistu, mutta tarballia ei saa ladattua viiteen minuuttiin: ${viipyvat.join(', ')}`);
-  console.error('  Julkaisu on tehty. Seuraava ajo julkaisee vain puuttuvan ja tarkistaa npm:n.\n');
-  process.exit(1);
+  if (await odotaTarball(nimi, versio)) continue;
+  if (!(await julkaistu(nimi, versio))) {
+    console.error(`\n✗ ${nimi}@${versio} puuttuu npm:stä julkaisun jälkeen.\n`);
+    process.exit(1);
+  }
+  console.log(`::warning::${nimi}@${versio} on julkaistu, mutta tarball ei vielä lataudu. npm jakaa sen viiveellä.`);
 }
