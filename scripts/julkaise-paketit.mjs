@@ -53,16 +53,24 @@ async function julkaistu(nimi, versio) {
   return true;
 }
 
-/** Odottaa, että tarball on ladattavissa. npm jakaa sen viiveellä. */
+/**
+ * Odottaa, että tarball on ladattavissa. npm jakaa sen viiveellä.
+ *
+ * Jokaisessa haussa on oma kyselyparametri, jottei liian aikainen 404
+ * jää CDN:n välimuistiin. 9.10.2026 tokens@2.8.0:n tarball ei näkynyt
+ * viiteen minuuttiin, vaikka se latautui heti sen jälkeen. Todennäköisin
+ * syy on välimuistiin jäänyt 404 (päätelty, ei todennettu), ja ajo
+ * kaatui ennen kuin komponentit julkaistiin.
+ */
 async function odotaTarball(nimi, versio) {
   const lyhyt = nimi.split('/')[1];
   const osoite = `https://registry.npmjs.org/${nimi}/-/${lyhyt}-${versio}.tgz`;
   for (let i = 0; i < 30; i++) {
-    const haku = await fetch(osoite, { method: 'HEAD' });
-    if (haku.ok) return;
+    const haku = await fetch(`${osoite}?t=${Date.now()}`, { method: 'HEAD' });
+    if (haku.ok) return true;
     await new Promise((r) => setTimeout(r, 10_000));
   }
-  throw new Error(`${nimi}@${versio} julkaistiin, mutta tarballia ei saa ladattua viiteen minuuttiin`);
+  return false;
 }
 
 const julkaistavat = [];
@@ -94,6 +102,8 @@ const tmp = mkdtempSync(join(tmpdir(), 'pokela-julkaisu-'));
 const npmrc = join(tmp, '.npmrc');
 writeFileSync(npmrc, `//registry.npmjs.org/:_authToken=${token}\n`);
 
+/* Ensin kaikki julkaisut, sitten odotus. Odotus paketin perässä jätti
+   komponentit julkaisematta, kun tokenien tarball viipyi. */
 try {
   for (const [nimi, hakemisto, versio] of julkaistavat) {
     const julkaisu = aja('npm', ['publish', `./${hakemisto}`, '--access', 'public', '--userconfig', npmrc]);
@@ -102,9 +112,18 @@ try {
       console.error(julkaisu.stdout + julkaisu.stderr);
       process.exit(1);
     }
-    await odotaTarball(nimi, versio);
     console.log(`✓ Julkaistu ${nimi}@${versio}`);
   }
 } finally {
   rmSync(tmp, { recursive: true, force: true });
+}
+
+const viipyvat = [];
+for (const [nimi, , versio] of julkaistavat) {
+  if (!(await odotaTarball(nimi, versio))) viipyvat.push(`${nimi}@${versio}`);
+}
+if (viipyvat.length) {
+  console.error(`\n✗ Julkaistu, mutta tarballia ei saa ladattua viiteen minuuttiin: ${viipyvat.join(', ')}`);
+  console.error('  Julkaisu on tehty. Seuraava ajo julkaisee vain puuttuvan ja tarkistaa npm:n.\n');
+  process.exit(1);
 }
