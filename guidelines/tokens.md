@@ -8,6 +8,10 @@ inversion — `--invert-surface` with `--invert-ink` — or the quiet
 `--badge-surface`. Do not introduce a brand blue, a primary green, or any
 coloured button. Colour on the page comes only from photographs.
 
+The one exception is `--danger`, a state colour for errors only. Do not use it
+for emphasis, buttons or decoration. `TextField` already applies it, always
+with the `alert` icon and a message, so the meaning never depends on colour.
+
 **No shadows.** There are no shadow tokens. Separation is a 1px line
 (`--hairline`), never elevation.
 

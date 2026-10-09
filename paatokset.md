@@ -764,3 +764,34 @@ Kirjautumista ei voi tarkistaa etukäteen.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
 
+
+## 22. Kirjastossa on sovelluskomponentteja, ja virheellä on oma väri
+
+**Tilanne:** kirjasto oli sivuston kirjasto: Timeline, ListRow, Media
+ja muut ovat portfolion palasia. Makella niistä sai vain uusia
+portfoliosivuja. Sovellusnäkymään (asetukset, lomake, lista ja sen
+tiedot) puuttuivat lomakkeet, palaute ja data, joten Make olisi
+keksinyt ne itse.
+
+**Päätös:** kirjastoon tehdään sovelluskomponentteja, joita sivusto ei
+käytä. Ne kulkevat saman ketjun läpi kuin muutkin (story, paketti,
+Figma, Code Connect, Maken ohjeet), mutta omassa ryhmässään: Storybookissa
+ja Figmassa *Sovellus*, ettei niitä luule sivuston osiksi. Ne tehdään
+yksi kerrallaan, ja Vellu hyväksyy jokaisen ulkoasun luonnoksesta ennen
+toteutusta. Ensimmäinen on `TextField` (2.9.0).
+
+Virhe sai systeemin ainoan tilavärin `--danger` (#B42318 / #FF8A80).
+Vaihtoehtona oli mustavalkoinen virhe (2 px musteviiva ja ikoni), mutta
+Vellu valitsi värin: virhe erottuu nopeammin, ja mustavalkoista linjaa
+saa laajentaa. Aksenttiväriä ei edelleenkään ole: `--danger` on vain
+virheelle, aina `alert`-ikonin ja tekstin kanssa.
+
+**Perustelu:** design systemin uskottavuus näkyy siinä, mitä sillä voi
+rakentaa. Ketju todistaa myös itsensä: jos se kantaa komponentin, jota
+sivusto ei käytä, se ei ole sidottu tähän sivustoon.
+
+**Raja:** sovelluskomponentilla ei ole sivua, joka käyttäisi sitä, joten
+sen ainoa todellinen testi on Storybook ja Make. Käytetäänkö niitä
+Makessa oikein, nähdään vasta kun sillä tehdään näkymä.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*

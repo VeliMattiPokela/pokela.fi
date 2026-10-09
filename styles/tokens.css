@@ -6,7 +6,8 @@
 
    Aksenttiväriä ei ole. Korostus = musta/valkoinen-käännös
    (--invert-surface / --invert-ink) tai hiljainen --badge-surface.
-   Väri sivulle tulee vain työn kuvista.
+   Väri sivulle tulee työn kuvista. Ainoa poikkeus on tilaväri
+   --danger, ja sekin vain virheelle (päätös 22).
 
    Mobile first: :root on mobiilikoko, min-width kasvattaa.
    Arvojen lähde: tokens.json. scripts/check-tokens.mjs valvoo että
@@ -132,6 +133,12 @@
   --code-muted-l: #A8ABAD;     --code-muted-d: #A8ABAD;
   --code-faint-l: #8A8D90;     --code-faint-d: #8A8D90;
 
+  /* Virhe. Ei korostusväri vaan tila: lomakkeen virhe on ainoa paikka,
+     jossa sitä käytetään, ja aina ikonin ja tekstin kanssa, ettei
+     merkitys jää värin varaan. Molemmat yli 4.5:1 omaa paperiaan
+     vasten (6.6:1 ja 8.4:1), joten kelpaa myös pieneen tekstiin. */
+  --danger-l: #B42318;         --danger-d: #FF8A80;
+
   /* Oletus: vaalea. */
   --paper: var(--paper-l);
   --paper-alt: var(--paper-alt-l);
@@ -150,6 +157,7 @@
   --code-ink: var(--code-ink-l);
   --code-muted: var(--code-muted-l);
   --code-faint: var(--code-faint-l);
+  --danger: var(--danger-l);
 }
 
 /* Tumma paletti. Sama lista kahdesti, mutta ilman yhtäkään
@@ -173,6 +181,7 @@
   --code-ink: var(--code-ink-d);
   --code-muted: var(--code-muted-d);
   --code-faint: var(--code-faint-d);
+  --danger: var(--danger-d);
 }
 
 /* Ilman nimenomaista valintaa seurataan käyttöjärjestelmää. */
@@ -196,6 +205,7 @@
     --code-ink: var(--code-ink-d);
     --code-muted: var(--code-muted-d);
     --code-faint: var(--code-faint-d);
+    --danger: var(--danger-d);
   }
 }
 
@@ -227,6 +237,7 @@
     --invert-faint: #56585a;
     --placeholder-base: #f2f2f0;
     --placeholder-stripe: #e9e9e6;
+    --danger: #B42318;
   }
 }
 

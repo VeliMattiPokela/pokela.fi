@@ -29,7 +29,7 @@ tuhota työtä jota se ei tehnyt.
 <!-- generated:figma-kokoelmat -->
 | Kokoelma | Moodit | Muuttujia |
 |---|---|---|
-| Color | Light, Dark | 17 |
+| Color | Light, Dark | 18 |
 | Typography | base, sm, md, lg | 28 |
 | Spacing | Default | 16 |
 | Layout | base, sm, md, lg | 6 |

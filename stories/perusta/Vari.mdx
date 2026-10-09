@@ -9,7 +9,8 @@ import { Swatches, InvertDemo, DoDont } from '../doc/Specimens';
 
 <p className="doc-lede">
   Kaksi teemaa, samat token-nimet, yksi määrittely per token. Palettissa ei ole
-  yhtään aksenttisävyä — korostus tehdään pinnan käännöksellä.
+  yhtään aksenttisävyä — korostus tehdään pinnan käännöksellä. Ainoa värisävy on
+  tilaväri <code>--danger</code>, ja se on vain virheelle.
 </p>
 
 ## Yksi määrittely, kaksi teemaa
@@ -46,6 +47,13 @@ Korvaa kortit, varjot ja aksenttivärin. Yksi per sivu.
 
 <InvertDemo />
 
+## Tilaväri
+
+`--danger` (#B42318 / #FF8A80) on virhe, ei korostus. Sitä käyttää vain
+`TextField` (Storybookissa Sovellus), ja aina `alert`-ikonin ja
+tekstin kanssa, ettei merkitys jää värin varaan. Kumpikin arvo on yli 4.5:1
+oman teemansa paperia vasten, joten se kelpaa pieneen tekstiin (päätös 22).
+
 ## Kontrasti
 
 Pieni teksti on aina vähintään 4.5:1. Käännetyllä pinnalla teksti on `--invert-ink`
@@ -63,6 +71,7 @@ Jokainen story tarkistetaan a11y-välilehdellä automaattisesti.
   ]}
   dont={[
     'Älä lisää aksenttiväriä — ei nappeihin, linkkeihin, badgeihin eikä pintoihin',
+    'Älä käytä --danger-väriä muuhun kuin virheeseen',
     'Älä kirjoita hex-arvoa komponenttiin, käytä tokenia',
     'Älä käytä varjoa erotteluun — hiusviiva tai käännös riittää',
     'Älä lisää värillistä pintaa kuvan ympärille',

@@ -1,0 +1,91 @@
+/* Tekstikenttä (TextField). Sovellusnäkymien komponentti, ei sivuston.
+   ==================================================================
+   Sama kieli kuin .btn: hiusviiva, ei pyöristystä, ei varjoa. Kenttä
+   on 48 px, nappia (44) korkeampi: 16 px:n teksti rivivälillä 1.65
+   tarvitsee tilaa, ja kirjoitettava pinta saa olla painettavaa
+   suurempi. */
+
+.field { display: grid; gap: var(--space-8); align-content: start; }
+
+.field__label {
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--weight-500);
+  color: var(--ink);
+}
+.field__optional { font-weight: var(--weight-400); color: var(--ink-faint); }
+
+.field__control {
+  appearance: none;
+  width: 100%;
+  margin: 0;
+  /* 16 px eikä body-s: iOS zoomaa alle 16 px:n kentät. */
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--paper);
+  height: var(--space-48);
+  padding: 0 var(--space-16);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+.field__control::placeholder { color: var(--ink-faint); opacity: 1; }
+
+textarea.field__control {
+  height: auto;
+  min-height: var(--space-128);
+  padding: var(--space-12) var(--space-16);
+  resize: vertical;
+}
+
+/* Hover = alaviiva paksunee, sama liike kuin .btn--text:llä. Kenttä
+   on border-box ja kiinteän korkuinen, joten mitään ei nytkähdä. */
+.field__control:hover:not(:disabled) { border-bottom-width: var(--hairline-strong); }
+
+.field__hint {
+  margin: 0;
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink-muted);
+}
+
+/* ---- virhe ------------------------------------------------------- */
+
+/* Koko reuna paksunee, ei vain alaviiva: virhe ei saa näyttää
+   hoverilta. Padding kevenee saman verran, joten teksti pysyy
+   paikallaan. */
+.field--invalid .field__control {
+  border-color: var(--danger);
+  border-width: var(--hairline-strong);
+  padding-inline: calc(var(--space-16) - (var(--hairline-strong) - var(--hairline)));
+}
+.field--invalid textarea.field__control {
+  padding-block: calc(var(--space-12) - (var(--hairline-strong) - var(--hairline)));
+}
+
+.field__error {
+  margin: 0;
+  display: flex;
+  gap: var(--space-8);
+  align-items: flex-start;
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--weight-500);
+  color: var(--danger);
+}
+/* Ikoni ensimmäisen rivin keskelle: (rivinkorkeus − ikoni) / 2. */
+.field__error .icon { margin-top: calc((var(--lh-body-s) * var(--text-body-s) - var(--icon-m)) / 2); }
+
+/* ---- disabled ---------------------------------------------------- */
+
+/* Sama kuin .btn[disabled]: viiva haalenee, teksti faint. Pinta on
+   paper-alt, jotta tyhjäkin kenttä erottuu käytössä olevasta. */
+.field--disabled .field__label { color: var(--ink-faint); }
+.field__control:disabled {
+  background: var(--paper-alt);
+  border-color: var(--line);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
