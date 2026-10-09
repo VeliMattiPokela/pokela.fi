@@ -27,7 +27,9 @@
  * CI:   npm run check:kuvat
  */
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, extname, join } from 'node:path';
@@ -41,6 +43,10 @@ import ffprobe from 'ffprobe-static';
    myös Macille ilman Homebrew'ta. */
 const FFMPEG = ffmpegPolku;
 const FFPROBE = ffprobe.path;
+const vaadi = createRequire(import.meta.url);
+const FFMPEG_VERSIO = vaadi('ffmpeg-static/package.json').version;
+/* sharp ei vie package.jsoniaan; versions kertoo myös libvipsin version. */
+const SHARP_VERSIO = sharp.versions;
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -48,6 +54,9 @@ const POSTILAATIKKO = join(root, 'kuvat/uudet');
 const LAHTEET = join(root, 'kuvat');
 const JULKAISU = join(root, 'public/kuva');
 export const MANIFESTI = join(root, 'content/media.generated.json');
+
+/** Johdannaisten välimuisti, ks. muistista(). Ei repossa; CI säilyttää sen ajosta toiseen. */
+const VALIMUISTI = join(root, '.kuvavalimuisti');
 
 /** Lähteen enimmäismitta pitkältä sivulta. Yli menevä on arkistoa. */
 const LAHDE_MAX = 2800;
@@ -486,6 +495,60 @@ function portaat(maxLeveys) {
   return sopivat;
 }
 
+/* ---- välimuisti -----------------------------------------------------
+   Johdannaisten laskeminen oli neljä minuuttia jokaisesta CI-ajosta
+   (mitattu 9.10.2026: 5–7 minuutin ajosta), vaikka yksikään lähde ei
+   ollut muuttunut. Suurin osa on AVIF-pakkausta ja videon muunnosta.
+
+   Johdannainen on lähteen ja asetusten funktio, joten se tallennetaan
+   avaimella, joka lasketaan niistä: lähteen tavut, rajaus, mitat,
+   pakkausasetukset ja kirjaston versio. Kun jokin muuttuu, avain
+   muuttuu ja tiedosto lasketaan uudelleen. Johdannainen on yhä
+   laskettu lähteestä eikä käsin säilytetty — sama periaate kuin
+   Playwrightin selainvälimuistilla CI:ssä.
+
+   Ajon lopuksi poistetaan avaimet, joita ajo ei käyttänyt, joten
+   kansiossa on vain nykyisten lähteiden johdannaiset eikä CI:n
+   välimuisti kasva joka kuvanvaihdolla.                            */
+
+const kaytetyt = new Set();
+
+/** Lähteen tiivistys kerran per tiedosto, ei kerran per johdannainen. */
+const tiivisteet = new Map();
+function tiiviste(polku) {
+  if (!tiivisteet.has(polku)) tiivisteet.set(polku, createHash('sha256').update(readFileSync(polku)).digest('hex'));
+  return tiivisteet.get(polku);
+}
+
+function avaimeksi(...osat) {
+  return createHash('sha256').update(JSON.stringify(osat)).digest('hex').slice(0, 20);
+}
+
+/**
+ * Kopioi `tiedostot` välimuistista julkaisukansioon, tai ajaa `tee`:n
+ * (joka kirjoittaa ne julkaisukansioon) ja tallentaa ne. Palauttaa
+ * true, jos tulos tuli välimuistista.
+ */
+async function muistista(avain, tiedostot, tee) {
+  kaytetyt.add(avain);
+  const kansio = join(VALIMUISTI, avain);
+  if (tiedostot.every((t) => existsSync(join(kansio, t)))) {
+    for (const t of tiedostot) copyFileSync(join(kansio, t), join(JULKAISU, t));
+    return true;
+  }
+  await tee();
+  mkdirSync(kansio, { recursive: true });
+  for (const t of tiedostot) copyFileSync(join(JULKAISU, t), join(kansio, t));
+  return false;
+}
+
+function siivoaValimuisti() {
+  if (!existsSync(VALIMUISTI)) return;
+  for (const avain of readdirSync(VALIMUISTI)) {
+    if (!kaytetyt.has(avain)) rmSync(join(VALIMUISTI, avain), { recursive: true, force: true });
+  }
+}
+
 /**
  * Rajaa ja pakkaa yhden lähteen kaikkiin kokoihin ja muotoihin.
  *
@@ -540,7 +603,9 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true, koot
       for (const w of leveydet) {
         const h = Math.round(w / suhde);
         for (const [muoto, asetus] of [['avif', { quality: 55, effort: 5 }], ['webp', { quality: 78 }]]) {
-          await lahdeKuva()
+          const tiedosto = `${nimi}-${koko}-${w}.${muoto}`;
+          const avain = avaimeksi(tiiviste(lahde), alue, kohta, sovita, w, h, muoto, asetus, SHARP_VERSIO);
+          await muistista(avain, [tiedosto], () => lahdeKuva()
             .resize(
               w,
               h,
@@ -554,7 +619,7 @@ async function teeKuva(nimi, lahde, ratio, { rajaa = true, kirjoita = true, koot
                 : { fit: 'cover', position: kohta },
             )
             .toFormat(muoto, asetus)
-            .toFile(join(JULKAISU, `${nimi}-${koko}-${w}.${muoto}`));
+            .toFile(join(JULKAISU, tiedosto)));
         }
       }
     }
@@ -599,29 +664,37 @@ async function teeVideo(nimi, lahde, { kirjoita = true, leveys = 1600 } = {}) {
   ).streams[0];
   if (!kirjoita) return { leveys: koko.width, korkeus: koko.height };
 
-  /* Muunnos kestää kymmeniä sekunteja eikä ffmpeg tulosta mitään.
-     Ilman tätä riviä ajo näytti jumittuneelta ja katkaistiin. */
-  console.log(`  … video ${nimi}: muunnetaan mp4:ksi ja webm:ksi`);
   /* Nopeusasetukset: VP9:n oletus (good, cpu-used 0) vei 27 sekunnin
      klipiltä noin 6 minuuttia, ja muunnos ajetaan jokaisessa buildissa.
      cpu-used 4 ja rivisäikeistys ovat suositus verkkovideolle; laatu
      tulee crf:stä, ei nopeudesta. */
-  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
-    '-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-an',
-    '-movflags', '+faststart', '-vf', `scale='min(${leveys},iw)':-2`,
-    join(JULKAISU, `${nimi}.mp4`)]);
-  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
-    '-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0', '-an',
-    '-deadline', 'good', '-cpu-used', '4', '-row-mt', '1',
-    '-vf', `scale='min(${leveys},iw)':-2`,
-    join(JULKAISU, `${nimi}.webm`)]);
-  execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde,
-    '-frames:v', '1', '-vf', `scale='min(${leveys},iw)':-2`,
-    join(JULKAISU, `${nimi}-juliste.png`)]);
-  await sharp(join(JULKAISU, `${nimi}-juliste.png`))
-    .webp({ quality: 70 })
-    .toFile(join(JULKAISU, `${nimi}-juliste.webp`));
-  rmSync(join(JULKAISU, `${nimi}-juliste.png`));
+  const skaala = `scale='min(${leveys},iw)':-2`;
+  const muunnokset = {
+    mp4: ['-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-an',
+      '-movflags', '+faststart', '-vf', skaala],
+    webm: ['-c:v', 'libvpx-vp9', '-crf', '34', '-b:v', '0', '-an',
+      '-deadline', 'good', '-cpu-used', '4', '-row-mt', '1', '-vf', skaala],
+    juliste: ['-frames:v', '1', '-vf', skaala],
+  };
+
+  const tiedostot = [`${nimi}.mp4`, `${nimi}.webm`, `${nimi}-juliste.webp`];
+  const avain = avaimeksi(tiiviste(lahde), muunnokset, FFMPEG_VERSIO, SHARP_VERSIO);
+  const tallessa = await muistista(avain, tiedostot, async () => {
+    /* Muunnos kestää kymmeniä sekunteja eikä ffmpeg tulosta mitään.
+       Ilman tätä riviä ajo näytti jumittuneelta ja katkaistiin. */
+    console.log(`  … video ${nimi}: muunnetaan mp4:ksi ja webm:ksi`);
+    execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde, ...muunnokset.mp4,
+      join(JULKAISU, `${nimi}.mp4`)]);
+    execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde, ...muunnokset.webm,
+      join(JULKAISU, `${nimi}.webm`)]);
+    execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-i', lahde, ...muunnokset.juliste,
+      join(JULKAISU, `${nimi}-juliste.png`)]);
+    await sharp(join(JULKAISU, `${nimi}-juliste.png`))
+      .webp({ quality: 70 })
+      .toFile(join(JULKAISU, `${nimi}-juliste.webp`));
+    rmSync(join(JULKAISU, `${nimi}-juliste.png`));
+  });
+  if (tallessa) console.log(`  … video ${nimi}: välimuistista`);
   return { leveys: koko.width, korkeus: koko.height };
 }
 
@@ -820,6 +893,7 @@ export async function rakenna({ kirjoita = true } = {}) {
   }
 
   const logot = await teeLogot({ kirjoita });
+  if (kirjoita) siivoaValimuisti();
 
   /* Numerot kaikille paikoille, myös tyhjille: placeholder tarvitsee
      numeronsa nimenomaan silloin kun kuvaa ei vielä ole. */
