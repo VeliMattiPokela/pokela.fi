@@ -1,0 +1,195 @@
+/* Valinnat: Checkbox, Radio, Switch ja ChoiceGroup.
+   ==================================================================
+   Sovelluskomponentteja (päätös 22), sivusto ei käytä näitä. Kieli on
+   .btn- ja .field-perheen: hiusviiva --line-strong, ei pyöristystä
+   (paitsi radio, päätös 24), valittu = täytetty --ink.
+
+   Oikea <input> on merkin päällä näkymättömänä (opacity 0), joten
+   klikkaus, näppäimistö ja lomake toimivat natiivisti, ja merkin tila
+   luetaan inputin tilasta: `.choice__input:checked + .choice__mark`.
+
+   Hover paksuntaa reunan sisäänpäin piirretyllä viivalla eikä
+   border-widthillä: kytkimen nuppi on sijoitettu reunan sisään, eikä
+   se saa nytkähtää. */
+
+.choice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-12);
+  align-items: start;
+  min-height: var(--tap-min);
+  /* Yksirivinen valinta on --tap-min korkea, teksti keskellä. */
+  padding-block: calc((var(--tap-min) - var(--lh-body) * var(--text-body)) / 2);
+}
+
+.choice__control {
+  position: relative;
+  display: block;
+  width: var(--space-20);
+  height: var(--space-20);
+  /* Merkki ensimmäisen rivin keskelle. */
+  margin-top: calc((var(--lh-body) * var(--text-body) - var(--space-20)) / 2);
+}
+
+.choice__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.choice__mark {
+  position: absolute;
+  inset: 0;
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  pointer-events: none;
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.choice__mark svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.choice__mark path {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: var(--hairline-strong);
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  opacity: 0;
+}
+
+.choice__label {
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.choice__hint {
+  grid-column: 2;
+  margin: 0;
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink-muted);
+}
+
+/* ---- tilat ------------------------------------------------------- */
+
+.choice:hover .choice__input:not(:disabled) + .choice__mark {
+  box-shadow: inset 0 0 0 var(--hairline) var(--line-strong);
+}
+
+.choice__input:focus-visible + .choice__mark {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: var(--focus-offset);
+}
+
+.choice__input:checked + .choice__mark,
+.choice__input:indeterminate + .choice__mark {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.choice__input:checked:not(:indeterminate) + .choice__mark .choice__check,
+.choice__input:indeterminate + .choice__mark .choice__dash { opacity: 1; }
+
+/* ---- radio: ympyrä ja piste --------------------------------------- */
+
+.choice--radio .choice__mark { border-radius: 50%; }
+.choice--radio .choice__input:checked + .choice__mark {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 var(--hairline) var(--ink);
+}
+.choice--radio .choice__input:checked + .choice__mark::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-4) + var(--hairline));
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+/* ---- kytkin: kisko ja nuppi, label vasemmalla --------------------- */
+
+.choice--switch { grid-template-columns: 1fr auto; column-gap: var(--space-24); }
+.choice--switch .choice__control {
+  grid-column: 2;
+  grid-row: 1;
+  width: var(--space-40);
+  height: var(--space-24);
+  margin-top: calc((var(--lh-body) * var(--text-body) - var(--space-24)) / 2);
+}
+.choice--switch .choice__label { grid-column: 1; grid-row: 1; }
+.choice--switch .choice__hint { grid-column: 1; }
+
+/* Nuppi on 16 px ja istuu 4 px:n päässä kiskon ulkoreunasta. */
+.choice--switch .choice__mark::after {
+  content: '';
+  position: absolute;
+  top: calc((var(--space-24) - var(--space-16)) / 2 - var(--hairline));
+  left: calc((var(--space-24) - var(--space-16)) / 2 - var(--hairline));
+  width: var(--space-16);
+  height: var(--space-16);
+  background: var(--ink-muted);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    background var(--dur-fast) var(--ease-standard);
+}
+.choice--switch .choice__input:checked + .choice__mark::after {
+  transform: translateX(var(--space-16));
+  background: var(--paper);
+}
+
+/* ---- disabled ---------------------------------------------------- */
+
+.choice--disabled .choice__label,
+.choice--disabled .choice__hint { color: var(--ink-faint); cursor: not-allowed; }
+.choice__input:disabled { cursor: not-allowed; }
+.choice__input:disabled + .choice__mark {
+  background: var(--paper-alt);
+  border-color: var(--ink-faint);
+}
+.choice__input:disabled:checked + .choice__mark,
+.choice__input:disabled:indeterminate + .choice__mark {
+  background: var(--ink-faint);
+  border-color: var(--ink-faint);
+}
+.choice__input:disabled + .choice__mark .choice__check,
+.choice__input:disabled + .choice__mark .choice__dash { stroke: var(--paper-alt); }
+.choice--radio .choice__input:disabled:checked + .choice__mark { background: var(--paper-alt); box-shadow: none; }
+.choice--radio .choice__input:disabled:checked + .choice__mark::after,
+.choice--switch .choice__input:disabled + .choice__mark::after { background: var(--ink-faint); }
+.choice--switch .choice__input:disabled:checked + .choice__mark::after { background: var(--paper-alt); }
+
+/* ---- ryhmä ------------------------------------------------------- */
+
+.choice-group {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+/* Sama kuin .field__label: ryhmän otsikko on lomakkeen label. */
+.choice-group__legend {
+  padding: 0;
+  margin-bottom: var(--space-4);
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--weight-500);
+  color: var(--ink);
+}
+
+.choice-group > .field__hint,
+.choice-group > .field__error { margin-top: var(--space-4); }
+
+/* Virhe: jokaisen valinnan reuna --danger ja paksumpi, kuten kentässä. */
+.choice-group--invalid .choice__input:not(:checked) + .choice__mark {
+  border-color: var(--danger);
+  box-shadow: inset 0 0 0 var(--hairline) var(--danger);
+}

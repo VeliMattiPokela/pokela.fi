@@ -865,3 +865,29 @@ täyden ajan. Netlify rakentaa sivun omalla koneellaan ilman tätä
 välimuistia.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+
+## 24. Valinnat: radio on ainoa pyöreä muoto
+
+**Tilanne:** toinen sovelluskomponentti oli valinnat: valintaruutu,
+radio ja kytkin. Systeemissä ei ole yhtään pyöristystä (`--radius` on
+0). Neliönä radio näyttäisi valintaruudulta, eikä käyttäjä näkisi,
+valitaanko vaihtoehdoista yksi vai monta.
+
+**Päätös:** `Checkbox`, `Radio`, `Switch` ja `ChoiceGroup` (2.10.0).
+Luonnoksessa radio näytettiin sekä ympyränä että neliönä, ja Vellu
+valitsi ympyrän. Se on systeemin ainoa pyöreä muoto. Kaikki muu on
+kulmikasta: ruutu, kytkimen kisko ja nuppi. Valittu tila täytetään
+musteella kuten ensisijainen nappi, ja hover paksuntaa reunan kuten
+tekstikentässä. Virhe kuuluu ryhmälle (`ChoiceGroup`), koska "valitse
+yksi" koskee kaikkia vaihtoehtoja. Kytkin on asetus, joka tulee voimaan
+heti, joten sitä ei käytetä lomakkeessa, jossa on tallennusnappi.
+
+**Perustelu:** muodon tehtävä on kertoa, miten valitaan. Ympyrä tekee
+sen ilman selitystä, ja poikkeus on yksi ja nimetty.
+
+**Raja:** Figmassa virhe on valinnan oma variantti (State=error), koska
+instanssin reunaa ei voi värittää ryhmästä käsin. Koodissa se on vain
+ryhmän tila, joten Code Connect ei käännä sitä propsiksi.
+
+*Kirjattu 9.10.2026 Vellun hyväksymän luonnoksen pohjalta*
