@@ -18,6 +18,12 @@
  * Tarvitsee verkon, joten tämä ei ole check:sync-ketjussa. Ketjun on
  * toimittava ilman verkkoa — sama syy kuin check:figmassa.
  *
+ * Julkaisu on CI:n asia (scripts/julkaise-paketit.mjs, mainin pushilla).
+ * Siksi --ennen-julkaisua hyväksyy repon version, joka on npm:n versiota
+ * uudempi: pull requestissa nosto on oikein, ja main julkaisee sen.
+ * Julkaisun jälkeen tarkistus ajetaan ilman lippua, ja silloin npm:n
+ * pitää vastata repoa tavulleen.
+ *
  * Exit 0 = npm vastaa repoa. Exit 1 = eriytymä.
  */
 
@@ -34,7 +40,17 @@ const PAKETIT = [
   ['@pokela/components', 'packages/components'],
 ];
 
+const ennenJulkaisua = process.argv.includes('--ennen-julkaisua');
+
+/** a > b semver-numeroina (ei esiversioita, paketeilla niitä ei ole). */
+const uudempi = (a, b) => {
+  const [x, y] = [a, b].map((v) => v.split('.').map(Number));
+  for (let i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] > y[i];
+  return false;
+};
+
 const drift = [];
+const odottaa = [];
 
 /* ---- paketit on rakennettava ensin ---------------------------------
    packages/ on gitignorattu ja syntyy komennolla `npm run paketti`.
@@ -139,6 +155,8 @@ try {
         syy: `sisältö eroaa mutta versio on sama — nosta tokens.jsonin $meta.version ja julkaise`,
         erot,
       });
+    } else if (ennenJulkaisua && uudempi(repoVersio, julkaistuVersio)) {
+      odottaa.push(`${nimi}: npm ${julkaistuVersio} → ${repoVersio}`);
     } else {
       drift.push({
         paketti: nimi,
@@ -154,6 +172,12 @@ try {
 }
 
 /* ---- raportti -------------------------------------------------------- */
+
+if (!drift.length && odottaa.length) {
+  console.log('✓ Uusi versio odottaa julkaisua — main julkaisee sen:');
+  for (const rivi of odottaa) console.log(`  ${rivi}`);
+  process.exit(0);
+}
 
 if (!drift.length) {
   const versiot = PAKETIT.map(([nimi, hakemisto]) => {
@@ -174,24 +198,16 @@ for (const d of drift) {
 console.error('  Figma Make lukee npm:ää, ei repoa. Niin kauan kuin nämä eroavat,');
 console.error('  prototyypit tehdään eri komponenteilla kuin sivusto.\n');
 
-/* Korjausohje komentoina. Julkaisu tehdään käsin, ja kahdesti se meni
-   väärin samasta syystä: komento ajettiin mainista, jossa versio oli
-   vielä vanha, ja npm kieltäytyi julkaisemasta samaa versiota uudelleen.
-   Siksi ohje nimeää haaran, ja CI:ssä se on pull requestin haara. */
-const haara =
-  process.env.GITHUB_HEAD_REF ||
-  spawnSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { cwd: root, encoding: 'utf8' }).stdout.trim();
+/* Korjausohje. Julkaisu on mainin CI:n asia, joten ihmisen osa on
+   versionnosto, kun sisältö on muuttunut samalla versiolla. */
 const vainNosto = drift.every((d) => d.syy.includes('versio on sama'));
 console.error('  Korjaus:');
 if (vainNosto) {
-  console.error('    1. Nosta tokens.jsonin $meta.version ja pushaa.');
-  console.error('    2. Julkaise alla olevalla komennolla.');
+  console.error('    Nosta tokens.jsonin $meta.version samassa pull requestissa.');
+  console.error('    Main julkaisee uuden version, kun muutos yhdistetään.');
+} else {
+  console.error('    Tarkista mainin CI:n vaihe "Paketit npm:ään". Se julkaisee');
+  console.error('    repon version ja kertoo, jos NPM_TOKEN puuttuu tai on vanhentunut.');
 }
-console.error(`    git fetch origin && git checkout ${haara} && git pull \\`);
-console.error('      && npm run paketti && npm publish ./packages/tokens && npm publish ./packages/components');
 console.error('');
-console.error('  Rakennuksen pitää näyttää repon versio, ei npm:n. npm kysyy');
-console.error('  kirjautumista selaimessa: odota että julkaisu kuittaa "+ @pokela/...".');
-console.error('  Tarkista: npm view @pokela/components version');
-console.error('  Aja sitten CI uudelleen.\n');
 process.exit(1);

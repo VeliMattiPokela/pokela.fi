@@ -117,8 +117,11 @@ jokaisella mainin pushilla (`npm run figma:publish`, oikeus
 Figma Make lukee npm:ää, ei repoa: 6.10.2026 ohjeet lupasivat Makelle
 `ThemeToggle`n, jota npm:n versiossa ei ollut. "Sisältö eroaa, versio
 sama" sanotaan erikseen, koska korjaus alkaa versionnostosta (ks.
-*npm-paketit → Versio*). Raja: ei julkaise, eikä tiedä mitä versiota
-Make kit osoittaa.
+*npm-paketit → Versio*). Pull requestissa ja mainin alussa se ajetaan
+lipulla `--ennen-julkaisua`, joka hyväksyy uudemman, vielä julkaisemattoman
+version, koska main julkaisee sen. Julkaisun jälkeen se ajetaan ilman
+lippua. Raja: tarkistus itse ei julkaise, eikä tiedä mitä versiota Make
+kit osoittaa.
 
 **11. Dokumentaatio** (`scripts/check-docs.mjs`) — mainitut polut ja
 komennot ovat olemassa, jokainen `scripts/check-*.mjs` on kirjattu tähän
@@ -284,11 +287,19 @@ asiakkaan koodipohjaan.
 asiakastyön kuvia ja casetekstejä, joita ei voi lisensoida
 ohjelmistolisenssillä.
 
-Paketit on julkaistu julkiseen npm:ään. Julkaisu tehdään käsin:
+Paketit on julkaistu julkiseen npm:ään. Main julkaisee ne itse: kun
+muutos yhdistetään ja kaikki tarkistukset ovat vihreällä, CI:n vaihe
+*Paketit npm:ään* ajaa `npm run paketti:julkaise`
+(`scripts/julkaise-paketit.mjs`). Se julkaisee vain version, jota npm:ssä
+ei vielä ole, tokenit ensin, ja odottaa kunnes uusi tarball on
+ladattavissa. Sen jälkeen `check:paketti` varmistaa, että npm vastaa repoa
+tavulleen. Ihmisen osa on versionnosto samassa pull requestissa (ks.
+*Versio*). Ks. päätös 20.
 
-```bash
-npm run paketti && npm publish ./packages/tokens && npm publish ./packages/components
-```
+Julkaisu tarvitsee repon salaisuuden `NPM_TOKEN`: npm:n granular token,
+oikeus *Read and write* paketteihin `@pokela/tokens` ja
+`@pokela/components`. Jos se puuttuu tai vanhenee, vaihe kaatuu ja kertoo
+syyn, mutta vain silloin kun julkaistavaa on.
 
 Repon juuren `package.json` on `"private": true`, joten koko sivustoa
 asiakaskuvineen ei voi julkaista vahingossa.
