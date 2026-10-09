@@ -4,7 +4,7 @@
 /**
  * Code Connect — TextField.
  * ---------------------------------------------------------------
- * Tekstikenttä sovellusnäkymiin (Figman osio Sovellus, päätös 22).
+ * Tekstikenttä sovellusnäkymiin (päätös 22).
  *
  * Kartoitus:
  *   State=error     → `error`-propsi; viesti luetaan tekstipropertystä

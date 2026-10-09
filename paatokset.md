@@ -765,6 +765,37 @@ Kirjautumista ei voi tarkistaa etukäteen.
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
 
 
+## 21. Sivun rakenne on paketissa patterneina, ja Make kysyy ensin
+
+**Tilanne:** pyynnöstä "tee aikajana" Make käytti `Timeline`-komponenttia
+oikein, mutta keksi ympärille sivun: yläpalkin, otsikon ja ingressin
+sarakkeisiin 9–12, irti otsikosta. Komponentit olivat paketissa, sivun
+rakenne ei. Sivustolla sama rakenne kirjoitettiin joka sivulle käsin
+luokilla (`page-head`, `section-head`, `case__section`). Lisäksi Makelle
+ei kerrottu, tehdäänkö näkymää, uutta komponenttia vai muutosta.
+
+**Päätös:** `PageHeader` ja `Section` (`layout`: `stacked` tai `aside`)
+ovat patterneja: ne eivät tuo omaa ulkoasua, vain asettelun. Ne ovat
+paketissa (2.8.0), Code Connectissa ja Figmassa omana Patternit-osionaan.
+Sivusto käyttää niitä itse (työt, Tietoa, System, casesivujen lohkot),
+joten Make ja sivu kokoavat sivun samoista palasista. Kuvavertailu ennen
+ja jälkeen: sivut ovat pikselilleen samat, paitsi kytkentämäärä 12 → 14.
+
+Maken ohjeet alkavat yhdellä kysymyksellä, jos pyyntö ei kerro sitä:
+näkymä, uusi komponentti vai muutos olemassa olevaan. Näkymä kootaan
+vain paketista, ja puuttuva palanen tehdään erikseen ehdotukseksi.
+Uusi komponentti tehdään yksin, kaikki tilat näkyvissä ja propsit
+paketin tapaan nimettynä, jotta siitä tulee PR ja story. Muutos
+näytetään uutena tilana nykyisen vieressä.
+
+**Perustelu:** rajaus "tee vain pyydetty" olisi estänyt kokonaiset
+näkymät ja protot, joita Makella halutaan tehdä. Ohjeisiin kirjoitettu
+asettelusääntö voi vanhentua; komponentin sisällä oleva asettelu ei.
+
+**Raja:** kysymys on ohje, ei pakko. Toimiiko se, testataan Makessa.
+Ohjeet kasvoivat (sanamäärä on luotu lohko käsikirjassa); käsin
+kirjoitettu "alle 500 sanaa" oli jo vanhentunut.
+
 ## 22. Kirjastossa on sovelluskomponentteja, ja virheellä on oma väri
 
 **Tilanne:** kirjasto oli sivuston kirjasto: Timeline, ListRow, Media
@@ -775,8 +806,10 @@ keksinyt ne itse.
 
 **Päätös:** kirjastoon tehdään sovelluskomponentteja, joita sivusto ei
 käytä. Ne kulkevat saman ketjun läpi kuin muutkin (story, paketti,
-Figma, Code Connect, Maken ohjeet), mutta omassa ryhmässään: Storybookissa
-ja Figmassa *Sovellus*, ettei niitä luule sivuston osiksi. Ne tehdään
+Figma, Code Connect, Maken ohjeet) ja ovat samassa Komponentit-ryhmässä
+kuin muutkin: ne ovat komponentteja, vaikka sivusto ei käytä niitä. Ensin
+ehdotin omaa Sovellus-ryhmää, mutta Vellu linjasi, että komponentti kuuluu
+komponentteihin. Ne tehdään
 yksi kerrallaan, ja Vellu hyväksyy jokaisen ulkoasun luonnoksesta ennen
 toteutusta. Ensimmäinen on `TextField` (2.9.0).
 

@@ -6,6 +6,7 @@ import { getCv } from '@/content/cv';
 import PrintCv from '@/components/PrintCv';
 import { Grid, Col } from '@/components/Grid';
 import Reveal from '@/components/Reveal';
+import Section from '@/components/Section';
 
 /** Muotokuva on neljä saraketta kahdestatoista, eli noin kolmannes. */
 const PORTRAIT_SIZES =
@@ -122,13 +123,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </Reveal>
 
       {/* ---- työhistoria ---------------------------------------- */}
-      <section className="page section" aria-labelledby="history">
-        <div className="section-head">
-          <h2 id="history" className="meta">
-            {about.historyTitle}
-          </h2>
-          <span className="meta">{about.historySince}</span>
-        </div>
+      <Section id="history" title={about.historyTitle} meta={about.historySince}>
 
         {cv.jobs.map((job) => (
           <article key={job.period} className="cv-job">
@@ -149,7 +144,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         ))}
 
         <p className="body-s cv-footnote">{cv.jobsFootnote}</p>
-      </section>
+      </Section>
 
       {/* ---- työkalut + koulutus -------------------------------- */}
       <section className="page section">

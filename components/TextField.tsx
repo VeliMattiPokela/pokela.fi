@@ -5,7 +5,7 @@ import Icon from './Icon';
  * Tekstikenttä: label, kenttä, ohjeteksti ja virhe yhtenä.
  *
  * Sivusto ei käytä tätä. Se on kirjastossa sovellusnäkymiä varten
- * (Storybookin ryhmä Sovellus, päätös 22), jotta Make voi rakentaa
+ * (päätös 22), jotta Make voi rakentaa
  * lomakkeen systeemin omista osista eikä keksi omaansa.
  *
  * Kieli on .btn-perheen: hiusviiva ilman pyöristystä, hover paksuntaa

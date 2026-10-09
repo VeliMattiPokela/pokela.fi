@@ -39,19 +39,9 @@
 /* Jos osio alkaa heti faktarivin jälkeen, faktarivin alareuna toimii
    jo erottimena — oma yläviiva tekisi tuplaviivan. Casesivuilla joilla
    välissä on kuva (Colliers, Blokbook) tämä ei osu, ja viiva jää. */
-.case__head + .reveal .case__section { border-top: 0; }
+.case__head + .reveal .section--aside { border-top: 0; }
 
-/* Osio: meta vasemmalle, sisältö oikealle. */
-.case__section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-20);
-  padding-block: var(--section-gap);
-  border-top: var(--hairline) solid var(--line);
-}
-@media (min-width: 900px) {
-  .case__section { grid-template-columns: 200px minmax(0, 1fr); gap: var(--space-40); }
-}
+/* Osion asettelu: .section--aside (patterns.css, Section). */
 .case__section-body { display: flex; flex-direction: column; gap: var(--space-24); }
 .case__h { margin: 0; }
 .case__p { margin: 0; color: var(--ink-muted); }

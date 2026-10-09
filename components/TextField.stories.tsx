@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import TextField from './TextField';
 
 /**
- * Tekstikenttä. Ryhmä on Sovellus eikä Komponentit: sivusto ei käytä
- * tätä, vaan se on sovellusnäkymiä ja Makea varten (päätös 22).
+ * Tekstikenttä. Sivusto ei käytä tätä; se on sovellusnäkymiä ja Makea
+ * varten (päätös 22). Komponentti silti, joten ryhmä on Komponentit.
  */
 const meta = {
-  title: 'Sovellus/TextField',
+  title: 'Komponentit/TextField',
   component: TextField,
   parameters: {
     docs: {

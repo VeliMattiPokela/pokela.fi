@@ -13,6 +13,7 @@ import { kuvapaikka } from '@/content/kuvat';
 const SIZES_TAYSI =
   '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
 import Reveal from '@/components/Reveal';
+import PageHeader from '@/components/PageHeader';
 import Icon from '@/components/Icon';
 
 export async function generateMetadata({
@@ -35,10 +36,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      <header className="page page-head">
-        <h1 className="display-xl">{dict.work.title}</h1>
-        <p className="meta">{dict.work.subtitle}</p>
-      </header>
+      <PageHeader title={dict.work.title} meta={dict.work.subtitle} />
 
       {/* ---- kolme kärkeä ---------------------------------------- */}
       <section className="list-rows" aria-label={dict.home.selectedWork}>
