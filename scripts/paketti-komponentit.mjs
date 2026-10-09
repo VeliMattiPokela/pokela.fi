@@ -26,6 +26,7 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, rmSync, existsSync
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { fonttiOsoite } from './fontit.mjs';
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const PAKETTI = join(root, 'packages/components');
@@ -141,6 +142,9 @@ export function rakenna({ kirjoita = true } = {}) {
   writeFileSync(
     join(VALIAIKAINEN, 'index.ts'),
     `/* ${NIMI} — kokooma. Generoitu, ks. scripts/paketti-komponentit.mjs. */\n\n` +
+      /* Tyylit tulevat komponenttien mukana: käyttäjän ei tarvitse
+         muistaa tuontia, eikä Make kitiin tarvitse lisätä mitään. */
+      `import './styles.css';\n\n` +
       `${kokooma.join('\n')}\n`,
   );
 
@@ -187,9 +191,12 @@ export function rakenna({ kirjoita = true } = {}) {
   }
 
   /* `styles.css` tuo kaiken yhdellä rivillä ja oikeassa järjestyksessä.
-     Tokenit tulevat erillisestä paketista, joten ne tuodaan nimellä. */
+     Tokenit tulevat erillisestä paketista, joten ne tuodaan nimellä.
+     Fontit ensin: @import url() on sallittu vain tiedoston alussa, ja
+     ilman niitä sivu näkyy Georgialla ja Helveticalla. */
   const tyyliKokooma =
     `/* ${NIMI} — kaikki tyylit. Järjestys on merkitsevä. */\n` +
+    `@import url('${fonttiOsoite()}');\n` +
     `@import '${TOKENIT}/tokens.css';\n` +
     tyylitiedostot.map((t) => `@import './styles/${t}';`).join('\n') +
     '\n';
@@ -206,7 +213,8 @@ export function rakenna({ kirjoita = true } = {}) {
           license: LISENSSI,
           author: TEKIJA,
           type: 'module',
-          sideEffects: ['*.css'],
+          /* index.js tuo styles.css:n; ilman tätä bundleri pudottaa tuonnin. */
+          sideEffects: ['*.css', './index.js'],
           exports: {
             '.': { types: './index.d.ts', import: './index.js' },
             './styles.css': './styles.css',
@@ -279,11 +287,11 @@ React-komponentit: **Pokela Design System**, versio ${versio}.
 
 \`\`\`js
 import { ListRow, Icon, Accordion, Grid, Col, Reveal } from '${NIMI}';
-import '${NIMI}/styles.css';
 \`\`\`
 
-\`styles.css\` tuo myös \`${TOKENIT}\`:n muuttujat, joten erillistä tuontia ei
-tarvita.
+Tyylit, \`${TOKENIT}\`:n muuttujat ja fontit (Google Fonts) latautuvat
+komponenttien mukana. Erillistä tuontia ei tarvita. Ilman bundleria
+tyylit saa myös suoraan: \`${NIMI}/styles.css\`.
 
 ## Komponentit
 

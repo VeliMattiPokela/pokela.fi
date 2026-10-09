@@ -34,6 +34,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { VIETAVAT, viennit } from './paketti-komponentit.mjs';
+import { ladatutFontit } from './fontit.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const fix = process.argv.includes('--korjaa');
@@ -176,30 +177,6 @@ const makeKomponentit = () =>
    vanhenivat huomaamatta (setup.md lupasi version 1.1.0 ja jätti
    fontit kertomatta), joten ne luetaan lähteestä. */
 
-/** next/fontin kutsut layoutista: [{ nimi: 'Bodoni Moda', painot: ['400', '500'] }]. */
-const ladatutFontit = () => {
-  const layout = readFileSync(join(root, 'app/[locale]/layout.tsx'), 'utf8');
-  return [...layout.matchAll(/=\s*([A-Z][A-Za-z_]+)\(\{([\s\S]*?)\}\);/g)]
-    .map(([, kutsu, asetukset]) => ({
-      nimi: kutsu.replace(/_/g, ' '),
-      painot: [...(asetukset.match(/weight:\s*\[([^\]]*)\]/)?.[1] ?? '').matchAll(/'(\d+)'/g)].map((m) => m[1]),
-    }))
-    .sort((a, b) => a.nimi.localeCompare(b.nimi));
-};
-
-const makeFontit = () => {
-  const perheet = ladatutFontit()
-    .map((f) => `family=${f.nimi.replace(/ /g, '+')}:wght@${f.painot.join(';')}`)
-    .join('&');
-  return [
-    '```html',
-    '<link rel="preconnect" href="https://fonts.googleapis.com">',
-    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-    `<link href="https://fonts.googleapis.com/css2?${perheet}&display=swap" rel="stylesheet">`,
-    '```',
-  ].join('\n');
-};
-
 const luettelo = (osat, sana) => (osat.length < 2 ? osat.join('') : `${osat.slice(0, -1).join(', ')} ${sana} ${osat.at(-1)}`);
 
 const makePainot = () => {
@@ -230,7 +207,6 @@ const makeSarakkeet = () => {
 
 const GENERATORS = {
   'make-komponentit': makeKomponentit,
-  'make-fontit': makeFontit,
   'make-painot': makePainot,
   'make-valit': makeValit,
   'make-ikonit': makeIkonit,
