@@ -346,6 +346,25 @@ solmut rajapinnalla ja vertaa. Nimi on sopimus, sisältö on johdettu.
 Todistettu molempiin suuntiin: tekstin muuttaminen Figmassa kaataa
 ajon, ja lähteessä oleva id jolle ei ole solmua kaataa myös.
 
+**Sivupohjien tekstit.** Luodut tekstit kattoivat vain väitteet
+prosessista. Sivupohjien sisältö (etusivun väitelause, casejen
+kappaleet, CV) oli kirjoitettu Figmaan käsin, eikä mikään verrannut
+sitä sivuun. Kun sivun tekstit kirjoitettiin uudelleen, pohjat jäivät
+vanhoiksi: etusivupohjassa luki yhä lause, jota sivulla ei enää ollut,
+ja `check:figma` oli vihreä.
+
+Sopimus: jokainen näkyvä teksti pohjakehyksessä (`<Pohja> · <moodi>
+<leveys>`) on löydyttävä siltä buildatulta sivulta, jota pohja kuvaa.
+Pohja ja sivu yhdistetään `scripts/figma-sivupohjat.mjs`:n
+`POHJAT`-taulussa, ja nimetty pohja jota taulussa ei ole kaataa ajon.
+Vertailukohta on `out/`, ei sisältötiedostot, koska sivulla teksti on
+koottu (otsikon luku, artefaktin tila, kuvateksti altina). Siksi
+`check:figma` ajetaan CI:ssä buildin jälkeen. Pohjan huomautus, joka
+ei ole sivun tekstiä, nimetään `huom:`-alkuiseksi.
+
+Raja: suunta on Figmasta sivulle. Vanha teksti pohjassa kaataa ajon,
+mutta sivulle lisätty uusi osio, jota pohjassa ei ole, ei kaada.
+
 **Prosessiosio Figmassa.** Tiedoston alussa on kaksi sivua ennen
 Perustaa: **Pystytys** (prosessin ketju, lenkit 0–7) ja **Jatkuva
 kehitys** (molemmat suunnat, tarkistuslista ja rajat). Ne ovat
@@ -1146,9 +1165,9 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       lisätään samalla kaavalla, ja jokainen lisätään myös
       `scripts/check-code-connect.mjs`:n `IN_FIGMA`-listaan.
 - [ ] Figma: sivupohjat **etusivu**, **työlista** ja **casesivu** ovat
-      valmiina sekä `lg 1440` että `base 390` -koossa. Niiden lisäksi
-      on **Lohkot**-pohja molemmissa koissa, jossa ovat ne lohkot
-      joita casepohjissa ei ollut.
+      valmiina sekä `lg 1440` että `base 390` -koossa, **tietoa**
+      `lg 1440` -koossa. Niiden lisäksi on **Lohkot**-pohja molemmissa
+      koissa, jossa ovat ne lohkot joita casepohjissa ei ollut.
 
       <!-- generated:case-lohkot -->14 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ketju, steps, choices, component, todo<!-- /generated -->
 
@@ -1158,8 +1177,10 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       **Avoinna:** kolmen lohkon sisältö johdetaan build-aikana
       (`artefacts`, `checks`, `component`), joten niiden korkeus
       Figmassa vanhenee heti kun tarkistus tai artefakti lisätään.
-      Rakenne pätee, korkeus ei. Sivupohjat eivät ole tarkistuksessa
-      lainkaan — ks. `lib/checks.ts`:n `blind`-kentät.
+      Rakenne pätee, korkeus ei. Pohjien tekstit ovat tarkistuksessa
+      (`check:figma` vertaa ne buildattuun sivuun), rakenne ja
+      korkeus eivät — ks. `lib/checks.ts`:n `blind`-kentät. Tietoa-
+      pohjasta puuttuu `base 390`.
 - [ ] **Figman perusvariantti ei kohdista perusviivalle.** CSS:ssä
       `.list-row` on `align-items: baseline` joka leveydellä, ja
       mobiilissa numero istuu siksi 13 pikseliä otsikon ylälaidan

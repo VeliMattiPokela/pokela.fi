@@ -581,3 +581,33 @@ päällä oleva kerros, joka rajataan pienemmäksi. Siksi mikään ei hyppää
 Palkki jatkuu saumatta hero-kuvan nauhaan, joka on samaa pintaa.
 
 *Päätetty 9.10.2026 prototyyppien perusteella — Veli-Matti Pokela*
+
+---
+
+## 15. Sivupohjan teksti on sama kuin sivulla
+
+**Ero:** koodin ja Figman välillä. Sivun tekstit kirjoitettiin uudelleen
+(efc4b09), mutta Figman sivupohjiin jäivät vanhat. Etusivupohjassa luki
+"Rakennan tuotteita, jotka toimivat myös silloin kun demo on ohi", ja
+casesivupohjassa Colliersin kesto oli kuusi kuukautta kahdeksan sijaan.
+`check:figma` oli vihreä, ja ero löytyi vasta kun Vellu katsoi pohjaa.
+
+**Mitä tapahtui:** päätös 10 kattoi komponenttien tilat, koska ne
+kulkevat Code Connectin kautta. Sivupohjien tekstit eivät kulje minkään
+kautta: ne oli kirjoitettu Figmaan käsin, eikä mikään verrannut niitä
+sivuun. Sama aukko oli Media-komponentin levy-varianteissa, joissa
+kuvateksti ei ollut kytketty `caption`-propertyyn.
+
+**Päätös:** `check:figma` vertaa jokaisen sivupohjan tekstin buildattuun
+sivuun (`scripts/figma-sivupohjat.mjs`), ja teksti jota sivulta ei
+löydy kaataa ajon. Siksi tarkistus ajetaan CI:ssä buildin jälkeen.
+Tekstimuutos ilman Figman päivitystä ei enää mene läpi.
+
+**Perustelu:** päätöksen 8 mukaan tarkistus lisätään vasta kun oikea
+virhe on päässyt läpi. Tämä on se virhe, ja se koski viittä pohjaa.
+Vertailukohta on buildattu sivu eikä sisältötiedosto, koska pohja
+näyttää sen mitä sivulla lukee: koottuja lukuja, tiloja ja kuvatekstejä.
+Raja on kirjattu: suunta on Figmasta sivulle, joten sivulle lisätty uusi
+osio, jota pohjassa ei ole, ei kaada ajoa.
+
+*Kirjattu 9.10.2026 Vellun huomion pohjalta*
