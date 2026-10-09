@@ -687,6 +687,11 @@ jos ne eroavat. Ohjeet kopioidaan pakettiin
 `@pokela/components/guidelines/` (2.5.1), ja kitin oma `setup.md` vain osoittaa
 niihin. Kitiin ei kopioida sisältöä, joka voi vanhentua.
 
+Tyylit ja fontit latautuvat komponenttien mukana (2.5.2): paketin
+`index.js` tuo `styles.css`:n, ja se lataa layoutin fontit Google
+Fontsista. Kittiin ei siis lisätä tuontia eikä fonttirivejä, eikä
+käyttäjän tarvitse muistaa niitä.
+
 **Raja:** Maken ohjeisiin ei ole rajapintaa, joten kitin yhtä
 osoitusriviä ei voi tarkistaa. Se ei kuitenkaan muutu. Toimiiko
 osoitus, eli lukeeko Make paketin tiedostoja, on testattava kitissä.
