@@ -73,9 +73,10 @@ jobs:
       # Ketjun viimeinen lenkki: Figma Make lukee npm:ää, ei repoa.
       # Jos julkaistu paketti jää jälkeen, prototyypit tehdään eri
       # komponenteilla kuin sivusto — hiljaa. Tarvitsee verkon, joten
-      # ei ole check:sync-ketjussa.
+      # ei ole check:sync-ketjussa. Tässä vaiheessa uudempi, vielä
+      # julkaisematon versio on oikein: main julkaisee sen lopussa.
       - name: Paketit vastaavat npm:ää
-        run: npm run check:paketti
+        run: npm run check:paketti -- --ennen-julkaisua
 
       - name: Dokumentaatio ajan tasalla
         run: npm run check:docs
@@ -134,3 +135,19 @@ jobs:
       # se on casen todistusaineistoa, ei kehitystyökalu.
       - name: Storybookin build
         run: npm run build-storybook
+
+      # Main julkaisee paketit itse, kun kaikki yllä on vihreää. Ennen
+      # tätä julkaisu oli ketjun ainoa käsin tehty askel. Julkaisee vain
+      # version, jota npm:ssä ei vielä ole, joten ilman nostoa ei tapahdu
+      # mitään. Vain mainiin: pull request ei saa julkaista.
+      - name: Paketit npm:ään
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npm run paketti:julkaise
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Julkaisun jälkeen ilman lippua: npm:n pitää nyt vastata repoa
+      # tavulleen.
+      - name: Julkaistu paketti vastaa repoa
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npm run check:paketti

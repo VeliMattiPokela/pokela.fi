@@ -37,7 +37,8 @@
     "lahtotaso": "node scripts/lahtotaso.mjs",
     "lahtotaso:kirjaa": "node scripts/check-hardcoded.mjs --kirjaa && node scripts/check-stories.mjs --kirjaa && node scripts/check-code-connect.mjs --kirjaa",
     "paketti:tokens": "node scripts/paketti-tokens.mjs",
-    "paketti:komponentit": "node scripts/paketti-komponentit.mjs"
+    "paketti:komponentit": "node scripts/paketti-komponentit.mjs",
+    "paketti:julkaise": "node scripts/julkaise-paketit.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

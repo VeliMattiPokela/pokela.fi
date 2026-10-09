@@ -738,3 +738,29 @@ merkitty liitos vanhenisi samalla tavalla kuin prototyypin levyt.
 Siksi badge-surface ei osoita mihinkään levyllä: sitä ei käytetä siellä.
 Tyyppinäyte on display-l eikä display-xl, koska sivulevyn nimi on
 display-l.
+
+---
+
+## 20. Main julkaisee paketit npm:ään
+
+**Tilanne:** pakettien julkaisu oli ketjun ainoa käsin tehty askel. Muutos
+meni mainiin, mutta Figma Make luki npm:stä vanhaa versiota, kunnes Vellu
+ajoi julkaisun omalta koneeltaan. `check:paketti` näytti eron punaisena,
+mutta ei voinut korjata sitä. Kahdesti julkaisu meni väärin, koska komento
+ajettiin haarasta, jossa versio oli vielä vanha, ja kerran kirjautuminen
+oli vanhentunut (npm vastasi 404).
+
+**Päätös:** CI:n viimeinen vaihe mainin pushilla on *Paketit npm:ään*
+(`scripts/julkaise-paketit.mjs`). Se ajetaan vasta, kun kaikki muut
+vaiheet ovat vihreällä, ja julkaisee vain version, jota npm:ssä ei vielä
+ole. Pull requestissa `check:paketti --ennen-julkaisua` hyväksyy uudemman,
+julkaisemattoman version. Julkaisun jälkeen `check:paketti` ajetaan ilman
+lippua. Ihmisen osa on versionnosto (päätös 13), ja sen puuttuminen kaatuu
+edelleen: sisältö muuttui, versio sama.
+
+**Raja:** julkaisu tarvitsee repon salaisuuden `NPM_TOKEN`. Jos se puuttuu
+tai vanhenee, vaihe kaatuu ja sanoo sen, mutta vasta kun julkaistavaa on.
+Kirjautumista ei voi tarkistaa etukäteen.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*
+

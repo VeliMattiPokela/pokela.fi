@@ -36,6 +36,7 @@ npm run check:hardcoded  # kovakoodatut arvot tyyleissä
 npm run figma:check      # Code Connect -kytkennät (dry run, vaatii tokenin)
 npm run figma:publish    # kytkennät Figmaan (vaatii FIGMA_ACCESS_TOKENin)
 npm run paketti          # tokenit ja komponentit npm-paketeiksi → packages/
+npm run paketti:julkaise # julkaisee npm:ään version, jota siellä ei ole (CI, NPM_TOKEN)
 ```
 
 Storytestit ajetaan oikeassa selaimessa, joten Chromium asennetaan kerran:
