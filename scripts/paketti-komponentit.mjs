@@ -65,6 +65,7 @@ export const ULKOPUOLELLA = [
   ['Nav, Footer', 'tarvitsevat sivuston sanakirjan ja reitityksen'],
   ['BeforeAfter, Video', 'rakentuvat Median varaan, ja Media lukee kuvamanifestia'],
   ['HeroName', 'piirtää sivuston omaa nimeä fontin ääriviivoista (`@/content/nimi.generated.json`)'],
+  ['HeroIntro, HeroIntroLiike', 'ovat etusivun intro: sivuston ominaisuus, ei design systemin osa'],
   ['ComponentView, PrintCv',
    'ovat riippumattomia mutta sivuston ominaisuuksia — lähdekoodinäkymä ja CV:n tulostusasu — eivät design systemin osia'],
 ];

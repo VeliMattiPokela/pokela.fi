@@ -6,6 +6,7 @@ import '@/styles/index.css';
 import { locales, localeTags, isLocale, path, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
 import ThemeScript from '@/components/ThemeScript';
+import { HeroIntroScript } from '@/components/HeroIntro';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 
@@ -87,6 +88,7 @@ export default async function LocaleLayout({
     >
       <head>
         <ThemeScript />
+        <HeroIntroScript kotipolku={path(locale as Locale)} />
       </head>
       <body>
         <a href="#main" className="skip-link">

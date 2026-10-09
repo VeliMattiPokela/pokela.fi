@@ -1,0 +1,30 @@
+/* HeroIntro: etusivun nimipalkki ja sen saapuminen.
+   Ks. components/HeroIntro.tsx. */
+
+.hero-intro { position: relative; background: var(--badge-surface); }
+.hero-intro .hero-name { --hero-name-tausta: var(--badge-surface); }
+
+/* Koko ruudun kerros intron ajan. Se rajataan palkin kokoiseksi, kun
+   palkki asettuu; sisältö palkin ympärillä ei liiku. */
+.hero-intro__kansi {
+  display: none;
+  position: fixed; inset: 0; z-index: 60;
+  background: var(--badge-surface);
+}
+.hero-intro__sisus { position: relative; }
+
+.hero-intro-auki .hero-intro__kansi { display: block; }
+.hero-intro-auki .hero-intro__sisus { z-index: 61; visibility: hidden; }
+.hero-intro-auki .hero-intro--keskella .hero-intro__sisus { visibility: visible; }
+
+.hero-intro--asettuu .hero-intro__kansi { transition: clip-path 1s var(--ease-out); }
+.hero-intro--asettuu .hero-intro__sisus { transition: transform 1s var(--ease-out); }
+.hero-intro--kiire .hero-intro__kansi { transition-duration: 0.6s; }
+.hero-intro--kiire .hero-intro__sisus { transition-duration: 0.6s; }
+
+/* Jos JavaScript ei koskaan käynnisty, kerros väistyy ja nimi tulee
+   näkyviin itsestään. */
+@keyframes hero-intro-varmistus { to { visibility: hidden; } }
+@keyframes hero-intro-esiin { to { visibility: visible; } }
+.hero-intro-auki .hero-intro__kansi { animation: hero-intro-varmistus 0s 6s forwards; }
+.hero-intro-auki .hero-intro__sisus { animation: hero-intro-esiin 0s 6s forwards; }

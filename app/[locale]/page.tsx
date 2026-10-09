@@ -6,6 +6,7 @@ import { Grid, Col } from '@/components/Grid';
 import ListRow from '@/components/ListRow';
 import Media from '@/components/Media';
 import HeroName from '@/components/HeroName';
+import HeroIntro from '@/components/HeroIntro';
 import { kuvapaikka } from '@/content/kuvat';
 
 /* Kuinka leveänä kuva piirtyy. Sivu tietää sen, kuva ei.
@@ -30,16 +31,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       {/* ---- nimi + rooli --------------------------------------- */}
-      <section className="page home__intro">
-        <HeroName lines={home.nameLines} />
+      <HeroIntro>
+        <section className="page home__intro">
+          <HeroName lines={home.nameLines} />
 
-        <div className="home__intro-meta">
-          <p className="meta ink home__role">{home.role}</p>
-          {home.availability ? (
-            <p className="meta home__availability">{home.availability}</p>
-          ) : null}
-        </div>
-      </section>
+          <div className="home__intro-meta">
+            <p className="meta ink home__role">{home.role}</p>
+            {home.availability ? (
+              <p className="meta home__availability">{home.availability}</p>
+            ) : null}
+          </div>
+        </section>
+      </HeroIntro>
 
       {/* ---- hero 21:9 ------------------------------------------ */}
       <div className="page">
