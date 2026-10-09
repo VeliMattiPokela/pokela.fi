@@ -62,6 +62,9 @@
   transition: opacity var(--dur-slow) var(--ease-standard);
 }
 
+/* Lähde on taustapinnalla, ei paperilla: ink-faint jää siinä alle 4.5:1. */
+.exploded__name .meta--s { color: var(--ink-muted); }
+
 .exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__plate,
 .exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__name { opacity: 0.35; }
 
