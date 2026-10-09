@@ -152,6 +152,7 @@ päättelee suunnan muutoksen diffistä:
 | Tilanne | Mitä tapahtuu |
 |---|---|
 | Sivun teksti muuttui | vanha → uusi kirjoitetaan pohjiin, jos tulos löytyy sivulta |
+| Vain luku muuttui | sivun luku kirjoitetaan pohjaan; luvut johdetaan koodista (esim. kytkentöjen määrä), joten diffissä ei ole paria |
 | Pohjaa muokattiin Figmassa | ei kirjoiteta yli; raportti näyttää lähimmän sivun rivin, ja muutos viedään koodiin |
 | Kumpikin muuttui | ei kirjoiteta, ihminen päättää |
 

@@ -13,6 +13,9 @@
  *                   jälkeen) kertoo vanhan ja uuden lauseen. Pohjan
  *                   teksti jossa on vanha lause saa uuden — mutta vain
  *                   jos tulos löytyy sivulta. Muuten se raportoidaan.
+ *   luku muuttui    Sama lause, eri luvut. Luvut johdetaan koodista
+ *                   (kytkentöjen määrä), joten diffissä ei ole paria.
+ *                   Pohjaan kirjoitetaan sivun luku.
  *   Figma muuttui   Pohjan teksti ei ole sivulla, eikä mikään muutos
  *                   selitä sitä. Sitä ei kirjoiteta yli: se on
  *                   Figmassa tehty muokkaus, ja se viedään koodiin.
@@ -186,6 +189,19 @@ async function synkka({ pohja, rivit, parit, kirjoita }) {
           let kertyva = ydin;
           for (const [vanha, u] of parit) if (kertyva.includes(vanha)) kertyva = tasaa(kertyva.split(vanha).join(u));
           if (kertyva !== ydin && sivulla(kertyva)) uusi = kertyva;
+        }
+        /* Luku muuttui: sama lause, eri luvut ("10 kytkentää" →
+           "11 kytkentää"). Luvut johdetaan koodista, joten diffissä ei
+           ole merkkijonoa, ja lukua ei voi muokata Figmassa merkityksellä. */
+        if (uusi === null && /\d/.test(ydin)) {
+          const kuvio = new RegExp(ydin.split(/\d+/).map((o) => o.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\d+'));
+          for (const r of rivit) {
+            const m = r.match(kuvio);
+            if (m) {
+              uusi = m[0];
+              break;
+            }
+          }
         }
         if (uusi !== null) {
           osat[i] = uusi + nuoli;
