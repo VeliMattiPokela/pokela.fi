@@ -8,6 +8,8 @@ Use these instead of building an equivalent.
 - `Accordion`, `useAccordionGroup`
 - `Timeline`, `TimelineItem`
 - `ExplodedView`
+- `PageHeader`
+- `Section`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -67,6 +69,27 @@ reader, described by `label`.
     { name: '03 Page', content: <Page /> },
   ]}
 />
+```
+
+## Patterns
+
+`PageHeader` and `Section` are patterns: they add no look of their own, only
+the layout every page uses. Build pages from them instead of arranging
+headings and grids yourself.
+
+`PageHeader` is the page's title with an optional `meta` and `lede`. The lede
+always sits under the title in the same column, never beside it.
+
+`Section` names a part of the page with a small `title` (and optional
+`meta`). `layout="stacked"` puts the title row above the content;
+`layout="aside"` puts the title in a narrow left column and the content
+beside it. Use one layout per page.
+
+```jsx
+<PageHeader title="From idea to launch" meta="9 weeks" lede="Each phase ends in a shared decision." />
+<Section title="Road to launch" layout="aside">
+  <Timeline>…</Timeline>
+</Section>
 ```
 
 `Reveal` fades its children in on scroll. Wrap sections, not single elements.

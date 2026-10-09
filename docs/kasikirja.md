@@ -328,7 +328,7 @@ missä koodimuutos.
 Kolme asiaa ohjaavat niiden kirjoittamista:
 
 **Lyhyys on sääntö, ei tyyli.** Figma sanoo suoraan: *"More context isn't
-always better. It can confuse the LLM."* Kaikki neljä tiedostoa ovat yhteensä alle 500 sanaa.
+always better. It can confuse the LLM."* <!-- generated:make-sanat -->Kaikki ohjetiedostot ovat yhteensä 1090 sanaa.<!-- /generated -->
 
 **Propseja ei toisteta.** Make lukee paketin TypeScript-tyypit itse. Jos
 ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se
@@ -363,7 +363,7 @@ Figmassa:
 2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
 3. Erityisasetuksia ei tarvita: tyylit ja fontit latautuvat komponenttien mukana
 4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla; Maken muut kolme oletusohjetta poistetaan
-5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
+5. Testaa: pyydä Makelta näkymä (esim. "työlista ja aikajana") ja uusi komponentti, ja katso, kysyykö se ensin ja käyttääkö se `PageHeader`- ja `Section`-patterneja (päätös 21)
 6. Julkaise kit
 
 Kitin `setup.md` kokonaan:

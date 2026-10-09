@@ -2,6 +2,7 @@ import type { Block } from '@/content/cases';
 import Media, { rajaukset } from './Media';
 import BeforeAfter from './BeforeAfter';
 import SivuKerroksina from './SivuKerroksina';
+import Section from './Section';
 
 /**
  * Kuinka leveänä kuva piirtyy kussakin lohkossa. Lohko tietää sen,
@@ -59,8 +60,7 @@ export default function CaseBlock({
     case 'text':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               {block.lead ? <h3 className="display-m case__h">{block.lead}</h3> : null}
               {block.items.map((item, i) => {
@@ -76,7 +76,7 @@ export default function CaseBlock({
                 );
               })}
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
 
@@ -96,8 +96,7 @@ export default function CaseBlock({
     case 'pair':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label ?? ''}</h2>
+          <Section layout="aside" title={block.label ?? ''}>
             <div className="case__pair">
               {block.items.map((media) => (
                 <figure key={media.caption} style={{ margin: 0 }}>
@@ -113,7 +112,7 @@ export default function CaseBlock({
                 </figure>
               ))}
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
 
@@ -124,8 +123,7 @@ export default function CaseBlock({
         rajaukset(block.id, `${block.id}-ennen`) && rajaukset(block.id, `${block.id}-jalkeen`);
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               {taysi ? (
                 <BeforeAfter
@@ -140,7 +138,7 @@ export default function CaseBlock({
                 <Media id={block.id} ratio={block.ratio} caption={block.caption} sizes={SIZES.sarake} />
               )}
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     }
@@ -160,8 +158,7 @@ export default function CaseBlock({
     case 'trio':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <div className="case__trio">
@@ -181,15 +178,14 @@ export default function CaseBlock({
                 ))}
               </div>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
 
     case 'scope':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -202,20 +198,19 @@ export default function CaseBlock({
                 ))}
               </ol>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
 
     case 'kerrokset':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
             </div>
-          </section>
+          </Section>
           <div className="page case__kerrokset">
             <SivuKerroksina locale={locale} />
           </div>
@@ -225,8 +220,7 @@ export default function CaseBlock({
     case 'steps':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -242,14 +236,13 @@ export default function CaseBlock({
                 ))}
               </ol>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     case 'choices':
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <div className="case__pair">
@@ -264,7 +257,7 @@ export default function CaseBlock({
                 ))}
               </div>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     case 'todo':
@@ -272,7 +265,7 @@ export default function CaseBlock({
          kohta jätetään pois, ei esitetä paikkamerkkinä. */
       if (process.env.NODE_ENV === 'production') return null;
       return (
-        <div className="page case__section">
+        <div className="page section--aside">
           <span className="meta">{dict.common.todo}</span>
           <span className="body-s todo">{block.text}</span>
         </div>

@@ -205,7 +205,18 @@ const makeSarakkeet = () => {
   return `\`Grid\` is ${Math.max(perus, ...portaat.map((p) => parseInt(p)))} columns: ${perus} on mobile, ${portaat.join(', ')}.`;
 };
 
+/** Ohjeiden pituus luetaan, ei kirjoiteta: käsin kirjoitettu "alle 500 sanaa" oli jo 789. */
+const makeSanat = () => {
+  const sanat = readdirSync(join(root, 'guidelines'))
+    .map((f) => readFileSync(join(root, 'guidelines', f), 'utf8').replace(/<!--[\s\S]*?-->/g, ''))
+    .join(' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return `Kaikki ohjetiedostot ovat yhteensä ${sanat} sanaa.`;
+};
+
 const GENERATORS = {
+  'make-sanat': makeSanat,
   'make-komponentit': makeKomponentit,
   'make-painot': makePainot,
   'make-valit': makeValit,
