@@ -166,7 +166,7 @@ async function synkka({ pohja, rivit, parit, kirjoita }) {
 
   const kay = async (kehys, solmu) => {
     if (solmu.visible === false) return;
-    if (solmu.type === 'TEXT' && !solmu.name.startsWith('huom:') && !solmu.name.startsWith('generated:')) {
+    if (solmu.type === 'TEXT' && !['huom:', 'vaihtuu:', 'generated:'].some((e) => solmu.name.startsWith(e))) {
       const osat = solmu.characters.split(erotin);
       let muuttui = false;
       for (let i = 0; i < osat.length; i += 2) {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run check:sync && npm run kuvat && next build && npm run publish:tokens",
+    "build": "node scripts/ajo.mjs && npm run publish:tokens",
     "start": "next start",
     "lint": "next lint",
     "check:tokens": "node scripts/check-tokens.mjs",

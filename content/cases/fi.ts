@@ -318,6 +318,12 @@ const thisSite: Case = {
       note: 'Lista luetaan suoraan projektin asetuksista (package.json), joten siinä näkyvät vain tarkistukset, jotka oikeasti ajetaan.',
     },
     {
+      kind: 'ajo',
+      label: 'Viimeisin build',
+      title: 'Näin tämä sivu rakennettiin',
+      body: 'Aikajana on sen buildin, joka rakensi tämän sivun. Jos yksikin vaihe olisi kaatunut, sivua ei olisi julkaistu. Figma ja npm-paketit tarkistetaan erikseen ennen mergeä, koska ne tarvitsevat verkon.',
+    },
+    {
       kind: 'text',
       label: 'Ylläpito',
       items: [

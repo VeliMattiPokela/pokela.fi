@@ -48,6 +48,14 @@ Jokainen tarkistus on syntynyt virheestä, joka pääsi läpi ennen sitä
 (päätös 8). Casesivun lista (`lib/checks.ts`) kertoo saman lyhyesti
 sokeine kohtineen.
 
+**Buildin aikajana.** `npm run build` ajaa `scripts/ajo.mjs`:n, joka ajaa
+`check:sync`-ketjun tarkistukset ja kuvaputken, kirjaa kunkin keston ja
+yhteenvetorivin tiedostoon `.ajo/ajo.json` ja käynnistää sitten
+Next.js:n. Case 03 näyttää kirjauksen aikajanana (lohko `ajo`), joten
+sivu kertoo sen buildin, joka sen rakensi. Kaatunut vaihe pysäyttää
+buildin, joten aikajanalla ei voi olla punaista vaihetta. CI ajaa saman
+skriptin Sivuston build -askeleena (päätös 17).
+
 **1. Tokenit** (`scripts/check-tokens.mjs`) — `tokens.css` ja
 `tokens.json` sanovat samaa: värit, tyyppi- ja riviväliasteikko
 jokaisella breakpointilla, välistys, layout, reunat ja motion.
@@ -132,8 +140,10 @@ prosessin ketju ja tarkistuslista. Lähteet ovat `content/prosessi.ts` ja
 (`<Pohja> · <moodi> <leveys>`) on löydyttävä siltä buildatulta sivulta,
 jota pohja kuvaa. Pohja ja sivu yhdistetään `scripts/figma-sivupohjat.mjs`:n
 `POHJAT`-taulussa, ja pohjan huomautus nimetään `huom:`-alkuiseksi
-(päätös 15). Raja: sivulle lisättyä osiota, jota pohjassa ei ole, ei
-huomata.
+(päätös 15). Esimerkkiarvo, joka vaihtuu joka buildissa (aikajanan
+kestot, kellonajat ja tulosrivit), nimetään `vaihtuu:`-alkuiseksi, ja
+sen rakenne tarkistetaan mutta sisältö ei. Raja: sivulle lisättyä
+osiota, jota pohjassa ei ole, ei huomata.
 
 **Kun pohjan teksti ei ole sivulla**, `npm run pohjat` (buildin jälkeen)
 päättelee suunnan muutoksen diffistä:
@@ -929,7 +939,7 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       `lg 1440` -koossa. Niiden lisäksi on **Lohkot**-pohja molemmissa
       koissa, jossa ovat ne lohkot joita casepohjissa ei ollut.
 
-      <!-- generated:case-lohkot -->14 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ketju, steps, choices, component, todo<!-- /generated -->
+      <!-- generated:case-lohkot -->15 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ajo, ketju, steps, choices, component, todo<!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.

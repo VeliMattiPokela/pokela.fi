@@ -640,3 +640,31 @@ raportoitiin Figman muokkaukseksi lähimpine sivun riveineen.
 näkymät eivät kulje koodiin; se on lenkin 7 (Make → PR → sovellus) työ.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+---
+
+## 17. Sivu näyttää buildin, joka sen rakensi
+
+**Ero:** prosessin tulokset näkyivät vain CI:n lokissa. Jokainen
+tarkistus tulosti valmiiksi luettavan rivin ("7/23 paikkaa täynnä, 16
+odottaa kuvaa"), mutta ne hukkuivat muun tulosteen sekaan, eikä
+prosessi näkynyt sivun lukijalle lainkaan.
+
+**Päätös:** `npm run build` ajaa `scripts/ajo.mjs`:n, joka kirjaa
+vaiheiden keston ja tuloksen ennen Next.js:n buildia. Case 03 näyttää
+ne aikajanana. Lähde on sivun oma build, ei CI:n rajapinta: Netlify ja
+CI ajavat saman skriptin, ja sivu kertoo sen ajon, jossa se syntyi.
+Figman pohjassa vaihtuvat arvot nimetään `vaihtuu:`-alkuisiksi.
+
+**Perustelu:** tämä ei ole uusi portti vaan näkymä olemassa oleviin.
+Aikajana ei voi valehdella onnistumisesta, koska kaatunut vaihe estää
+sivun syntymisen. Ensimmäinen ajo näytti asian, jota loki ei tuonut
+esiin: kuvaputki vie yli viisi minuuttia, tarkistukset alle sekunnin
+kukin.
+
+**Raja:** Figma- ja pakettitarkistus tarvitsevat verkon, joten ne
+eivät ole Netlifyn buildissa eivätkä aikajanalla. Sivu sanoo sen.
+Next.js:n oman buildin kestoa ei voi kirjata sivulle, joka rakennetaan
+juuri silloin.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*
