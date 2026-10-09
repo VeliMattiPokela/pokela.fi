@@ -710,6 +710,16 @@ yhteisvaikutukset.
 | `kuvat/` | Normalisoidut lähteet, yksi per paikka | kyllä |
 | `public/kuva/` | Rajatut ja pakatut johdannaiset | ei |
 
+Johdannaiset lasketaan joka buildissa, mutta samaa ei lasketa kahdesti.
+`kuvat.mjs` tallentaa jokaisen johdannaisen välimuistiin avaimella, joka
+lasketaan lähteen tavuista, rajauksesta, mitoista, pakkausasetuksista ja
+sharpin ja ffmpegin versioista. Muuttunut kuva saa uuden avaimen ja
+lasketaan uudelleen, muut kopioidaan. Ajo poistaa avaimet, joita se ei
+käyttänyt. CI säilyttää välimuistin ajosta toiseen. Syy: AVIF-pakkaus
+ja videon muunnos veivät noin neljä minuuttia jokaisesta CI-ajosta,
+vaikka lähteet eivät muuttuneet (9.10.2026). Välimuistista sama ajo kestää
+alle sekunnin, ja tulos on tavulleen sama.
+
 Lähde säilytetään **rajaamattomana**, enintään 2800 px pitkältä
 sivulta. Rajaus on johdannaisen ominaisuus, ei lähteen: jos kuvasuhde
 muuttuu sisällössä, uusi rajaus lasketaan samasta lähteestä eikä kuvaa

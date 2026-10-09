@@ -828,3 +828,34 @@ sen ainoa todellinen testi on Storybook ja Make. Käytetäänkö niitä
 Makessa oikein, nähdään vasta kun sillä tehdään näkymä.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+## 23. CI ei laske samaa kahdesti
+
+**Tilanne:** CI-ajo kesti 5–7 minuuttia, ja siitä noin neljä minuuttia
+oli kuvaputki: jokainen AVIF ja hero-video pakattiin joka ajossa
+uudelleen, vaikka yksikään lähde ei ollut muuttunut. Lisäksi jokainen
+push pull requestiin ajoi koko putken loppuun, vaikka uudempi push oli
+jo tullut. 9.10.2026 GitHub ilmoitti tilin Actions-minuuttien olevan
+käytetty. Repo on julkinen, ja sen ajojen laskutettava aika on GitHubin
+mukaan 0, joten mittari ei täyty tästä reposta, mutta turha laskenta
+on silti turhaa.
+
+**Päätös:** kuvaputki tallentaa jokaisen johdannaisen välimuistiin
+avaimella, joka lasketaan lähteestä ja asetuksista, ja CI säilyttää
+välimuistin ajosta toiseen. Pull requestin uusi push peruu saman PR:n
+kesken olevan ajon. Mainin ajoja ei peruta, koska ne julkaisevat.
+Yhtään tarkistusta ei poistettu eikä rajattu polkujen mukaan.
+
+**Perustelu:** johdannainen on yhä laskettu lähteestä, ei käsin
+säilytetty: muuttunut kuva saa uuden avaimen. Mitattuna paikallisesti
+kuvaputki 314 s → alle sekunnin, ja tulos on tavulleen sama kuin ilman
+välimuistia. Polkurajausta harkittiin ja hylättiin: lähes jokainen
+tarkistus koskee lähes jokaista muutosta, ja rajaus olisi hiljainen
+aukko ketjussa. Next.js:n buildivälimuisti hylättiin myös: se säästi
+mitattuna 8 sekuntia, saman verran kuin sen lataus maksaa.
+
+**Raja:** ensimmäinen ajo uudella kuvalla tai videolla kestää yhä
+täyden ajan. Netlify rakentaa sivun omalla koneellaan ilman tätä
+välimuistia.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*

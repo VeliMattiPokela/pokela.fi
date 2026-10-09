@@ -5,6 +5,14 @@ on:
     branches: [main]
   pull_request:
 
+# Uusi push pull requestiin peruu saman PR:n vanhan, kesken olevan
+# ajon: sen tulosta ei enää lueta. Mainia ei peruta, koska mainin ajo
+# julkaisee (Figma, npm) ja jokaisen yhdistetyn muutoksen pitää tulla
+# julkaistuksi.
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   check:
     name: Synkkatarkistus, tyypit ja build
@@ -32,6 +40,18 @@ jobs:
       - name: Asenna Chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install chromium --with-deps
+
+      # Kuvaputken johdannaiset (AVIF ja video) veivät noin neljä
+      # minuuttia jokaisesta ajosta, vaikka lähteet eivät muuttuneet.
+      # kuvat.mjs tallentaa ne avaimella, joka lasketaan lähteestä ja
+      # asetuksista, joten vanhakin välimuisti on turvallinen: muuttunut
+      # kuva lasketaan uudelleen, muut kopioidaan.
+      - name: Kuvien välimuisti
+        uses: actions/cache@v4
+        with:
+          path: .kuvavalimuisti
+          key: kuvat-${{ hashFiles('kuvat/**', 'content/**', 'scripts/kuvat.mjs', 'package-lock.json') }}
+          restore-keys: kuvat-
 
       # Eriytymä pysäyttää putken ja kertoo MIKÄ eriytyi.
       # Tämä on case 03:n väite käytännössä.

@@ -35,3 +35,8 @@ packages/
 # Buildin kirjaamat vaiheet (scripts/ajo.mjs). Syntyy joka buildissa,
 # ja case 03 näyttää ne.
 .ajo/
+
+# Videomuunnosten välimuisti (scripts/kuvat.mjs, teeVideo). Avain
+# lasketaan lähteestä ja asetuksista; CI säilyttää kansion ajosta
+# toiseen.
+.kuvavalimuisti/
