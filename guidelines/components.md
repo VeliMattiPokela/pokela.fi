@@ -6,6 +6,7 @@ Use these instead of building an equivalent.
 - `Icon`, `ICON_NAMES`
 - `ListRow`
 - `Accordion`, `useAccordionGroup`
+- `Timeline`, `TimelineItem`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -30,5 +31,19 @@ To show a row as selected, use `className="invert"` — not a new colour.
 `Accordion` is the same row as a `<button>`. Use it when the row expands
 rather than navigates. Only one may be open at a time; `useAccordionGroup`
 handles that.
+
+`Timeline` is a vertical list of dated or timed items. Put `TimelineItem`s
+inside it; the labels line up because they share the list's grid. Use
+`variant="emphasis"` for the one item that matters most and `variant="end"`
+for the last. `weight` (0–1) stretches an item's rail, e.g. by its share of
+the total duration.
+
+```jsx
+<Timeline>
+  <TimelineItem label="0.00" title="Tokens" meta="under a second" />
+  <TimelineItem label="0.03" title="Images" meta="5 min 32 s" variant="emphasis" weight={0.9} />
+  <TimelineItem label="5.35" title="Site built" variant="end" />
+</Timeline>
+```
 
 `Reveal` fades its children in on scroll. Wrap sections, not single elements.

@@ -51,7 +51,8 @@ sokeine kohtineen.
 **Buildin aikajana.** `npm run build` ajaa `scripts/ajo.mjs`:n, joka ajaa
 `check:sync`-ketjun tarkistukset ja kuvaputken, kirjaa kunkin keston ja
 yhteenvetorivin tiedostoon `.ajo/ajo.json` ja käynnistää sitten
-Next.js:n. Case 03 näyttää kirjauksen aikajanana (lohko `ajo`), joten
+Next.js:n. Case 03 näyttää kirjauksen aikajanana (lohko `ajo`, yleinen
+`Timeline`-komponentti), joten
 sivu kertoo sen buildin, joka sen rakensi. Kaatunut vaihe pysäyttää
 buildin, joten aikajanalla ei voi olla punaista vaihetta. CI ajaa saman
 skriptin Sivuston build -askeleena (päätös 17).

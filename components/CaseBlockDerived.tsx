@@ -6,6 +6,7 @@ import { caseArtefacts } from '@/lib/artefacts';
 import { checks, liveCheckCount } from '@/lib/checks';
 import { ketju } from '@/content/prosessi';
 import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
+import Timeline, { TimelineItem } from './Timeline';
 import type { Locale } from '@/lib/i18n';
 
 /**
@@ -231,43 +232,26 @@ export default function CaseBlockDerived({
                       .filter(Boolean)
                       .join(' · ')}
                   </p>
-                  <ol className="case__ajo">
+                  <Timeline>
                     {ajo.vaiheet.map((vaihe, i) => (
-                      <li
+                      <TimelineItem
                         key={vaihe.id}
-                        className={[
-                          'case__ajo-vaihe',
-                          vaihe === ajo.hitain ? 'case__ajo-vaihe--hitain' : '',
-                        ].join(' ')}
-                        /* Kisko venyy keston mukaan, jotta hitain vaihe
-                           näkyy jo pituudestaan. */
-                        style={{ ['--osuus' as string]: (vaihe.kesto / ajo.sivustoAlkoi).toFixed(3) }}
-                      >
-                        <span className="meta faint case__ajo-aika">{kello(vaihe.alku)}</span>
-                        <span className="case__ajo-kisko" aria-hidden="true" />
-                        <span className="case__ajo-sisalto">
-                          {i === 0 || ajo.vaiheet[i - 1].ryhma !== vaihe.ryhma ? (
-                            <span className="meta faint">{vaihe.ryhma}</span>
-                          ) : null}
-                          <span className="case__ajo-rivi">
-                            <span className="body-l case__ajo-nimi">{vaihe.nimi}</span>
-                            <span className="meta faint">{kesto(vaihe.kesto)}</span>
-                          </span>
-                          {vaihe.tulos ? <span className="body-s muted">{vaihe.tulos}</span> : null}
-                        </span>
-                      </li>
+                        label={kello(vaihe.alku)}
+                        group={i === 0 || ajo.vaiheet[i - 1].ryhma !== vaihe.ryhma ? vaihe.ryhma : null}
+                        title={vaihe.nimi}
+                        meta={kesto(vaihe.kesto)}
+                        description={vaihe.tulos}
+                        variant={vaihe === ajo.hitain ? 'emphasis' : 'default'}
+                        weight={vaihe.kesto / ajo.sivustoAlkoi}
+                      />
                     ))}
-                    <li className="case__ajo-vaihe case__ajo-vaihe--loppu">
-                      <span className="meta faint case__ajo-aika">{kello(ajo.sivustoAlkoi)}</span>
-                      <span className="case__ajo-kisko" aria-hidden="true" />
-                      <span className="case__ajo-sisalto">
-                        <span className="case__ajo-rivi">
-                          <span className="body-l case__ajo-nimi">Sivusto rakennetaan</span>
-                        </span>
-                        <span className="body-s muted">Tämä sivu on sen tulos.</span>
-                      </span>
-                    </li>
-                  </ol>
+                    <TimelineItem
+                      label={kello(ajo.sivustoAlkoi)}
+                      title="Sivusto rakennetaan"
+                      description="Tämä sivu on sen tulos."
+                      variant="end"
+                    />
+                  </Timeline>
                   <p className="display-s case__ajo-nosto">
                     Hitain vaihe: {ajo.hitain.nimi.toLowerCase()}, {kesto(ajo.hitain.kesto)}.
                   </p>

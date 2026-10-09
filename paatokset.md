@@ -654,7 +654,10 @@ prosessi näkynyt sivun lukijalle lainkaan.
 vaiheiden keston ja tuloksen ennen Next.js:n buildia. Case 03 näyttää
 ne aikajanana. Lähde on sivun oma build, ei CI:n rajapinta: Netlify ja
 CI ajavat saman skriptin, ja sivu kertoo sen ajon, jossa se syntyi.
-Figman pohjassa vaihtuvat arvot nimetään `vaihtuu:`-alkuisiksi.
+Aikajana on yleinen `Timeline`-komponentti, joka ei tiedä buildeista
+mitään: se on paketissa (2.5.0), Code Connectissa ja Figman kirjastossa
+`Variant`-ominaisuuksineen (default, emphasis, end). Figman pohjassa
+vaihtuvat arvot nimetään `vaihtuu:`-alkuisiksi.
 
 **Perustelu:** tämä ei ole uusi portti vaan näkymä olemassa oleviin.
 Aikajana ei voi valehdella onnistumisesta, koska kaatunut vaihe estää
