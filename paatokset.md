@@ -891,3 +891,36 @@ instanssin reunaa ei voi värittää ryhmästä käsin. Koodissa se on vain
 ryhmän tila, joten Code Connect ei käännä sitä propsiksi.
 
 *Kirjattu 9.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 25. Valintalista on oma, ei selaimen natiivi
+
+**Tilanne:** kolmas sovelluskomponentti oli valintalista. Natiivi
+`<select>` olisi saavutettava ilman työtä, mutta sen auki oleva lista
+on käyttöjärjestelmän: pyöristetty, varjostettu ja eri näköinen
+jokaisessa selaimessa. Se ei olisi samaa kieltä kuin muu systeemi.
+
+**Päätös:** `Select` (2.11.0). Luonnoksessa näytettiin natiivi ja oma
+lista, ja Vellu valitsi oman. Suljettuna se on sama kenttä kuin
+`TextField` (`.field__control`), lisänä uusi `chevron-down`-ikoni.
+Auki se on musteviivainen lista, jonka rivi on `--tap-min`, aktiivinen
+rivi `--paper-alt` ja valittu rivi paino 500 ja uusi `check`-ikoni.
+Rakenne on WAI-ARIA APG:n select-only combobox: kenttä on `combobox`,
+lista `listbox`, rivit `option`, ja fokus pysyy kentässä
+(`aria-activedescendant`). Näppäimistö: nuolet, Home ja End, PageUp ja
+PageDown, alkukirjainhaku, Enter ja välilyönti valitsevat, Escape
+sulkee muuttamatta, Tab valitsee aktiivisen ja jatkaa. Lista kääntyy
+ylös, jos tila alla loppuu, ja vierittää aktiivisen rivin näkyviin.
+Korkean kontrastin tilassa aktiivinen rivi saa viivan, koska tausta
+katoaa.
+
+**Perustelu:** oma lista on enemmän työtä ja vastuuta kuin natiivi.
+Siksi saavutettavuus todennetaan testeillä eikä luoteta tekoon:
+tarinoiden play-funktiot ajavat näppäimistön, hiiren ja Tabin, ja axe
+tarkistaa myös auki olevan listan.
+
+**Raja:** kosketuslaitteella lista ei ole natiivi pyörä. Rivit ovat
+kosketuskokoisia (`--tap-min`), ja lista on kentän levyinen. Haku
+kirjoittamalla (vapaa teksti) ei kuulu tähän: se olisi eri komponentti
+(combobox autocomplete).
+
+*Kirjattu 9.10.2026 Vellun hyväksymän luonnoksen pohjalta*

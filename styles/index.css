@@ -23,6 +23,7 @@
 @import './components/component-view.css';
 @import './components/text-field.css';
 @import './components/choice.css';
+@import './components/select.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
 @import './print.css';

@@ -15,6 +15,7 @@ Use these instead of building an equivalent.
 - `Radio`
 - `Switch`
 - `ChoiceGroup`
+- `Select`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -104,6 +105,27 @@ to a single choice; a single required choice ("accept the terms") is still a
 <ChoiceGroup legend="Notifications">
   <Switch label="Email notifications" defaultChecked />
 </ChoiceGroup>
+```
+
+`Select` picks one value from a list: same field as `TextField` when closed,
+the system's own list when open. Use it when there are more than about five
+options or the list would crowd the page; with fewer, use `Radio` in a
+`ChoiceGroup` so every option is visible. Pass `options` as
+`{ value, label, disabled? }`, give a `placeholder` when nothing is selected
+yet, and pass `name` to send the value with a form. It follows the WAI-ARIA
+select-only combobox: arrow keys, Home and End, type-ahead and Escape all
+work, so do not build a dropdown from a button and a menu.
+
+```jsx
+<Select
+  label="Role"
+  placeholder="Pick a role"
+  options={[
+    { value: 'developer', label: 'Developer' },
+    { value: 'designer', label: 'Designer' },
+  ]}
+  error="Pick a role to continue."
+/>
 ```
 
 ## Patterns
