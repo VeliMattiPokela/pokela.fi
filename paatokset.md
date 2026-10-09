@@ -640,3 +640,57 @@ raportoitiin Figman muokkaukseksi lähimpine sivun riveineen.
 näkymät eivät kulje koodiin; se on lenkin 7 (Make → PR → sovellus) työ.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+---
+
+## 17. Sivu näyttää buildin, joka sen rakensi
+
+**Ero:** prosessin tulokset näkyivät vain CI:n lokissa. Jokainen
+tarkistus tulosti valmiiksi luettavan rivin ("7/23 paikkaa täynnä, 16
+odottaa kuvaa"), mutta ne hukkuivat muun tulosteen sekaan, eikä
+prosessi näkynyt sivun lukijalle lainkaan.
+
+**Päätös:** `npm run build` ajaa `scripts/ajo.mjs`:n, joka kirjaa
+vaiheiden keston ja tuloksen ennen Next.js:n buildia. Case 03 näyttää
+ne aikajanana. Lähde on sivun oma build, ei CI:n rajapinta: Netlify ja
+CI ajavat saman skriptin, ja sivu kertoo sen ajon, jossa se syntyi.
+Aikajana on yleinen `Timeline`-komponentti, joka ei tiedä buildeista
+mitään: se on paketissa (2.5.0), Code Connectissa ja Figman kirjastossa
+`Variant`-ominaisuuksineen (default, emphasis, end). Figman pohjassa
+vaihtuvat arvot nimetään `vaihtuu:`-alkuisiksi.
+
+**Perustelu:** tämä ei ole uusi portti vaan näkymä olemassa oleviin.
+Aikajana ei voi valehdella onnistumisesta, koska kaatunut vaihe estää
+sivun syntymisen. Ensimmäinen ajo näytti asian, jota loki ei tuonut
+esiin: kuvaputki vie yli viisi minuuttia, tarkistukset alle sekunnin
+kukin.
+
+**Raja:** Figma- ja pakettitarkistus tarvitsevat verkon, joten ne
+eivät ole Netlifyn buildissa eivätkä aikajanalla. Sivu sanoo sen.
+Next.js:n oman buildin kestoa ei voi kirjata sivulle, joka rakennetaan
+juuri silloin.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+## 18. Maken ohjeet tulevat paketin mukana
+
+**Tilanne:** Make kitin ohjeet kirjoitettiin repossa ja kopioitiin käsin
+Maken käyttöliittymään. Kumpikin kopio vanheni huomaamatta. `setup.md`
+lupasi version 1.1.0, kun paketti oli 2.5.0, eikä kertonut fonteista,
+joten Make näytti sivut Georgialla ja Helveticalla. Vellu huomasi sen
+kitin kokoamisen aikana, eikä mikään tarkistus.
+
+**Päätös:** ohjeissa jokainen koodin määräämä tosiasia on luotu lohko:
+fonttilinkki ja painot layoutista, välien määrä tokeneista, ikonien
+määrä `Icon`ista ja sarakkeet `tokens.css`:stä. `check:docs` kaatuu,
+jos ne eroavat. Ohjeet kopioidaan pakettiin
+`@pokela/components/guidelines/` (2.5.1), ja kitin oma `setup.md` vain osoittaa
+niihin. Kitiin ei kopioida sisältöä, joka voi vanhentua.
+
+**Raja:** Maken ohjeisiin ei ole rajapintaa, joten kitin yhtä
+osoitusriviä ei voi tarkistaa. Se ei kuitenkaan muutu. Toimiiko
+osoitus, eli lukeeko Make paketin tiedostoja, on testattava kitissä.
+Jos ei lue, neljä tiedostoa kopioidaan kittiin kuten ennen, ja ne
+vanhenevat taas.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*

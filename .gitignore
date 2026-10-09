@@ -31,3 +31,7 @@ packages/
 # Tyylivedos: lasketut tyylit ennen ja jälkeen muutoksen. Työkalu yhtä
 # refaktorointia varten, ei tarkistus eikä osa ketjua.
 .tyylivedos/
+
+# Buildin kirjaamat vaiheet (scripts/ajo.mjs). Syntyy joka buildissa,
+# ja case 03 näyttää ne.
+.ajo/

@@ -57,6 +57,14 @@ export const POHJAT = {
  */
 const HUOMAUTUS = 'huom:';
 
+/**
+ * Esimerkkiarvo, joka vaihtuu joka buildissa: solmu jonka nimi alkaa
+ * `vaihtuu:`. Buildin aikajanan kestot, kellonajat ja tulosrivit
+ * (lohko `ajo`) ovat sen buildin, joka sivun rakensi, joten pohjassa
+ * ne voivat olla vain esimerkkejä. Rakenne ja nimet tarkistetaan.
+ */
+export const VAIHTUU = 'vaihtuu:';
+
 const entiteetit = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0' };
 
 /** Yhtenäinen välilyönti: nbsp, rivinvaihdot ja tuplavälit samaksi. */
@@ -158,7 +166,7 @@ export function tarkistaPohjat(dokumentti, out, moodit) {
       const kay = (solmu) => {
         if (solmu.visible === false) return;
         if (solmu.type === 'TEXT') {
-          if ((solmu.name ?? '').startsWith(HUOMAUTUS) || (solmu.name ?? '').startsWith('generated:')) return;
+          if ([HUOMAUTUS, VAIHTUU, 'generated:'].some((e) => (solmu.name ?? '').startsWith(e))) return;
           tekstejä++;
           for (const pala of palat(solmu.characters ?? '')) {
             if (!tekstit.some((t) => t.includes(pala))) {

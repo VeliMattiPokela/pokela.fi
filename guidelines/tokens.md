@@ -13,6 +13,6 @@ coloured button. Colour on the page comes only from photographs.
 
 **No rounded corners.** `--radius` is `0`. Everything is square.
 
-**No spacing outside the scale.** Sixteen steps, each named by its value:
+<!-- generated:make-valit -->**No spacing outside the scale.** 16 steps, each named by its value:<!-- /generated -->
 `--space-24` is 24px. If a value is missing, use the nearest step rather than
 inventing one.

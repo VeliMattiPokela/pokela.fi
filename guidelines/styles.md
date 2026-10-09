@@ -22,13 +22,13 @@ Two families. `--font-display` (Bodoni Moda, a serif) is for display sizes
 only — headings and the wordmark. `--font-ui` (Archivo) is for everything
 else. Never set body text in the display face.
 
-**No font weight other than 400, 500 or 600.** Only those are loaded, and
+<!-- generated:make-painot -->**No font weight other than 400, 500 or 600.**<!-- /generated --> Only those are loaded, and
 `font-synthesis-weight` is `none`, so any other weight silently renders wrong.
 
 ## Layout
 
-`Grid` is twelve columns: 4 on mobile, 8 from 600px, 12 from 900px. Place
+<!-- generated:make-sarakkeet -->`Grid` is 12 columns: 4 on mobile, 8 from 600px, 12 from 900px.<!-- /generated --> Place
 things in columns, never in pixels. `Col` takes the span per breakpoint.
 
-**No icon libraries and no emoji.** Use `Icon`. It draws its own six marks on
+**No icon libraries and no emoji.** Use `Icon`. <!-- generated:make-ikonit -->It draws its own 6 marks<!-- /generated --> on
 a 16×16 grid with the same hairline as every border.

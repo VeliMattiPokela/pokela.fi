@@ -170,8 +170,71 @@ const makeKomponentit = () =>
     return `- ${nimet.map((n) => `\`${n}\``).join(', ')}`;
   }).join('\n');
 
+/* ---- Figma Maken ohjeiden tosiasiat ---------------------------------
+   Ohjeissa on lukuja ja nimiä, jotka koodi jo määrää: ladatut fontit
+   ja painot, välien määrä, ikonit, sarakkeet. Käsin kirjoitettuina ne
+   vanhenivat huomaamatta (setup.md lupasi version 1.1.0 ja jätti
+   fontit kertomatta), joten ne luetaan lähteestä. */
+
+/** next/fontin kutsut layoutista: [{ nimi: 'Bodoni Moda', painot: ['400', '500'] }]. */
+const ladatutFontit = () => {
+  const layout = readFileSync(join(root, 'app/[locale]/layout.tsx'), 'utf8');
+  return [...layout.matchAll(/=\s*([A-Z][A-Za-z_]+)\(\{([\s\S]*?)\}\);/g)]
+    .map(([, kutsu, asetukset]) => ({
+      nimi: kutsu.replace(/_/g, ' '),
+      painot: [...(asetukset.match(/weight:\s*\[([^\]]*)\]/)?.[1] ?? '').matchAll(/'(\d+)'/g)].map((m) => m[1]),
+    }))
+    .sort((a, b) => a.nimi.localeCompare(b.nimi));
+};
+
+const makeFontit = () => {
+  const perheet = ladatutFontit()
+    .map((f) => `family=${f.nimi.replace(/ /g, '+')}:wght@${f.painot.join(';')}`)
+    .join('&');
+  return [
+    '```html',
+    '<link rel="preconnect" href="https://fonts.googleapis.com">',
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+    `<link href="https://fonts.googleapis.com/css2?${perheet}&display=swap" rel="stylesheet">`,
+    '```',
+  ].join('\n');
+};
+
+const luettelo = (osat, sana) => (osat.length < 2 ? osat.join('') : `${osat.slice(0, -1).join(', ')} ${sana} ${osat.at(-1)}`);
+
+const makePainot = () => {
+  const painot = [...new Set(ladatutFontit().flatMap((f) => f.painot))].sort();
+  return `**No font weight other than ${luettelo(painot, 'or')}.**`;
+};
+
+const tokenit = () => JSON.parse(readFileSync(join(root, 'tokens.json'), 'utf8'));
+
+const makeValit = () => `**No spacing outside the scale.** ${Object.keys(tokenit().space).length} steps, each named by its value:`;
+
+const makeIkonit = () => {
+  const lahde = readFileSync(join(root, 'components/Icon.tsx'), 'utf8');
+  const polut = lahde.slice(lahde.indexOf('const PATHS'), lahde.indexOf('};', lahde.indexOf('const PATHS')));
+  const n = [...polut.matchAll(/^\s+'?[a-z-]+'?:\s*\[/gm)].length;
+  return `It draws its own ${n} marks`;
+};
+
+/** Sarakkeet tokens.css:n mediakyselyistä: "4 on mobile, 8 from 600px, 12 from 900px". */
+const makeSarakkeet = () => {
+  const css = readFileSync(join(root, 'styles/tokens.css'), 'utf8');
+  const perus = css.match(/--columns:\s*(\d+)/)[1];
+  const portaat = [...css.matchAll(/@media \(min-width: (\d+)px\)\s*\{\s*:root\s*\{[^}]*?--columns:\s*(\d+)/g)].map(
+    ([, leveys, n]) => `${n} from ${leveys}px`,
+  );
+  return `\`Grid\` is ${Math.max(perus, ...portaat.map((p) => parseInt(p)))} columns: ${perus} on mobile, ${portaat.join(', ')}.`;
+};
+
 const GENERATORS = {
   'make-komponentit': makeKomponentit,
+  'make-fontit': makeFontit,
+  'make-painot': makePainot,
+  'make-valit': makeValit,
+  'make-ikonit': makeIkonit,
+  'make-sarakkeet': makeSarakkeet,
   'figma-kokoelmat': figmaCollections,
   'perusta-sivut': perustaPages,
   'case-lohkot': caseBlockKinds,

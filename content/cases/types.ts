@@ -67,6 +67,10 @@ export type Block =
      Luku vanheni kerran käsin kirjoitettuna — otsikko lupasi neljää
      kun niitä oli seitsemän. */
   | { kind: 'checks'; label: string; title: string; note: string }
+  /** Buildin aikajana. Vaiheet, kestot ja tulokset luetaan
+      tiedostosta jonka scripts/ajo.mjs kirjoittaa ennen Next.js:n
+      buildia, joten sivu näyttää sen buildin joka sen rakensi. */
+  | { kind: 'ajo'; label: string; title: string; body: string }
   /** Prosessi yhtenä ketjuna. Lenkit luetaan content/prosessi.ts:stä
       ja vartijat lib/checks.ts:stä build-aikana, joten casetekstiin
       kirjoitetaan vain otsikko ja johdanto. */

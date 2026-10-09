@@ -18,7 +18,7 @@ import type { Locale } from '@/lib/i18n';
  * Jako syntyi siitä ettei `node:fs` toimi selaimessa: yhdessä
  * tiedostossa koko moduuli kaatui storyssä.
  */
-const DERIVED = new Set(['artefacts', 'checks', 'component', 'ketju']);
+const DERIVED = new Set(['artefacts', 'checks', 'component', 'ketju', 'ajo']);
 
 export default function CaseBlocks({
   blocks,

@@ -100,12 +100,6 @@ jobs:
       - name: Storyt ja saavutettavuus
         run: npm run test:stories
 
-      # Johdannaiset eivät ole repossa: ne lasketaan lähteistä joka
-      # buildissa. ffmpeg on ubuntu-runnerissa valmiina, ja sitä
-      # tarvitaan vasta kun ensimmäinen video on olemassa.
-      - name: Kuvat ja videot
-        run: npm run kuvat
-
       # npm-paketit tokeneista ja komponenteista. Ei tarvita sivuston
       # buildiin, mutta rakennetaan täällä jotta rikkova muutos
       # huomataan heti eikä vasta julkaisuhetkellä. Komponenttipaketti
@@ -114,8 +108,13 @@ jobs:
       - name: npm-paketit
         run: npm run paketti
 
+      # Sama build kuin Netlifyssä: synkkatarkistukset, kuvat ja videot
+      # (johdannaiset lasketaan lähteistä joka buildissa) ja Next.js.
+      # scripts/ajo.mjs kirjaa vaiheet ennen Next.js:ää, ja case 03
+      # näyttää ne aikajanana. Tarkistukset ajetaan siis toiseen
+      # kertaan, mutta ne vievät sekunnin; kuvat vain kerran.
       - name: Sivuston build
-        run: npx next build
+        run: node scripts/ajo.mjs
 
       # Ainoa tarkistus joka avaa Figma-tiedoston. Ei ole
       # check:sync-ketjussa: ketjun pitää toimia ilman verkkoa ja

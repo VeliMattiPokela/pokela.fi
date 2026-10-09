@@ -202,3 +202,16 @@ a.case__artefact:hover .meta { color: var(--ink-muted); }
   text-decoration-thickness: var(--hairline);
 }
 .case-link:hover { text-decoration-thickness: var(--hairline-strong); }
+
+/* Buildin aikajana (lohko `ajo`): tilarivi ja muutoksen nimi. Itse
+   vaiheet ovat Timeline-komponentin kohtia (timeline.css). */
+.case__ajo-tila {
+  display: flex; flex-wrap: wrap; gap: var(--space-16) var(--space-36);
+  margin: var(--space-32) 0 var(--space-12);
+  padding-block: var(--space-16);
+  border-top: var(--hairline) solid var(--line-strong);
+  border-bottom: var(--hairline) solid var(--line);
+}
+.case__ajo-tila dd { margin: 0; }
+.case__ajo-muutos { margin: 0 0 var(--space-32); }
+.case__ajo-nosto { margin: var(--space-32) 0 0; font-family: var(--font-display); }

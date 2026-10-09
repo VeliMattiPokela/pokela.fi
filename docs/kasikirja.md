@@ -48,6 +48,15 @@ Jokainen tarkistus on syntynyt virheestä, joka pääsi läpi ennen sitä
 (päätös 8). Casesivun lista (`lib/checks.ts`) kertoo saman lyhyesti
 sokeine kohtineen.
 
+**Buildin aikajana.** `npm run build` ajaa `scripts/ajo.mjs`:n, joka ajaa
+`check:sync`-ketjun tarkistukset ja kuvaputken, kirjaa kunkin keston ja
+yhteenvetorivin tiedostoon `.ajo/ajo.json` ja käynnistää sitten
+Next.js:n. Case 03 näyttää kirjauksen aikajanana (lohko `ajo`, yleinen
+`Timeline`-komponentti), joten
+sivu kertoo sen buildin, joka sen rakensi. Kaatunut vaihe pysäyttää
+buildin, joten aikajanalla ei voi olla punaista vaihetta. CI ajaa saman
+skriptin Sivuston build -askeleena (päätös 17).
+
 **1. Tokenit** (`scripts/check-tokens.mjs`) — `tokens.css` ja
 `tokens.json` sanovat samaa: värit, tyyppi- ja riviväliasteikko
 jokaisella breakpointilla, välistys, layout, reunat ja motion.
@@ -132,8 +141,10 @@ prosessin ketju ja tarkistuslista. Lähteet ovat `content/prosessi.ts` ja
 (`<Pohja> · <moodi> <leveys>`) on löydyttävä siltä buildatulta sivulta,
 jota pohja kuvaa. Pohja ja sivu yhdistetään `scripts/figma-sivupohjat.mjs`:n
 `POHJAT`-taulussa, ja pohjan huomautus nimetään `huom:`-alkuiseksi
-(päätös 15). Raja: sivulle lisättyä osiota, jota pohjassa ei ole, ei
-huomata.
+(päätös 15). Esimerkkiarvo, joka vaihtuu joka buildissa (aikajanan
+kestot, kellonajat ja tulosrivit), nimetään `vaihtuu:`-alkuiseksi, ja
+sen rakenne tarkistetaan mutta sisältö ei. Raja: sivulle lisättyä
+osiota, jota pohjassa ei ole, ei huomata.
 
 **Kun pohjan teksti ei ole sivulla**, `npm run pohjat` (buildin jälkeen)
 päättelee suunnan muutoksen diffistä:
@@ -141,6 +152,7 @@ päättelee suunnan muutoksen diffistä:
 | Tilanne | Mitä tapahtuu |
 |---|---|
 | Sivun teksti muuttui | vanha → uusi kirjoitetaan pohjiin, jos tulos löytyy sivulta |
+| Vain luku muuttui | sivun luku kirjoitetaan pohjaan; luvut johdetaan koodista (esim. kytkentöjen määrä), joten diffissä ei ole paria |
 | Pohjaa muokattiin Figmassa | ei kirjoiteta yli; raportti näyttää lähimmän sivun rivin, ja muutos viedään koodiin |
 | Kumpikin muuttui | ei kirjoiteta, ihminen päättää |
 
@@ -296,7 +308,9 @@ kopiointi on tiedosto tiedostolta eikä tulkintaa:
 | `guidelines/setup.md` | asennus, molemmat paketit, tyylien tuonti |
 | `guidelines/tokens.md` | ei aksenttiväriä, ei varjoja, välistysasteikko |
 | `guidelines/styles.md` | typografia, ei Tailwind-luokkia, grid |
-| `guidelines/components.md` | komponenttien käyttö, `as`-propsi | Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
+| `guidelines/components.md` | komponenttien käyttö, `as`-propsi |
+
+Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
 versioituja ja katselmoitavia, ja muutos niihin näkyy pull requestissa siinä
 missä koodimuutos.
 
@@ -309,9 +323,19 @@ always better. It can confuse the LLM."* Kaikki neljä tiedostoa ovat yhteensä 
 ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se
 vika jota koko tämä repo vastustaa.
 
-**Komponenttilista on luotu lohko.** Se johdetaan siitä mitä
-`@pokela/components` oikeasti vie. Ohje ei siis voi luvata komponenttia jota
-paketissa ei ole; jos vientilista muuttuu, `check:docs` kaatuu.
+**Kaikki minkä koodi määrää, on luotu lohko.** Komponenttilista johdetaan
+siitä, mitä `@pokela/components` oikeasti vie. Fonttien latauslinkki ja
+sallitut painot luetaan layoutin fonttikutsuista, välien määrä
+`tokens.json`:sta, ikonien määrä `Icon`ista ja sarakkeet `tokens.css`:stä.
+Jos jokin niistä muuttuu, `check:docs` kaatuu. 9.10.2026 käsin kirjoitettu
+`setup.md` lupasi version 1.1.0, kun paketti oli 2.5.0, eikä kertonut
+fonteista lainkaan.
+
+**Ohjeet tulevat paketin mukana.** `npm run paketti` kopioi `guidelines/`-
+hakemiston pakettiin `@pokela/components/guidelines/`. Kitin oma ohje on
+Maken käyttöliittymässä, eikä siihen ole rajapintaa, joten kopio sinne
+vanhenee. Siksi kitin `setup.md` vain osoittaa paketin ohjeisiin, ja
+paketin päivitys tuo uudet ohjeet.
 
 Sisältö on kieltoja enemmän kuin käskyjä, koska mallin oletukset ovat
 vahvoja ja väärään suuntaan: ei aksenttiväriä, ei pyöristyksiä, ei varjoja,
@@ -326,10 +350,19 @@ Figmassa:
 
 1. Make-tiedosto → Settings → **Create a kit**
 2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
-3. Mahdolliset erityisasetukset
-4. **Ohjeet** — kopioi `guidelines/`-hakemiston neljä tiedostoa samannimisten päälle
+3. Erityisasetukset: kitin main.tsx:ään `import '@pokela/components/styles.css';` ja `index.html`:n headiin `setup.md`:n fonttirivit
+4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla; Maken muut kolme oletusohjetta poistetaan
 5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
 6. Julkaise kit
+
+Kitin `setup.md` kokonaan:
+
+```md
+Read the guidelines that ship with the package before writing any code:
+node_modules/@pokela/components/guidelines/setup.md, tokens.md, styles.md
+and components.md. They are the current rules; follow them over anything
+you assume.
+```
 
 Kahden ensimmäisen ajon tulokset: `docs/loki.md`.
 
@@ -929,7 +962,7 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       `lg 1440` -koossa. Niiden lisäksi on **Lohkot**-pohja molemmissa
       koissa, jossa ovat ne lohkot joita casepohjissa ei ollut.
 
-      <!-- generated:case-lohkot -->14 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ketju, steps, choices, component, todo<!-- /generated -->
+      <!-- generated:case-lohkot -->15 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ajo, ketju, steps, choices, component, todo<!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.
