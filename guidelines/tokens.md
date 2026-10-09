@@ -9,7 +9,7 @@ inversion — `--invert-surface` with `--invert-ink` — or the quiet
 coloured button. Colour on the page comes only from photographs.
 
 The one exception is `--danger`, a state colour for errors only. Do not use it
-for emphasis, buttons or decoration. `TextField` and `ChoiceGroup` already apply it, always
+for emphasis, buttons or decoration. `TextField`, `ChoiceGroup` and `Select` already apply it, always
 with the `alert` icon and a message, so the meaning never depends on colour.
 
 **No shadows.** There are no shadow tokens. Separation is a 1px line

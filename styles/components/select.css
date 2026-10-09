@@ -1,0 +1,101 @@
+/* Valintalista (Select). Sovelluskomponentti, sivusto ei käytä tätä.
+   ==================================================================
+   Suljettu kenttä on .field__control (text-field.css): 48 px,
+   hiusviiva, hover paksuntaa alaviivan, virhe ja disabled samoin.
+   Tässä on vain se, mikä selectillä on omaa: nuoli, haalea
+   placeholder ja oma lista (päätös 25).
+
+   Lista on samaa kieltä: musteviiva, rivi --tap-min, rivien välissä
+   hiusviiva. Aktiivinen rivi (hiiri tai nuolinäppäin) saa pinnan
+   --paper-alt, valittu rivi painon 500 ja merkin. */
+
+.select__wrap { position: relative; }
+
+.select__control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  cursor: pointer;
+  user-select: none;
+  /* Nuoli on rivin sisällä, joten oikea reuna on sama kuin vasen. */
+}
+.select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.select__control--placeholder .select__value { color: var(--ink-faint); }
+
+.select__chevron { color: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .select__chevron { transition: transform var(--dur-fast) var(--ease-standard); }
+}
+.select__control[aria-expanded='true'] .select__chevron { transform: rotate(180deg); }
+
+/* Auki kenttä on musteella, kuten fokus: lista kuuluu siihen. */
+.select__control[aria-expanded='true'] { border-color: var(--ink); }
+.field--invalid .select__control[aria-expanded='true'] { border-color: var(--danger); }
+.select__control:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: var(--focus-offset);
+}
+
+.field--disabled .select__control { cursor: not-allowed; }
+.field--disabled .select__value,
+.field--disabled .select__chevron { color: var(--ink-faint); }
+.field--disabled .select__control {
+  background: var(--paper-alt);
+  border-color: var(--line);
+}
+/* Kenttä on div, joten text-field.css:n :not(:disabled) ei estä
+   hoveria. Estetään se tässä. */
+.field--disabled .select__control:hover { border-bottom-width: var(--hairline); }
+
+/* ---- lista ------------------------------------------------------- */
+
+.select__list {
+  position: absolute;
+  z-index: 10;
+  /* Väli jättää fokusrenkaalle tilaa: rengas on 4 px kentän ulkopuolella. */
+  top: calc(100% + var(--space-8));
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--paper);
+  border: var(--hairline) solid var(--ink);
+  /* Kuusi riviä näkyvissä, loput vierittyvät. */
+  max-height: calc(var(--tap-min) * 6);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.select__list[hidden] { display: none; }
+.select__list--up { top: auto; bottom: calc(100% + var(--space-8)); }
+
+.select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-16);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  cursor: pointer;
+}
+.select__option + .select__option { border-top: var(--hairline) solid var(--line); }
+.select__option.is-active { background: var(--paper-alt); }
+.select__option[aria-selected='true'] { font-weight: var(--weight-500); }
+.select__option[aria-disabled='true'] { color: var(--ink-faint); cursor: not-allowed; }
+.select__check { color: var(--ink); }
+
+/* Korkea kontrasti (Windows): taustaväri katoaa, joten aktiivinen rivi
+   tarvitsee viivan. */
+@media (forced-colors: active) {
+  .select__option.is-active { outline: var(--focus-width) solid Highlight; outline-offset: calc(var(--focus-width) * -1); }
+  .select__option[aria-selected='true'] { forced-color-adjust: none; }
+}

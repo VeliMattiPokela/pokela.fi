@@ -33,7 +33,9 @@ export type IconName =
   | 'minus'
   | 'close'
   | 'menu'
-  | 'alert';
+  | 'alert'
+  | 'chevron-down'
+  | 'check';
 
 export type IconSize = 's' | 'm' | 'l';
 
@@ -50,6 +52,10 @@ const PATHS: Record<IconName, string[]> = {
      vinot sivut eivät osu puolikkaan pikselin ruudukolle. Piste on
      lyhyt viiva, koska täyttöä ei ole. */
   alert: ['M2.5 2.5 H14.5 V14.5 H2.5 Z', 'M8.5 5 V10', 'M8.5 11.5 V12.5'],
+  /* Selectin nuoli ja valitun vaihtoehdon merkki. 45 asteen viivat
+     puolikkaan pikselin ruudukolla, kuten nuolissa. */
+  'chevron-down': ['M4.5 6.5 L8.5 10.5 L12.5 6.5'],
+  check: ['M3.5 8.5 L6.5 11.5 L13.5 4.5'],
 };
 
 export type IconProps = {

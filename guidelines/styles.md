@@ -30,5 +30,5 @@ else. Never set body text in the display face.
 <!-- generated:make-sarakkeet -->`Grid` is 12 columns: 4 on mobile, 8 from 600px, 12 from 900px.<!-- /generated --> Place
 things in columns, never in pixels. `Col` takes the span per breakpoint.
 
-**No icon libraries and no emoji.** Use `Icon`. <!-- generated:make-ikonit -->It draws its own 7 marks<!-- /generated --> on
+**No icon libraries and no emoji.** Use `Icon`. <!-- generated:make-ikonit -->It draws its own 9 marks<!-- /generated --> on
 a 16×16 grid with the same hairline as every border.
