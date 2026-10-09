@@ -38,383 +38,129 @@ Kun niitä muuttaa, Figman tekstit päivitetään samalla, muuten
 
 ## Synkkatarkistus
 
-Ajetaan `npm run build`issa ja jokaisessa pull requestissa. Jos jokin
-eriytyy, putki pysähtyy ja raportti kertoo **mikä** eriytyi.
+CI ajaa jokaisen tarkistuksen omana askeleenaan jokaisessa pull
+requestissa, ja `npm run build` ajaa verkottomat (`check:sync`).
+Eriytymä pysäyttää putken, ja raportti kertoo mikä eriytyi ja miten se
+korjataan. `check:figma` ja `check:paketti` tarvitsevat verkon, joten ne
+ajetaan vain CI:ssä.
 
-Jokainen tarkistus tulostaa yhden rivin: mitä tarkistettiin ja montako.
-Eriytymässä raportti kertoo **mikä** eriytyi. `check:figma` ja
-`check:paketti` tarvitsevat verkon, joten ne ajetaan vain CI:ssä.
+Jokainen tarkistus on syntynyt virheestä, joka pääsi läpi ennen sitä
+(päätös 8). Casesivun lista (`lib/checks.ts`) kertoo saman lyhyesti
+sokeine kohtineen.
 
-**1. Tokenit** (`scripts/check-tokens.mjs`) — vertaa `tokens.css`:n ja
-`tokens.json`:n värit, tyyppiasteikon ja riviväliasteikon jokaisella
-breakpointilla, välistyksen, layoutin, reunat ja motion-arvot.
+**1. Tokenit** (`scripts/check-tokens.mjs`) — `tokens.css` ja
+`tokens.json` sanovat samaa: värit, tyyppi- ja riviväliasteikko
+jokaisella breakpointilla, välistys, layout, reunat ja motion.
 
 **2. Storyt** (`scripts/check-stories.mjs`) — jokaisella komponentilla on
-story, ja jokaisessa storyssa vähintään tumma teema ja mobiilikoko.
-Poikkeus on sallittu, mutta **sen syy ei ole vapaa teksti.**
+story, ja siinä vähintään tumma teema ja mobiilikoko. Poikkeuksen syy on
+valinta kolmesta, ja skripti tarkistaa sen: `palvelinkomponentti`
+(tiedosto tai sen import käyttää `node:fs`:ää), `katettu-muualla`
+(kattava sivu on olemassa ja viittaa komponenttiin) tai `ei-näkyvää`
+(JSX:ssä ei näkyvää elementtiä). Syy oli ennen vapaa teksti, ja sen
+varjolla casesivun 12 lohkoa jäivät renderöimättä testissä.
 
-Aiemmin se oli, ja se osoittautui aukoksi: `CaseBlocks.tsx`illa luki
-*"lohkot ovat omia komponenttejaan"*, mikä tarkoitti "nämä on testattu
-muualla". Se ei ollut totta — casesivun 12 lohkoa olivat yhden funktion
-sisällä eikä yhtäkään ollut koskaan renderöity testissä. Tarkistus
-näytti vihreää, koska se tarkisti että perustelu on olemassa, ei että
-se on totta.
+**3. Kovakoodatut arvot** (`scripts/check-hardcoded.mjs`) — jokainen
+kovakoodattu mitta ja väri on token tai kirjattu `EXEMPT`-listaan
+syineen. Muuten asteikon viereen kasvaa yksi kiire kerrallaan toinen,
+kirjoittamaton asteikko.
 
-Syy on nyt valinta kolmesta, ja jokaisella on sääntö jonka skripti ajaa:
+**4. Favicon** (`scripts/check-favicon.mjs`) — favicon lasketaan
+tokeneista (`scripts/build-favicon.mjs`), ja tarkistus vertaa samalla
+funktiolla levyyn tavu tavulta. Korjaus: `npm run build:favicon`. Raja:
+ei arvioi, onko merkki hyvä.
 
-| Syy | Mitä skripti tarkistaa |
-|---|---|
-| `palvelinkomponentti` | Tiedosto tai jokin sen importeista käyttää `node:fs`:ää |
-| `katettu-muualla` | Kattava sivu on olemassa **ja** viittaa tähän komponenttiin |
-| `ei-näkyvää` | JSX:ssä ei ole yhtään näkyvää elementtiä |
+**5. Kuvat** (`scripts/check-kuvat.mjs`) — `content/media.generated.json`
+vastaa lähteitä ja sisällön kuvasuhteita: muuttunut suhde, lähde jolla
+ei ole paikkaa ja puuttuva manifesti kaatavat ajon. Raja: ei arvioi
+rajausta, ja tyhjä paikka on tila eikä virhe.
 
-Vapaan tekstin voi yhä kirjoittaa `huom`-kenttään ihmiselle, mutta se
-ei korvaa sääntöä.
-
-**3. Kovakoodatut arvot** (`scripts/check-hardcoded.mjs`) — tokenit eivät
-hajoa kerralla vaan yksi kiire kerrallaan: joku kirjoittaa
-`padding: 13px` koska asteikolla ei satu olemaan 13:a, ja puolen vuoden
-päästä asteikon vieressä elää toinen, kirjoittamaton asteikko.
-Tarkistus ei kiellä poikkeusta vaan vaatii sille syyn — jokainen
-kovakoodattu mitta ja väri on joko token tai kirjattu `EXEMPT`-listaan
-perusteluineen.
-
-**4. Favicon** (`scripts/check-favicon.mjs`) — `public/`-kansion
-favicon-tiedostot eivät ole käsin piirrettyjä binäärejä vaan johdettuja
-artefakteja: `scripts/build-favicon.mjs` laskee ne `tokens.css`:n
-käännetystä väriparista (`--invert-surface` / `--invert-ink`) ja
-piirtää merkin tämän järjestelmän omana vektorina. Ilman tarkistusta
-paletin muutos jättäisi ikonin vanhaan sävyyn — repossa oleva `.ico` ei
-kerro mistä se on tullut, eikä kukaan katso selaimen välilehteä
-teemanvaihdon jälkeen.
-
-Tarkistus kutsuu samaa `tiedostot()`-funktiota kuin generointi ja
-vertaa tuloksen levyyn tavu tavulta. Se ei siis voi laskea eri tavalla
-kuin generaattori, ja se havaitsee myös käsin muokatun tiedoston.
-Korjaus on `npm run build:favicon`.
-
-**Raja:** tarkistus ei näe onko merkki hyvä. Muoto on koordinaatteina
-generaattorissa, ja sen luettavuus 16 pikselissä on arvioitu silmällä.
-
-**5. Kuvat** (`scripts/check-kuvat.mjs`) — kuvat eivät ole repoon
-pudotettuja tiedostoja vaan johdettuja artefakteja, samoin kuin
-favicon. `scripts/kuvat.mjs` laskee `content/media.generated.json`:n
-lähteistä ja sisällössä ilmoitetuista kuvasuhteista; tarkistus kutsuu
-samaa funktiota ilman enkoodausta ja vertaa tuloksen levyyn.
-
-Se havaitsee kolme hiljaista eriytymää:
-
-| Vika | Mitä tapahtuisi ilman tarkistusta |
-|---|---|
-| Kuvasuhde muuttuu sisällössä | Sivu pyytäisi tiedostoja joita ei ole, tai näyttäisi vanhan rajauksen |
-| Lähteellä ei ole paikkaa | Kuva olisi repossa muttei näkyisi missään |
-| Manifesti puuttuu | Kaikki kuvapaikat palaisivat paikanvaraajiksi |
-
-**Raja:** tarkistus ei arvioi kuvaa. Rajaus on oletuksena keskeltä,
-eikä mikään huomaa jos olennainen kohta jää sen ulkopuolelle. Tyhjä
-paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia.
-
-**6. Kuvasuhteet** (`scripts/check-suhteet.mjs`) — sama kuvasuhde on
-kirjoitettu kahteen paikkaan, ja kumpikin on elossa:
-
-| Lähde | Mitä se tekee |
-|---|---|
-| `scripts/kuvat.mjs` (`SUHTEET`) | rajaa kuvan levylle ja kirjoittaa `<picture>`:n media-kyselyt |
-| `styles/base.css` (`.media-*`) | piirtää kuvan selaimeen |
-| `components/Media.tsx` (`Ratio`) | mitä nimiä sisältö saa kirjoittaa |
-
-Jos nämä eriytyvät, **mikään ei kaadu.** Kuva rajataan yhteen muotoon ja
-näytetään toisessa: selain venyttää tai rajaa uudelleen, ja lopputulos on
-huonompi kuin kumpikaan luku lupasi. Virhe näkyy vain silmällä, ja vain
-jos sattuu katsomaan oikeaa kuvaa oikealla leveydellä. Juuri siksi se on
-tarkistuksen arvoinen — hiljainen vika ei löydy katselmoinnissa.
-
-Tarkistus lukee suhteet samasta taulusta jota generointi käyttää, joten se
-ei voi laskea eri tavalla. Se vertaa jokaisen portaan erikseen: `hero`
-vaihtaa muotoa kahdesti (`4 / 5` → `16 / 9` 600 pikselissä → `21 / 9` 900:ssa),
-ja jokaisen vaihdoksen on oltava molemmissa lähteissä samassa kohdassa.
-
-**Raja:** ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat
-samaa. Ei myöskään näe luokkanimen muunnosta — `Media.tsx` kirjoittaa
-`4:3` → `media-4-3` omalla rivillään, ja jos se muuttuisi, tarkistus
-vertaisi yhä vanhaa nimeä.
+**6. Kuvasuhteet** (`scripts/check-suhteet.mjs`) — sama suhde on kolmessa
+paikassa: `scripts/kuvat.mjs` (`SUHTEET`, rajaus ja media-kyselyt),
+`styles/base.css` (`.media-*`) ja `components/Media.tsx` (`Ratio`).
+Jokainen porras verrataan erikseen. Raja: ei arvioi, onko suhde oikea,
+eikä näe luokkanimen muunnosta (`4:3` → `media-4-3`).
 
 **7. Saavutettavuus** (`npm run test:stories`) — jokainen story
-renderöidään Chromiumissa ja tarkistetaan axella. Kontrastivirhe,
-puuttuva saavutettava nimi tai rikkoutunut otsikkohierarkia kaataa ajon
-ja raportti kertoo elementin, mitatun arvon ja vaaditun rajan:
+renderöidään Chromiumissa ja tarkistetaan axella. Raportti kertoo
+elementin, mitatun arvon ja rajan. Raja: vain konetarkistettavat
+säännöt, ei lukujärjestystä eikä näppäimistön järkevyyttä.
 
-```
-FAIL  components/BeforeAfter.stories.tsx > Oletus
-Expected the HTML found at $('figcaption') to have no violations:
-"Elements must meet minimum color contrast ratio thresholds (color-contrast)"
-  Element has insufficient color contrast of 1.64
-  (foreground #c9cacb, background #ffffff, font size 14px).
-  Expected contrast ratio of 4.5:1
-```
-
-Sama ajo havaitsee myös storyt jotka kaatuvat renderöinnissä —
-`build-storybook` menee niistä läpi, tämä ei.
-
-**Raja jonka on hyvä tietää:** axe tarkistaa vain konetarkistettavat
-säännöt. Se varmistaa että saavutettava nimi on olemassa, ei sitä että
-se on oikea; se ei kerro onko ruudunlukijan lukujärjestys mielekäs eikä
-toimiiko ennen/jälkeen-jakaja näppäimistöllä järkevästi. Tarkistus estää
-regression, se ei korvaa läpikäyntiä.
-
-**8. Code Connect** (`scripts/check-code-connect.mjs`) — valvoo rajaa
-koodin ja Figman välillä. Kytkentä joka osoittaa poistettuun
-komponenttiin on pahempi kuin puuttuva kytkentä: se näyttää Dev Modessa
-koodia jota ei ole. Tarkistus kaatuu jos kytkentä osoittaa **koodin**
-komponenttiin jota ei ole, väärään Figma-tiedostoon, tai jos
-`IN_FIGMA`-listaan merkitty komponentti on jäänyt kytkemättä.
-
-**Raja:** tarkistus ei avaa Figmaa. Se lukee kytkentätiedoston
-`node-id`:n muttei varmista että se osoittaa olemassa olevaan
-komponenttiin — keksityllä osoitteella tarkistus menee läpi. Sen
-sulkee `npm run figma:publish`, joka kysyy osoitteet Figmalta, tai
-`check:figma` kun se on kytketty. Myös `IN_FIGMA` on käsin ylläpidetty:
-Figmaan lisätty komponentti ei ilmesty siihen itsestään.
+**8. Code Connect** (`scripts/check-code-connect.mjs`) — kytkentä ei
+osoita poistettuun koodin komponenttiin eikä väärään Figma-tiedostoon,
+eikä `IN_FIGMA`-listan komponentti ole kytkemättä. Raja: ei avaa
+Figmaa, sen tekee `check:figma`.
 
 **9. Figma** (`scripts/check-figma.mjs`) — ainoa tarkistus joka avaa
-Figma-tiedoston. Se varmistaa kolme asiaa: jokaisen kytkennän
-`node-id` osoittaa olemassa olevaan komponenttiin ja nimi täsmää,
-jokaisella kirjaston komponentilla on kytkentä, ja **jokainen property
-ja variantti jonka kytkentä lukee on oikeasti Figmassa**. Viimeinen on
-se kohta jonka casesivu kerran lupasi ilman katetta: jos `Size=m`
-poistetaan Figmasta tai `showIcon` nimetään uudelleen, ajo pysähtyy ja
-kertoo kumpi. Kirjaston sisältö
-luetaan Figma-tiedostosta: ylimmän tason komponenttisetti on kirjastoa,
-paitsi jos nimessä on ryhmäerotin (`Nav / Link`). Käsin ylläpidettyä
-listaa ei siis tarvita.
+Figma-tiedoston. Kytkentöjen `node-id`:t ja nimet osuvat, kirjaston
+jokaisella komponentilla on kytkentä, ja jokainen property ja variantti
+jonka kytkentä lukee on Figmassa. Lisäksi layout gridit vastaavat
+tokeneita, Median Ratio-variantit `SUHTEET`-taulua, ja luodut tekstit
+sekä sivupohjien tekstit lähdettään (ks. *Figma ja koodi*). Ensimmäinen
+ajo löysi `LogoRow`-kytkennän, joka osoitti yhteen varianttiin.
+Ajetaan CI:ssä buildin jälkeen, ja se tarvitsee `FIGMA_ACCESS_TOKEN`in
+(*Files → Read the contents of … files*). Code Connect julkaistaan
+jokaisella mainin pushilla (`npm run figma:publish`, oikeus
+*Development → Write and change component code*).
 
-Ensimmäinen ajo löysi todellisen eriytymän: `LogoRow`-kytkentä osoitti
-yhteen varianttiin (`Breakpoint=sm+`) eikä komponenttiin, jolloin koodi
-olisi näkynyt Dev Modessa vain sen yhden variantin kohdalla. Neljä muuta
-tarkistusta eivät voineet nähdä sitä.
+**10. Paketit** (`scripts/check-paketti.mjs`) — npm:n `@pokela/tokens` ja
+`@pokela/components` vastaavat tavulleen sitä, mitä repo rakentaisi.
+Figma Make lukee npm:ää, ei repoa: 6.10.2026 ohjeet lupasivat Makelle
+`ThemeToggle`n, jota npm:n versiossa ei ollut. "Sisältö eroaa, versio
+sama" sanotaan erikseen, koska korjaus alkaa versionnostosta (ks.
+*npm-paketit → Versio*). Raja: ei julkaise, eikä tiedä mitä versiota
+Make kit osoittaa.
 
-Tämä ajetaan **CI:ssä omana vaiheenaan, ei `check:sync`-ketjussa**:
-ketjun on toimittava ilman verkkoa ja ilman salaisuuksia, eikä Figman
-katkos saa estää sivuston buildia. Tarvitsee `FIGMA_ACCESS_TOKEN`in
-(oikeus: *Files → Read the contents of … files*).
+**11. Dokumentaatio** (`scripts/check-docs.mjs`) — mainitut polut ja
+komennot ovat olemassa, jokainen `scripts/check-*.mjs` on kirjattu tähän
+käsikirjaan, `.github/workflows/ci.yml`:hin ja `lib/checks.ts`:ään, ja
+luodut lohkot (`<!-- generated:NIMI -->` … `<!-- /generated -->`)
+vastaavat lähdettään: `figma-kokoelmat` (pluginin README) ja
+`perusta-sivut` (Storybookin etusivu). Korjaus: `npm run docs:korjaa`.
+Syntyi, kun `check-favicon` oli ketjussa mutta ei CI:ssä. Raja: proosaa
+se ei todenna.
 
-**Code Connect julkaistaan CI:ssä.** `npm run figma:publish` ajetaan
-jokaisella mainiin menevällä pushilla, ei pull requesteissa. Ennen tätä
-kytkennät olivat repossa mutta Figma ei tiennyt niistä mitään — Dev
-Modessa ei näkynyt koodia, vaikka casesivu sanoi "julkaistaan repon
-mukana". Nyt väite on totta rakenteeltaan. Oikeus:
-*Development → Write and change component code*.
+### Figma ja koodi
 
-**Figma-tiedostolla on yksi tila, repolla on monta committia.** Tämä on
-tarkistuksen rakenteellinen rajoite, ei vika, ja se kannattaa tietää
-ennen kuin siihen törmää.
+**Luodut tekstit.** Figman tekstisolmu, jonka nimi on `generated:<id>`,
+saa sisältönsä tiedostosta `scripts/figma-teksti.mjs`: kannen luvut,
+prosessin ketju ja tarkistuslista. Lähteet ovat `content/prosessi.ts` ja
+`lib/checks.ts`. Kannessa luki kerran 6 · 77 · 9, kun todellisuus oli
+7 · 83 · 10.
 
-Kun Figmaa muutetaan niin että tarkistuksen odotus muuttuu, **jokainen
-vanhempi commit muuttuu samalla hetkellä punaiseksi**. Figma ei ole
-versioitu repon mukana: siinä on se tila joka siinä nyt on.
+**Sivupohjien tekstit.** Jokainen näkyvä teksti pohjakehyksessä
+(`<Pohja> · <moodi> <leveys>`) on löydyttävä siltä buildatulta sivulta,
+jota pohja kuvaa. Pohja ja sivu yhdistetään `scripts/figma-sivupohjat.mjs`:n
+`POHJAT`-taulussa, ja pohjan huomautus nimetään `huom:`-alkuiseksi
+(päätös 15). Raja: sivulle lisättyä osiota, jota pohjassa ei ole, ei
+huomata.
 
-Niin kävi 5.10.2026, kun generoitujen tekstisolmujen etuliite nimettiin
-`luotu:` → `generated:`. Sillä hetkellä kun Figman 19 solmua nimettiin,
-edellinen commit lakkasi menemästä läpi — se odotti yhä vanhoja nimiä.
+**Kun pohjan teksti ei ole sivulla**, `npm run pohjat` (buildin jälkeen)
+päättelee suunnan muutoksen diffistä:
 
-Sama koskee sisältöä, ei vain nimiä: jos `content/prosessi.ts`:n sanamuoto
-muuttuu, tarkistus odottaa Figmaan uutta tekstiä heti kun muutos on
-repossa.
-
-Yhden tekijän työssä tämä ei haittaa — muutos ja Figman päivitys ovat
-minuuttien päässä toisistaan. Pull request -käytännössä se tarkoittaa
-yhtä asiaa, joka on sanottava ääneen:
-
-> Tällainen muutos **ei voi olla vihreä sekä ennen mergeä että sen
-> jälkeen.** Valinta on kumpi.
-
-Käytäntö joka toimii:
-
-1. Muutokset jotka koskevat sopimusta (solmujen nimet, generoidun
-   tekstin lähde) tehdään **omassa pull requestissaan**, ei muun työn
-   mukana.
-2. Figma päivitetään **mergen yhteydessä**, ei ennen. Siihen asti
-   `check:figma` on punaisena juuri siinä yhdessä PR:ssä, ja syy
-   kirjoitetaan PR:n kuvaukseen.
-3. Muut avoimet pull requestit ajetaan uudelleen heti mergen jälkeen.
-
-Vaihtoehto olisi versioida Figma-tiedosto haaroittain. Figmassa on
-haarat, mutta ne eivät seuraa gitin haaroja, joten se vaihtaisi ongelman
-toiseen eikä poistaisi sitä.
-
-**10. Paketit** (`scripts/check-paketti.mjs`) — ketjun viimeinen lenkki.
-Figma Make lukee **npm:ää, ei repoa**. Jos julkaistu paketti jää jälkeen,
-prototyypit tehdään eri komponenteilla kuin sivusto — ja mikään ei kerro
-siitä.
-
-Tarkistus rakentaa paketit repostä, lataa julkaistut npm:stä ja vertaa
-tiedosto tiedostolta.
-
-Se syntyi omasta virheestä. 6.10.2026 `ThemeToggle` lisättiin pakettiin ja
-ohjeiden komponenttilista päivittyi, mutta npm:ssä oli yhä versio ilman sitä
-— eli **ohjeet lupasivat Makelle komponentteja joita paketti ei sisältänyt.**
-Mikään ei huomannut, koska mikään ei katsonut:
-
-```
-✗ Paketti eriytynyt npm:stä: 1 kohtaa
-
-  @pokela/components@1.1.0
-      sisältö eroaa mutta versio on sama — nosta $meta.version ja julkaise
-      · index.js — sisältö eroaa
-      · ThemeToggle.js — on repossa muttei npm:ssä
-```
-
-**Versio on oma virheensä.** Molemmat paketit saavat versionsa
-`tokens.json`:n `$meta.version`:stä, eikä npm päästä julkaisemaan samaa
-versiota uudelleen. Siksi "sisältö eroaa, versio sama" sanotaan erikseen:
-korjaus ei ala julkaisusta vaan nostosta.
-
-**Mitä nostetaan.** Numero kertoo paketin käyttäjälle, mitä hänen pitää
-tehdä, ei sitä, kuinka iso muutos oli:
-
-| Nosto | Milloin |
+| Tilanne | Mitä tapahtuu |
 |---|---|
-| patch (2.4.0 → 2.4.1) | tyylin hienosäätö, korjaus, uusi CSS-luokka sivuston omalle komponentille |
-| minor (2.4 → 2.5) | pakettiin tulee uusi komponentti, token tai props |
-| major (2 → 3) | jotain poistuu tai muuttuu niin, että käyttäjän koodi rikkoutuu |
+| Sivun teksti muuttui | vanha → uusi kirjoitetaan pohjiin, jos tulos löytyy sivulta |
+| Pohjaa muokattiin Figmassa | ei kirjoiteta yli; raportti näyttää lähimmän sivun rivin, ja muutos viedään koodiin |
+| Kumpikin muuttui | ei kirjoiteta, ihminen päättää |
 
-Kahdeksas lokakuuta minoria nostettiin herkästi: levyn varjokorjaus oli
-2.3.0, vaikka se oli patch. Ks. päätös 13.
+Figman rajapinta on vain luku, joten skripti tuottaa jokaiselle pohjalle
+Figmassa ajettavan koodin (`.scratch/pohjat/`). Ensin ilman lippua, jolloin
+koodi palauttaa suunnitelman, sitten `npm run pohjat -- --kirjoita`
+(päätös 16).
 
-**Raja:** ei julkaise mitään eikä voi — se kertoo että npm on jäljessä, ei
-korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa: kit voi
-olla kiinnitetty vanhaan versioon vaikka npm ja repo olisivat synkassa.
+**Yksi Figma, monta committia.** Figmassa on vain nykytila. Kun Figma
+päivitetään pull requestissa, vanhempi commit ei enää menisi läpi.
+Siksi sopimusta koskevat muutokset (solmujen nimet, luotujen tekstien
+lähteet) tehdään omassa pull requestissaan, ja muut avoimet pull
+requestit ajetaan uudelleen mergen jälkeen.
 
-Tarvitsee verkon, joten tämä ei ole `check:sync`-ketjussa — sama syy kuin
-Figma-tarkistuksessa.
-
-**11. Dokumentaatio** (`scripts/check-docs.mjs`) — dokumentaatio
-eriytyy samalla tavalla kuin koodi ja Figma, mutta huomaamattomammin:
-väärä luku README:ssä ei kaada mitään. Tarkistus vaatii neljä asiaa:
-mainittu polku ja komento on olemassa, jokainen `scripts/check-*.mjs`
-on kirjattu kaikkiin kolmeen rekisteriinsä, ja johdettavissa olevat
-kohdat vastaavat lähdettään.
-
-Rekisterit ovat:
-
-| Paikka | Mitä se kertoo |
-|---|---|
-| `docs/kasikirja.md` | mitä tarkistus todistaa ihmiselle |
-| `.github/workflows/ci.yml` | ajetaanko se oikeasti ennen mergeä |
-| `lib/checks.ts` | näkyykö se casesivun listalla |
-
-Jokainen näistä on unohtunut kerran. Viimeisin oli `check-favicon`:
-se oli `check:sync`-ketjussa, joten casesivu ilmoitti sen ajossa
-olevaksi — mutta CI ei aja ketjua vaan jokaisen tarkistuksen omana
-askeleenaan, jotta kaatuva kohta näkyy GitHubin käyttöliittymässä
-nimeltä. Askel puuttui, joten tarkistus ei ajanut kertaakaan pull
-requestissa. Vihreä CI väitti enemmän kuin se katsoi.
-
-Johdettavat kohdat merkitään luoduksi lohkoksi eikä kirjoiteta käsin:
-
-```
-<!-- generated:LOHKON-NIMI -->   ← tähän väliin generoitu sisältö
-<!-- /generated -->
-```
-
-Käytössä olevat lohkot: `figma-kokoelmat` (pluginin README) ja
-`perusta-sivut` (Storybookin etusivu).
-
-Lohko generoidaan lähteestä (tässä: pluginin oma spesifikaatio) ja
-verrataan tiedostoon. `npm run docs:korjaa` kirjoittaa ne uusiksi.
-
-Proosaa tämä ei voi todentaa. Auditissa 21.9.2026 löytyi kolme
-eriytymää joita mikään ei ollut huomannut: Storybookin etusivu lupasi
-*"ei matkalla käsityötä"* ja *"ei ikoneita paitsi nuolet"*, ja pluginin
-README väitti `Border`-kokoelmassa olevan 4 muuttujaa (5) eikä tuntenut
-`Icon`-kokoelmaa lainkaan. Ensimmäinen ajo tällä tarkistuksella kaatui
-omaan sääntöönsä: `check-docs` ei ollut itse dokumentoitu.
-
-**Luodut tekstit Figmassa.** Figma-tiedostossa on väitteitä
-prosessista — montako kokoelmaa, mitä build tarkistaa. Ne ovat samaa
-lajia kuin README:n luodut lohkot: johdettavissa olevaa tietoa, joka
-käsin kirjoitettuna vanhenee hiljaa.
-
-Niin kävikin. Kannessa luki *6 kokoelmaa · 77 muuttujaa ·
-9 tekstityyliä* kun todellisuus oli *7 · 83 · 10* — tiedostossa jonka
-kansi lupaa ettei yhtäkään arvoa ole kopioitu käsin.
-
-Sopimus: Figman tekstisolmu jonka **nimi** on `generated:<id>` saa
-sisältönsä tiedostosta `scripts/figma-teksti.mjs`. `check:figma` lukee
-solmut rajapinnalla ja vertaa. Nimi on sopimus, sisältö on johdettu.
-
-Todistettu molempiin suuntiin: tekstin muuttaminen Figmassa kaataa
-ajon, ja lähteessä oleva id jolle ei ole solmua kaataa myös.
-
-**Sivupohjien tekstit.** Luodut tekstit kattoivat vain väitteet
-prosessista. Sivupohjien sisältö (etusivun väitelause, casejen
-kappaleet, CV) oli kirjoitettu Figmaan käsin, eikä mikään verrannut
-sitä sivuun. Kun sivun tekstit kirjoitettiin uudelleen, pohjat jäivät
-vanhoiksi: etusivupohjassa luki yhä lause, jota sivulla ei enää ollut,
-ja `check:figma` oli vihreä.
-
-Sopimus: jokainen näkyvä teksti pohjakehyksessä (`<Pohja> · <moodi>
-<leveys>`) on löydyttävä siltä buildatulta sivulta, jota pohja kuvaa.
-Pohja ja sivu yhdistetään `scripts/figma-sivupohjat.mjs`:n
-`POHJAT`-taulussa, ja nimetty pohja jota taulussa ei ole kaataa ajon.
-Vertailukohta on `out/`, ei sisältötiedostot, koska sivulla teksti on
-koottu (otsikon luku, artefaktin tila, kuvateksti altina). Siksi
-`check:figma` ajetaan CI:ssä buildin jälkeen. Pohjan huomautus, joka
-ei ole sivun tekstiä, nimetään `huom:`-alkuiseksi.
-
-Raja: suunta on Figmasta sivulle. Vanha teksti pohjassa kaataa ajon,
-mutta sivulle lisätty uusi osio, jota pohjassa ei ole, ei kaada.
-
-**Prosessiosio Figmassa.** Tiedoston alussa on kaksi sivua ennen
-Perustaa: **Pystytys** (prosessin ketju, lenkit 0–7) ja **Jatkuva
-kehitys** (molemmat suunnat, tarkistuslista ja rajat). Ne ovat
-tuotekuvaus — miten setup pystytetään organisaatiossa ja miten se
-toimii sen jälkeen.
-
-Teksti tulee yhdestä lähteestä: `content/prosessi.ts` proosalle ja
-`lib/checks.ts` tarkistuslistalle. Sama ketju renderöityy case 03:lle,
-jossa jokaisen lenkin vartijan nimi luetaan `lib/checks.ts`:stä. Molemmat päät ovat tarkistuksessa —
-muutos Figmassa ja muutos lähteessä kaatavat ajon yhtä lailla.
-
-Tarkistuslistaa ei kirjoiteta `content/prosessi.ts`:ään. Se johdetaan
-samasta rekisteristä jota casesivu käyttää, jotta Figma ei voi luvata
-tarkistuksia joita ei ajeta.
-
-**Figman muuttujat** eivät ole tarkistuksessa. Ne generoidaan
-`tokens.json`:sta (`figma-plugin/`), joten ne *syntyvät* oikein — mutta
-generointi on kertaluontoinen ajo. Jos joku muokkaa muuttujaa Figmassa
-sen jälkeen, mikään ei huomaa. Sanoin tässä aiemmin että eriytymä on
-"rakenteellisesti mahdoton"; se oli liian vahva väite.
-
-**Miksei muuttujia verrata rajapinnan kautta — todennettu 21.9.2026:**
-päätepiste `GET /v1/files/:key/variables/local` vastaa, mutta palauttaa
-
-```
-403 Invalid scope(s): file_content:read, file_code_connect:write.
-    This endpoint requires the file_variables:read scope
-```
-
-Oikeutta `file_variables:read` ei ole tämän tilin tunnusvalikoimassa —
-lista alkaa `current_user:read`istä ja päättyy `webhooks:write`iin eikä
-sisällä muuttujia. Sitä ei siis voi rastittaa, joten rajoitus on tilin
-tasolla eikä unohdus.
-
-Tämä luki tässä aiemmin muodossa "vaatii Enterprise-tason" ilman että
-kukaan oli kokeillut. Nyt se on sekä kokeiltu että varmistettu lähteestä:
-Figman scope-dokumentaatio sanoo oikeuksista `file_variables:read` ja
-`file_variables:write` saman asian — *"Note: Enterprise plan only"* — ja
-päätepistedokumentaatio *"This API is available to full members of
-Enterprise orgs."*
-
-Väite oli siis oikein, mutta se perustui kuulopuheeseen siihen asti.
-Huomaa myös mitä 403 **ei** sano: se puhuu puuttuvasta oikeudesta eikä
-mainitse tilitasoa lainkaan. Pelkän virheilmoituksen perusteella syytä ei
-voi päätellä — se selviää vain dokumentaatiosta.
-
-Käytännön seuraus: olemassa olevan asiakkaan Figma-muuttujia ei voi lukea
-rajapinnan yli, ellei asiakkaalla ole Enterprise-tasoa. Se on vaiheen 0.1
-inventaarion suurin yksittäinen rajoite, eikä se ole kierrettävissä
-koodilla.
+**Figman muuttujat** eivät ole tarkistuksessa. Päätepiste
+`GET /v1/files/:key/variables/local` vaatii oikeuden `file_variables:read`,
+joka on Figman dokumentaation mukaan vain Enterprise-tasolla (kokeiltu
+21.9.2026: 403). Muuttujat generoidaan `tokens.json`:sta (`figma-plugin/`),
+mutta niiden käsimuokkausta mikään ei huomaa. Sama rajoite koskee
+asiakkaan Figmaa vaiheen 0.1 inventaariossa.
 
 ## npm-paketit
 
@@ -428,6 +174,20 @@ Kaksi pakettia hakemistoon `packages/`:
 |---|---|---|
 | `@pokela/tokens` | värit, mitat, typografia | `tokens.json` |
 | `@pokela/components` | React-komponentit ja niiden tyylit | `components/` |
+
+### Versio
+
+Numero kertoo paketin käyttäjälle, mitä hänen pitää
+tehdä, ei sitä, kuinka iso muutos oli:
+
+| Nosto | Milloin |
+|---|---|
+| patch (2.4.0 → 2.4.1) | tyylin hienosäätö, korjaus, uusi CSS-luokka sivuston omalle komponentille |
+| minor (2.4 → 2.5) | pakettiin tulee uusi komponentti, token tai props |
+| major (2 → 3) | jotain poistuu tai muuttuu niin, että käyttäjän koodi rikkoutuu |
+
+Kahdeksas lokakuuta minoria nostettiin herkästi: levyn varjokorjaus oli
+2.3.0, vaikka se oli patch. Ks. päätös 13.
 
 ### Tokenit
 

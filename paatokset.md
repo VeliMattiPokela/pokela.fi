@@ -611,3 +611,32 @@ Raja on kirjattu: suunta on Figmasta sivulle, joten sivulle lisätty uusi
 osio, jota pohjassa ei ole, ei kaada ajoa.
 
 *Kirjattu 9.10.2026 Vellun huomion pohjalta*
+
+---
+
+## 16. Pohjan teksti päivittyy sivun muutoksesta, Figman muokkaus menee koodiin
+
+**Ero:** päätös 15 teki vanhasta pohjatekstistä punaisen, mutta korjaus
+jäi käsityöksi. Sama lause vaihdettiin jokaiseen pohjaan ja leveyteen,
+eli 2–4 paikkaan. Tarkistus ei myöskään kertonut, kumpi puoli muuttui:
+sivun uusi teksti ja Figmassa tehty muokkaus näyttivät samalta virheeltä.
+
+**Päätös:** `npm run pohjat` (`scripts/pohjat-synkka.mjs`) päättelee
+suunnan muutoksen diffistä. Jos sivun teksti muuttui, vanha → uusi
+kirjoitetaan pohjiin, kun tulos löytyy sivulta. Jos pohjaa muokattiin
+Figmassa, sitä ei kirjoiteta yli, vaan muutos viedään koodiin. Jos
+kumpikin muuttui, päättää ihminen. Kirjoitus tehdään Figman Plugin
+API:lla, koska REST-rajapinta on vain luku, ja `check:figma` vahvistaa
+lopputuloksen.
+
+**Perustelu:** tarkistus ei saa muuttua hidasteeksi. Uutta porttia ei
+tullut: tämä on korjaustyökalu olemassa olevalle tarkistukselle. Koodi
+pysyy lähteenä, mutta Figman muokkaus ei katoa, kun sitä ei jyrätä.
+Testattu 9.10.2026 etusivun pohjilla: kahden lauseen muutos löysi neljä
+solmua kahdessa leveydessä, ja sama muutos Figmassa ilman koodimuutosta
+raportoitiin Figman muokkaukseksi lähimpine sivun riveineen.
+
+**Raja:** vain tekstit. Pohjien asettelu ja Figmassa lisätyt uudet
+näkymät eivät kulje koodiin; se on lenkin 7 (Make → PR → sovellus) työ.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*
