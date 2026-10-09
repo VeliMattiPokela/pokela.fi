@@ -307,7 +307,9 @@ kopiointi on tiedosto tiedostolta eikä tulkintaa:
 | `guidelines/setup.md` | asennus, molemmat paketit, tyylien tuonti |
 | `guidelines/tokens.md` | ei aksenttiväriä, ei varjoja, välistysasteikko |
 | `guidelines/styles.md` | typografia, ei Tailwind-luokkia, grid |
-| `guidelines/components.md` | komponenttien käyttö, `as`-propsi | Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
+| `guidelines/components.md` | komponenttien käyttö, `as`-propsi |
+
+Syy on sama kuin kaiken muunkin kohdalla: siellä ne ovat
 versioituja ja katselmoitavia, ja muutos niihin näkyy pull requestissa siinä
 missä koodimuutos.
 
@@ -320,9 +322,19 @@ always better. It can confuse the LLM."* Kaikki neljä tiedostoa ovat yhteensä 
 ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se
 vika jota koko tämä repo vastustaa.
 
-**Komponenttilista on luotu lohko.** Se johdetaan siitä mitä
-`@pokela/components` oikeasti vie. Ohje ei siis voi luvata komponenttia jota
-paketissa ei ole; jos vientilista muuttuu, `check:docs` kaatuu.
+**Kaikki minkä koodi määrää, on luotu lohko.** Komponenttilista johdetaan
+siitä, mitä `@pokela/components` oikeasti vie. Fonttien latauslinkki ja
+sallitut painot luetaan layoutin fonttikutsuista, välien määrä
+`tokens.json`:sta, ikonien määrä `Icon`ista ja sarakkeet `tokens.css`:stä.
+Jos jokin niistä muuttuu, `check:docs` kaatuu. 9.10.2026 käsin kirjoitettu
+`setup.md` lupasi version 1.1.0, kun paketti oli 2.5.0, eikä kertonut
+fonteista lainkaan.
+
+**Ohjeet tulevat paketin mukana.** `npm run paketti` kopioi `guidelines/`-
+hakemiston pakettiin `@pokela/components/guidelines/`. Kitin oma ohje on
+Maken käyttöliittymässä, eikä siihen ole rajapintaa, joten kopio sinne
+vanhenee. Siksi kitin `setup.md` vain osoittaa paketin ohjeisiin, ja
+paketin päivitys tuo uudet ohjeet.
 
 Sisältö on kieltoja enemmän kuin käskyjä, koska mallin oletukset ovat
 vahvoja ja väärään suuntaan: ei aksenttiväriä, ei pyöristyksiä, ei varjoja,
@@ -337,10 +349,19 @@ Figmassa:
 
 1. Make-tiedosto → Settings → **Create a kit**
 2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
-3. Mahdolliset erityisasetukset
-4. **Ohjeet** — kopioi `guidelines/`-hakemiston neljä tiedostoa samannimisten päälle
+3. Erityisasetuksia ei tarvita; fontit ja tyylien tuonti ovat ohjeissa
+4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla
 5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
 6. Julkaise kit
+
+Kitin `setup.md` kokonaan:
+
+```md
+Read the guidelines that ship with the package before writing any code:
+node_modules/@pokela/components/guidelines/setup.md, tokens.md, styles.md
+and components.md. They are the current rules; follow them over anything
+you assume.
+```
 
 Kahden ensimmäisen ajon tulokset: `docs/loki.md`.
 

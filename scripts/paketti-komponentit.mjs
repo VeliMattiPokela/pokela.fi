@@ -22,7 +22,7 @@
  * `npm run paketti`.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, rmSync, existsSync, copyFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -210,7 +210,7 @@ export function rakenna({ kirjoita = true } = {}) {
             './styles.css': './styles.css',
             './styles/*': './styles/*',
           },
-          files: ['*.js', '*.d.ts', 'styles.css', 'styles/', 'README.md', 'LICENSE'],
+          files: ['*.js', '*.d.ts', 'styles.css', 'styles/', 'guidelines/', 'README.md', 'LICENSE'],
           dependencies: { [TOKENIT]: `^${versio}` },
           peerDependencies: { react: '>=18' },
           repository: {
@@ -247,7 +247,14 @@ SOFTWARE.
     'README.md': lueMinut(versio, tyylitiedostot),
   };
 
+  /* 5. Figma Maken ohjeet pakettiin. Kitin ohjeet ovat Maken
+     käyttöliittymässä, eikä niihin ole rajapintaa, joten käsin kopioitu
+     teksti vanhenisi. Kun ohjeet tulevat paketin mukana, kitin
+     setup-ohje voi vain osoittaa niihin, ja paketin päivitys tuo ne. */
+  for (const f of readdirSync(join(root, 'guidelines'))) tiedostot[`guidelines/${f}`] = readFileSync(join(root, 'guidelines', f), 'utf8');
+
   if (kirjoita) {
+    mkdirSync(join(PAKETTI, 'guidelines'), { recursive: true });
     for (const [nimi, sisalto] of Object.entries(tiedostot)) {
       writeFileSync(join(PAKETTI, nimi), sisalto);
     }

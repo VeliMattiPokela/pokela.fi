@@ -671,3 +671,26 @@ Next.js:n oman buildin kestoa ei voi kirjata sivulle, joka rakennetaan
 juuri silloin.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+## 18. Maken ohjeet tulevat paketin mukana
+
+**Tilanne:** Make kitin ohjeet kirjoitettiin repossa ja kopioitiin käsin
+Maken käyttöliittymään. Kumpikin kopio vanheni huomaamatta. `setup.md`
+lupasi version 1.1.0, kun paketti oli 2.5.0, eikä kertonut fonteista,
+joten Make näytti sivut Georgialla ja Helveticalla. Vellu huomasi sen
+kitin kokoamisen aikana, eikä mikään tarkistus.
+
+**Päätös:** ohjeissa jokainen koodin määräämä tosiasia on luotu lohko:
+fonttilinkki ja painot layoutista, välien määrä tokeneista, ikonien
+määrä `Icon`ista ja sarakkeet `tokens.css`:stä. `check:docs` kaatuu,
+jos ne eroavat. Ohjeet kopioidaan pakettiin
+`@pokela/components/guidelines/`, ja kitin oma `setup.md` vain osoittaa
+niihin. Kitiin ei kopioida sisältöä, joka voi vanhentua.
+
+**Raja:** Maken ohjeisiin ei ole rajapintaa, joten kitin yhtä
+osoitusriviä ei voi tarkistaa. Se ei kuitenkaan muutu. Toimiiko
+osoitus, eli lukeeko Make paketin tiedostoja, on testattava kitissä.
+Jos ei lue, neljä tiedostoa kopioidaan kittiin kuten ennen, ja ne
+vanhenevat taas.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*
