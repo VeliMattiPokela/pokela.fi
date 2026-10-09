@@ -13,6 +13,12 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
  * - Osoitin kääntää pinoa ja erkanee kerroksia.
  * - Elementit, joilla on sama `data-kohde`, syttyvät yhdessä: osoitin
  *   komponentin päällä näyttää sen jokaisessa kerroksessa.
+ * - `data-token="ink"` (väri `--ink`) tai `data-token="display-l"`
+ *   (tyyppi `--text-display-l`) merkitsee tokenin. Osoitin tokenin päällä
+ *   sytyttää muiden kerrosten elementit, joiden laskettu tyyli käyttää
+ *   sen arvoa, ja osoitin elementin päällä sytyttää sen tokenit. Käyttöä
+ *   ei merkitä käsin: se luetaan selaimen lasketusta tyylistä, joten se
+ *   pysyy totena kun tyylit muuttuvat.
  * - Klikkaus nostaa kerroksen kerrallaan esiin ja lopuksi palauttaa
  *   koko pinon.
  * - Tilassa `auki` vieritys kokoaa kerrokset yhdeksi suoraksi
@@ -172,14 +178,58 @@ export default function ExplodedView({
       liiku();
     };
 
-    const valaise = (e: PointerEvent) => {
-      el.querySelectorAll('.exploded--valaistu').forEach((x) => x.classList.remove('exploded--valaistu'));
-      const k = (e.target as Element).closest<HTMLElement>('[data-kohde]');
-      if (!k) return;
-      el.querySelectorAll(`[data-kohde="${k.dataset.kohde}"]`).forEach((x) => x.classList.add('exploded--valaistu'));
-    };
+    /* Tokenin arvo selaimen laskemana: väri rgb-muodossa, tyyppi pikseleinä. */
+    function tokeninArvo(nimi: string) {
+      const apu = document.createElement('i');
+      apu.style.color = `var(--${nimi})`;
+      apu.style.fontSize = `var(--text-${nimi})`;
+      hero!.append(apu);
+      const s = getComputedStyle(apu);
+      const tyyppi = getComputedStyle(hero!).getPropertyValue(`--text-${nimi}`).trim() !== '';
+      const arvo = tyyppi ? { tyyppi: s.fontSize } : { vari: s.color };
+      apu.remove();
+      return arvo;
+    }
+    /* Käyttääkö elementti arvoa itse: teksti omana tekstinään, väri
+       myös taustana tai viivana. */
+    function kayttaa(x: Element, arvo: { tyyppi?: string; vari?: string }) {
+      const s = getComputedStyle(x);
+      const teksti = [...x.childNodes].some((c) => c.nodeType === 3 && c.textContent?.trim());
+      if (arvo.tyyppi) return teksti && s.fontSize === arvo.tyyppi;
+      return (
+        (teksti && s.color === arvo.vari) ||
+        s.backgroundColor === arvo.vari ||
+        (parseFloat(s.borderTopWidth) > 0 && s.borderTopColor === arvo.vari) ||
+        (parseFloat(s.borderBottomWidth) > 0 && s.borderBottomColor === arvo.vari)
+      );
+    }
+
     const sammuta = () =>
       el.querySelectorAll('.exploded--valaistu').forEach((x) => x.classList.remove('exploded--valaistu'));
+    const valaise = (e: PointerEvent) => {
+      sammuta();
+      const kohde = e.target as Element;
+      const token = kohde.closest<HTMLElement>('[data-token]');
+      const tokenit = [...el.querySelectorAll<HTMLElement>('[data-token]')];
+      if (token) {
+        /* Token: sen käyttäjät muissa kerroksissa. */
+        const arvo = tokeninArvo(token.dataset.token!);
+        const oma = token.closest('.exploded__layer');
+        token.classList.add('exploded--valaistu');
+        el.querySelectorAll('.exploded__plate, .exploded__plate *').forEach((x) => {
+          if (x.closest('.exploded__layer') !== oma && !x.closest('[data-token]') && kayttaa(x, arvo))
+            x.classList.add('exploded--valaistu');
+        });
+        return;
+      }
+      /* Komponentti kaikissa kerroksissa ja elementin omat tokenit. */
+      const k = kohde.closest<HTMLElement>('[data-kohde]');
+      if (k) el.querySelectorAll(`[data-kohde="${k.dataset.kohde}"]`).forEach((x) => x.classList.add('exploded--valaistu'));
+      if (kohde.closest('.exploded__plate'))
+        tokenit.forEach((t) => {
+          if (kayttaa(kohde, tokeninArvo(t.dataset.token!))) t.classList.add('exploded--valaistu');
+        });
+    };
 
     /* Vieritys kokoaa, kun kuva poistuu yläreunasta. */
     const vieritys = () => {

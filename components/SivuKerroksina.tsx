@@ -14,7 +14,8 @@ import type { Locale } from '@/lib/i18n';
  * Kerrokset eivät ole kuvitusta vaan sivuston omaa koodia: värit,
  * tyyppi ja välit luetaan tokens.json:sta, komponentit ovat samat
  * ListRow, Media ja Icon joita sivu käyttää, ja tekstit tulevat
- * sanakirjasta ja työlistasta. Kun token tai komponentti muuttuu,
+ * sanakirjasta ja työlistasta. Tokenit on merkitty `data-token`illa:
+ * mihin ne osoittavat, luetaan lasketusta tyylistä (ExplodedView). Kun token tai komponentti muuttuu,
  * kuva muuttuu mukana.
  *
  * Sama kuva on System-sivulla ja case 03:ssa (lohko `kerrokset`).
@@ -33,14 +34,14 @@ function Staattinen({ href: _href, ...props }: { href?: string; className?: stri
 export default function SivuKerroksina({ locale, tila = 'auki' }: { locale: Locale; tila?: ExplodedTila }) {
   const dict = getDictionary(locale);
   const leads = getWork(locale).leads.slice(0, 2);
-  const display = tokens.type['display-xl'];
+  const display = tokens.type['display-l'];
   const meta = tokens.type.meta;
 
   const tokenit = (
     <div className="kerrokset__tokenit">
       <ul className="kerrokset__varit">
         {VARIT.map((nimi) => (
-          <li key={nimi} className="kerrokset__vari">
+          <li key={nimi} className="kerrokset__vari" data-token={nimi}>
             <span className="kerrokset__siru" style={{ background: `var(--${nimi})` }} />
             <span className="meta meta--s ink">{nimi}</span>
             <span className="body-s faint">{tokens.color.light[nimi]}</span>
@@ -48,9 +49,14 @@ export default function SivuKerroksina({ locale, tila = 'auki' }: { locale: Loca
         ))}
       </ul>
       <div className="kerrokset__tyyppi">
-        <span className="display-xl">Aa</span>
-        <span className="body-s faint">{`display-xl · ${display.size} / ${display.lineHeight}`}</span>
-        <span className="body-s faint">{`meta · ${meta.size} / ${meta.lineHeight}`}</span>
+        <span data-token="display-l" className="kerrokset__tyyppinayte">
+          <span className="display-l">Aa</span>
+          <span className="body-s faint">{`display-l · ${display.size} / ${display.lineHeight}`}</span>
+        </span>
+        <span data-token="meta" className="kerrokset__tyyppinayte">
+          <span className="meta ink">Aa</span>
+          <span className="body-s faint">{`meta · ${meta.size} / ${meta.lineHeight}`}</span>
+        </span>
         <span className="kerrokset__valit">
           {VALIT.map((v) => (
             <i key={v} style={{ height: `var(--space-${v})` }} />
