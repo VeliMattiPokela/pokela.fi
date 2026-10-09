@@ -23,6 +23,10 @@
  * tauluun, muuten tarkistus kaatuu: pohja jonka sivua ei tiedetä on
  * pohja jota ei tarkisteta.
  *
+ * Korjaus: npm run pohjat (scripts/pohjat-synkka.mjs) erottaa sivun
+ * muutoksen Figmassa tehdystä muokkauksesta ja kirjoittaa edellisen
+ * pohjiin.
+ *
  * Mitä tämä ei näe: suunta on Figmasta sivulle. Vanha teksti
  * pohjassa kaataa ajon, koska sitä ei enää löydy sivulta. Sivulle
  * lisätty uusi osio, jota pohjassa ei ole lainkaan, ei kaada.
@@ -56,7 +60,7 @@ const HUOMAUTUS = 'huom:';
 const entiteetit = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0' };
 
 /** Yhtenäinen välilyönti: nbsp, rivinvaihdot ja tuplavälit samaksi. */
-const tasaa = (s) => s.replace(/[\s\u00a0]+/g, ' ').trim();
+export const tasaa = (s) => s.replace(/[\s\u00a0]+/g, ' ').trim();
 
 /** Tekstin sisäiset elementit: eivät katkaise lausetta ("Näin tein <a>Colliersissa</a>"). */
 const TEKSTIN_SISAISET = 'a|span|strong|em|b|i|code|small|abbr|mark|time|sub|sup';
@@ -100,7 +104,7 @@ export function sivunTekstit(html) {
  * elementtiä (nimen rivit), joten kukin rivi etsitään erikseen.
  * Nuoli on sivulla ikoni (Icon.tsx), ei merkki, joten se riisutaan.
  */
-const palat = (teksti) =>
+export const palat = (teksti) =>
   teksti
     .split(/[\n\u2028]+/)
     .map((rivi) => tasaa(rivi.replace(/\s*→\s*$/, '')))
@@ -160,7 +164,9 @@ export function tarkistaPohjat(dokumentti, out, moodit) {
             if (!tekstit.some((t) => t.includes(pala))) {
               drift.push({
                 file: `Figma: ${kehys.name}`,
-                issue: `teksti ei ole sivulla (${polut.map((p) => `/${p}/`).join(', ')})\n${' '.repeat(6)}"${pala}"`,
+                issue:
+                  `teksti ei ole sivulla (${polut.map((p) => `/${p}/`).join(', ')})\n${' '.repeat(6)}"${pala}"\n` +
+                  `${' '.repeat(6)}npm run pohjat: sivun muutos kirjoitetaan pohjaan, Figman muokkaus viedään koodiin`,
               });
             }
           }
