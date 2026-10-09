@@ -684,7 +684,7 @@ kitin kokoamisen aikana, eikä mikään tarkistus.
 fonttilinkki ja painot layoutista, välien määrä tokeneista, ikonien
 määrä `Icon`ista ja sarakkeet `tokens.css`:stä. `check:docs` kaatuu,
 jos ne eroavat. Ohjeet kopioidaan pakettiin
-`@pokela/components/guidelines/`, ja kitin oma `setup.md` vain osoittaa
+`@pokela/components/guidelines/` (2.5.1), ja kitin oma `setup.md` vain osoittaa
 niihin. Kitiin ei kopioida sisältöä, joka voi vanhentua.
 
 **Raja:** Maken ohjeisiin ei ole rajapintaa, joten kitin yhtä
