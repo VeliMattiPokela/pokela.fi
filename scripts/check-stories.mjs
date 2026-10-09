@@ -63,6 +63,11 @@ const EXEMPT = {
     missä: 'Liike',
     huom: 'Kääre ilman omaa ulkoasua. Liike on Perusta/Liike-sivun aihe.',
   },
+  'HeroIntroLiike.tsx': {
+    syy: 'katettu-muualla',
+    missä: 'HeroIntro',
+    huom: 'HeroIntron liike ilman omaa ulkoasua.',
+  },
   'CaseBlocks.tsx': {
     syy: 'katettu-muualla',
     missä: 'CaseBlock',

@@ -554,3 +554,30 @@ pakettitarkistuksen kohdalla, ja sääntö on agentille `CLAUDE.md`:ssä.
 reagoida. Jo julkaistuja versioita ei muuteta.
 
 *Päätetty 8.10.2026 — Veli-Matti Pokela*
+
+---
+
+## 14. Etusivun nimi on hero, joka asettuu
+
+**Ero:** nimi oli tavallinen otsikko paperin päällä. Vellu halusi
+nimiosion toimivan enemmän hero-elementtinä ja saapumisen alkavan
+korkeampana palkkina, joka asettuu kompaktiksi.
+
+**Päätös:** nimi ja roolirivi ovat täysleveällä `--badge-surface`-palkilla
+(HeroIntro). Istunnon ensimmäisellä käynnillä palkki täyttää ruudun, nimi
+rakentuu sen keskellä, ja kun kirjaimet ovat täyttyneet, palkki supistuu
+yhdellä liikkeellä omaan kokoonsa. Lopputila on sisällön kokoinen eikä
+kiinteä korkeus. Vieritysyritys kesken intron asettaa palkin heti.
+Toisella käynnillä, vähemmän liikettä pyytäneelle ja ilman JavaScriptiä
+näkyy suoraan lopputila.
+
+**Perustelu:** vertailtiin kahta tapaa: ajastettua introa, joka asettuu
+(A), ja vieritystä, joka kutistaa heron (B). A valittiin, koska töihin
+pääsee heti intron jälkeen, kun taas B:ssä vieritysmatka on edessä joka
+käynnillä. Lopputila on kompakti, koska wow-hetki on liike eikä korkeus.
+Lopullinen asettelu on sivulla alusta asti, ja koko ruudun palkki on sen
+päällä oleva kerros, joka rajataan pienemmäksi. Siksi mikään ei hyppää
+(CLS 0). Liike on `clip-path` ja `transform`, ei korkeuden animointia.
+Palkki jatkuu saumatta hero-kuvan nauhaan, joka on samaa pintaa.
+
+*Päätetty 9.10.2026 prototyyppien perusteella — Veli-Matti Pokela*

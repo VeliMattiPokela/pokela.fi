@@ -90,7 +90,7 @@ export default function HeroName({
     if (![...lines.join('')].every((m) => !m.trim() || G[m])) return;
 
     const vahemman = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let W = 0, H = 0, valmis = tila === 'rakenne' || vahemman, ajastin = 0, raf = 0, poissa = false;
+    let W = 0, H = 0, valmis = tila === 'rakenne' || vahemman, ajastin = 0, taytetty = 0, raf = 0, poissa = false;
     let pisteet: Linssipiste[] = [];
     let maara = 0;
     const L = {
@@ -196,6 +196,9 @@ export default function HeroName({
       L.teksti = el('text', { x: -999, y: -99, class: 'hero-name__lukema' }, L.gR);
       maara = kirjaimet.length;
       juuri.classList.add('hero-name--elossa');
+      /* HeroIntro keskittää nimen vasta, kun sen lopullinen koko on
+         tiedossa. */
+      juuri.dispatchEvent(new Event('hero-name:rakennettu', { bubbles: true }));
       if (valmis) kiinnita();
     }
 
@@ -213,6 +216,11 @@ export default function HeroName({
       juuri!.classList.add('hero-name--saapuu');
       /* Sama aikataulu kuin hero-name.css:n saapumisessa. */
       ajastin = window.setTimeout(() => { valmis = true; kiinnita(); }, 2400 + maara * 45);
+      /* Kirjaimet ovat lähes täynnä: HeroIntro voi asettua. */
+      taytetty = window.setTimeout(
+        () => juuri!.dispatchEvent(new Event('hero-name:taytetty', { bubbles: true })),
+        1900 + maara * 45,
+      );
     }
 
     const sade = () => Math.max(110, Math.min(220, W * 0.13));
@@ -296,6 +304,7 @@ export default function HeroName({
     return () => {
       poissa = true;
       clearTimeout(ajastin);
+      clearTimeout(taytetty);
       clearTimeout(koonAjastin);
       cancelAnimationFrame(raf);
       koko.disconnect();
