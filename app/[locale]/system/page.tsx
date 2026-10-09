@@ -8,6 +8,8 @@ import ListRow from '@/components/ListRow';
 import { Grid, Col } from '@/components/Grid';
 import Icon from '@/components/Icon';
 import SivuKerroksina from '@/components/SivuKerroksina';
+import PageHeader from '@/components/PageHeader';
+import Section from '@/components/Section';
 
 export async function generateMetadata({
   params,
@@ -29,12 +31,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
   return (
     <>
-      <header className="page page-head">
-        <h1 className="display-xl">{dict.system.title}</h1>
-        <p className="meta">
-          {colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä
-        </p>
-      </header>
+      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} />
 
       <section className="page section">
         <p className="body-l measure">
@@ -46,25 +43,13 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </section>
 
       {/* ---- kerroksina ------------------------------------------ */}
-      <section className="page section" aria-labelledby="layers">
-        <div className="section-head">
-          <h2 id="layers" className="meta">
-            {dict.system.layersTitle}
-          </h2>
-          <span className="meta">{dict.system.layersMeta}</span>
-        </div>
+      <Section id="layers" title={dict.system.layersTitle} meta={dict.system.layersMeta}>
         <p className="body-l measure sys__note">{dict.system.layersNote}</p>
         <SivuKerroksina locale={locale as Locale} />
-      </section>
+      </Section>
 
       {/* ---- väri ------------------------------------------------ */}
-      <section className="page section" aria-labelledby="color">
-        <div className="section-head">
-          <h2 id="color" className="meta">
-            01 — Väri
-          </h2>
-          <span className="meta">Ei aksenttiväriä</span>
-        </div>
+      <Section id="color" title="01 — Väri" meta="Ei aksenttiväriä">
 
         <p className="body-l measure sys__note">
           Kaksi teemaa, samat token-nimet, yksi määrittely per token
@@ -87,16 +72,10 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
       {/* ---- typografia ------------------------------------------ */}
-      <section className="page section" aria-labelledby="type">
-        <div className="section-head">
-          <h2 id="type" className="meta">
-            02 — Typografia
-          </h2>
-          <span className="meta">Bodoni Moda + Archivo</span>
-        </div>
+      <Section id="type" title="02 — Typografia" meta="Bodoni Moda + Archivo">
 
         <div className="sys__type">
           {typeNames.map((name) => {
@@ -128,19 +107,19 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             );
           })}
         </div>
-      </section>
+      </Section>
 
       {/* ---- grid ------------------------------------------------ */}
-      <section className="page section" aria-labelledby="grid">
-        <div className="section-head">
-          <h2 id="grid" className="meta">
-            03 — Grid
-          </h2>
-          <span className="meta">
+      <Section
+        id="grid"
+        title="03 — Grid"
+        meta={
+          <>
             {tokens.layout.columns.base} → {tokens.layout.columns.sm} → {tokens.layout.columns.md}{' '}
             saraketta
-          </span>
-        </div>
+          </>
+        }
+      >
 
         <p className="body-l measure sys__note">
           Sarakemäärä on token, ei komponentin tieto. Kavenna ikkunaa — sarakkeet vähenevät
@@ -154,16 +133,10 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             </Col>
           ))}
         </Grid>
-      </section>
+      </Section>
 
       {/* ---- välistys -------------------------------------------- */}
-      <section className="page section" aria-labelledby="space">
-        <div className="section-head">
-          <h2 id="space" className="meta">
-            04 — Välistys
-          </h2>
-          <span className="meta">4 px perusyksikkö</span>
-        </div>
+      <Section id="space" title="04 — Välistys" meta="4 px perusyksikkö">
 
         <ul className="sys__space">
           {spaceSteps.map(([step, value]) => (
@@ -174,7 +147,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
       {/* ---- komponentit ----------------------------------------- */}
       <section className="section" aria-labelledby="components">

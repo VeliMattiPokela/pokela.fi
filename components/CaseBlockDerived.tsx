@@ -8,6 +8,7 @@ import { ketju } from '@/content/prosessi';
 import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
 import Timeline, { TimelineItem } from './Timeline';
 import type { Locale } from '@/lib/i18n';
+import Section from './Section';
 
 /**
  * Casen johdetut lohkot: ne eivät piirrä annettua dataa vaan lukevat
@@ -43,8 +44,7 @@ export default function CaseBlockDerived({
       const artefacts = caseArtefacts();
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               {/* Luku johdetaan listasta: käsin kirjoitettuna se
                   vanhenisi heti kun artefakti lisätään tai poistetaan. */}
@@ -78,7 +78,7 @@ export default function CaseBlockDerived({
                 )}
               </div>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     }
@@ -107,8 +107,7 @@ export default function CaseBlockDerived({
       }
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
@@ -141,7 +140,7 @@ export default function CaseBlockDerived({
                 ))}
               </div>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     }
@@ -151,8 +150,7 @@ export default function CaseBlockDerived({
       const nimet = new Map(checks().map((c) => [c.id, c.title]));
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -181,7 +179,7 @@ export default function CaseBlockDerived({
                 ))}
               </ol>
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     }
@@ -191,8 +189,7 @@ export default function CaseBlockDerived({
       const ajo = viimeisinAjo();
       return (
         <Reveal>
-          <section className="page case__section">
-            <h2 className="meta">{block.label}</h2>
+          <Section layout="aside" title={block.label}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -263,21 +260,20 @@ export default function CaseBlockDerived({
                 </p>
               )}
             </div>
-          </section>
+          </Section>
         </Reveal>
       );
     }
     case 'component':
       return (
-        <section className="page case__section">
-          <h2 className="meta">{block.label}</h2>
+        <Section layout="aside" title={block.label}>
           <div className="case__section-body">
             <h3 className="display-m case__h">{block.title}</h3>
             <p className="body-l measure case__p">{block.body}</p>
             {/* Palvelinkomponentti: lukee lähdekoodin build-aikana. */}
             <ListRowShowcase locale={locale} />
           </div>
-        </section>
+        </Section>
       );
   }
 }

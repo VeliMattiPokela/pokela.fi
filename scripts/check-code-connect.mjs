@@ -42,7 +42,7 @@ const componentsDir = join(root, 'components');
  * `<button>`-elementillä ilman `as`-propia. Silloin kytkentä
  * osoittaa tyylitiedostoon, ja se kerrotaan `// source=`-otsikolla.
  */
-const IN_FIGMA = ['ListRow', 'Button', 'Nav', 'Media', 'Footer', 'Accordion', 'LogoRow', 'Icon', 'Video', 'HeroName', 'Timeline', 'ExplodedView'];
+const IN_FIGMA = ['ListRow', 'Button', 'Nav', 'Media', 'Footer', 'Accordion', 'LogoRow', 'Icon', 'Video', 'HeroName', 'Timeline', 'ExplodedView', 'PageHeader', 'Section'];
 
 /* Figma-tiedoston avain luetaan sieltä missä osoite asuu, ei tästä. */
 const artefacts = readFileSync(join(root, 'content/artefacts.ts'), 'utf8');

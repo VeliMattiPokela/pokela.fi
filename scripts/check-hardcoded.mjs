@@ -51,8 +51,10 @@ const EXEMPT = {
     'stroke-width:5px':
       'Nimikkeiden paperinvärinen reuna piirroksessa: irrottaa metatekstin kirjaimesta jonka päälle se osuu. Piirros, ei layout-mitta.',
   },
+  'patterns.css': {
+    'grid-template-columns:200px': 'Section aside: osion otsikkosarake mitoitettu sisällön mukaan (siirretty case.css:stä).',
+  },
   'case.css': {
-    'grid-template-columns:200px': 'Osion otsikkosarake mitoitettu sisällön mukaan.',
     'grid-template-columns:170px': 'Metasarake mitoitettu pisimmän roolitekstin mukaan.',
   },
   'compare.css': {
