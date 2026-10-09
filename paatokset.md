@@ -699,3 +699,31 @@ Jos ei lue, neljä tiedostoa kopioidaan kittiin kuten ennen, ja ne
 vanhenevat taas.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+---
+
+## 19. Räjäytyskuva on komponentti, ja sen kerrokset ovat sivuston omaa koodia
+
+**Tilanne:** etusivun herolle tehtiin kerrosprototyyppi, jossa sivu on
+purettu tokeneiksi, komponenteiksi ja valmiiksi sivuksi CSS 3D:nä
+(prototyyppi "Kerroshero" projektin ehdotuksissa). Vellu piti siitä, mutta siirsi sen
+etusivulta case-sivulle, kun etusivun heroksi valittiin rakentuva nimi
+(päätös 12). Kuva jäi prototyypiksi.
+
+**Päätös:** yleinen osa on `ExplodedView` (paketissa, 2.6.0): kerrokset
+levyinä, osoitin kääntää pinoa, klikkaus nostaa kerroksen kerrallaan,
+sama `data-kohde` syttyy kaikissa kerroksissa, ja vieritys kokoaa
+kerrokset yhdeksi pinnaksi. Figmassa sillä on `Tila`-variantit `auki` ja
+`koottu`. Tämän sivuston kuva on `SivuKerroksina`: värit, tyyppi ja välit
+luetaan `tokens.json`:sta, komponentit ovat samat ListRow, Media ja Icon
+joita sivu käyttää, ja tekstit tulevat sanakirjasta ja työlistasta. Sama
+kuva on System-sivun alussa ja case 03:ssa (lohko `kerrokset`).
+
+**Perustelu:** prototyypin levyt olivat käsin kirjoitettua merkintää, joka
+olisi vanhentunut ensimmäisestä token-muutoksesta, eli juuri se virhe
+jonka sivusto lupaa ratkaista. Prototyypistä poiketen levyillä ei ole
+varjoa, koska järjestelmässä ei ole varjoja, eikä pinolla ole jatkuvaa
+heiluntaa: liike syntyy vain osoittimesta ja vierityksestä, joten
+taukonappia ei tarvita (WCAG 2.2.2) ja silmukka on pysähdyksissä levossa.
+
+*Kirjattu 9.10.2026 Vellun pyynnöstä*

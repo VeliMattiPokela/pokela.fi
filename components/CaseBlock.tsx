@@ -1,6 +1,7 @@
 import type { Block } from '@/content/cases';
 import Media, { rajaukset } from './Media';
 import BeforeAfter from './BeforeAfter';
+import SivuKerroksina from './SivuKerroksina';
 
 /**
  * Kuinka leveänä kuva piirtyy kussakin lohkossa. Lohko tietää sen,
@@ -41,7 +42,7 @@ import { getDictionary } from '@/content/dictionaries';
  */
 export type PureBlock = Extract<
   Block,
-  { kind: 'text' | 'media' | 'pair' | 'compare' | 'band' | 'trio' | 'scope' | 'steps' | 'choices' | 'todo' }
+  { kind: 'text' | 'media' | 'pair' | 'compare' | 'band' | 'trio' | 'scope' | 'steps' | 'choices' | 'todo' | 'kerrokset' }
 >;
 
 export default function CaseBlock({
@@ -202,6 +203,22 @@ export default function CaseBlock({
               </ol>
             </div>
           </section>
+        </Reveal>
+      );
+
+    case 'kerrokset':
+      return (
+        <Reveal>
+          <section className="page case__section">
+            <h2 className="meta">{block.label}</h2>
+            <div className="case__section-body">
+              <h3 className="display-m case__h">{block.title}</h3>
+              <p className="body-l measure case__p">{block.body}</p>
+            </div>
+          </section>
+          <div className="page case__kerrokset">
+            <SivuKerroksina locale={locale} />
+          </div>
         </Reveal>
       );
 

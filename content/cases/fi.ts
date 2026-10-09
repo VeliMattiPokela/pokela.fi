@@ -290,6 +290,12 @@ const thisSite: Case = {
       ],
     },
     {
+      kind: 'kerrokset',
+      label: 'Kerroksina',
+      title: 'Sama sivu kolmena kerroksena',
+      body: 'Alimpana ovat tokenit, keskellä niistä tehdyt komponentit ja päällimmäisenä valmis sivu. Kerrokset ovat tämän sivuston omaa koodia, eivät kuvia. Vie osoitin komponentin päälle, niin näet missä sitä käytetään. Kun vierität ohi, kerrokset painuvat yhdeksi sivuksi.',
+    },
+    {
       kind: 'artefacts',
       label: 'Avaa ja tarkista',
       note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin. Se mikä ei vielä ole julkisesti auki, on merkitty tulossa olevaksi.',

@@ -77,6 +77,10 @@ export type Block =
   | { kind: 'ketju'; label: string; title: string; body: string }
   /** Numeroitu putki, ei linkkejä. */
   | { kind: 'steps'; label: string; title: string; body: string; items: { h: string; p: string }[] }
+  /** Sivusto räjäytyskuvana: tokenit, komponentit ja valmis sivu
+      (SivuKerroksina). Kerrosten sisältö tulee tokeneista ja
+      komponenteista, joten tähän kirjoitetaan vain otsikko ja johdanto. */
+  | { kind: 'kerrokset'; label: string; title: string; body: string }
   /** Kaksi rinnakkaista vaihtoehtoa. */
   | { kind: 'choices'; label: string; title: string; items: { h: string; p: string; note: string }[] }
   /** Yksi komponentti neljästä suunnasta. Sisältö luetaan

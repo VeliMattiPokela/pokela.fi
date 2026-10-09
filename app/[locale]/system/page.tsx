@@ -7,6 +7,7 @@ import tokens, { colorNames, typeNames, spaceSteps } from '@/lib/tokens';
 import ListRow from '@/components/ListRow';
 import { Grid, Col } from '@/components/Grid';
 import Icon from '@/components/Icon';
+import SivuKerroksina from '@/components/SivuKerroksina';
 
 export async function generateMetadata({
   params,
@@ -42,6 +43,18 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
           ajetaan jokaisessa buildissa <code className="code">styles/tokens.css</code>:ää vasten,
           ja build kaatuu jos ne eriytyvät.
         </p>
+      </section>
+
+      {/* ---- kerroksina ------------------------------------------ */}
+      <section className="page section" aria-labelledby="layers">
+        <div className="section-head">
+          <h2 id="layers" className="meta">
+            {dict.system.layersTitle}
+          </h2>
+          <span className="meta">{dict.system.layersMeta}</span>
+        </div>
+        <p className="body-l measure sys__note">{dict.system.layersNote}</p>
+        <SivuKerroksina locale={locale as Locale} />
       </section>
 
       {/* ---- väri ------------------------------------------------ */}
