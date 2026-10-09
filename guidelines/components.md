@@ -11,6 +11,10 @@ Use these instead of building an equivalent.
 - `PageHeader`
 - `Section`
 - `TextField`
+- `Checkbox`
+- `Radio`
+- `Switch`
+- `ChoiceGroup`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -82,6 +86,26 @@ classes.
 ```jsx
 <TextField label="Email" type="email" error="The address is missing a domain." />
 <TextField label="Message" optional="(optional)" multiline hint="Up to 500 characters." />
+```
+
+`Checkbox`, `Radio` and `Switch` are the choices; put them inside a
+`ChoiceGroup`, which gives the group its title (`legend`), `hint` and `error`.
+Use `Checkbox` for options saved with a button, `Radio` (same `name`) when
+exactly one option is picked, and `Switch` for a setting that takes effect at
+once, never in a form with a save button. An error belongs to the group, not
+to a single choice; a single required choice ("accept the terms") is still a
+`ChoiceGroup`.
+
+```jsx
+<ChoiceGroup legend="Visibility" error="Pick one.">
+  <Radio name="visibility" value="public" label="Public" hint="Anyone with the link." />
+  <Radio name="visibility" value="team" label="Team only" />
+</ChoiceGroup>
+<ChoiceGroup legend="Notifications">
+  <Switch label="Email notifications" defaultChecked />
+</ChoiceGroup>
+```
+
 ## Patterns
 
 `PageHeader` and `Section` are patterns: they add no look of their own, only
