@@ -350,8 +350,8 @@ Figmassa:
 
 1. Make-tiedosto → Settings → **Create a kit**
 2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
-3. Erityisasetuksia ei tarvita; fontit ja tyylien tuonti ovat ohjeissa
-4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla
+3. Erityisasetukset: `src/main.tsx`:ään `import '@pokela/components/styles.css';` ja `index.html`:n headiin `setup.md`:n fonttirivit
+4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla; Maken muut kolme oletusohjetta poistetaan
 5. Testaa: pyydä Makelta jotain ja katso käyttääkö se oikeita komponentteja
 6. Julkaise kit
 
