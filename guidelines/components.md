@@ -50,6 +50,10 @@ the total duration.
 `ExplodedView` shows layers as plates in 3D space: how a finished surface is
 built from its parts. Each layer is real markup, not an image. Give elements
 the same `data-kohde` in several layers and they light up together on hover.
+Mark a token with `data-token` (`"ink"` for `--ink`, `"display-l"` for
+`--text-display-l`): hovering it lights every element in the other layers
+whose computed style uses that value, and hovering an element lights its
+tokens. Usage is read from computed styles, never marked by hand.
 `tila="koottu"` starts with the layers collapsed into one surface. Put no
 links or buttons inside the layers; the whole view is one image to a screen
 reader, described by `label`.

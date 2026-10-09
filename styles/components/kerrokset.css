@@ -19,6 +19,7 @@
 .kerrokset__vari { display: grid; gap: var(--space-4); }
 .kerrokset__siru { display: block; aspect-ratio: 1.4; border: var(--hairline) solid var(--line); margin-bottom: var(--space-4); }
 .kerrokset__tyyppi { display: grid; gap: var(--space-12); align-content: start; }
+.kerrokset__tyyppinayte { display: grid; gap: var(--space-4); justify-items: start; }
 .kerrokset__valit { display: flex; align-items: flex-end; gap: var(--space-8); margin-top: var(--space-8); }
 .kerrokset__valit i { display: block; width: var(--space-12); background: var(--ink); }
 

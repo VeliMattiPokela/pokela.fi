@@ -67,11 +67,17 @@
 
 .exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__plate,
 .exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) .exploded__name { opacity: 0.35; }
+/* Himmennetty levy ei ota osoitinta: nostetun levyn peitetyt osat,
+   kuten viuhkassa piiloon jäävät tokenit, saa osoitettua. */
+.exploded__stack--kohdistus .exploded__layer:not(.exploded__layer--aktiivinen) { pointer-events: none; }
 
-/* Sama kohde kaikissa kerroksissa: katkoviiva muuttuu yhtenäiseksi. */
-.exploded [data-kohde] {
-  outline: var(--hairline) dashed transparent;
+/* Sama kohde tai token kaikissa kerroksissa saa yhtenäisen viivan.
+   Korostuksen on oltava pohjaa spesifisempi: kun se ei ollut,
+   luokka vaihtui mutta viiva jäi läpinäkyväksi. */
+.exploded__plate,
+.exploded__plate * {
+  outline: var(--hairline) solid transparent;
   outline-offset: var(--space-4);
-  transition: outline-color var(--dur-fast) var(--ease-standard);
 }
-.exploded--valaistu { outline: var(--hairline-strong) solid var(--ink); }
+.exploded__plate * { transition: outline-color var(--dur-fast) var(--ease-standard); }
+.exploded .exploded--valaistu { outline: var(--hairline-strong) solid var(--ink); }

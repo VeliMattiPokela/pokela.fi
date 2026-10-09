@@ -727,3 +727,14 @@ heiluntaa: liike syntyy vain osoittimesta ja vierityksestä, joten
 taukonappia ei tarvita (WCAG 2.2.2) ja silmukka on pysähdyksissä levossa.
 
 *Kirjattu 9.10.2026 Vellun pyynnöstä*
+
+**Lisäys (2.7.0):** Vellu huomasi, ettei kerrosten välinen korostus
+näkynyt: luokka vaihtui, mutta korostuksen CSS-sääntö hävisi
+spesifisyydessä pohjalle. Korjauksen yhteydessä tokenit liitettiin
+mukaan: `data-token` merkitsee tokenin, ja osoitin sen päällä sytyttää
+muiden kerrosten elementit, jotka käyttävät sen arvoa. Käyttöä ei
+merkitä käsin, vaan se luetaan selaimen lasketusta tyylistä, koska käsin
+merkitty liitos vanhenisi samalla tavalla kuin prototyypin levyt.
+Siksi badge-surface ei osoita mihinkään levyllä: sitä ei käytetä siellä.
+Tyyppinäyte on display-l eikä display-xl, koska sivulevyn nimi on
+display-l.
