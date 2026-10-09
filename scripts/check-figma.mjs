@@ -27,10 +27,13 @@
  *      file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa
  *      (kokeiltu, 403). Tarkistus sanoo sen ääneen eikä mene hiljaa
  *      läpi.
+ *   5. Sivupohjien tekstit löytyvät siltä sivulta jota pohja kuvaa
+ *      (scripts/figma-sivupohjat.mjs). Vertailukohta on buildattu
+ *      sivu, joten tarkistus ajetaan `next build`in jälkeen.
  *
- * Ajetaan CI:ssä omana vaiheenaan, ei `check:sync`-ketjussa: ketjun
- * pitää toimia ilman verkkoa ja ilman salaisuuksia, eikä Figman
- * katkos saa estää sivuston buildia.
+ * Ajetaan CI:ssä omana vaiheenaan buildin jälkeen, ei
+ * `check:sync`-ketjussa: ketjun pitää toimia ilman verkkoa ja ilman
+ * salaisuuksia, eikä Figman katkos saa estää sivuston buildia.
  *
  * Tunnus: FIGMA_ACCESS_TOKEN ympäristöstä tai .env.localista.
  * Exit 0 = synkassa. Exit 1 = eriytymä tai puuttuva tunnus.
@@ -38,6 +41,7 @@
 
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { tekstit } from './figma-teksti.mjs';
+import { tarkistaPohjat } from './figma-sivupohjat.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { lukija } from './figma-rajapinta.mjs';
@@ -341,11 +345,22 @@ for (const id of Object.keys(odotetut)) {
   }
 }
 
+/* ---- 5. sivupohjien tekstit ----------------------------------------
+   Sivupohjien tekstit oli kirjoitettu Figmaan käsin, eikä mikään
+   verrannut niitä sivuun. Sivun tekstit kirjoitettiin uudelleen, ja
+   pohjat jäivät vanhoiksi hiljaa. Nyt jokaisen pohjan tekstin on
+   löydyttävä buildatulta sivulta — siksi tämä ajetaan buildin jälkeen.
+   Sopimus ja rajat: scripts/figma-sivupohjat.mjs.                  */
+
+const pohjat = tarkistaPohjat(kokoPuu.document, join(root, 'out'), moodit);
+drift.push(...pohjat.drift);
+
 if (drift.length === 0) {
   console.log(
     `✓ Figma synkassa — ${library.length}/${library.length} komponenttia kytketty, ` +
       `${connections.length} osoitetta ja niiden propertyt tarkistettu, ` +
-      `${loydetyt.size} luotua tekstiä, ${gridejaTarkistettu} layout gridiä, ` +
+      `${loydetyt.size} luotua tekstiä, ${pohjat.tekstejä} sivupohjien tekstiä (${pohjat.pohjia} pohjaa), ` +
+      `${gridejaTarkistettu} layout gridiä, ` +
       `${Object.keys(SUHTEET).length} kuvasuhdetta (${tree.name})`,
   );
   if (helpers.length) {

@@ -88,9 +88,9 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'figma',
     title: 'Figma',
     proves:
-      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta. Lisäksi: sivupohjien layout grid vastaa layout-tokeneita jokaisella moodilla, ja Media-komponentin Ratio-variantti vastaa kuvaputken SUHTEET-taulua.',
+      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta. Lisäksi: sivupohjien layout grid vastaa layout-tokeneita jokaisella moodilla, Media-komponentin Ratio-variantti vastaa kuvaputken SUHTEET-taulua, ja jokainen sivupohjan teksti löytyy siltä buildatulta sivulta, jota pohja kuvaa.',
     blind:
-      'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa.',
+      'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa. Sivupohjista se huomaa vanhentuneen tekstin mutta ei puuttuvaa osiota: sivulle lisätty uusi osio, jota pohjassa ei ole, ei kaada ajoa.',
   },
   {
     id: 'paketti',
