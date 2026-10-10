@@ -202,11 +202,30 @@ function buildSpec(tokens) {
     name: 'reveal/shift', type: 'FLOAT', scopes: [], css: '--reveal-shift',
     values: { Default: px(tokens.motion.reveal.translate) },
   });
-  motion.push({
-    name: 'reveal/stagger', type: 'FLOAT', scopes: [], css: '--reveal-stagger',
-    values: { Default: px(tokens.motion.reveal.stagger) },
-  });
   spec.push({ collection: 'Motion', modes: ['Default'], variables: motion });
+
+  /* Puuttuva arvo kaataisi Figman setValueForModen viestillä
+     "Required value missing" kertomatta, mikä muuttuja. Näin kävi,
+     kun --reveal-stagger poistettiin tokens.json:sta mutta ei täältä.
+     Tarkistus nimeää muuttujan, ja koska check:docs ja check:figma
+     ajavat tämän funktion, sama virhe pysäyttää jo buildin. */
+  const puuttuvat = [];
+  for (const group of spec) {
+    for (const entry of group.variables) {
+      for (const mode of group.modes) {
+        const value = entry.values[mode];
+        const ok = typeof value === 'string'
+          ? value !== ''
+          : typeof value === 'number'
+            ? Number.isFinite(value)
+            : value && ['r', 'g', 'b', 'a'].every((k) => Number.isFinite(value[k]));
+        if (!ok) puuttuvat.push(`${group.collection}/${entry.name} (${mode})`);
+      }
+    }
+  }
+  if (puuttuvat.length) {
+    throw new Error(`tokens.json:sta puuttuu arvo: ${puuttuvat.join(', ')}`);
+  }
 
   return spec;
 }
