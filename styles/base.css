@@ -168,6 +168,39 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
 .btn--block { width: 100%; }
 @media (min-width: 600px) { .btn--block { width: auto; } }
 
+/* Koot (päätös 26). Oletus on m: 44 px, sama kuin --tap-min. s on
+   tiiviisiin näkymiin (työkalurivi), l sivun ainoaan päätoimintoon.
+   Kieli ei muutu koon mukana: viiva, paino ja käännös ovat samat.
+   Tekstinapilla ei ole kokoja, koska sillä ei ole pintaa. */
+.btn--s {
+  position: relative;
+  min-height: var(--space-32);
+  padding: var(--space-8) var(--space-16);
+}
+/* Näkyvä 32 px, osuma-alue silti --tap-min: näkymätön laajennus ylös
+   ja alas. Siksi s-nappien väli on vähintään --space-12, muuten
+   alueet menevät päällekkäin. Laajennus lasketaan reunaviivan
+   sisäpuolelta (absoluuttinen asemointi alkaa padding-laatikosta),
+   joten viiva vähennetään. */
+.btn--s::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--space-32) - var(--tap-min)) / 2 - var(--hairline)) calc(var(--hairline) * -1);
+}
+.btn--l {
+  min-height: var(--space-56);
+  padding: var(--space-16) var(--space-32);
+  font-size: var(--text-body);
+}
+
+/* Pelkkä ikoni: neliö, jonka sivu on napin korkeus. Nimi tulee aina
+   aria-labelilla, koska tekstiä ei ole. Vain primary ja ghost. */
+.btn--icon { flex: none; width: var(--tap-min); padding: 0; }
+.btn--icon.btn--s { width: var(--space-32); }
+.btn--icon.btn--s::after { inset: calc((var(--space-32) - var(--tap-min)) / 2 - var(--hairline)); }
+.btn--icon.btn--l { width: var(--space-56); }
+.btn--icon.btn--l .icon { width: var(--icon-l); height: var(--icon-l); }
+
 /* Hover = käännös. Reunaviiva tulee border-colorista, ei varjosta. */
 .btn--primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .btn--primary:hover { background: var(--paper); color: var(--ink); }
