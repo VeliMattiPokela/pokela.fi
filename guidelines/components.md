@@ -16,6 +16,8 @@ Use these instead of building an equivalent.
 - `Switch`
 - `ChoiceGroup`
 - `Select`
+- `Tabs`
+- `Tab`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -126,6 +128,22 @@ work, so do not build a dropdown from a button and a menu.
   ]}
   error="Pick a role to continue."
 />
+```
+
+`Tabs` switches between views of the same thing, such as the sections of a
+settings page. Give it a `label` for screen readers and one `Tab` per view with
+`value`, `label` and the panel as children; `count` adds a number after the
+label and `disabled` keeps a tab visible but unusable. It follows the WAI-ARIA
+tabs pattern: arrow keys move and select, Home and End jump to the ends, and
+Tab moves into the panel. Do not use it for site navigation (that is `Nav`) or
+for a step-by-step flow.
+
+```jsx
+<Tabs label="Settings" defaultValue="team">
+  <Tab value="general" label="General">…</Tab>
+  <Tab value="team" label="Team" count={4}>…</Tab>
+  <Tab value="billing" label="Billing" disabled>…</Tab>
+</Tabs>
 ```
 
 ## Patterns
