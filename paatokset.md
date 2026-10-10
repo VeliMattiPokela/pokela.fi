@@ -987,3 +987,34 @@ se on sama lähde, josta kaikki muukin tehdään, eikä haku riipu
 sivuston julkaisusta. Raw-osoite lähettää CORS-otsakkeen itse
 (tarkistettu `curl -I`:llä). Sivuston osoite jää sallituksi
 vaihtoehdoksi.
+
+## 28. Välilehdet ovat navin viivan kieltä
+
+**Tilanne:** neljäs sovelluskomponentti oli välilehdet. Luonnoksessa
+oli kaksi tapaa: A, rivi välilehtiä hiusviivan päällä ja valitulle
+musteviiva, ja B, napin kehys jossa valinta on käännetty mustaksi.
+
+**Päätös:** `Tabs` ja `Tab` (2.13.0). Vellu valitsi A:n. Valittu
+välilehti saa `--hairline-strong`-viivan tekstin levyisenä rivin
+hiusviivan päälle, muut ovat `--ink-muted` ja tummuvat hoverissa. Sama
+kieli kuin navin `aria-current`-linkki ja kentän hover-alaviiva.
+Lukumäärä (`count`) on Meta/S-koossa ilman välistystä. Rakenne on
+WAI-ARIA APG:n Tabs-malli automaattisella aktivoinnilla: `tablist`,
+`tab`, `tabpanel`, roving tabindex. Nuolet kiertävät rivin päästä
+toiseen, Home ja End vievät päihin, pois käytöstä olevat ohitetaan, ja
+paneeli on sarkainjärjestyksessä.
+
+Fokusrengas on välilehden sisällä eikä 2 px sen ulkopuolella kuten
+muualla. Kapealla näytöllä rivi vierittyy, ja vierittyvä laatikko
+leikkaa ulkopuolisen renkaan. Rengas mahtuu välilehden 8 px:n
+sisennykseen, ja sisennys kumotaan rivin negatiivisella marginaalilla,
+joten teksti alkaa palstan reunasta. Siksi rivin hiusviiva on taustana
+eikä reunana. Figmassa sama tehdään rivillä, joka on kehystä 8 px
+leveämpi kummallakin puolella.
+
+**Raja:** B (lohko) jäi pois. Jos näkymänvaihtoon (päivä, viikko,
+kuukausi) tarvitaan painavampi kytkin, se on oma komponenttinsa
+(segmented control), ei Tabsin variantti. Välilehdet eivät ole
+sivunavigaatio: linkit sivuille ovat `Nav`.
+
+*Kirjattu 10.10.2026 Vellun hyväksymän luonnoksen pohjalta*

@@ -68,6 +68,11 @@ const EXEMPT = {
     missä: 'HeroIntro',
     huom: 'HeroIntron liike ilman omaa ulkoasua.',
   },
+  'Tab.tsx': {
+    syy: 'katettu-muualla',
+    missä: 'Tabs',
+    huom: 'Ei piirrä itse mitään: Tabs lukee sen propsit ja rakentaa välilehdet.',
+  },
   'CaseBlocks.tsx': {
     syy: 'katettu-muualla',
     missä: 'CaseBlock',

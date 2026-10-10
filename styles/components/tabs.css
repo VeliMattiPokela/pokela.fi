@@ -1,0 +1,83 @@
+/* Välilehdet (Tabs). Sovelluskomponentti, sivusto ei käytä tätä.
+   ==================================================================
+   Navin aktiivisen linkin kieli (päätös 28): rivi välilehtiä
+   hiusviivan päällä, valittu saa musteviivan --hairline-strong, joka
+   peittää hiusviivan. Valitsematon on --ink-muted ja tummuu hoverissa.
+
+   Välilehdellä on 8 px sivusisennys, jotta fokusrengas mahtuu sen
+   sisään: rivi vierittyy kapealla näytöllä, ja vierittyvä laatikko
+   leikkaisi ulkopuolisen renkaan. Sisennys kumotaan rivin
+   negatiivisella marginaalilla, joten teksti alkaa palstan reunasta.
+   Siksi hiusviiva on taustana eikä reunana: reuna jatkuisi 8 px yli. */
+
+.tabs__list {
+  display: flex;
+  gap: var(--space-16);
+  margin-inline: calc(var(--space-8) * -1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: linear-gradient(var(--line), var(--line)) no-repeat var(--space-8) 100% /
+    calc(100% - var(--space-16)) var(--hairline);
+}
+.tabs__list::-webkit-scrollbar { display: none; }
+
+.tabs__tab {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-8);
+  margin: 0;
+  background: none;
+  border: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-s);
+  font-weight: var(--weight-500);
+  line-height: 1;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tabs__tab { transition: color var(--dur-fast) var(--ease-standard); }
+}
+.tabs__tab::after {
+  content: '';
+  position: absolute;
+  left: var(--space-8);
+  right: var(--space-8);
+  bottom: 0;
+  height: var(--hairline-strong);
+}
+.tabs__tab:hover { color: var(--ink); }
+.tabs__tab[aria-selected='true'] { color: var(--ink); }
+.tabs__tab[aria-selected='true']::after { background: var(--ink); }
+.tabs__tab:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: calc(var(--focus-width) * -1);
+}
+.tabs__tab[aria-disabled='true'] { color: var(--ink-faint); cursor: not-allowed; }
+
+.tabs__count {
+  font-size: var(--text-meta-s);
+  font-weight: var(--weight-600);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+}
+.tabs__tab[aria-selected='true'] .tabs__count { color: var(--ink-muted); }
+
+.tabs__panel { padding-top: var(--space-24); }
+.tabs__panel:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: var(--focus-offset);
+}
+
+/* Korkean kontrastin tilassa taustat katoavat: valinnan viiva
+   piirretään järjestelmän värillä. */
+@media (forced-colors: active) {
+  .tabs__tab::after { forced-color-adjust: none; }
+  .tabs__tab[aria-selected='true']::after { background: Highlight; }
+  .tabs__tab[aria-disabled='true'] { color: GrayText; }
+}
