@@ -7,3 +7,12 @@
 
 # Synkkatarkistus ajetaan osana build-komentoa (package.json: build).
 # Jos tokenit ovat eriytyneet, build kaatuu eikä sivustoa julkaista.
+
+# Figma-plugin (figma-plugin/) hakee tokenit tästä osoitteesta. Pluginin
+# ikkunan origin on "null", joten ilman CORS-otsaketta selain estää
+# vastauksen ja plugin näyttää vain "Failed to fetch". Tiedosto on
+# julkista dataa, joten mikä tahansa origin saa lukea sen.
+[[headers]]
+  for = "/tokens.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"

@@ -42,6 +42,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { tekstit } from './figma-teksti.mjs';
 import { tarkistaPohjat } from './figma-sivupohjat.mjs';
+import { tarkistaVarisivu } from './figma-varisivu.mjs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { lukija } from './figma-rajapinta.mjs';
@@ -355,11 +356,19 @@ for (const id of Object.keys(odotetut)) {
 const pohjat = tarkistaPohjat(kokoPuu.document, join(root, 'out'), moodit);
 drift.push(...pohjat.drift);
 
+/* ---- 6. Väri-sivun taulut ------------------------------------------
+   Taulut ovat käsin rakennettuja, ja --danger jäi niistä pois, vaikka
+   muuttuja syntyi. Sopimus ja rajat: scripts/figma-varisivu.mjs.   */
+
+const varisivu = tarkistaVarisivu(kokoPuu.document, tokenit.color);
+drift.push(...varisivu.drift);
+
 if (drift.length === 0) {
   console.log(
     `✓ Figma synkassa — ${library.length}/${library.length} komponenttia kytketty, ` +
       `${connections.length} osoitetta ja niiden propertyt tarkistettu, ` +
       `${loydetyt.size} luotua tekstiä, ${pohjat.tekstejä} sivupohjien tekstiä (${pohjat.pohjia} pohjaa), ` +
+      `${varisivu.riveja} väritaulun riviä, ` +
       `${gridejaTarkistettu} layout gridiä, ` +
       `${Object.keys(SUHTEET).length} kuvasuhdetta (${tree.name})`,
   );
