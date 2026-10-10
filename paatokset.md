@@ -952,3 +952,30 @@ menevät päällekkäin. Laajennus ei ulotu yli, jos napin vanhempi leikkaa
 sisältönsä (`overflow: hidden`).
 
 *Kirjattu 10.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 27. Väri-sivun taulut tarkistetaan, ja plugin saa tokenit verkosta
+
+**Tilanne:** Vellu huomasi 10.10.2026, ettei `--danger` näkynyt Figman
+Väri-sivulla, vaikka muuttuja oli olemassa (päätös 22). Taulut on
+rakennettu käsin, eikä mikään verrannut niitä tokeneihin. Samalla
+Tokenit Figmaan -plugin näytti "Failed to fetch": `/tokens.json`
+julkaistaan, mutta Netlify ei lähettänyt CORS-otsaketta, ja pluginin
+ikkunan origin on "null", joten selain esti vastauksen.
+
+**Päätös:** `check:figma` vertaa Väri-sivun Light- ja Dark-taulujen
+rivejä tokens.jsonin väreihin: jokaisella värillä on rivi, jolla on
+`var(--nimi)` ja oikea hex, eikä ylimääräisiä rivejä ole
+(scripts/figma-varisivu.mjs). `netlify.toml` lähettää `/tokens.json`:lle
+otsakkeen `Access-Control-Allow-Origin: *`.
+
+**Perustelu:** päätöksen 8 mukaan tarkistus lisätään vasta, kun virhe
+on päässyt läpi. Tämä pääsi. Muuttujia ei voi lukea rajapinnalla
+(403), mutta taulun tekstit voi, joten tarkistus katsoo sitä, minkä
+ihminen näkee. Tarkistus todennettiin rikkomalla: ilman danger-rivejä
+se ilmoittaa kaksi puuttuvaa riviä, ja väärä hex näkyy omana
+kohtanaan.
+
+**Raja:** sirun väriä ei tarkisteta, koska sen sidos muuttujaan ei näy
+rajapinnalle. Teksti ja hex tarkistetaan.
+
+*Kirjattu 10.10.2026*
