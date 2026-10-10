@@ -328,7 +328,7 @@ missä koodimuutos.
 Kolme asiaa ohjaavat niiden kirjoittamista:
 
 **Lyhyys on sääntö, ei tyyli.** Figma sanoo suoraan: *"More context isn't
-always better. It can confuse the LLM."* <!-- generated:make-sanat -->Kaikki ohjetiedostot ovat yhteensä 1484 sanaa.<!-- /generated -->
+always better. It can confuse the LLM."* <!-- generated:make-sanat -->Kaikki ohjetiedostot ovat yhteensä 1612 sanaa.<!-- /generated -->
 
 **Propseja ei toisteta.** Make lukee paketin TypeScript-tyypit itse. Jos
 ohjeissa luettelisi propsit, ne olisivat kopio joka vanhenee — eli juuri se

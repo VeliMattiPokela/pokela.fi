@@ -924,3 +924,31 @@ kirjoittamalla (vapaa teksti) ei kuulu tähän: se olisi eri komponentti
 (combobox autocomplete).
 
 *Kirjattu 9.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 26. Napilla on kolme kokoa ja ikoninappi
+
+**Tilanne:** neljäs sovelluskomponentti. Sivustolla on yksi napin koko,
+44 px. Sovellusnäkymässä se on liian raskas työkaluriville, ja ikonilla
+varustetulle sulku- tai lisäysnapille ei ollut muotoa.
+
+**Päätös:** koot `btn--s` (32 px) ja `btn--l` (56 px, teksti
+`--text-body`), oletus m ei muutu, ja ikoninappi `btn--icon` (2.12.0).
+Vellu hyväksyi luonnoksen. Ikoninappi on neliö, jonka sivu on napin
+korkeus, ja sen nimi tulee aina `aria-label`illa. Se on vain primary-
+ja ghost-napeille: tekstinapista jäisi pelkkä merkki ilman viivaa.
+Tekstinapilla on yksi koko, koska sillä ei ole pintaa, jonka koko
+kasvaisi. Nappi pysyy luokkasopimuksena eikä siitä tule
+React-komponenttia.
+
+**Perustelu:** s näyttää 32 px, mutta osuma-alue on silti `--tap-min`:
+näkymätön `::after`-laajennus ylös ja alas, ikoninapissa joka suuntaan.
+Tiivis näkymä ei maksa kosketuskäytettävyyttä. Tarinan testi osoittaa
+pisteeseen näkyvän reunan ulkopuolella ja odottaa osuvansa nappiin. Se
+löysi ensimmäisessä ajossa virheen: laajennus laskettiin reunaviivan
+sisäpuolelta, joten alue oli 42 px eikä 44.
+
+**Raja:** s-nappien väli on vähintään `--space-12`, muuten osuma-alueet
+menevät päällekkäin. Laajennus ei ulotu yli, jos napin vanhempi leikkaa
+sisältönsä (`overflow: hidden`).
+
+*Kirjattu 10.10.2026 Vellun hyväksymän luonnoksen pohjalta*

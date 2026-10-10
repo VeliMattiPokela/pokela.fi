@@ -20,6 +20,9 @@
  *   State   → vain `disabled` on merkkausta; :hover ja :focus-visible
  *             ovat CSS:n tiloja eivätkä käänny attribuutiksi
  *   label   → napin teksti
+ *   Size     → `btn--s` / `btn--l`; m on oletus eikä tarvitse luokkaa
+ *   IconOnly → `btn--icon`, ja label siirtyy `aria-label`iksi, koska
+ *             tekstiä ei näy. Ikoni on silloin aina mukana (päätös 26).
  *   showIcon → nuoli napin perässä. Koodissa se on oma <Icon>, ei
  *             merkki tekstissä: `.btn`:n `gap: --space-8` on sitä
  *             varten. Figmassa sama väli on itemSpacing 8.
@@ -40,6 +43,17 @@ const classes = figma.selectedInstance.getEnum('Variant', {
   text: 'btn btn--text',
 });
 
+const size = figma.selectedInstance.getEnum('Size', {
+  s: ' btn--s',
+  m: '',
+  l: ' btn--l',
+});
+
+const iconOnly = figma.selectedInstance.getEnum('IconOnly', {
+  false: false,
+  true: true,
+});
+
 const icon = figma.selectedInstance.getBoolean('showIcon', {
   true: ' <Icon name="arrow-right" />',
   false: '',
@@ -55,6 +69,8 @@ const disabled = figma.selectedInstance.getEnum('State', {
 export default {
   id: 'Button',
   imports: [],
-  example: figma.code`<button type="button" className="${classes}"${disabled}>${label}${icon}</button>`,
+  example: iconOnly
+    ? figma.code`<button type="button" className="${classes}${size} btn--icon" aria-label="${label}"${disabled}><Icon name="plus" /></button>`
+    : figma.code`<button type="button" className="${classes}${size}"${disabled}>${label}${icon}</button>`,
   metadata: { nestable: true },
 };

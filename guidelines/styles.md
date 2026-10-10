@@ -32,3 +32,23 @@ things in columns, never in pixels. `Col` takes the span per breakpoint.
 
 **No icon libraries and no emoji.** Use `Icon`. <!-- generated:make-ikonit -->It draws its own 9 marks<!-- /generated --> on
 a 16×16 grid with the same hairline as every border.
+
+## Buttons
+
+A button is a class, not a component: `btn` plus `btn--primary`, `btn--ghost`
+or `btn--text`, on a `<button>` or an `<a>`. Use one primary per view. The
+default size needs no class. Use `btn--s` in dense places such as a toolbar
+above a table, and `btn--l` only for the one main action on a page. Text
+buttons have one size. Keep at least `--space-12` between small buttons: each
+one still has a 44 px touch area.
+
+An icon-only button is `btn--icon` with `btn--primary` or `btn--ghost`, never
+`btn--text`. Always give it an `aria-label`, because nothing on screen names it.
+
+```jsx
+<button type="button" className="btn btn--ghost btn--s">Filter</button>
+<button type="button" className="btn btn--primary btn--icon btn--s" aria-label="New project">
+  <Icon name="plus" />
+</button>
+<a href="/contact" className="btn btn--primary btn--l">Get in touch <Icon name="arrow-right" /></a>
+```
