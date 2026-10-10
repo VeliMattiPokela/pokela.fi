@@ -17,8 +17,19 @@ asia jonka tarkistus löytää, vaan asia jota ei voi syntyä.
 
 1. Figma → **Plugins → Development → Import plugin from manifest…**
 2. Valitse `figma-plugin/manifest.json`
-3. Aja plugin. Se hakee tokenit osoitteesta `/tokens.json`, tai voit
-   liittää `tokens.json`:n sisällön suoraan kenttään.
+3. Aja plugin. Se hakee `tokens.json`:n repon mainista GitHubin
+   raw-osoitteesta, tai voit liittää sisällön suoraan kenttään.
+
+Oletusosoite on main eikä sivusto, koska main on se lähde, josta
+kaikki muukin tehdään, eikä haku silloin riipu siitä, onko sivusto
+julkaistu (päätös 27). GitHub lähettää raw-osoitteelle
+`Access-Control-Allow-Origin: *`, jota pluginin ikkuna tarvitsee.
+Välimuisti viivästää uutta arvoa muutaman minuutin mergen jälkeen.
+Sivuston `/tokens.json` toimii yhä, kun domain on käytössä.
+
+Manifestin muutos (sallitut osoitteet) luetaan vasta, kun plugin
+tuodaan uudelleen tai Figma käynnistetään: hae muutos koneellesi
+ennen ajoa.
 
 Ajo on idempotentti: muuttujat etsitään nimellä, luodaan jos
 puuttuvat ja päivitetään jos ovat. Mitään ei poisteta — plugin ei saa

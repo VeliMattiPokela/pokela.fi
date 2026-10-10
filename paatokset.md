@@ -979,3 +979,11 @@ kohtanaan.
 rajapinnalle. Teksti ja hex tarkistetaan.
 
 *Kirjattu 10.10.2026*
+
+**Lisäys:** pokela.fi-domainia ei ole vielä kytketty Netlifyyn, joten
+`/tokens.json` ei vastannut lainkaan. Vellun kanssa sovittiin, että
+pluginin oletusosoite on mainin tokens.json GitHubin raw-osoitteessa:
+se on sama lähde, josta kaikki muukin tehdään, eikä haku riipu
+sivuston julkaisusta. Raw-osoite lähettää CORS-otsakkeen itse
+(tarkistettu `curl -I`:llä). Sivuston osoite jää sallituksi
+vaihtoehdoksi.
