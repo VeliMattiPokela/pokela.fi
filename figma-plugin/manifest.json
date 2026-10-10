@@ -6,7 +6,7 @@
   "ui": "ui.html",
   "editorType": ["figma"],
   "networkAccess": {
-    "allowedDomains": ["https://pokela.fi", "http://localhost:3000", "http://localhost:4321"],
-    "reasoning": "Hakee sivuston julkaisemat designtokenit osoitteesta /tokens.json."
+    "allowedDomains": ["https://raw.githubusercontent.com", "https://pokela.fi", "http://localhost:3000", "http://localhost:4321"],
+    "reasoning": "Hakee designtokenit repon mainista (GitHubin raw-osoite) tai sivuston osoitteesta /tokens.json."
   }
 }

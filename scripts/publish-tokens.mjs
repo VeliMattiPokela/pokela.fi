@@ -2,9 +2,10 @@
 /**
  * Julkaisee tokens.jsonin sivuston mukana osoitteeseen /tokens.json.
  * ---------------------------------------------------------------
- * Figma-plugin ei pääse paikalliseen tiedostojärjestelmään, joten se
- * hakee tokenit verkosta. Kopio syntyy buildissa eikä ole
- * versionhallinnassa — silloin se ei voi olla vanhentunut.
+ * Figma-plugin hakee oletuksena mainin tokens.jsonin GitHubista
+ * (päätös 27), mutta sivun oma kopio on sille vaihtoehto. Kopio
+ * syntyy buildissa eikä ole versionhallinnassa — silloin se ei voi
+ * olla vanhentunut.
  *
  * Sivusto julkaisee siis omat designtokeninsa pysyvään osoitteeseen.
  * Se on myös casen kannalta oikea asia: kuka tahansa voi tarkistaa
