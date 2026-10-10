@@ -46,7 +46,7 @@ tuhota työtä jota se ei tehnyt.
 | Layout | base, sm, md, lg | 6 |
 | Border | Default | 5 |
 | Icon | Default | 3 |
-| Motion | Default | 8 |
+| Motion | Default | 7 |
 <!-- /generated -->
 
 Jokainen muuttuja saa skoopin (ei koskaan `ALL_SCOPES`) ja
