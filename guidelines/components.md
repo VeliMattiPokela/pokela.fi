@@ -18,6 +18,7 @@ Use these instead of building an equivalent.
 - `Select`
 - `Tabs`
 - `Tab`
+- `Alert`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -144,6 +145,19 @@ for a step-by-step flow.
   <Tab value="team" label="Team" count={4}>…</Tab>
   <Tab value="billing" label="Billing" disabled>…</Tab>
 </Tabs>
+```
+
+`Alert` is an inline message inside the page, next to what it is about: a
+form error summary, a saved confirmation, a billing problem. `tone` is `info`
+(default), `success` or `error`; only `error` is coloured. Give a short
+`title` and the explanation as children; pass `action` for one next step (a
+`btn btn--text` link) and `onDismiss` to show a close button. Use `error` only
+for something that went wrong, never for emphasis. There is no warning tone.
+
+```jsx
+<Alert tone="error" title="Payment failed" action={<a className="btn btn--text" href="/billing">Update card</a>}>
+  The card was declined. Update it to keep the subscription.
+</Alert>
 ```
 
 ## Patterns

@@ -1018,3 +1018,30 @@ kuukausi) tarvitaan painavampi kytkin, se on oma komponenttinsa
 sivunavigaatio: linkit sivuille ovat `Nav`.
 
 *Kirjattu 10.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 29. Ilmoitus on viiva, ja sävyjä on kolme
+
+**Tilanne:** viides sovelluskomponentti oli inline-ilmoitus.
+Luonnoksessa oli kaksi tapaa: A, vasen viiva ilman pintaa, ja B,
+hiusviivakehys kuten kentässä.
+
+**Päätös:** `Alert` (2.14.0). Vellu valitsi A:n. Vasen viiva on
+`--hairline-strong`, sama paksuus kuin kentän virheviivassa. Otsikko on
+Body/S painolla 500, teksti `--ink-muted`, toiminto `.btn--text` tekstin
+alla ja sulkunappi oikealla. Sävyjä on kolme: info, success ja error.
+Vain error on värillinen: viiva, ikoni ja otsikko ovat `--danger`.
+Info ja success erottuvat ikonilla (uusi `info`, alertin neliö
+ylösalaisin, ja `check`) ja otsikolla. Virhe on `role="alert"`, muut
+`role="status"`. Sulkunappi on näkyvästi 32 px ja osuma-alue
+`--tap-min`, kuten `.btn--s` (päätös 26).
+
+**Perustelu:** kehys (B) erottui enemmän, mutta näytti kentältä tai
+kortilta. Viiva ei kilpaile sisällön kanssa ja on samaa kieltä kuin
+kentän virhe, jonka rinnalla ilmoitus usein on.
+
+**Raja:** varoitussävyä ei ole. Ilman toista tilaväriä se erottuisi
+virheestä vain sävyllä, ja `--danger` on varattu virheelle (päätös
+22). Toast (ohimenevä ilmoitus) on eri komponentti, ja se tehdään
+myöhemmin.
+
+*Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*

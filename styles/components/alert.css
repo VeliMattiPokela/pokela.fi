@@ -1,0 +1,74 @@
+/* Inline-ilmoitus (Alert). Sovelluskomponentti, sivusto ei käytä tätä.
+   ==================================================================
+   Vasen viiva --hairline-strong, ei pintaa eikä kehystä (päätös 29).
+   Ikoni, otsikko (paino 500) ja teksti (--ink-muted) ovat samassa
+   koossa kuin kentän virheteksti. Virheessä viiva, ikoni ja otsikko
+   ovat --danger; teksti pysyy --ink-mutedina, jotta pitkäkin selitys
+   on luettava. */
+
+.alert {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: var(--space-12);
+  align-items: start;
+  padding: var(--space-4) 0 var(--space-4) var(--space-16);
+  border-left: var(--hairline-strong) solid var(--ink);
+  color: var(--ink);
+}
+
+/* Ikoni ensimmäisen rivin keskelle, kuten .field__errorissa. */
+.alert__icon { margin-top: calc((var(--lh-body-s) * var(--text-body-s) - var(--icon-m)) / 2); }
+
+.alert__content { min-width: 0; }
+.alert__title,
+.alert__body {
+  margin: 0;
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+}
+.alert__title { font-weight: var(--weight-500); }
+.alert__body { color: var(--ink-muted); }
+.alert__body > * { margin: 0; }
+.alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12) var(--space-24);
+  margin-top: var(--space-12);
+}
+
+.alert--error { border-left-color: var(--danger); }
+.alert--error .alert__icon,
+.alert--error .alert__title { color: var(--danger); }
+
+/* Sulkunappi: näkyvä 32 px, osuma-alue --tap-min kuten .btn--s:ssä
+   (päätös 26). Ensimmäisen rivin keskelle, ja oikea reuna vedetään
+   ikonin reunaan, jotta X on linjassa tekstipalstan oikean reunan
+   kanssa. */
+.alert__close {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-32);
+  height: var(--space-32);
+  margin: calc((var(--lh-body-s) * var(--text-body-s) - var(--space-32)) / 2)
+    calc((var(--space-32) - var(--icon-m)) / -2) 0 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.alert__close::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--space-32) - var(--tap-min)) / 2);
+}
+.alert__close:hover { color: var(--ink); }
+.alert__close:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: calc(var(--focus-width) * -1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .alert__close { transition: color var(--dur-fast) var(--ease-standard); }
+}
