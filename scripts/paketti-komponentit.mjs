@@ -39,7 +39,7 @@ const TEKIJA = 'Veli-Matti Pokela';
 const VUOSI = 2026;
 
 /** Komponentit jotka paketti vie. Ks. tiedoston alku. */
-export const VIETAVAT = ['Icon', 'ListRow', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle'];
+export const VIETAVAT = ['Icon', 'ListRow', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Table', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle'];
 
 /**
  * CSS jonka vietävät komponentit tarvitsevat.
@@ -61,6 +61,7 @@ export const TYYLIT = [
   'styles/components/select.css',
   'styles/components/tabs.css',
   'styles/components/alert.css',
+  'styles/components/table.css',
 ];
 
 /**

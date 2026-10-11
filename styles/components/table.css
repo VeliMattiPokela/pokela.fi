@@ -1,0 +1,184 @@
+/* Taulukko (Table). Sovelluskomponentti, sivusto ei käytä tätä.
+   ==================================================================
+   Rivit hiusviivalla, otsikkorivin alla musteviiva (päätös 30). Ei
+   pystyviivoja, raitoja eikä pintaa. Otsikot ovat metatekstiä, data
+   Body/S:ää. Rivi on vähintään --tap-min, jotta solun linkkiin ja
+   nappiin osuu sormella.
+
+   Laatikolla on 8 px sivusisennys samasta syystä kuin välilehtirivillä:
+   se vierittyy, ja vierittyvä laatikko leikkaisi fokusrenkaan reunoilta.
+   Sisennys kumotaan negatiivisella marginaalilla, joten taulukko alkaa
+   palstan reunasta. Laatikon oma fokusrengas on sivuston oletus, ulkona:
+   sisäpuolinen jäisi kiinnitetyn sarakkeen alle. */
+
+.table {
+  margin-inline: calc(var(--space-8) * -1);
+  padding-inline: var(--space-8);
+  overflow-x: auto;
+}
+
+.table__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink);
+}
+
+.table__caption {
+  padding-bottom: var(--space-12);
+  font-weight: var(--weight-500);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  height: var(--tap-min);
+  padding: 0 var(--space-16) 0 0;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.table th:last-child,
+.table td:last-child { padding-right: 0; }
+
+.table th {
+  font-family: var(--font-ui);
+  font-size: var(--text-meta);
+  line-height: var(--lh-meta);
+  font-weight: var(--weight-600);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-bottom: var(--hairline) solid var(--ink);
+}
+.table th[aria-sort='ascending'],
+.table th[aria-sort='descending'] { color: var(--ink); }
+
+.table td { border-bottom: var(--hairline) solid var(--line); }
+
+.table .table__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.table__muted { color: var(--ink-muted); }
+
+/* Lajittelunappi täyttää otsikkosolun korkeuden, ja sen 8 px sivu-
+   sisennys kumotaan, jotta teksti pysyy sarakkeen linjassa ja
+   fokusrengas mahtuu napin sisään. Nuoli on näkymätön, kunnes sarake
+   on lajiteltu, tai näkyy haaleana hoverissa ja fokuksessa: se kertoo,
+   että saraketta voi lajitella. Nouseva järjestys osoittaa ylös. */
+.table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  /* Hiusviiva on rivin alareunassa, joten nappi on sen verran matalampi. */
+  min-height: calc(var(--tap-min) - var(--hairline));
+  margin: 0 calc(var(--space-8) * -1);
+  padding: 0 var(--space-8);
+  background: none;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.table__sort-icon { opacity: 0; }
+.table__sort:hover,
+.table__sort:focus-visible { color: var(--ink); }
+.table__sort:hover .table__sort-icon,
+.table__sort:focus-visible .table__sort-icon { opacity: 1; color: var(--ink-faint); }
+.table__sort[data-direction] .table__sort-icon { opacity: 1; color: var(--ink); }
+.table__sort[data-direction='ascending'] .table__sort-icon { transform: rotate(180deg); }
+.table__sort:focus-visible {
+  outline: var(--focus-width) solid var(--ink);
+  outline-offset: calc(var(--focus-width) * -1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .table__sort { transition: color var(--dur-fast) var(--ease-standard); }
+  .table__sort-icon { transition: opacity var(--dur-fast) var(--ease-standard); }
+}
+
+/* Rivi korostuu vain osoittimen alla, ei kosketuksella: napautus ei
+   saa jättää riviä korostetuksi. */
+@media (hover: hover) {
+  .table tbody tr:not(.table__empty):hover td { background: var(--paper-alt); }
+}
+
+/* Ensimmäinen sarake pysyy paikallaan, kun taulukkoa vieritetään.
+   Varjo täyttää laatikon 8 px sisennyksen, jotta alle vierittyvä teksti
+   ei näy sen läpi. Viiva tulee vasta, kun jotain on vierittynyt alle. */
+.table th:first-child,
+.table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--paper);
+  box-shadow: calc(var(--space-8) * -1) 0 0 var(--paper);
+}
+.table[data-scrolled] th:first-child,
+.table[data-scrolled] td:first-child {
+  box-shadow:
+    calc(var(--space-8) * -1) 0 0 var(--paper),
+    inset calc(var(--hairline) * -1) 0 0 var(--line);
+}
+@media (hover: hover) {
+  .table tbody tr:not(.table__empty):hover td:first-child {
+    box-shadow: calc(var(--space-8) * -1) 0 0 var(--paper);
+  }
+  .table[data-scrolled] tbody tr:not(.table__empty):hover td:first-child {
+    box-shadow:
+      calc(var(--space-8) * -1) 0 0 var(--paper),
+      inset calc(var(--hairline) * -1) 0 0 var(--line);
+  }
+}
+
+.table__empty td {
+  position: static;
+  height: auto;
+  padding: var(--space-32) 0;
+  color: var(--ink-muted);
+  white-space: normal;
+}
+
+/* Toiminto solussa, esim. Muokkaa. Alleviivaus tekstin omalla viivalla
+   eikä .btn--textin alareunalla, jotta teksti pysyy rivin muun tekstin
+   linjassa. Osuma-alue on rivin korkuinen. */
+.table__action {
+  position: relative;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--hairline);
+  text-underline-offset: var(--space-4);
+}
+.table__action:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--hairline-strong);
+}
+.table__action::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: var(--tap-min);
+  transform: translateY(-50%);
+}
+
+/* Tila solussa: ikoni ja teksti, ei koskaan pelkkä väri. Virhe on
+   --danger kuten kentässä ja ilmoituksessa. */
+/* Lohko eikä inline-flex: ikonilla ei ole perusviivaa, joten
+   inline-flex nostaisi tekstin rivin muun tekstin yläpuolelle. */
+.table__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+.table__status--error { color: var(--danger); }
+
+@media (forced-colors: active) {
+  .table th:first-child,
+  .table td:first-child { box-shadow: none; }
+}
