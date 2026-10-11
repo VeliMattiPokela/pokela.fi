@@ -18,8 +18,9 @@
  * Koot ovat tokeneita: --icon-s (12) tekstin seassa metan kanssa,
  * --icon-m (16) napin sisällä, --icon-l (24) omana painikkeenaan.
  *
- * `alert` kulkee aina virhetekstin rinnalla, ei yksin: merkitys on
- * tekstissä, ikoni ja --danger vain nopeuttavat sen löytämistä.
+ * `alert` ja `info` kulkevat aina tekstin rinnalla, eivät yksin:
+ * merkitys on tekstissä, ikoni (ja virheessä --danger) vain nopeuttaa
+ * sen löytämistä.
  *
  * Nuoli on kahta lajia eikä yhtä: `arrow-right` vie sivustolla eteen-
  * päin, `arrow-up-right` ulos. Ero on lukijalle sama kuin
@@ -34,6 +35,7 @@ export type IconName =
   | 'close'
   | 'menu'
   | 'alert'
+  | 'info'
   | 'chevron-down'
   | 'check';
 
@@ -52,6 +54,9 @@ const PATHS: Record<IconName, string[]> = {
      vinot sivut eivät osu puolikkaan pikselin ruudukolle. Piste on
      lyhyt viiva, koska täyttöä ei ole. */
   alert: ['M2.5 2.5 H14.5 V14.5 H2.5 Z', 'M8.5 5 V10', 'M8.5 11.5 V12.5'],
+  /* Tieto. Alertin neliö ylösalaisin: piste ylhäällä, varsi alla.
+     Erottuu virheestä muodolla eikä vain värillä. */
+  info: ['M2.5 2.5 H14.5 V14.5 H2.5 Z', 'M8.5 4.5 V5.5', 'M8.5 7 V12'],
   /* Selectin nuoli ja valitun vaihtoehdon merkki. 45 asteen viivat
      puolikkaan pikselin ruudukolla, kuten nuolissa. */
   'chevron-down': ['M4.5 6.5 L8.5 10.5 L12.5 6.5'],

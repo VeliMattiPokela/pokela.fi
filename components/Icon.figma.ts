@@ -4,7 +4,7 @@
 /**
  * Code Connect — Icon.
  * ---------------------------------------------------------------
- * Yhdeksän merkkiä, kolme kokoa: 27 varianttia. Kartoitus on suora,
+ * Kymmenen merkkiä, kolme kokoa: 30 varianttia. Kartoitus on suora,
  * koska Figman akselit ja koodin propsit ovat tässä sama asia —
  * `Name` on `name`, `Size` on `size`.
  *
@@ -33,6 +33,7 @@ const name = figma.selectedInstance.getEnum('Name', {
   close: 'close',
   menu: 'menu',
   alert: 'alert',
+  info: 'info',
   'chevron-down': 'chevron-down',
   check: 'check',
 });
