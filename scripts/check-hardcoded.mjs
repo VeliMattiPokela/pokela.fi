@@ -57,6 +57,9 @@ const EXEMPT = {
   'case.css': {
     'grid-template-columns:170px': 'Metasarake mitoitettu pisimmän roolitekstin mukaan.',
   },
+  'dialog.css': {
+    'max-width:480px': 'Dialogin leveys: mitoitettu otsikolle, kahdelle napille ja lomakekentälle. Yksi komponentin mitta, ei asteikon väli.',
+  },
   'compare.css': {
     'max-width:440px':
       'Kuvatekstin leveys, ei lukumitta: teksti on keskitetty 320px kehyksen alle, ja lukumitta (62ch = 497px) irrottaisi sen kuvasta. Sama 4 saraketta kuin home.css:n roolirivillä.',
