@@ -1073,3 +1073,31 @@ kilpailivat datan kanssa.
 tehdään, jos sovellusnäkymä niitä tarvitsee.
 
 *Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 31. Dialogin verho on paperia
+
+**Tilanne:** kahdeksas sovelluskomponentti oli modaalinen dialogi.
+Systeemissä ei ole varjoja, joten dialogin piti erottua sivusta muulla
+tavalla. Luonnoksessa oli A, paperin sävyinen verho ja musteen
+hiusviivakehys, ja B, tumma verho ja kehyksetön dialogi.
+
+**Päätös:** `Dialog` (2.16.0). Vellu valitsi A:n. Verho on paperia 88 %
+peittävyydellä, ja dialogi on paperia hiusviivakehyksellä musteella.
+Leveys on enintään 480 px. Otsikko on Body/L 500, teksti Body/S
+`--ink-muted`, napit `.btn--s` oikealla vähiten vahingollinen ensin, ja
+sulkunappi on oikeassa yläkulmassa. Alle 600 px dialogi on alareunan
+arkki: viiva yläreunassa, napit täysleveinä ja ensisijainen ylimpänä.
+Toteutus on natiivi `<dialog>` ja `showModal()`: fokus pysyy
+dialogissa, Esc ja verhon klikkaus kutsuvat `onClose`a, ja fokus palaa
+avanneeseen nappiin. Sulkunappi on DOM:ssa viimeisenä, joten alkufokus
+menee ensimmäiseen kenttään tai Peruuta-nappiin.
+
+**Perustelu:** tumma verho (B) olisi tuonut systeemiin uuden värin, ja
+tummassa teemassa dialogi olisi pitänyt nostaa `--paper-alt`ille, jotta
+se erottuu. Paperiverho toimii samoin molemmissa teemoissa ilman uutta
+tokenia, ja kehys on samaa hiusviivaa kuin kentässä.
+
+**Raja:** dialogia ei pinota, eikä siinä ole kokoja. Ei-modaalinen
+paneeli (drawer) on eri komponentti, ja se tehdään, jos sitä tarvitaan.
+
+*Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*

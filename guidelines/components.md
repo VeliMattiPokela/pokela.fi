@@ -20,6 +20,7 @@ Use these instead of building an equivalent.
 - `Tab`
 - `Alert`
 - `Table`
+- `Dialog`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -181,6 +182,27 @@ row action is a `table__action` link whose name includes the row.
   rowKey={(m) => m.id}
   defaultSort={{ key: 'name', direction: 'ascending' }}
   empty="No members yet. Invite the first one."
+/>
+```
+
+`Dialog` is a modal for one decision or a short form: confirm a deletion,
+invite a member. Never use it for content people read, and never stack two.
+Control it with `open` and `onClose`; Esc and a click on the veil call
+`onClose`. Give a short `title` (a question for confirmations), the
+consequence as `description`, form fields as children, and buttons in
+`actions` with the least destructive first (`btn--ghost` Cancel, then
+`btn--primary`). Use `btn--s` buttons. On mobile it becomes a bottom sheet.
+
+```jsx
+<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Remove Sara from the team?"
+  description="Access ends immediately. You can invite them again later."
+  actions={<>
+    <button className="btn btn--ghost btn--s" onClick={() => setOpen(false)}>Cancel</button>
+    <button className="btn btn--primary btn--s" onClick={remove}>Remove member</button>
+  </>}
 />
 ```
 

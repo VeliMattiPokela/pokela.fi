@@ -1,0 +1,125 @@
+/* Dialogi (Dialog). Sovelluskomponentti, sivusto ei käytä tätä.
+   ==================================================================
+   Paperiverho ja hiusviivakehys (päätös 31). Systeemissä ei ole
+   varjoja eikä verhoväriä: sivu peittyy paperin sävyisellä verholla,
+   ja dialogi erottuu siitä musteviivalla. Verho on läpikuultavaa
+   paperia, joten se toimii samoin molemmissa teemoissa.
+
+   Mobiili ensin: alareunan arkki, jonka yläreunassa on viiva. 600 px
+   alkaen keskitetty dialogi, jonka ympärillä on kehys. */
+
+.dialog {
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(100dvh - var(--space-32));
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-top: var(--hairline) solid var(--ink);
+}
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+
+/* Sivu ei vierity dialogin alla. */
+html:has(.dialog[open]) { overflow: hidden; }
+
+.dialog__panel {
+  position: relative;
+  display: grid;
+  gap: var(--space-24);
+  padding: var(--space-24) var(--space-16) var(--space-32);
+}
+
+.dialog__header {
+  display: grid;
+  gap: var(--space-8);
+  /* Tila sulkunapille, ettei pitkä otsikko mene sen alle. */
+  padding-right: var(--space-40);
+}
+.dialog__title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: var(--weight-500);
+}
+.dialog__description {
+  font-size: var(--text-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--ink-muted);
+}
+.dialog__description > * { margin: 0; }
+
+.dialog__body {
+  display: grid;
+  gap: var(--space-16);
+}
+
+/* Mobiilissa napit täysleveinä allekkain, ensisijainen (viimeinen)
+   ylimpänä peukalon ulottuvilla. */
+.dialog__actions {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-12);
+}
+.dialog__actions > .btn { width: 100%; }
+
+/* Sulkunappi: näkyvä 32 px, osuma-alue --tap-min, kuten Alertissa. */
+.dialog__close {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-32);
+  height: var(--space-32);
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.dialog__close::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--space-32) - var(--tap-min)) / 2);
+}
+.dialog__close:hover { color: var(--ink); }
+
+@media (min-width: 600px) {
+  .dialog {
+    inset: 0;
+    width: calc(100% - var(--space-32));
+    max-width: 480px;
+    margin: auto;
+    border: var(--hairline) solid var(--ink);
+  }
+  .dialog__panel { padding: var(--space-32); }
+  .dialog__close { top: var(--space-24); right: var(--space-24); }
+  .dialog__actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .dialog__actions > .btn { width: auto; }
+}
+
+/* Liike: dialogi nousee ja verho häivyttää. Ei liikettä, jos käyttäjä
+   on sen kieltänyt. */
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] { animation: dialog-esiin var(--dur-base) var(--ease-out); }
+  .dialog[open]::backdrop { animation: dialog-verho var(--dur-base) var(--ease-out); }
+  .dialog__close { transition: color var(--dur-fast) var(--ease-standard); }
+}
+@keyframes dialog-esiin { from { opacity: 0; transform: translateY(var(--space-8)); } }
+@keyframes dialog-verho { from { opacity: 0; } }
+
+@media (forced-colors: active) {
+  .dialog::backdrop { background: Canvas; opacity: 0.88; }
+}
