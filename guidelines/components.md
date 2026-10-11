@@ -19,6 +19,7 @@ Use these instead of building an equivalent.
 - `Tabs`
 - `Tab`
 - `Alert`
+- `Table`
 - `Grid`, `Col`
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
@@ -158,6 +159,29 @@ for something that went wrong, never for emphasis. There is no warning tone.
 <Alert tone="error" title="Payment failed" action={<a className="btn btn--text" href="/billing">Update card</a>}>
   The card was declined. Update it to keep the subscription.
 </Alert>
+```
+
+`Table` is for data people compare across rows: members, invoices, logs.
+Never use it for layout or for a list of links (use `ListRow`). Pass
+`columns` and `rows`; mark numbers `numeric` (right-aligned, tabular) and
+secondary text `muted`. `sortable` columns sort when the header is clicked;
+set `defaultSort` for the initial order. Always give a `caption`; it is read
+by screen readers even when hidden. Status in a cell is an icon and text in
+`table__status` (`table__status--error` for failures), never colour alone; a
+row action is a `table__action` link whose name includes the row.
+
+```jsx
+<Table
+  caption="Team members"
+  columns={[
+    { key: 'name', header: 'Name', sortable: true },
+    { key: 'changes', header: 'Changes', numeric: true, sortable: true },
+  ]}
+  rows={members}
+  rowKey={(m) => m.id}
+  defaultSort={{ key: 'name', direction: 'ascending' }}
+  empty="No members yet. Invite the first one."
+/>
 ```
 
 ## Patterns

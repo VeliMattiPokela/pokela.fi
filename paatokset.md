@@ -1045,3 +1045,31 @@ virheestä vain sävyllä, ja `--danger` on varattu virheelle (päätös
 myöhemmin.
 
 *Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 30. Taulukon otsikot ovat metatekstiä
+
+**Tilanne:** seitsemäs sovelluskomponentti oli taulukko. Luonnoksessa
+oli kaksi otsikkotapaa: A, Meta-otsikot ja otsikkorivin alla
+hiusviivan paksuinen musteviiva, ja B, Body/S 500 -otsikot ja 2 px
+musteviiva.
+
+**Päätös:** `Table` (2.15.0). Vellu valitsi A:n. Rivit erotetaan
+hiusviivalla, eikä taulukossa ole pystyviivoja, raitoja eikä pintaa.
+Rivi on `--tap-min` hiusviivoineen. Luvut ovat oikealla tasalevyisin
+numeroin. Lajiteltava otsikko on nappi `<th>`:n sisällä, ja `<th>`
+kertoo järjestyksen `aria-sort`illa. Lajiteltu sarake on musteella, ja
+nuoli osoittaa ylös nousevassa ja alas laskevassa järjestyksessä.
+Lajittelematon nuoli näkyy haaleana vain hoverissa ja fokuksessa.
+Hover korostaa rivin `--paper-alt`illa vain osoittimella. Kun
+taulukko ei mahdu, se vierittyy, ensimmäinen sarake pysyy paikallaan
+ja laatikosta tulee nimetty alue, johon pääsee sarkaimella. Tila
+solussa on ikoni ja teksti, virhe `--danger`.
+
+**Perustelu:** Meta-otsikot ovat ListRow'n ja metatekstin kieltä ja
+jäävät taustalle, joten huomio menee dataan. B:n painotetut otsikot
+kilpailivat datan kanssa.
+
+**Raja:** rivin valintaa, sivutusta ja solun muokkausta ei ole. Ne
+tehdään, jos sovellusnäkymä niitä tarvitsee.
+
+*Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*
