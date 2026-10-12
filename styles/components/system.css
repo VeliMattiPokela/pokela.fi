@@ -65,11 +65,49 @@
 
 /* ---- komponentit -------------------------------------------------- */
 
-.sys__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-32);
-  padding-block: var(--space-24) var(--space-48);
+/* Ryhmä: nimi ja kuvaus vasemmalla, näytteet oikealla, kuten
+   typografiarivit. Pienellä ruudulla päällekkäin. */
+.sys__groups { border-top: var(--hairline) solid var(--line); }
+.sys__group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+  padding-block: var(--space-32) var(--space-48);
+  border-bottom: var(--hairline) solid var(--line);
 }
-.sys__specimen { display: flex; flex-direction: column; gap: var(--space-12); align-items: flex-start; }
-.sys__specimen--wide { padding-bottom: var(--space-12); }
+@media (min-width: 900px) { .sys__group { grid-template-columns: 190px minmax(0, 1fr); gap: var(--space-40); } }
+.sys__group-meta { display: grid; gap: var(--space-8); align-content: start; }
+.sys__group-meta h3, .sys__group-meta p { margin: 0; }
+
+.sys__specimens {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-48) var(--space-40);
+}
+@media (min-width: 900px) { .sys__specimens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.sys__specimen { display: grid; gap: var(--space-16); align-content: start; min-width: 0; }
+.sys__specimen--wide { grid-column: 1 / -1; }
+.sys__specimen-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-4) var(--space-12); }
+.sys__specimen-body { min-width: 0; }
+.sys__specimen-body > p { margin: 0; }
+
+.sys__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-16); }
+.sys__stack { display: grid; gap: var(--space-24); }
+.sys__panel { margin: 0; padding-top: var(--space-16); }
+.sys__link { text-decoration: underline; text-underline-offset: var(--space-4); }
+
+.sys__icons {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--space-96), 1fr));
+  border-top: var(--hairline) solid var(--line);
+  border-left: var(--hairline) solid var(--line);
+}
+.sys__icon {
+  display: grid; justify-items: center; gap: var(--space-8);
+  padding: var(--space-16) var(--space-8);
+  border-right: var(--hairline) solid var(--line);
+  border-bottom: var(--hairline) solid var(--line);
+  text-align: center;
+}

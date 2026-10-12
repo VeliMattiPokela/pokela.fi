@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { isLocale, path, type Locale } from '@/lib/i18n';
 import { getWork } from '@/content/work';
@@ -6,10 +7,64 @@ import { getDictionary } from '@/content/dictionaries';
 import tokens, { colorNames, typeNames, spaceSteps } from '@/lib/tokens';
 import ListRow from '@/components/ListRow';
 import { Grid, Col } from '@/components/Grid';
-import Icon from '@/components/Icon';
+import Icon, { ICON_NAMES } from '@/components/Icon';
+import Media from '@/components/Media';
+import LogoRow from '@/components/LogoRow';
+import Timeline, { TimelineItem } from '@/components/Timeline';
+import {
+  AccordionNayte,
+  AlertNayte,
+  DialogNayte,
+  LomakeNayte,
+  TabsNayte,
+  TaulukkoNayte,
+  ValintaNayte,
+} from './Naytteet';
 import SivuKerroksina from '@/components/SivuKerroksina';
 import PageHeader from '@/components/PageHeader';
 import Section from '@/components/Section';
+
+/**
+ * Komponenttiosion ryhmät. Jokainen kirjaston komponentti on täsmälleen
+ * yhdessä ryhmässä; määrä lasketaan tästä, ei kirjoiteta käsin.
+ */
+const RYHMAT = [
+  { id: 'perusosat', nimi: 'Perusosat', kuvaus: 'Napit ja ikonit, joista muut komponentit kootaan.', komponentit: ['Button', 'Icon'] },
+  {
+    id: 'lomakkeet',
+    nimi: 'Lomakkeet',
+    kuvaus: 'Kentät ja valinnat. Virhe on ainoa tila, jolla on oma väri.',
+    komponentit: ['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup'],
+  },
+  { id: 'navigaatio', nimi: 'Navigaatio', kuvaus: 'Liikkuminen sivujen ja sisällön osien välillä.', komponentit: ['Nav', 'Tabs', 'Accordion', 'Footer'] },
+  { id: 'palaute', nimi: 'Palaute', kuvaus: 'Ilmoitukset ja vahvistukset käyttäjälle.', komponentit: ['Alert', 'Dialog'] },
+  { id: 'data', nimi: 'Data ja listat', kuvaus: 'Rivit, taulukot ja aikajana.', komponentit: ['Table', 'ListRow', 'Timeline'] },
+  {
+    id: 'media',
+    nimi: 'Media',
+    kuvaus: 'Kuvat, video ja tunnisteet. Kuvat tulevat kuvaputkesta.',
+    komponentit: ['Media', 'Video', 'LogoRow', 'HeroName', 'ExplodedView'],
+  },
+  { id: 'rakenne', nimi: 'Rakenne', kuvaus: 'Sivun kehys. Tämä sivu on koottu niistä.', komponentit: ['PageHeader', 'Section', 'Grid'] },
+] as const;
+
+const SOVELLUS = new Set(['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Tabs', 'Alert', 'Dialog', 'Table']);
+
+const komponentteja = RYHMAT.reduce((n, r) => n + r.komponentit.length, 0);
+
+/** Yksi näyte: komponentin nimi, merkintä ja elävä esitys. */
+function Nayte({ nimi, huom, leveä, children }: { nimi: string; huom?: string; leveä?: boolean; children: ReactNode }) {
+  return (
+    <div className={['sys__specimen', leveä && 'sys__specimen--wide'].filter(Boolean).join(' ')}>
+      <div className="sys__specimen-head">
+        <span className="meta ink">{nimi}</span>
+        {SOVELLUS.has(nimi) ? <span className="meta meta--s">Sovellus</span> : null}
+        {huom ? <span className="meta meta--s">{huom}</span> : null}
+      </div>
+      <div className="sys__specimen-body">{children}</div>
+    </div>
+  );
+}
 
 export async function generateMetadata({
   params,
@@ -28,6 +83,138 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   if (!isLocale(locale)) return null;
   const dict = getDictionary(locale as Locale);
+
+  const lead = getWork(locale as Locale).leads;
+  const naytteet: Record<(typeof RYHMAT)[number]['id'], ReactNode> = {
+    perusosat: (
+      <>
+        <Nayte nimi="Button" huom="Variantit" leveä>
+          <div className="sys__row">
+            <button type="button" className="btn btn--primary">{dict.about.contact}</button>
+            <button type="button" className="btn btn--ghost">{dict.home.allWork}</button>
+            <button type="button" className="btn btn--text">
+              {dict.home.aboutLink} <Icon name="arrow-right" />
+            </button>
+            <button type="button" className="btn btn--ghost" disabled>Ei saatavilla</button>
+          </div>
+        </Nayte>
+        <Nayte nimi="Button" huom="Koot s · m · l ja ikoninappi" leveä>
+          <div className="sys__row">
+            <button type="button" className="btn btn--ghost btn--s">Pieni</button>
+            <button type="button" className="btn btn--ghost">Perus</button>
+            <button type="button" className="btn btn--ghost btn--l">Suuri</button>
+            <button type="button" className="btn btn--primary btn--icon btn--s" aria-label="Lisää">
+              <Icon name="plus" />
+            </button>
+            <button type="button" className="btn btn--ghost btn--icon" aria-label="Valikko">
+              <Icon name="menu" />
+            </button>
+          </div>
+        </Nayte>
+        <Nayte nimi="Icon" huom={`${ICON_NAMES.length} merkkiä`} leveä>
+          <ul className="sys__icons">
+            {ICON_NAMES.map((n) => (
+              <li key={n} className="sys__icon">
+                <Icon name={n} />
+                <span className="meta meta--s">{n}</span>
+              </li>
+            ))}
+          </ul>
+        </Nayte>
+      </>
+    ),
+    lomakkeet: (
+      <>
+        <Nayte nimi="TextField" huom="Perus · virhe · vihje · monirivinen">
+          <LomakeNayte />
+        </Nayte>
+        <Nayte nimi="Select" huom="Ja valinnat: Radio, Checkbox, ChoiceGroup, Switch">
+          <ValintaNayte />
+        </Nayte>
+      </>
+    ),
+    navigaatio: (
+      <>
+        <Nayte nimi="Tabs" leveä>
+          <TabsNayte />
+        </Nayte>
+        <Nayte nimi="Accordion" huom="Yksi auki kerrallaan" leveä>
+          <AccordionNayte labels={{ open: dict.work.open, close: dict.work.close }} />
+        </Nayte>
+        <Nayte nimi="Nav ja Footer" huom="Tämän sivun ylä- ja alareuna" leveä>
+          <p className="body-s muted">
+            Navigaatio ja alatunniste ovat sivun kehyksessä, joten ne näkyvät tämän sivun ylä- ja alareunassa.
+          </p>
+        </Nayte>
+      </>
+    ),
+    palaute: (
+      <>
+        <Nayte nimi="Alert" huom="Info · onnistui · virhe">
+          <AlertNayte />
+        </Nayte>
+        <Nayte nimi="Dialog" huom="Avaa napista; Esc sulkee">
+          <DialogNayte />
+        </Nayte>
+      </>
+    ),
+    data: (
+      <>
+        <Nayte nimi="Table" huom="Järjestä otsikoista" leveä>
+          <TaulukkoNayte />
+        </Nayte>
+        <Nayte nimi="ListRow" huom={dict.system.listRowHint} leveä>
+          <div className="list-rows">
+            {lead.slice(0, 2).map((l) => (
+              <ListRow
+                as={Link}
+                key={l.slug}
+                title={l.title}
+                description={l.tagline}
+                meta={l.meta}
+                href={path(locale as Locale, 'work', l.slug)}
+              />
+            ))}
+          </div>
+        </Nayte>
+        <Nayte nimi="Timeline" leveä>
+          <Timeline>
+            <TimelineItem label="09:00" group="Tarkistukset" title="Tokenit" meta="1 s" description="tokens.json vastaa tyylejä." />
+            <TimelineItem label="09:01" title="Kuvat" meta="12 s" description="Kuvaputki ajettu." variant="emphasis" />
+            <TimelineItem label="09:02" title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
+          </Timeline>
+        </Nayte>
+      </>
+    ),
+    media: (
+      <>
+        <Nayte nimi="Media" huom="Kuva, suhde 4:3">
+          <Media id="blokbook-hero" ratio="4:3" sizes="(min-width: 900px) 40vw, 100vw" />
+        </Nayte>
+        <Nayte nimi="Video" huom="Median kautta, kun paikka on video">
+          <Media id="colliers-hero" ratio="4:3" sizes="(min-width: 900px) 40vw, 100vw" />
+        </Nayte>
+        <Nayte nimi="LogoRow" leveä>
+          <LogoRow label={dict.common.clients} />
+        </Nayte>
+        <Nayte nimi="HeroName ja ExplodedView" leveä>
+          <p className="body-s muted">
+            Nimi on etusivun otsikko, joten se näytetään siellä eikä tällä sivulla toisena pääotsikkona.{' '}
+            <Link href={path(locale as Locale)} className="sys__link">Etusivulle</Link>. ExplodedView on osion{' '}
+            <a href="#layers" className="sys__link">00 Kerroksina</a> kuva.
+          </p>
+        </Nayte>
+      </>
+    ),
+    rakenne: (
+      <Nayte nimi="PageHeader, Section ja Grid" leveä>
+        <p className="body-s muted">
+          Sivun otsikko on PageHeader, jokainen numeroitu osio on Section, ja{' '}
+          <a href="#grid" className="sys__link">03 Grid</a> näyttää sarakkeet.
+        </p>
+      </Nayte>
+    ),
+  };
 
   return (
     <>
@@ -150,57 +337,28 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- komponentit ----------------------------------------- */}
-      <section className="section" aria-labelledby="components">
-        <div className="page section-head">
-          <h2 id="components" className="meta">
-            05 — Komponentit
-          </h2>
-          <span className="meta">{dict.system.rules}</span>
-        </div>
+      <Section id="components" title="05 — Komponentit" meta={dict.system.rules}>
+        <p className="body-l measure sys__note">
+          Kaikki {komponentteja} komponenttia ryhmiteltynä käyttötarkoituksen mukaan, elävinä: samat
+          komponentit, jotka paketti <code className="code">@pokela/components</code> vie ja Figman
+          kirjasto kuvaa. Sovellus-merkityt ovat sovellusnäkymiä ja Makea varten; sivusto itse ei
+          käytä niitä.
+        </p>
 
-        <div className="page sys__buttons">
-          <div className="sys__specimen">
-            <span className="meta meta--s">btn--primary</span>
-            <button type="button" className="btn btn--primary">
-              {dict.about.contact}
-            </button>
-          </div>
-          <div className="sys__specimen">
-            <span className="meta meta--s">btn--ghost</span>
-            <button type="button" className="btn btn--ghost">
-              {dict.home.allWork}
-            </button>
-          </div>
-          <div className="sys__specimen">
-            <span className="meta meta--s">btn--text</span>
-            <button type="button" className="btn btn--text">
-              {dict.home.aboutLink} <Icon name="arrow-right" />
-            </button>
-          </div>
-          <div className="sys__specimen">
-            <span className="meta meta--s">disabled</span>
-            <button type="button" className="btn btn--ghost" disabled>
-              Ei saatavilla
-            </button>
-          </div>
-        </div>
-
-        <div className="page sys__specimen sys__specimen--wide">
-          <span className="meta meta--s">{dict.system.listRowHint}</span>
-        </div>
-        <div className="list-rows">
-          {getWork(locale as Locale).leads.slice(0, 2).map((lead) => (
-            <ListRow
-              as={Link}
-              key={lead.slug}
-              title={lead.title}
-              description={lead.tagline}
-              meta={lead.meta}
-              href={path(locale as Locale, 'work', lead.slug)}
-            />
+        <div className="sys__groups">
+          {RYHMAT.map((ryhma, i) => (
+            <section key={ryhma.id} className="sys__group" aria-labelledby={`komponentit-${ryhma.id}`}>
+              <div className="sys__group-meta">
+                <h3 id={`komponentit-${ryhma.id}`} className="meta ink">
+                  {String(i + 1).padStart(2, '0')} {ryhma.nimi}
+                </h3>
+                <p className="body-s muted">{ryhma.kuvaus}</p>
+              </div>
+              <div className="sys__specimens">{naytteet[ryhma.id]}</div>
+            </section>
           ))}
         </div>
-      </section>
+      </Section>
     </>
   );
 }
