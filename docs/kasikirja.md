@@ -914,8 +914,8 @@ Figmassa sama komponentti on `Video`, variantteina napin kaksi asua.
 
 Logot ovat samalla tavalla johdettuja, lähteet kansiossa
 `kuvat/logo/`. Ne piirretään CSS-maskina, joten vain alfakanava
-merkitsee — väri tulee tokenista. Siksi rasteri pakataan
-yksikanavaiseksi ja pienennetään näyttökorkeuteen × 4, mikä kattaa 3×
+merkitsee — väri tulee tokenista. Siksi rasteri pakataan mustaksi
+alfakuvaksi ja pienennetään näyttökorkeuteen × 4, mikä kattaa 3×
 näytön ja kohtuullisen zoomin.
 
 Alkuperäiset olivat 5–8-kertaisesti ylimitoitettuja: 1480 × 204

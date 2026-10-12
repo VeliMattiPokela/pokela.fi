@@ -20,8 +20,8 @@ const LOGOT = manifesti.logot as unknown as Record<
  * kirjoiteta käsin.
  *
  * Tiedostot ovat johdannaisia: `npm run kuvat` pienentää lähteen
- * näyttökokoon ja pakkaa sen yksikanavaiseksi, koska maskista luetaan
- * vain alfa. Virallinen SVG voittaa PNG:n jos sellainen pudotetaan
+ * näyttökokoon ja pakkaa sen mustaksi alfakuvaksi, koska maskista
+ * luetaan vain alfa. Virallinen SVG voittaa PNG:n jos sellainen pudotetaan
  * kansioon `kuvat/logo/`.
  */
 export default function LogoRow({ label }: { label: string }) {
