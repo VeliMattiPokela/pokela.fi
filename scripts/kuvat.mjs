@@ -704,8 +704,8 @@ async function teeVideo(nimi, lahde, { kirjoita = true, leveys = 1600 } = {}) {
    johdannainen laskettuna.
 
    Ne piirretään CSS-maskina, joten vain alfakanava merkitsee — väri
-   tulee tokenista. Siksi rasteri pakataan yksikanavaiseksi: väriarvot
-   olisivat tavuja joita mikään ei lue.
+   tulee tokenista. Siksi rasteri pakataan mustaksi alfakuvaksi
+   paletilla: väriarvot olisivat tavuja joita mikään ei lue.
 
    Rasteri tehdään näyttökorkeuteen × 4, mikä kattaa 3× näytön ja
    kohtuullisen zoomin. Alkuperäiset olivat 5–8× ylimitoitettuja:
@@ -747,9 +747,13 @@ async function teeLogot({ kirjoita = true } = {}) {
     const korkeus = Math.min(meta.height, logo.height * LOGOTARKKUUS);
     const leveys = Math.round((meta.width / meta.height) * korkeus);
     if (kirjoita) {
-      await sharp(rasteri)
-        .resize(leveys, korkeus)
-        .extractChannel('alpha')
+      /* CSS-maski lukee kuvan alfakanavan. Pelkkä extractChannel('alpha')
+         tekisi alfasta harmaasävykanavan ilman alfaa, jolloin kuva on
+         kauttaaltaan peittävä ja logo näkyy umpinaisena palkkina. Alfa
+         siis liitetään takaisin alfaksi mustan pohjan päälle. */
+      const alfa = await sharp(rasteri).resize(leveys, korkeus).extractChannel('alpha').raw().toBuffer();
+      await sharp({ create: { width: leveys, height: korkeus, channels: 3, background: '#000' } })
+        .joinChannel(alfa, { raw: { width: leveys, height: korkeus, channels: 1 } })
         .png({ compressionLevel: 9, palette: true })
         .toFile(join(LOGOJULKAISU, `${kanta}.png`));
     }
