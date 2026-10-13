@@ -1101,3 +1101,25 @@ tokenia, ja kehys on samaa hiusviivaa kuin kentässä.
 paneeli (drawer) on eri komponentti, ja se tehdään, jos sitä tarvitaan.
 
 *Kirjattu 11.10.2026 Vellun hyväksymän luonnoksen pohjalta*
+
+## 32. Käyttöliittymää ei selitetä tekstillä
+
+**Tilanne:** sivulla oli ohjeita siitä, miten sitä käytetään:
+"Vie osoitin tokenin tai komponentin päälle, niin näet missä sitä
+käytetään. Kun vierität ohi, kerrokset painuvat yhdeksi sivuksi."
+System-sivun näytteissä luki "vie osoitin päälle", "Avaa napista; Esc
+sulkee" ja "Järjestä otsikoista". Vellu piti niitä noloina: käyttäjälle
+ei tarvitse selittää kaikkea.
+
+**Päätös:** ohjeet ja toiminnan selitykset poistettiin casesta 03 ja
+System-sivulta, myös Figman sivupohjista. Sääntö on kirjattu käsikirjan
+kohtaan *Sivun teksti*.
+
+**Perustelu:** käyttöliittymän pitää toimia ilman selitystä. Jos jokin
+ei aukea ilman ohjetta, vika on toiminnassa, ja se korjataan siellä.
+
+**Raja:** ruudunlukijan tekstit (`sr-only`, `aria-label`) eivät ole
+ohjeita, vaan ne kertovat saman kuin näkyvä käyttöliittymä. Storybookin
+kuvaukset ovat kehittäjän dokumentaatiota ja saavat kertoa toiminnasta.
+
+*Kirjattu 13.10.2026 Vellun palautteen pohjalta*

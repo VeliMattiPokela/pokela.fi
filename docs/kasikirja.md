@@ -31,6 +31,10 @@ alaa eikä todista mitään.
   "vastaavat toisiaan", ei "synkassa".
 - Rajat ja epävarmuus kerrotaan ohimennen, ilman dramatiikkaa.
 - Ajatusviivoja korkeintaan yksi kappaleessa.
+- Käyttöliittymää ei selitetä. Ei "vie osoitin päälle", "klikkaa",
+  "kun vierität" tai "Esc sulkee": jos toiminto tarvitsee ohjeen,
+  korjataan toiminto, ei kirjoiteta ohjetta (päätös 32).
+  Ruudunlukijan tekstit ovat eri asia ja jäävät.
 
 Prosessiketjun tekstit (`content/prosessi.ts`) näkyvät myös Figmassa.
 Kun niitä muuttaa, Figman tekstit päivitetään samalla, muuten
