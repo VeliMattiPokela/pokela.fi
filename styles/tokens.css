@@ -36,10 +36,10 @@
   --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* MOBILE FIRST: base = 360–599 px. Isommat koot min-width-kyselyissä. */
-  --text-display-xl: 52px;   --lh-display-xl: 0.92;  --tr-display-xl: -0.02em;
-  --text-display-l: 40px;    --lh-display-l: 1;      --tr-display-l: -0.005em;
+  --text-display-xl: 52px;   --lh-display-xl: 1.05;  --tr-display-xl: -0.02em;
+  --text-display-l: 40px;    --lh-display-l: 1.05;   --tr-display-l: -0.005em;
   --text-display-m: 28px;    --lh-display-m: 1.12;   --tr-display-m: -0.005em;
-  --text-display-s: 26px;    --lh-display-s: 1;      --tr-display-s: -0.005em;
+  --text-display-s: 26px;    --lh-display-s: 1.05;   --tr-display-s: -0.005em;
   --text-body-l: 17px;       --lh-body-l: 1.65;
   --text-body: 16px;         --lh-body: 1.65;   /* älä laske alle 16px: iOS zoomaa inputit */
   --text-body-s: 14px;       --lh-body-s: 1.6;
@@ -264,8 +264,8 @@
 @media (min-width: 1200px) {
   :root {
     --page-padding: 36px; --section-gap: 96px;
-    --text-display-xl: 136px; --lh-display-xl: 0.88;
-    --text-display-l: 82px;   --lh-display-l: 0.96;
+    --text-display-xl: 136px;
+    --text-display-l: 82px;
     --text-display-m: 46px;   --text-display-s: 38px;
   }
 }
