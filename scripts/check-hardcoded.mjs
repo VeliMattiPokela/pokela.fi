@@ -47,6 +47,11 @@ const EXEMPT = {
     'mask-image:#000': 'Sama kuin yllä.',
     'grid-template-columns:300px': 'CV-rivin vuosisarake mitoitettu pisimmän vuosiluvun mukaan, ei asteikolta.',
   },
+  'korkeuskayrat.css': {
+    'min-height:320px': 'Viivateoksen alaraja matalalla ruudulla: mitoitettu niin, että käyriä mahtuu näkyviin parikymmentä. Piirros, ei layout-askel.',
+    '-webkit-mask-image:#000': 'Maskissa väri on alfakanava, ei väri: #000 tarkoittaa "täysin näkyvä".',
+    'mask-image:#000': 'Sama kuin yllä.',
+  },
   'hero-name.css': {
     'stroke-width:5px':
       'Nimikkeiden paperinvärinen reuna piirroksessa: irrottaa metatekstin kirjaimesta jonka päälle se osuu. Piirros, ei layout-mitta.',

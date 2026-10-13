@@ -7,6 +7,7 @@ import ListRow from '@/components/ListRow';
 import Media from '@/components/Media';
 import HeroName from '@/components/HeroName';
 import HeroIntro from '@/components/HeroIntro';
+import Korkeuskayrat from '@/components/Korkeuskayrat';
 import { kuvapaikka } from '@/content/kuvat';
 
 /* Kuinka leveänä kuva piirtyy. Sivu tietää sen, kuva ei.
@@ -14,8 +15,6 @@ import { kuvapaikka } from '@/content/kuvat';
    leveämpi on siitä 5/3, jotta 4:3 ja 4:5 ovat yhtä korkeita
    (home.css). */
 const SIZES = {
-  taysi:
-    '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
   leveampi: '(min-width: 1440px) 734px, (min-width: 900px) calc(55.6vw - 53px), calc(100vw - 40px)',
   kapeampi: '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), calc(100vw - 40px)',
 };
@@ -32,7 +31,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      {/* ---- nimi + rooli --------------------------------------- */}
+      {/* ---- nimi + rooli + viivateos -------------------------- */}
+      <div className="home__alku">
       <HeroIntro>
         <section className="page home__intro">
           <HeroName lines={home.nameLines} />
@@ -46,9 +46,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
       </HeroIntro>
 
-      {/* ---- hero 21:9 ------------------------------------------ */}
-      <div className="page">
-        <Media {...kuvapaikka('etusivu-hero')} sizes={SIZES.taysi} priority />
+        <Korkeuskayrat label={home.heroArt} />
       </div>
 
       {/* ---- väitelause ----------------------------------------- */}

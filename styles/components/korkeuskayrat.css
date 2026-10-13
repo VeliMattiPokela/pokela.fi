@@ -1,0 +1,31 @@
+/* Korkeuskayrat: etusivun viivateos. Ks. components/Korkeuskayrat.tsx.
+
+   Täysleveä ruudun reunasta reunaan. Yläreuna häivytetään maskilla,
+   jolloin viivat nousevat paperista eikä teokselle piirry laatikkoa.
+   Viiva on hiusviiva ja tokenin värinen, joten teos seuraa teemaa. */
+.korkeuskayrat {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  touch-action: pan-y;
+  cursor: grab;
+  -webkit-user-select: none;
+          user-select: none;
+}
+.korkeuskayrat:active { cursor: grabbing; }
+.korkeuskayrat__viivat {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%);
+          mask-image: linear-gradient(to bottom, transparent, #000 22%);
+}
+.korkeuskayrat__viivat path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+}

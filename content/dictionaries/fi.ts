@@ -34,6 +34,8 @@ const fi = {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-', 'Matti', 'Pokela'],
     role: 'Senior Designer, Helsinki',
+    /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
+    heroArt: 'Korkeuskäyrät viivapiirroksena',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
     availability: null as string | null,
     statement: 'Suunnittelen käyttöliittymiä ja koodaan ne itse tuotantoon asti.',
@@ -53,7 +55,6 @@ const fi = {
     subtitle: 'Kolme kärkeä · aiempi työ',
     previous: 'Aiempi työ',
     previousHint: 'Avautuu sivulla',
-    alsoLabel: 'Lisäksi',
     outroTitle: 'Kaikki työ ei mahdu sivulle.',
     outroBody:
       'Käyn projektit ja niiden ratkaisut läpi mielelläni tarkemmin keskustelussa.',

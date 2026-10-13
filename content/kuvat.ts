@@ -38,13 +38,15 @@ export type Kuvapaikka = {
 
 export const erilliset: Kuvapaikka[] = [
   {
-    id: 'etusivu-hero',
+    /* Viivaesityksen esimerkki Storybookissa (Media, Viiva). Kuva oli
+       ennen etusivun hero; sen korvasi koodilla piirretty
+       Korkeuskayrat (päätös 35). Viivat piirretään tokenin värillä,
+       joten kuva toimii molemmissa teemoissa. */
+    id: 'media-viiva',
     ratio: 'hero',
-    caption: 'Täysleveä kuva 21:9 — työn hero tai valokuva',
-    /* Paikanvaraaja on viivapiirros: viivat piirretään tokenin
-       värillä, joten kuva toimii molemmissa teemoissa. */
+    caption: 'Korkeuskäyrät viivapiirroksena',
     esitys: 'viiva',
-    missa: 'Etusivu',
+    missa: 'Storybook',
   },
   {
     id: 'etusivu-colliers',

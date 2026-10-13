@@ -15,8 +15,6 @@
 }
 .work__outro-body { color: var(--ink-muted); }
 
-/* Metateksti on inline-elementti, joten sen rivilaatikon korkeuden
-   määrää säiliön strut — leipätekstin 16px × 1.65, ei .metan oma
-   1.4. Flex blokkaa lapsen, jolloin se käyttää omaa riviväliään.
-   Sama korjaus kuin navin <li>:ssä. */
-.work__also { display: flex; padding-block: var(--space-24); }
+/* Logorivi tulee heti aiemman työn listan alle. Listan alaviiva
+   erottaa ne, joten rivin oma yläviiva jäisi tuplaviivaksi. */
+.work__clients .logo-row-block { border-top: 0; }

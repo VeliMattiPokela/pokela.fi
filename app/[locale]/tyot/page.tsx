@@ -65,13 +65,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
 
         <PreviousWork items={work.previous} dict={dict} />
 
-        <div className="page work__also">
-          <span className="meta">
-            {dict.work.alsoLabel} · {work.also.join(' · ')}
-          </span>
-        </div>
-
-        <div className="page">
+        <div className="page work__clients">
           <LogoRow label={dict.common.clients} />
         </div>
       </section>

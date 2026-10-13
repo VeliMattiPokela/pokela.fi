@@ -25,7 +25,7 @@ const meta = {
           'pikselikorkeudella. Leveys lasketaan tiedoston kuvasuhteesta.',
           '',
           '**Osa logoista on estetty** `blocked`-lipulla `content/logos.ts`:ssä. Syy on aina',
-          'kirjattu. Estetyn logon nimi näkyy "Lisäksi"-rivillä, joka ei vaadi käyttölupaa.',
+          'kirjattu. Estetyn logon nimi näkyy etusivun "Muita aiempia töitä" -rivillä, joka ei vaadi käyttölupaa.',
         ].join('\n'),
       },
     },

@@ -1173,6 +1173,38 @@ olisi toinen lähde samasta asiasta. Hakemisto saadaan otsikoista.
 
 *Kirjattu 13.10.2026 Vellun päätöksellä*
 
+## 35. Etusivun hero on koodilla piirretty viivateos
+
+**Tilanne:** etusivun herona oli kuvapaikka 19, johon tehtiin
+viivapiirros paikanvaraajaksi (päätös 33). Vellu halusi siitä
+pysyvän teoksen: samat korkeuskäyrät SVG:nä, piirtyvät ja hieman
+interaktiiviset, täysleveänä ruudun reunoihin ja ensimmäisen ruudun
+alareunaan.
+
+**Päätös:** etusivulla on komponentti Korkeuskayrat eikä kuvapaikkaa.
+Käyrät lasketaan koodissa kiinteällä siemenellä ja piirretään
+`--ink`-värisinä hiusviivoina paperille ilman nauhaa. Viivat alkavat
+piirtyä, kun HeroIntron kansi asettuu (`hero-intro:asettuu`), joten
+nimi on ensin yksin ja viivat jatkavat samaa liikettä. Jos intro jää
+väliin, viivat ovat valmiina. Levossa kuvio ajelehtii hyvin hitaasti.
+Linssi aukeaa vain painettaessa, ei osoittimen viennistä, ettei teos
+ole levoton. Vähemmän liikettä pyytäneelle kuvio on paikallaan.
+
+Intron kansi ja nimipalkki ovat nyt paperia eivätkä `--badge-surface`
+(päätös 14): harmaa palkki valittiin jatkumaan herokuvan harmaaseen
+nauhaan, ja ilman nauhaa palkin ja teoksen väliin olisi tullut raja.
+
+**Perustelu:** generoitu kuvio on teos eikä paikanvaraaja, ja koodissa
+se seuraa teemaa, ruudun leveyttä ja korkeutta ilman kuvatiedostoja.
+Pelkkä vienti teki pinnasta levottoman, kun osoitin liikkuu sivulla
+muutenkin.
+
+**Raja:** teos on sivuston ominaisuus eikä lähde pakettiin, kuten
+HeroIntro. Median viivaesitys jää pakettiin; sen esimerkkikuva on
+kuvapaikka `media-viiva` Storybookissa.
+
+*Päätetty 13.10.2026 — Veli-Matti Pokela*
+
 ## 36. Navi väistyy vierityksen tieltä
 
 **Tilanne:** navi oli tavallinen palkki sivun alussa. Se katosi heti
