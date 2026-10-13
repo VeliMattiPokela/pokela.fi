@@ -104,7 +104,7 @@ export const Kolmikko: Story = {
   args: {
     block: {
       kind: 'trio',
-      label: 'Mitä rakensin',
+      label: 'Mitä rakennettiin',
       title: 'Kolme näkymää, yksi järjestelmä',
       items: [
         { media: { id: 'demo-4', ratio: '4:5', caption: 'Haku' }, h: 'Asuntohaku', p: 'Kartta ja suodattimet samassa näkymässä.' },

@@ -31,6 +31,10 @@ alaa eikä todista mitään.
   "vastaavat toisiaan", ei "synkassa".
 - Rajat ja epävarmuus kerrotaan ohimennen, ilman dramatiikkaa.
 - Ajatusviivoja korkeintaan yksi kappaleessa.
+- Minämuoto vain siellä, missä se kertoo vastuun tai roolin
+  ("Vastasin front endistä"). Otsikot ja sävyä asettavat lauseet
+  ovat passiivissa tai neutraaleja: minäkertoja kuulostaa suomeksi
+  itsekeskeiseltä.
 - Käyttöliittymää ei selitetä. Ei "vie osoitin päälle", "klikkaa",
   "kun vierität" tai "Esc sulkee": jos toiminto tarvitsee ohjeen,
   korjataan toiminto, ei kirjoiteta ohjetta (päätös 32).

@@ -38,13 +38,13 @@ const fi = {
     heroArt: 'Korkeuskäyrät viivapiirroksena',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
     availability: null as string | null,
-    statement: 'Suunnittelen käyttöliittymiä ja koodaan ne itse tuotantoon asti.',
+    statement: 'Käyttöliittymät suunnittelusta tuotantokoodiin asti.',
     lede:
-      'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuotteeni Blokbook. Kummassakin suunnittelin ja toteutin käyttöliittymän suoraan koodissa.',
+      'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuote Blokbook. Kummassakin käyttöliittymä suunniteltiin ja toteutettiin suoraan koodissa.',
     aboutLink: 'Tietoa minusta',
     selectedWork: 'Valitut työt',
     allWork: 'Katso kaikki työt',
-    bandTitle: 'Teen yleensä sekä suunnittelun että toteutuksen.',
+    bandTitle: 'Suunnittelu ja toteutus samoissa käsissä.',
     bandBody:
       'Design system, tuotesuunnittelu ja front end. Projektista riippuen yksi näistä tai kaikki kolme.',
   },
@@ -56,7 +56,7 @@ const fi = {
     previousHint: 'Avautuu sivulla',
     outroTitle: 'Kaikki työ ei mahdu sivulle.',
     outroBody:
-      'Käyn projektit ja niiden ratkaisut läpi mielelläni tarkemmin keskustelussa.',
+      'Projektit ja niiden ratkaisut voi käydä tarkemmin läpi keskustelussa.',
     outroCta: 'Pyydä esittely',
     nextCase: 'Seuraava case',
     open: 'Avaa',
@@ -66,9 +66,9 @@ const fi = {
   about: {
     titleLines: ['Veli-Matti', 'Pokela'],
     lede:
-      'Senior Designer Helsingissä. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
+      'Senior Designer Helsingissä. Konseptit, käyttöliittymät ja niiden front end -toteutus.',
     body:
-      'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
+      'Tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
     contact: 'Ota yhteyttä',
     /* Ei "Lataa PDF": PDF:ää ei ole eikä tehdä. Sivu tulostuu
        CV:ksi, ja selain tekee siitä tiedoston jos lukija haluaa. */
@@ -77,7 +77,7 @@ const fi = {
        footerissa, joista kumpikaan ei tulostu. */
     printRole: 'Senior Designer',
     portraitAlt: 'Veli-Matti Pokela',
-    servicesTitle: 'Mitä teen',
+    servicesTitle: 'Osaaminen',
     historyTitle: 'Työhistoria',
     historySince: 'Vuodesta 2010',
     toolsTitle: 'Työkalut',

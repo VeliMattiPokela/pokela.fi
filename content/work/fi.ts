@@ -129,7 +129,7 @@ const previous: Previous[] = [
         'Design-to-dev -käytäntöjen kehittäminen',
         'Yhteistyö liiketoiminnan, kehityksen, markkinoinnin ja datan kanssa',
       ],
-      sectionsTitle: 'Työni Pivossa',
+      sectionsTitle: 'Työ Pivossa',
       sections: [
         {
           title: 'Käyttäjäymmärrys ja konseptointi',
@@ -145,7 +145,7 @@ const previous: Previous[] = [
         },
         {
           title: 'Designista toteutukseen',
-          body: 'Kehitin tiimin tapaa siirtää design toteutukseen. Siitä alkoi kiinnostus, jonka takia suunnittelen nykyään usein suoraan koodissa.',
+          body: 'Kehitin tiimin tapaa siirtää design toteutukseen. Siitä alkoi kiinnostus suunnitella suoraan koodissa.',
         },
       ],
       media: [
