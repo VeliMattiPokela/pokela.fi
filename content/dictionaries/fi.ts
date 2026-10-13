@@ -34,6 +34,8 @@ const fi = {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-', 'Matti', 'Pokela'],
     role: 'Senior Designer, Helsinki',
+    /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
+    heroArt: 'Korkeuskäyrät viivapiirroksena',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
     availability: null as string | null,
     statement: 'Suunnittelen käyttöliittymiä ja koodaan ne itse tuotantoon asti.',

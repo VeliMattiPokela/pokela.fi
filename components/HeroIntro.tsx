@@ -5,7 +5,7 @@ import { introSkripti } from '@/lib/hero-intro';
 /**
  * HeroIntro: etusivun nimipalkki ja sen saapuminen.
  *
- * Levossa tämä on vain täysleveä palkki (`--badge-surface`), jonka
+ * Levossa tämä on vain täysleveä palkki (`--paper`, päätös 35), jonka
  * sisällä ovat nimi ja roolirivi. Istunnon ensimmäisellä käynnillä
  * palkki täyttää ensin koko ruudun ja nimi rakentuu sen keskellä.
  * Kun kirjaimet ovat täyttyneet, palkki supistuu yhdellä liikkeellä

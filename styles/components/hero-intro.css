@@ -1,15 +1,15 @@
 /* HeroIntro: etusivun nimipalkki ja sen saapuminen.
    Ks. components/HeroIntro.tsx. */
 
-.hero-intro { position: relative; background: var(--badge-surface); }
-.hero-intro .hero-name { --hero-name-tausta: var(--badge-surface); }
+.hero-intro { position: relative; background: var(--paper); }
+.hero-intro .hero-name { --hero-name-tausta: var(--paper); }
 
 /* Koko ruudun kerros intron ajan. Se rajataan palkin kokoiseksi, kun
    palkki asettuu; sisältö palkin ympärillä ei liiku. */
 .hero-intro__kansi {
   display: none;
   position: fixed; inset: 0; z-index: 60;
-  background: var(--badge-surface);
+  background: var(--paper);
 }
 .hero-intro__sisus { position: relative; }
 

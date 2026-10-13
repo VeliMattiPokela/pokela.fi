@@ -10,7 +10,9 @@ import { INTRO_AVAIN } from '@/lib/hero-intro';
  * Aikataulu tulee HeroNamelta: `hero-name:rakennettu` kertoo, että
  * nimen koko on lopullinen (silloin se voidaan keskittää), ja
  * `hero-name:taytetty`, että kirjaimet ovat täynnä (silloin palkki
- * asettuu).
+ * asettuu). Itse se kertoo eteenpäin `hero-intro:asettuu` ja
+ * `hero-intro:valmis` (documentille), joihin Korkeuskayrat ajoittaa
+ * piirtymisensä.
  */
 export default function HeroIntroLiike() {
   const ankkuri = useRef<HTMLSpanElement>(null);
@@ -33,6 +35,7 @@ export default function HeroIntroLiike() {
       sisus!.style.transform = '';
       kansi!.style.clipPath = '';
       poista();
+      document.dispatchEvent(new Event('hero-intro:valmis'));
     }
 
     /* Sivu ehdittiin vierittää ennen kuin JavaScript latautui. */
@@ -54,6 +57,8 @@ export default function HeroIntroLiike() {
       tila = 'asettuu';
       const r = palkki!.getBoundingClientRect();
       palkki!.classList.add('hero-intro--asettuu');
+      /* Etusivun viivat (Korkeuskayrat) alkavat piirtyä tästä. */
+      document.dispatchEvent(new Event('hero-intro:asettuu'));
       if (kiire) palkki!.classList.add('hero-intro--kiire');
       void kansi!.offsetWidth;
       kansi!.style.clipPath = `inset(${r.top.toFixed(1)}px 0 ${(innerHeight - r.bottom).toFixed(1)}px 0)`;

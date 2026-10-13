@@ -77,3 +77,12 @@
 @media (min-width: 900px) {
   .home__pari-leveampi { width: calc((50% - var(--gutter) / 2) * 5 / 3); }
 }
+
+/* Ensimmäinen ruutu: nimi ja viivateos täyttävät vähintään ruudun
+   korkeuden, ja teos venyy nimen alta ruudun alareunaan. */
+.home__alku {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+.home__alku .korkeuskayrat { flex: 1; }
