@@ -6,6 +6,31 @@
    painon, välistyksen ja versaalit käsin — ja unohtivat rivivälin,
    joten ne perivät leipätekstin 1.65:n .metan 1.4:n sijaan. */
 
+/* Väistyvä kehys (päätös 37). Ylälaidassa paperi on täysi ja navi
+   näyttää samalta kuin ennen. Alas vieritettäessä kehys liukuu pois,
+   ylös vieritettäessä se palaa tiiviinä: pienempi pystypadding ja
+   paperi läpikuultavana sumennuksen päällä, sama 88 % kuin dialogin
+   taustalla. Ei varjoa: reunan tekee hiusviiva, kuten muuallakin.
+
+   Koko ruudun valikko on kehyksen ulkopuolella, koska transform
+   tekisi kehyksestä position: fixedin viitekehyksen. */
+.nav-kehys {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--paper);
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    background-color var(--dur-base) var(--ease-standard);
+}
+.nav-kehys[data-tila='tiivis'],
+.nav-kehys[data-tila='piilossa'] {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(var(--space-12));
+  backdrop-filter: blur(var(--space-12));
+}
+.nav-kehys[data-tila='piilossa'] { transform: translateY(-100%); }
+
 .nav {
   display: flex;
   align-items: center;
@@ -13,12 +38,24 @@
   gap: var(--space-24);
   padding-block: var(--space-20);
   border-bottom: var(--hairline) solid var(--line);
+  transition:
+    padding var(--dur-base) var(--ease-out),
+    margin var(--dur-base) var(--ease-out);
 }
-@media (min-width: 900px) { .nav { padding-block: var(--space-20) var(--space-20); } }
+/* Tiivis palkki on matalampi, mutta sen paikka sivun virrassa ei saa
+   muuttua: selaimen vierityksen ankkurointi korjaisi kutistumisen
+   vierittämällä sivua ylös, ja se luettaisiin ylös vieritykseksi —
+   navi palaisi heti piilotettuaan. Alamarginaali pitää korkeuden. */
+.nav-kehys[data-tila='tiivis'] .nav,
+.nav-kehys[data-tila='piilossa'] .nav {
+  padding-block: var(--space-12);
+  margin-bottom: calc((var(--space-20) - var(--space-12)) * 2);
+}
 
 .nav__mark:hover { text-decoration: none; }
 
 .nav__links {
+  position: relative;
   display: none;
   align-items: center;
   gap: var(--space-28);
@@ -42,6 +79,32 @@
 .nav__link[aria-current='page'] {
   color: var(--ink);
   border-bottom-color: var(--ink);
+}
+
+/* Liukuva alleviivaus. Kun skripti on mitannut viivan paikan
+   (data-viiva), linkkien omat viivat väistyvät yhden yhteisen tieltä.
+   Ilman skriptiä aktiivinen linkki pitää oman viivansa. */
+.nav__links[data-viiva] .nav__link[aria-current='page'] { border-bottom-color: transparent; }
+.nav__viiva {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: var(--hairline);
+  background: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    width var(--dur-base) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+.nav__links:not([data-viiva]) .nav__viiva { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-kehys,
+  .nav,
+  .nav__viiva { transition: none; }
 }
 
 .nav__tools { display: flex; align-items: center; gap: var(--space-8); }

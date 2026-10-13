@@ -55,7 +55,7 @@ jota koodi käyttää.
 
 ## Yksi kohta jossa Figma ja CSS eroavat
 
-CSS:ssä riviväli on yksiköttä (`--lh-display-xl: 0.88`) ja välistys
+CSS:ssä riviväli on yksiköttä (`--lh-display-xl: 1.05`) ja välistys
 em-arvo (`--tr-display-xl: -0.02em`). Figma sitoo kumpaankin vain
 pikseliarvon — asetettu yksikkö ylikirjoitetaan hiljaa.
 

@@ -1204,3 +1204,52 @@ HeroIntro. Median viivaesitys jää pakettiin; sen esimerkkikuva on
 kuvapaikka `media-viiva` Storybookissa.
 
 *Päätetty 13.10.2026 — Veli-Matti Pokela*
+
+## 36. Display-tyylien riviväli on vähintään 1.05
+
+**Tilanne:** Vellu pyysi varmistamaan, että rivivälit riittävät.
+Mitattiin jokaisen tyylin väli ylemmän rivin alavarresta (g, j, p, y)
+alemman rivin ylävarteen (b, d, k, l) sivun omalla fontilla kaikilla
+leveyksillä. Leipäteksti, meta ja display-m jäivät selvästi plussalle.
+display-xl (0.92, lg 0.88), display-l (1, lg 0.96) ja display-s (1)
+menivät 0.03–0.15 em päällekkäin: otsikossa, jossa on alavarsia,
+kirjaimet olisivat osuneet toisiinsa.
+
+**Päätös:** display-xl, display-l ja display-s käyttävät riviväliä
+1.05 kaikilla leveyksillä. lg-tason tiukemmat arvot poistuvat.
+display-m pysyy 1.12:ssa.
+
+**Perustelu:** 1.05 on pienin pyöreä arvo, jolla varret eivät osu
+millään tyylillä tai leveydellä, joten otsikko pysyy tiiviinä mutta
+luettavana. Ääkkösten pisteet voivat yhä osua yläpuolisen rivin
+alavarteen, mutta se vaatisi rivivälin noin 1.3:een, mikä hajottaisi
+otsikot.
+
+*Päätetty 13.10.2026 — Veli-Matti Pokela*
+
+## 37. Navi väistyy vierityksen tieltä
+
+**Tilanne:** navi oli tavallinen palkki sivun alussa. Se katosi heti
+vieritettäessä, ja pitkillä case-sivuilla naviin pääsi vain
+vierittämällä alkuun asti. Vellu kysyi, pitäisikö navin olla
+modernimpi.
+
+**Päätös:** navi väistyy. Ylälaidassa se on ennallaan. Alas
+vieritettäessä se liukuu pois, ja ylös vieritettäessä se palaa
+tiiviinä palkkina: pystypadding `--space-12`, paperi 88 % sumennuksen
+päällä, hiusviiva alla. Aktiivisen kohdan alleviivaus on yksi viiva,
+joka liukuu osoitettuun linkkiin ja palaa aktiiviseen. Fokus tuo
+piilossa olevan navin esiin. Figmassa tila on Nav-komponentin
+`Tila`-variantti (perus | tiivis), jonka Code Connect lukee.
+
+**Perustelu:** modernius haetaan liikkeestä eikä uudesta ulkoasusta,
+joten tyyli pysyy ennallaan: ei varjoa, ei väriä, sama 88 % kuin
+dialogin verholla. Vellu hyväksyi luonnoksen
+projektin ehdotuskansiosta (nav).
+
+**Raja:** tiivis palkki pitää paikkansa sivun virrassa alamarginaalilla.
+Ilman sitä selaimen vierityksen ankkurointi korjasi kutistumisen
+vierittämällä ylös, ja navi palasi heti piilotettuaan. Liikkeen
+vähentämisen asetuksella liukumia ei ole.
+
+*Kirjattu 13.10.2026 Vellun hyväksynnällä*
