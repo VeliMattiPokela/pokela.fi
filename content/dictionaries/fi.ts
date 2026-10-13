@@ -32,7 +32,7 @@ const fi = {
 
   home: {
     name: 'Veli-Matti Pokela',
-    nameLines: ['Veli-', 'Matti', 'Pokela'],
+    nameLines: ['Veli-Matti', 'Pokela'],
     role: 'Senior Designer, Helsinki',
     /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
     heroArt: 'Korkeuskäyrät viivapiirroksena',

@@ -7,9 +7,10 @@
 .hero-name { --hero-name-tausta: var(--paper); }
 
 /* Nimi katkeaa riveille, ei skaalaudu pieneksi. Työpöydällä yhdelle
-   riville, mobiilissa kolmelle — siksi rivit ovat omia elementtejään. */
+   riville, mobiilissa omille riveilleen (Veli-Matti / Pokela) — siksi
+   rivit ovat omia elementtejään. Rivi ei katkea yhdysmerkistä. */
 .hero-name__nimi { position: relative; margin: 0; }
-.hero-name__rivi { display: block; }
+.hero-name__rivi { display: block; white-space: nowrap; }
 @media (min-width: 900px) {
   .hero-name__rivi { display: inline; white-space: pre; }
 }

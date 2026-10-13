@@ -27,7 +27,7 @@ const meta = {
   args: {
     children: (
       <section className="page home__intro">
-        <HeroName lines={['Veli-', 'Matti', 'Pokela']} />
+        <HeroName lines={['Veli-Matti', 'Pokela']} />
         <div className="home__intro-meta">
           <p className="meta ink home__role">Senior Designer, Helsinki</p>
         </div>
