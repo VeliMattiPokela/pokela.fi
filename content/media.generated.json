@@ -111,11 +111,11 @@
         ]
       }
     },
-    "etusivu-hero": {
+    "media-viiva": {
       "tyyppi": "kuva",
       "esitys": "viiva",
       "osat": {
-        "etusivu-hero": [
+        "media-viiva": [
           {
             "koko": "base",
             "media": null,
@@ -232,7 +232,7 @@
     "colliers-vuokraus": 4,
     "etusivu-blokbook": 21,
     "etusivu-colliers": 20,
-    "etusivu-hero": 19,
+    "media-viiva": 19,
     "muotokuva": 23,
     "op-aloitus": 16,
     "op-polku": 18,
@@ -305,7 +305,7 @@
       "suhde": "4:3",
       "leveys": 1580
     },
-    "etusivu-hero": {
+    "media-viiva": {
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
     },

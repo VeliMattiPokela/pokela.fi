@@ -45,5 +45,5 @@ export const Levossa: Story = {};
 /** Mobiilissa nimi katkeaa kolmelle riville. */
 export const Mobiilissa: Story = { globals: { viewport: { value: 'base' } } };
 
-/** Palkin pinta on --badge-surface, joten se kääntyy teeman mukana. */
+/** Palkin pinta on --paper, joten se kääntyy teeman mukana. */
 export const TummaTeema: Story = { globals: { theme: 'dark' } };
