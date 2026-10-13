@@ -73,7 +73,7 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Asiakas kommentoi toimivaa palvelua.',
+      title: 'Iteroitiin toimivaa palvelua, ei kuvia.',
       body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
