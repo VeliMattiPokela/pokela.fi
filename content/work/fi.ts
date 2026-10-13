@@ -249,7 +249,7 @@ const previous: Previous[] = [
   },
 ];
 
-/** "Lisäksi"-rivi. Nimet ilman logoja, ei vaadi käyttölupaa. */
+/** Etusivun "Muita aiempia töitä" -rivi. Nimet ilman logoja, ei vaadi käyttölupaa. */
 const also = ['Oikotie', 'Sanoma', 'Microsoft', 'Finavia', 'Ilta-Sanomat', 'Evira'];
 
 const work = { leads, previous, also };
