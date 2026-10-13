@@ -22,7 +22,7 @@ const meta = {
       },
     },
   },
-  args: { lines: ['Veli-', 'Matti', 'Pokela'] },
+  args: { lines: ['Veli-Matti', 'Pokela'] },
   decorators: [
     (Story) => (
       <div className="page">

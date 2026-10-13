@@ -22,7 +22,7 @@ const tila = figma.selectedInstance.getEnum('Tila', {
 export default {
   id: 'HeroName',
   imports: ["import HeroName from '@/components/HeroName';"],
-  example: figma.code`<HeroName lines={['Veli-', 'Matti', 'Pokela']}${figma.helpers.react.renderProp(
+  example: figma.code`<HeroName lines={['Veli-Matti', 'Pokela']}${figma.helpers.react.renderProp(
     'tila',
     tila,
   )} />`,
