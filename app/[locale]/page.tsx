@@ -10,11 +10,13 @@ import HeroIntro from '@/components/HeroIntro';
 import { kuvapaikka } from '@/content/kuvat';
 
 /* Kuinka leveänä kuva piirtyy. Sivu tietää sen, kuva ei.
-   Nostopari on md-koossa 7 ja 4 saraketta kahdestatoista. */
+   Nostoparin kapeampi on md-koossa 4 saraketta kahdestatoista;
+   leveämpi on siitä 5/3, jotta 4:3 ja 4:5 ovat yhtä korkeita
+   (home.css). */
 const SIZES = {
   taysi:
     '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
-  leveampi: '(min-width: 1440px) 790px, (min-width: 900px) calc(58vw - 48px), calc(100vw - 40px)',
+  leveampi: '(min-width: 1440px) 734px, (min-width: 900px) calc(55.6vw - 53px), calc(100vw - 40px)',
   kapeampi: '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), calc(100vw - 40px)',
 };
 import Reveal from '@/components/Reveal';
@@ -102,8 +104,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Reveal>
         <section className="page section">
           <Grid>
-            <Col base={4} sm={8} md={7}>
-              <Media {...kuvapaikka('etusivu-colliers')} sizes={SIZES.leveampi} />
+            <Col base={4} sm={8} md={8}>
+              <div className="home__pari-leveampi">
+                <Media {...kuvapaikka('etusivu-colliers')} sizes={SIZES.leveampi} />
+              </div>
             </Col>
             <Col base={4} sm={8} md={4} startMd={9}>
               <Media {...kuvapaikka('etusivu-blokbook')} sizes={SIZES.kapeampi} />
