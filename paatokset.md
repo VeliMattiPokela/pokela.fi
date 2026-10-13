@@ -1146,3 +1146,29 @@ kuvakaappaus ovat edelleen `taysi` tai `levy`. Maski ei osaa srcsetiä,
 joten jokaisesta rajauksesta ladataan suurin leveys.
 
 *Kirjattu 13.10.2026*
+
+## 34. Krediitit kuluvat pitkiin sessioihin
+
+**Tilanne:** Clauden viikkoraja tuli vastaan 11.10.2026. Selvityksen
+mukaan suurin kulu oli yksi sessio, joka teki yhdeksän työtä
+peräkkäin 9.–12.10. (noin 170 viestiä). Jokainen vuoro lähettää
+mallille koko historian, joten myöhäiset vuorot kantoivat mukanaan
+kaikkien aiempien komponenttien työn. Lisäksi ohjeet ohjasivat
+lukemaan päätökset ja käsikirjan, yhteensä noin 100 kt, ja sessiot
+odottivat CI:tä ja npm-julkaisua sisällään.
+
+**Päätös:** yksi työ per thread, ja thread suljetaan, kun PR on
+mainissa. Päätöksistä ja käsikirjasta luetaan vain tehtävän kohdat
+otsikoiden perusteella. PR yhdistetään vihreällä ja vuoro lopetetaan
+odottamatta npm:ää. Luonnoksessa on yksi suositus ja yksi kuva, kun
+valinta on selvä. Säännöt ovat CLAUDE.md:ssä.
+
+**Perustelu:** auki jäävä thread ei kuluta mitään, vaan kulu syntyy
+vuoroista, ja vuoron hinta kasvaa historian mukana. Neljässä
+viimeisessä luonnoksessa Vellu valitsi suosituksen.
+
+**Raja:** tarkistuksia ei poisteta, eikä visuaalista hyväksyntää
+ohiteta. Päätöksille ei tehdä käsin kirjoitettua hakemistoa, koska se
+olisi toinen lähde samasta asiasta. Hakemisto saadaan otsikoista.
+
+*Kirjattu 13.10.2026 Vellun päätöksellä*
