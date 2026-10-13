@@ -1,10 +1,27 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import type { Previous } from '@/content/work';
 import type { Dictionary } from '@/content/dictionaries';
 import { Accordion, useAccordionGroup } from './Accordion';
 import Media, { type Ratio } from './Media';
 import BeforeAfter from './BeforeAfter';
+
+/**
+ * Vierekkäiset kuvat ovat yhtä korkeita vain, kun leveydet ovat
+ * kuvasuhteiden suhteessa. Sarakkeiden fr-arvot ovat siksi kuvasuhteet
+ * (4:3 → 1.333fr, 4:5 → 0.8fr); vertailupari on omalla rivillään eikä
+ * kuulu niihin. Sama periaate kuin etusivun nostoparissa (home.css).
+ */
+function sarakkeet(media: Previous['detail']['media']) {
+  const kuvat = media.filter((m) => m.kind !== 'compare');
+  if (kuvat.length < 2) return undefined;
+  const fr = kuvat.map((m) => {
+    const [l, k] = m.ratio.split(':').map(Number);
+    return `minmax(0, ${(l / k).toFixed(4)}fr)`;
+  });
+  return { '--sarakkeet': fr.join(' ') } as CSSProperties;
+}
 
 /**
  * Aiempi työ. Rivit avautuvat paikallaan — vanhat projektit eivät saa
@@ -94,7 +111,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
       </section>
 
       {d.media.length > 0 ? (
-        <div className="detail__media">
+        <div className="detail__media" style={sarakkeet(d.media)}>
           {d.media.map((media) =>
             media.kind === 'compare' ? (
               <BeforeAfter
