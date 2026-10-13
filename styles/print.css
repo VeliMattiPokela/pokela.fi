@@ -36,6 +36,7 @@
 @media print {
   /* ---- 1. mikä jää pois ------------------------------------------ */
 
+  .nav-kehys,
   .nav,
   .menu,
   .footer,

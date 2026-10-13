@@ -1172,3 +1172,30 @@ ohiteta. Päätöksille ei tehdä käsin kirjoitettua hakemistoa, koska se
 olisi toinen lähde samasta asiasta. Hakemisto saadaan otsikoista.
 
 *Kirjattu 13.10.2026 Vellun päätöksellä*
+
+## 36. Navi väistyy vierityksen tieltä
+
+**Tilanne:** navi oli tavallinen palkki sivun alussa. Se katosi heti
+vieritettäessä, ja pitkillä case-sivuilla naviin pääsi vain
+vierittämällä alkuun asti. Vellu kysyi, pitäisikö navin olla
+modernimpi.
+
+**Päätös:** navi väistyy. Ylälaidassa se on ennallaan. Alas
+vieritettäessä se liukuu pois, ja ylös vieritettäessä se palaa
+tiiviinä palkkina: pystypadding `--space-12`, paperi 88 % sumennuksen
+päällä, hiusviiva alla. Aktiivisen kohdan alleviivaus on yksi viiva,
+joka liukuu osoitettuun linkkiin ja palaa aktiiviseen. Fokus tuo
+piilossa olevan navin esiin. Figmassa tila on Nav-komponentin
+`Tila`-variantti (perus | tiivis), jonka Code Connect lukee.
+
+**Perustelu:** modernius haetaan liikkeestä eikä uudesta ulkoasusta,
+joten tyyli pysyy ennallaan: ei varjoa, ei väriä, sama 88 % kuin
+dialogin verholla. Vellu hyväksyi luonnoksen
+projektin ehdotuskansiosta (nav).
+
+**Raja:** tiivis palkki pitää paikkansa sivun virrassa alamarginaalilla.
+Ilman sitä selaimen vierityksen ankkurointi korjasi kutistumisen
+vierittämällä ylös, ja navi palasi heti piilotettuaan. Liikkeen
+vähentämisen asetuksella liukumia ei ole.
+
+*Kirjattu 13.10.2026 Vellun hyväksynnällä*

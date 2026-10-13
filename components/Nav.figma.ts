@@ -4,14 +4,18 @@
 /**
  * Code Connect — Nav.
  * ---------------------------------------------------------------
- * Kartoitus on tahallaan tyhjä, ja se on itsessään tieto: navilla ei
- * ole yhtään suunnitteluaikaista propsia. Se saa linkit sanakirjasta
- * ja tietää aktiivisen sivun reitistä (`usePathname`), joten
- * suunnittelija ei valitse siitä mitään — hän vain asettaa sen
+ * Navilla ei ole yhtään suunnitteluaikaista propsia. Se saa linkit
+ * sanakirjasta ja tietää aktiivisen sivun reitistä (`usePathname`),
+ * joten suunnittelija ei valitse siitä mitään — hän vain asettaa sen
  * sivun ylälaitaan.
  *
- * Figman `Breakpoint`-variantti ei myöskään käänny propsiksi: linkit
+ * Figman `Breakpoint`-variantti ei käänny propsiksi: linkit
  * piiloutuvat @media-kyselyllä alle 600px:n, ei koodin haaralla.
+ *
+ * `Tila` (perus | tiivis, päätös 36) luetaan, vaikka kumpikin haara
+ * on koodissa sama: tila tulee vierityksestä, kuten Switchin hover.
+ * Lukeminen on se, mikä pitää variantin Figmassa — check:figma
+ * vaatii jokaisen haaran olemassa olevaksi varianttina.
  *
  * Aktiivinen linkki on Figmassa `Nav / Link` -instanssin
  * State-variantti. Sillä ei ole omaa kytkentää, koska koodissa ei ole
@@ -19,6 +23,12 @@
  */
 
 import figma from 'figma';
+
+/* Vieritys asettaa tilan, joten kumpikin haara tuottaa saman koodin. */
+figma.selectedInstance.getEnum('Tila', {
+  perus: undefined,
+  tiivis: undefined,
+});
 
 export default {
   id: 'Nav',
