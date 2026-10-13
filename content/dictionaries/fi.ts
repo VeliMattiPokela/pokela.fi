@@ -66,9 +66,9 @@ const fi = {
   about: {
     titleLines: ['Veli-Matti', 'Pokela'],
     lede:
-      'Senior Designer Helsingissä. Konseptit, käyttöliittymät ja niiden front end -toteutus.',
+      'Senior Designer Helsingissä. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
     body:
-      'Tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
+      'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
     contact: 'Ota yhteyttä',
     /* Ei "Lataa PDF": PDF:ää ei ole eikä tehdä. Sivu tulostuu
        CV:ksi, ja selain tekee siitä tiedoston jos lukija haluaa. */
