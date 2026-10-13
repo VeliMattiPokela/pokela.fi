@@ -82,5 +82,5 @@ export const Levylla: Story = {
  * omaa pohjaa. Vaihda teemaa työkalupalkista.
  */
 export const Viiva: Story = {
-  args: { id: 'etusivu-hero', ratio: 'hero', esitys: 'viiva', caption: 'Korkeuskäyrät viivapiirroksena' },
+  args: { id: 'media-viiva', ratio: 'hero', esitys: 'viiva', caption: 'Korkeuskäyrät viivapiirroksena' },
 };
