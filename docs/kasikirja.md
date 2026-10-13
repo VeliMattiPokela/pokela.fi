@@ -1061,13 +1061,13 @@ mitä kuvan pitää näyttää.
 |  | 16 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
 |  | 17 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
 |  | 18 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
-|  | 19 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Täysleveä kuva 21:9 — työn hero tai valokuva |
+| ✓ | 19 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Täysleveä kuva 21:9 — työn hero tai valokuva |
 |  | 20 | Etusivu | `etusivu-colliers` | 4:3 · ≥1580 px | Colliers — asuntohaku |
 |  | 21 | Etusivu | `etusivu-blokbook` | 4:5 · ≥880 px | Blokbook — varausnäkymä |
 |  | 22 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |
 | ✓ | 23 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-7/23 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+8/23 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain
