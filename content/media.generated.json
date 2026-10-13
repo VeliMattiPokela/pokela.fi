@@ -111,56 +111,6 @@
         ]
       }
     },
-    "etusivu-hero": {
-      "tyyppi": "kuva",
-      "esitys": "taysi",
-      "osat": {
-        "etusivu-hero": [
-          {
-            "koko": "base",
-            "media": null,
-            "suhde": 0.8,
-            "leveydet": [
-              480,
-              800,
-              1200
-            ],
-            "leveys": 1200,
-            "korkeus": 1500
-          },
-          {
-            "koko": "sm",
-            "media": "(min-width: 600px)",
-            "suhde": 1.7778,
-            "leveydet": [
-              480,
-              800,
-              1200,
-              1600,
-              2000,
-              2800
-            ],
-            "leveys": 2800,
-            "korkeus": 1575
-          },
-          {
-            "koko": "lg",
-            "media": "(min-width: 900px)",
-            "suhde": 2.3333,
-            "leveydet": [
-              480,
-              800,
-              1200,
-              1600,
-              2000,
-              2800
-            ],
-            "leveys": 2800,
-            "korkeus": 1200
-          }
-        ]
-      }
-    },
     "media-viiva": {
       "tyyppi": "kuva",
       "esitys": "viiva",
