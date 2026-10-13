@@ -249,9 +249,6 @@ const previous: Previous[] = [
   },
 ];
 
-/** Etusivun "Muita aiempia töitä" -rivi. Nimet ilman logoja, ei vaadi käyttölupaa. */
-const also = ['Oikotie', 'Sanoma', 'Microsoft', 'Finavia', 'Ilta-Sanomat', 'Evira'];
-
-const work = { leads, previous, also };
+const work = { leads, previous };
 export type Work = typeof work;
 export default work;
