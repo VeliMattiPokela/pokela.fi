@@ -20,6 +20,7 @@ const SIZES = {
 };
 import Reveal from '@/components/Reveal';
 import Icon from '@/components/Icon';
+import LogoRow from '@/components/LogoRow';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -88,10 +89,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           ))}
         </div>
 
+        <div className="page home__clients">
+          <LogoRow label={dict.common.clients} />
+        </div>
+
         <div className="page home__section-foot">
-          <span className="meta">
-            {home.alsoWorked} · {work.also.join(' · ')}
-          </span>
           <Link href={path(locale as Locale, 'work')} className="btn btn--text">
             {home.allWork} <Icon name="arrow-right" />
           </Link>

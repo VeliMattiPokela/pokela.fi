@@ -9,8 +9,7 @@
  * ne seuraavat --ink:iä ja toimivat myös tummassa teemassa.
  *
  * `blocked` = tiedosto on olemassa mutta sitä ei näytetä. Syy kerrotaan.
- * Nimi näkyy silloin etusivun "Muita aiempia töitä" -rivillä, joka ei
- * vaadi käyttölupaa.
+ * Estetty asiakas ei näy sivulla lainkaan, ei edes nimenä.
  */
 
 export type Logo = {
