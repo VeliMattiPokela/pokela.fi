@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import Nav from './Nav';
+import { expect, waitFor } from 'storybook/test';
 import fi from '@/content/dictionaries/fi';
 
 /**
@@ -25,6 +26,10 @@ const meta = {
           '**Teemanvaihto on tekstinappi**, ei kuvake. Kierto on Auto → Vaalea → Tumma.',
           'Ilman valintaa `data-theme` puuttuu kokonaan, jolloin `light-dark()` seuraa',
           'käyttöjärjestelmää.',
+          '',
+          '**Navi väistyy** (päätös 37): alas vieritettäessä se liukuu pois, ylös',
+          'vieritettäessä se palaa tiiviinä palkkina sumennetun paperin päällä. Tila',
+          'on `data-tila` (perus | tiivis | piilossa) ja Figmassa `Tila`-variantti.',
         ].join('\n'),
       },
     },
@@ -42,3 +47,22 @@ export const Tumma: Story = { globals: { theme: 'dark' } };
 
 /** Mobiilissa vain tunnus, teemanvaihto ja valikkonappi. */
 export const Mobiili: Story = { globals: { viewport: { value: 'base' } } };
+
+/** Ylös vieritettäessä: tiivis palkki sumennetun paperin päällä. */
+export const Tiivis: Story = {
+  decorators: [
+    (Story) => (
+      <>
+        <Story />
+        <div style={{ height: '300vh' }} />
+      </>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const kehys = canvasElement.querySelector('.nav-kehys')!;
+    window.scrollTo(0, 600);
+    await waitFor(() => expect(kehys).toHaveAttribute('data-tila', 'piilossa'));
+    window.scrollTo(0, 400);
+    await waitFor(() => expect(kehys).toHaveAttribute('data-tila', 'tiivis'));
+  },
+};
