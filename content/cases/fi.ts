@@ -44,11 +44,11 @@ const colliers: Case = {
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Tässä projektissa tein suunnittelun suoraan koodissa.',
+      lead: 'Suunnittelu tehtiin suoraan koodissa.',
       items: [
         {
           h: 'Valinta',
-          p: 'Tein ensin klikattavan rautalankamallin suoraan koodiin. Design system ja layoutit syntyivät Storybookiin koodina, eivät Figmaan.',
+          p: 'Ensin syntyi klikattava rautalankamalli suoraan koodiin. Design system ja layoutit syntyivät Storybookiin koodina, eivät Figmaan.',
         },
         {
           h: 'Miksi',
@@ -78,7 +78,7 @@ const colliers: Case = {
     },
     {
       kind: 'trio',
-      label: 'Mitä rakensin',
+      label: 'Mitä rakennettiin',
       title: 'Design ja toteutus samoissa käsissä',
       items: [
         {
@@ -157,7 +157,7 @@ const blokbook: Case = {
       label: 'Miksi',
       items: [
         {
-          p: 'Taloyhtiön saunat, pesutuvat, kerhotilat ja autopaikat varataan yhä listalla seinällä ja maksut hoidetaan erikseen. Etsin omaan taloyhtiöömme palvelua joka ratkaisisi tämän, eikä sellaista ollut.',
+          p: 'Taloyhtiön saunat, pesutuvat, kerhotilat ja autopaikat varataan yhä listalla seinällä ja maksut hoidetaan erikseen. Omaan taloyhtiöön etsittiin palvelua, joka ratkaisisi tämän, eikä sellaista ollut.',
         },
         {
           h: 'Mitä siitä tuli',
@@ -168,11 +168,11 @@ const blokbook: Case = {
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Rakensin sen itselleni ensin.',
+      lead: 'Ensin omaan käyttöön.',
       items: [
         {
           h: 'Valinta',
-          p: 'Aloitin ongelmasta, jonka tunsin itse, enkä tehnyt erillistä markkinaselvitystä. Ensimmäinen käyttäjä oli oma taloyhtiö.',
+          p: 'Lähtökohta oli oma, tuttu ongelma eikä erillinen markkinaselvitys. Ensimmäinen käyttäjä oli oma taloyhtiö.',
         },
         {
           h: 'Miksi',
@@ -252,7 +252,7 @@ const blokbook: Case = {
       lead: 'Palvelu on markkinoilla, ja kehitys jatkuu.',
       items: [
         {
-          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on omani, joten tuotteen suunta on omissa käsissä.',
+          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on oma, joten tuotteen suunta on omissa käsissä.',
         },
       ],
     },
@@ -271,7 +271,7 @@ const thisSite: Case = {
   titleLines: ['Yksi lähde,', 'kaksi suuntaa'],
   tagline: 'Design system on koodissa. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja, ja automaattiset tarkistukset huomaavat, jos ne alkavat erota.',
   facts: [
-    { label: 'Rooli', value: 'Kaikki, tämä on oma sivustoni' },
+    { label: 'Rooli', value: 'Kaikki, oma sivusto' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
     { label: 'Erityistä', value: 'Kaikki artefaktit ovat julkisia ja avattavissa' },
   ],
@@ -281,11 +281,11 @@ const thisSite: Case = {
       label: 'Miksi tämä on olemassa',
       items: [
         {
-          p: 'Suunnittelen itse usein suoraan koodiin. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
+          p: 'Omissa projekteissa suunnittelu tehdään usein suoraan koodiin. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
         },
         {
-          h: 'Mitä tein',
-          p: 'Rakensin tämän sivuston niin, että kumpikin tapa toimii samasta lähteestä. Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
+          h: 'Ratkaisu',
+          p: 'Tämä sivusto on rakennettu niin, että kumpikin tapa toimii samasta lähteestä. Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
         },
       ],
     },
@@ -355,7 +355,7 @@ const thisSite: Case = {
         {
           h: 'Koodi ensin',
           p: 'Nopein tapa, kun tiimi on pieni ja sama ihminen suunnittelee ja koodaa. Muutokset tehdään suoraan tuotteeseen.',
-          note: 'Näin tein Colliersissa ja Blokbookissa.',
+          note: 'Näin tehtiin Colliersissa ja Blokbookissa.',
         },
         {
           h: 'Figma ensin',
