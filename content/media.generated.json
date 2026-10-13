@@ -111,6 +111,56 @@
         ]
       }
     },
+    "etusivu-hero": {
+      "tyyppi": "kuva",
+      "esitys": "taysi",
+      "osat": {
+        "etusivu-hero": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.8,
+            "leveydet": [
+              480,
+              800,
+              1200
+            ],
+            "leveys": 1200,
+            "korkeus": 1500
+          },
+          {
+            "koko": "sm",
+            "media": "(min-width: 600px)",
+            "suhde": 1.7778,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              2000,
+              2800
+            ],
+            "leveys": 2800,
+            "korkeus": 1575
+          },
+          {
+            "koko": "lg",
+            "media": "(min-width: 900px)",
+            "suhde": 2.3333,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              2000,
+              2800
+            ],
+            "leveys": 2800,
+            "korkeus": 1200
+          }
+        ]
+      }
+    },
     "media-viiva": {
       "tyyppi": "kuva",
       "esitys": "viiva",
@@ -230,15 +280,14 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-blokbook": 21,
-    "etusivu-colliers": 20,
+    "etusivu-hero": 20,
     "media-viiva": 19,
-    "muotokuva": 23,
+    "muotokuva": 22,
     "op-aloitus": 16,
     "op-polku": 18,
     "op-vaurio": 17,
     "pivo-kirjautuminen": 12,
-    "tyot-storybook": 22
+    "tyot-storybook": 21
   },
   "muodot": {
     "aisti-mobiili": {
@@ -297,13 +346,9 @@
       "suhde": "4:5",
       "leveys": 880
     },
-    "etusivu-blokbook": {
-      "suhde": "4:5",
-      "leveys": 880
-    },
-    "etusivu-colliers": {
-      "suhde": "4:3",
-      "leveys": 1580
+    "etusivu-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
     },
     "media-viiva": {
       "suhde": "4:5 · 16:9 · 21:9",

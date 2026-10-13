@@ -73,13 +73,14 @@
 }
 .home__band-body { color: var(--invert-faint); }
 
-/* Nostopari: 4:3 ja 4:5 vierekkäin yhtä korkeina. Korkeudet ovat samat
-   vain kun leveydet ovat kuvasuhteiden suhteessa, eli 5:3. Kapeampi
-   pysyy sarakkeilla 9–12; leveämmän leveys johdetaan siitä, ja väli
-   joustaa. Sarake on 8 saraketta leveä, joten kapeampi
-   (4 saraketta + 3 väliä) on siitä 50 % − gutter/2. */
-@media (min-width: 900px) {
-  .home__pari-leveampi { width: calc((50% - var(--gutter) / 2) * 5 / 3); }
+/* Herokuva: nauha täyttää heron oman marginaalin (base.css), joten
+   ilman tätä nauha osuisi kiinni viereisiin osioihin ja alle jäisi
+   kapea rako ennen käännettyä nostoriviä. flow-root pitää heron
+   marginaalin laatikon sisällä, ja oma marginaali antaa nauhan
+   ympärille saman paperin kuin osioiden välissä on muutenkin. */
+.home__hero {
+  display: flow-root;
+  margin-block: var(--section-gap);
 }
 
 /* Ensimmäinen ruutu: nimi ja viivateos täyttävät vähintään ruudun
