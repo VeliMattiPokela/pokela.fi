@@ -75,3 +75,12 @@ export const Levylla: Story = {
   args: { id: 'colliers-haku', ratio: '4:5', caption: 'Asuntohaku puhelimessa' },
   decorators: [(Tarina) => <div style={{ maxWidth: 480 }}><Tarina /></div>],
 };
+
+/**
+ * Viivapiirros: kuva on maski ja viivat piirtyvät `--ink`-värillä,
+ * joten sama kuva toimii vaaleassa ja tummassa teemassa eikä tuo
+ * omaa pohjaa. Vaihda teemaa työkalupalkista.
+ */
+export const Viiva: Story = {
+  args: { id: 'etusivu-hero', ratio: 'hero', esitys: 'viiva', caption: 'Korkeuskäyrät viivapiirroksena' },
+};

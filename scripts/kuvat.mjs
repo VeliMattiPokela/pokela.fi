@@ -412,17 +412,23 @@ function rajauskohta(nimi) {
  *           menetti puolet ruudustaan.
  *   taysi   Kuva täyttää paikan ja rajataan sen kuvasuhteeseen.
  *           Valokuvalle tai kuvitukselle, jolla ei ole omaa taustaa.
+ *   viiva   Rajataan kuten taysi, mutta kuva on pelkkä alfakanava:
+ *           Media piirtää sen maskina tokenin värillä, joten viivat
+ *           seuraavat teemaa. Viivapiirrokselle, jolla ei saa olla
+ *           omaa pohjaa — valkoinen pohja olisi tummassa teemassa
+ *           valkoinen laatta.
  *
- * Hero on aina `taysi`: se on täysleveä nosto, ja sen tausta jatkuu
- * ruudun reunoihin (base.css). Vertailuparilla on oma esityksensä.
+ * Hero on `taysi` tai `viiva`: se on täysleveä nosto, ja sen tausta
+ * jatkuu ruudun reunoihin (base.css). Vertailuparilla on oma esityksensä.
  *
  * Ennen arvo luettiin `kuvat/<nimi>.json`:sta. Se ohitti Median
  * propsit ja siten Code Connectin, eikä Figma-tarkistus nähnyt uutta
  * tilaa lainkaan (päätös 10).
  */
-const ESITYKSET = ['levy', 'taysi'];
+const ESITYKSET = ['levy', 'taysi', 'viiva'];
 function esitys(paikka) {
-  if (paikka.ratio === 'hero' || paikka.vertailu) return 'taysi';
+  if (paikka.vertailu) return 'taysi';
+  if (paikka.ratio === 'hero') return paikka.esitys === 'viiva' ? 'viiva' : 'taysi';
   const oma = paikka.esitys ?? 'levy';
   if (!ESITYKSET.includes(oma)) {
     throw new Error(`Paikka ${paikka.id}: esitys "${oma}" — sallitut: ${ESITYKSET.join(', ')}`);
@@ -839,7 +845,7 @@ export async function rakenna({ kirjoita = true } = {}) {
     const tulokset = {};
     for (const pala of palat) {
       const tulos = await teeKuva(pala.ulos, pala.lahde.tiedosto, paikka.ratio, {
-        rajaa: !paikka.vertailu && tapa === 'taysi',
+        rajaa: !paikka.vertailu && tapa !== 'levy',
         kirjoita,
         koot: pala.koot,
         asetusNimi: pala.lahde.nimi,

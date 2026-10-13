@@ -1123,3 +1123,26 @@ ohjeita, vaan ne kertovat saman kuin näkyvä käyttöliittymä. Storybookin
 kuvaukset ovat kehittäjän dokumentaatiota ja saavat kertoa toiminnasta.
 
 *Kirjattu 13.10.2026 Vellun palautteen pohjalta*
+
+## 33. Viivapiirros piirretään tokenin värillä
+
+**Tilanne:** etusivun herokuvaksi tehtiin viivapiirros: mustat
+korkeuskäyrät valkoisella. Kuva on yksi tiedosto, joten tummassa
+teemassa se näkyi valkoisena laattana keskellä tummaa sivua.
+
+**Päätös:** Medialla on esitystapa `viiva`. Kuvan lähde on pelkkä
+alfakanava, ja Media piirtää sen CSS-maskina `--ink`-värillä, samoin
+kuin LogoRow piirtää logot. Rajaus on sama kuin `taysi`-esityksessä.
+Esitys kirjoitetaan sisältöön paikan viereen, kuten muutkin esitykset,
+ja se on Code Connectin ja Figman Media-komponentin variantti
+(`Esitys=viiva`).
+
+**Perustelu:** väri tulee tokenista, joten teemanvaihto toimii ilman
+toista tiedostoa ja ilman teemakohtaisia sääntöjä. Kaksi erillistä
+kuvaa olisivat kaksi lähdettä, jotka voivat erkaantua toisistaan.
+
+**Raja:** vain kuville, joilla ei saa olla omaa pohjaa. Valokuva ja
+kuvakaappaus ovat edelleen `taysi` tai `levy`. Maski ei osaa srcsetiä,
+joten jokaisesta rajauksesta ladataan suurin leveys.
+
+*Kirjattu 13.10.2026*
