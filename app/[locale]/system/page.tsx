@@ -138,7 +138,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         <Nayte nimi="Tabs" leveä>
           <TabsNayte />
         </Nayte>
-        <Nayte nimi="Accordion" huom="Yksi auki kerrallaan" leveä>
+        <Nayte nimi="Accordion" leveä>
           <AccordionNayte labels={{ open: dict.work.open, close: dict.work.close }} />
         </Nayte>
         <Nayte nimi="Nav ja Footer" huom="Tämän sivun ylä- ja alareuna" leveä>
@@ -153,17 +153,17 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         <Nayte nimi="Alert" huom="Info · onnistui · virhe">
           <AlertNayte />
         </Nayte>
-        <Nayte nimi="Dialog" huom="Avaa napista; Esc sulkee">
+        <Nayte nimi="Dialog">
           <DialogNayte />
         </Nayte>
       </>
     ),
     data: (
       <>
-        <Nayte nimi="Table" huom="Järjestä otsikoista" leveä>
+        <Nayte nimi="Table" leveä>
           <TaulukkoNayte />
         </Nayte>
-        <Nayte nimi="ListRow" huom={dict.system.listRowHint} leveä>
+        <Nayte nimi="ListRow" leveä>
           <div className="list-rows">
             {lead.slice(0, 2).map((l) => (
               <ListRow
@@ -230,7 +230,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </section>
 
       {/* ---- kerroksina ------------------------------------------ */}
-      <Section id="layers" title={dict.system.layersTitle} meta={dict.system.layersMeta}>
+      <Section id="layers" title={dict.system.layersTitle}>
         <p className="body-l measure sys__note">{dict.system.layersNote}</p>
         <SivuKerroksina locale={locale as Locale} />
       </Section>
