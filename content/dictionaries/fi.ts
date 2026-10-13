@@ -53,7 +53,6 @@ const fi = {
     subtitle: 'Kolme kärkeä · aiempi työ',
     previous: 'Aiempi työ',
     previousHint: 'Avautuu sivulla',
-    alsoLabel: 'Lisäksi',
     outroTitle: 'Kaikki työ ei mahdu sivulle.',
     outroBody:
       'Käyn projektit ja niiden ratkaisut läpi mielelläni tarkemmin keskustelussa.',
