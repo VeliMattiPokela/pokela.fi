@@ -49,17 +49,11 @@ export const erilliset: Kuvapaikka[] = [
     missa: 'Storybook',
   },
   {
-    id: 'etusivu-colliers',
-    ratio: '4:3',
-    tarveLeveys: 1580,
-    caption: 'Colliers — asuntohaku',
-    missa: 'Etusivu',
-  },
-  {
-    id: 'etusivu-blokbook',
-    ratio: '4:5',
-    tarveLeveys: 880,
-    caption: 'Blokbook — varausnäkymä',
+    /* Yksi iso kuva nostoparin tilalla: nauha jatkuu ruudun reunoihin
+       ja kuva pysyy keskellä sivun levyisenä, kuten casejen herossa. */
+    id: 'etusivu-hero',
+    ratio: 'hero',
+    caption: 'Valittu työ isona — täysleveä herokuva',
     missa: 'Etusivu',
   },
   {

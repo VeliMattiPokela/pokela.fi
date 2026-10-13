@@ -230,15 +230,14 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-blokbook": 21,
-    "etusivu-colliers": 20,
+    "etusivu-hero": 20,
     "media-viiva": 19,
-    "muotokuva": 23,
+    "muotokuva": 22,
     "op-aloitus": 16,
     "op-polku": 18,
     "op-vaurio": 17,
     "pivo-kirjautuminen": 12,
-    "tyot-storybook": 22
+    "tyot-storybook": 21
   },
   "muodot": {
     "aisti-mobiili": {
@@ -297,13 +296,9 @@
       "suhde": "4:5",
       "leveys": 880
     },
-    "etusivu-blokbook": {
-      "suhde": "4:5",
-      "leveys": 880
-    },
-    "etusivu-colliers": {
-      "suhde": "4:3",
-      "leveys": 1580
+    "etusivu-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
     },
     "media-viiva": {
       "suhde": "4:5 · 16:9 · 21:9",
