@@ -32,7 +32,7 @@ const fi = {
 
   home: {
     name: 'Veli-Matti Pokela',
-    nameLines: ['Veli-', 'Matti', 'Pokela'],
+    nameLines: ['Veli-Matti', 'Pokela'],
     role: 'Senior Designer, Helsinki',
     /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
     heroArt: 'Korkeuskäyrät viivapiirroksena',
@@ -43,7 +43,6 @@ const fi = {
       'Viimeisimmät kaksi projektia ovat Colliers Asunnot ja oma tuotteeni Blokbook. Kummassakin suunnittelin ja toteutin käyttöliittymän suoraan koodissa.',
     aboutLink: 'Tietoa minusta',
     selectedWork: 'Valitut työt',
-    alsoWorked: 'Muita aiempia töitä',
     allWork: 'Katso kaikki työt',
     bandTitle: 'Teen yleensä sekä suunnittelun että toteutuksen.',
     bandBody:

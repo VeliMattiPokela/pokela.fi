@@ -12,7 +12,7 @@
  * Figman `Breakpoint`-variantti ei käänny propsiksi: linkit
  * piiloutuvat @media-kyselyllä alle 600px:n, ei koodin haaralla.
  *
- * `Tila` (perus | tiivis, päätös 36) luetaan, vaikka kumpikin haara
+ * `Tila` (perus | tiivis, päätös 37) luetaan, vaikka kumpikin haara
  * on koodissa sama: tila tulee vierityksestä, kuten Switchin hover.
  * Lukeminen on se, mikä pitää variantin Figmassa — check:figma
  * vaatii jokaisen haaran olemassa olevaksi varianttina.

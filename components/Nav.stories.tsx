@@ -27,7 +27,7 @@ const meta = {
           'Ilman valintaa `data-theme` puuttuu kokonaan, jolloin `light-dark()` seuraa',
           'käyttöjärjestelmää.',
           '',
-          '**Navi väistyy** (päätös 36): alas vieritettäessä se liukuu pois, ylös',
+          '**Navi väistyy** (päätös 37): alas vieritettäessä se liukuu pois, ylös',
           'vieritettäessä se palaa tiiviinä palkkina sumennetun paperin päällä. Tila',
           'on `data-tila` (perus | tiivis | piilossa) ja Figmassa `Tila`-variantti.',
         ].join('\n'),

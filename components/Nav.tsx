@@ -12,7 +12,7 @@ import Icon from './Icon';
  * Navi. Aktiivinen kohta merkitään musteen täydellä sävyllä ja
  * alleviivauksella — ei värillä.
  *
- * Navi väistyy (päätös 36). Ylälaidassa se on tavallinen palkki.
+ * Navi väistyy (päätös 37). Ylälaidassa se on tavallinen palkki.
  * Alas vieritettäessä se liukuu pois, ja ylös vieritettäessä se palaa
  * tiiviinä palkkina sumennetun paperin päällä. Fokus tuo sen esiin,
  * joten näppäimistöllä navi ei jää piiloon. Alleviivaus on yksi
