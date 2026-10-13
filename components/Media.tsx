@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import manifesti from '@/content/media.generated.json';
 import Video from './Video';
 
@@ -26,11 +27,14 @@ export type Ratio = 'hero' | '4:3' | '4:5' | '3:4' | '1:1';
 
 /**
  * Miten kuva istuu paikassaan: `levy` näyttää sen kokonaisena
- * taustalevyn keskellä, `taysi` täyttää paikan rajattuna. Arvo
- * kirjoitetaan sisältöön paikan viereen (kuten `ratio`), ja kuvaputki
- * rajaa sen mukaan. Hero on aina täysi.
+ * taustalevyn keskellä, `taysi` täyttää paikan rajattuna. `viiva`
+ * rajataan kuten täysi, mutta kuva on pelkkä alfakanava, joka
+ * piirretään maskina `--ink`-värillä: viivapiirros seuraa teemaa
+ * eikä tuo omaa pohjaa. Arvo kirjoitetaan sisältöön paikan viereen
+ * (kuten `ratio`), ja kuvaputki rajaa sen mukaan. Hero on täysi tai
+ * viiva.
  */
-export type Esitys = 'levy' | 'taysi';
+export type Esitys = 'levy' | 'taysi' | 'viiva';
 
 type Rajaus = {
   koko: string;
@@ -152,6 +156,24 @@ export default function Media({
           ) : null}
           {caption ? <span className="meta meta--s">{caption}</span> : null}
         </span>
+      </div>
+    );
+  }
+
+  /* Viiva: kuva on maski, väri tulee tokenista (base.css). Sama tapa
+     kuin LogoRow'n logoilla. Maski ei osaa srcsetiä, joten jokaisesta
+     rajauksesta otetaan suurin leveys; CSS valitsee rajauksen samoilla
+     breakpointeilla kuin <picture>. Maski on lapsessa eikä paikassa
+     itsessään: heron nauha on paikan border-image, ja maski leikkaisi
+     sen pois ja peittäisi viivat nauhan täytöllä. */
+  const tapa = esitys ?? (merkinta?.tyyppi === 'kuva' ? merkinta.esitys : undefined);
+  if (tapa === 'viiva') {
+    const maskit = Object.fromEntries(
+      osat.map((r) => [`--maski-${r.koko}`, `url(/kuva/${id}-${r.koko}-${Math.max(...r.leveydet)}.webp)`]),
+    ) as CSSProperties;
+    return (
+      <div className={`${luokka} media--kuva media--viiva`} role="img" aria-label={caption}>
+        <span className="media__viiva" style={maskit} />
       </div>
     );
   }

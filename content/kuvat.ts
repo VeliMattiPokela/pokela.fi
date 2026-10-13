@@ -32,7 +32,7 @@ export type Kuvapaikka = {
    * muotokuvalle — se on neljä saraketta kahdestatoista.
    */
   tarveLeveys?: number;
-  /** `taysi` valokuvalle. Oletus `levy`, ks. Media. */
+  /** `taysi` valokuvalle, `viiva` viivapiirrokselle. Oletus `levy`, ks. Media. */
   esitys?: Esitys;
 };
 
@@ -41,6 +41,9 @@ export const erilliset: Kuvapaikka[] = [
     id: 'etusivu-hero',
     ratio: 'hero',
     caption: 'Täysleveä kuva 21:9 — työn hero tai valokuva',
+    /* Paikanvaraaja on viivapiirros: viivat piirretään tokenin
+       värillä, joten kuva toimii molemmissa teemoissa. */
+    esitys: 'viiva',
     missa: 'Etusivu',
   },
   {

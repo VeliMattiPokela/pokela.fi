@@ -308,6 +308,34 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
 
 .media-fill { width: 100%; height: 100%; object-fit: cover; }
 
+/* Viivapiirros (esitys `viiva`): kuva on maski ja väri tulee tokenista,
+   joten viivat seuraavat teemaa eikä kuvalla ole omaa pohjaa. Viivat
+   piirtyvät paikan pinnalle (herossa nauhan väri). Maski on lapsessa:
+   paikan omaan maskiin osuisi myös heron border-image-nauha.
+   Media antaa rajausten osoitteet muuttujina; breakpointit ovat samat
+   kuin heron kuvasuhteilla yllä. */
+.media--viiva { background: transparent; }
+.media__viiva {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  -webkit-mask: var(--maski-base) center / cover no-repeat;
+          mask: var(--maski-base) center / cover no-repeat;
+}
+@media (min-width: 600px) {
+  .media__viiva {
+    -webkit-mask-image: var(--maski-sm, var(--maski-base));
+            mask-image: var(--maski-sm, var(--maski-base));
+  }
+}
+@media (min-width: 900px) {
+  .media__viiva {
+    -webkit-mask-image: var(--maski-lg, var(--maski-sm, var(--maski-base)));
+            mask-image: var(--maski-lg, var(--maski-sm, var(--maski-base)));
+  }
+}
+
 /* Video: toistuu itsestään, joten taukonappi on aina näkyvissä
    (päätös 11). Nurkassa paperin päällä, samaa metatekstiä kuin muu
    sivun pieni teksti — ei kuvan päälle piirrettyä ikonia, joka

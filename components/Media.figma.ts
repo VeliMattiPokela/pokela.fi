@@ -32,6 +32,7 @@ const ratio = figma.selectedInstance.getEnum('Ratio', {
 const esitys = figma.selectedInstance.getEnum('Esitys', {
   levy: 'levy',
   taysi: 'taysi',
+  viiva: 'viiva',
 });
 
 const caption = figma.selectedInstance.getBoolean('showCaption', {
