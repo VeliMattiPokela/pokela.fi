@@ -48,6 +48,7 @@ export const POHJAT = {
   Casesivu: ['fi/tyot/colliers'],
   Lohkot: ['fi/tyot/tama-sivusto', 'fi/tyot/blokbook'],
   Tietoa: ['fi/tietoa'],
+  Työtapa: ['fi/tyotapa'],
 };
 
 /**
@@ -84,10 +85,15 @@ const TEKSTIN_SISAISET = 'a|span|strong|em|b|i|code|small|abbr|mark|time|sub|sup
  * ruudunlukijalle. Kuvan kuvateksti on sivulla altina (Media.tsx), ja
  * teemanapin tila ("Auto") on staattisessa HTML:ssä vain aria-labelissa
  * — näkyvä nimi vaihtuu vasta selaimessa.
+ *
+ * SVG:n `<text>`-elementit kuuluvat mukaan, vaikka muu SVG riisutaan:
+ * koodilla piirretyn kuvituksen tekstit (Piirros) näkyvät sivulla ja
+ * pohjassa samoina.
  */
 export function sivunTekstit(html) {
   const attribuutit = [...html.matchAll(/\s(?:aria-label|alt)="([^"]*)"/g)].map((m) => m[1]);
-  const runko = [html, ...attribuutit]
+  const svgTekstit = [...html.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/gi)].map((m) => m[1]);
+  const runko = [html, ...attribuutit, ...svgTekstit]
     .join('\n')
     .replace(/<!-- -->/g, '')
     .replace(/<(script|style|svg|template)\b[\s\S]*?<\/\1>/gi, '\n')

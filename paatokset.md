@@ -1253,3 +1253,31 @@ vierittämällä ylös, ja navi palasi heti piilotettuaan. Liikkeen
 vähentämisen asetuksella liukumia ei ole.
 
 *Kirjattu 13.10.2026 Vellun hyväksynnällä*
+
+## 38. Työtavalla on oma sivu
+
+**Tilanne:** Colliers tehtiin käytännössä UX engineering -työtavalla:
+suunnittelu ja toteutus iteroitiin samassa koodissa. Menetelmälle ei
+ollut portfoliossa omaa paikkaa, vaikka se on oma kokonaisuutensa ja
+liittyy useaan caseen. Lähteenä on Vellun Loihde-webinaari 2025.
+
+**Päätös:** menetelmä saa oman sivun `/tyotapa`, ja navissa on linkki
+Töiden jälkeen. Sivulla ovat menetelmän määritelmä, kuusi vaihetta,
+mitä se muuttaa, rajat ja caset, joissa sitä on käytetty (Colliers ja
+tämä sivusto). Caset linkittävät sivulle leipätekstin maininnasta
+(`caseRefs`, `section: 'method'`), ja sivu linkittää caseihin.
+Kuvitus on Piirros-komponentti: SVG piirretään koodissa tokenien
+väreillä (päätös 33), ja aihe on Code Connectin ja Figman variantti
+(`Aihe`).
+
+**Perustelu:** menetelmä on casea laajempi. Colliers on sen sovellus,
+ja tämä sivusto on sen jatke, jossa Figma seuraa koodia. Casen osiona
+se toistuisi jokaisessa casessa tai jäisi yhden casen alle. Vellu
+valitsi kolmesta vedoksesta vaihtoehdon A, jossa sama näkymä kulkee
+kuvana rungosta julkaisuun ja jokaisella vaiheella on oma kuvansa.
+
+**Raja:** sivu kuvaa menetelmän, ei myy sitä. Rajat kerrotaan yhtä
+näkyvästi kuin hyödyt. Blokbook ei ole listalla, koska sen case kertoo
+tuotekehityksestä eikä tästä menetelmästä.
+
+*Kirjattu 14.10.2026 Vellun hyväksynnällä*

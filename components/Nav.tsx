@@ -34,6 +34,7 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
 
   const links = [
     { href: path(locale, 'work'), label: dict.nav.work },
+    { href: path(locale, 'method'), label: dict.nav.method },
     { href: path(locale, 'about'), label: dict.nav.about },
     { href: path(locale, 'system'), label: dict.nav.system },
   ];

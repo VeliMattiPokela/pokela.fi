@@ -102,3 +102,9 @@ export type Case = {
   blocks: Block[];
   next: { slug: string; title: string };
 };
+
+/**
+ * Maininta leipätekstissä (CaseText). `slug` vie caseen, `section`
+ * sivuston osioon, kuten Työtapa-sivulle.
+ */
+export type CaseRef = { text: string } & ({ slug: string; section?: never } | { section: 'method'; slug?: never });

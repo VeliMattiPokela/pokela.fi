@@ -29,6 +29,8 @@
 @import './components/alert.css';
 @import './components/table.css';
 @import './components/dialog.css';
+@import './components/piirros.css';
+@import './components/tyotapa.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
 @import './print.css';

@@ -1,4 +1,4 @@
-import type { Case } from './types';
+import type { Case, CaseRef } from './types';
 
 /**
  * Kärkicasejen sisältö. Tekstit ovat suoraan casetiedostoista
@@ -113,7 +113,7 @@ const colliers: Case = {
       label: 'Työtapa',
       items: [
         {
-          p: 'Tiivis aikataulu tarkoitti, että päätöksiä tehtiin nopeasti ja tekemisen piti olla tehokasta. Toteutusta iteroitiin suoraan koodissa, koska koodi toimi samalla suunnittelun työkaluna.',
+          p: 'Tiivis aikataulu vaati nopeita päätöksiä. Projekti tehtiin UX engineering -työtavalla: suunnittelu ja toteutus iteroitiin samassa koodissa.',
         },
       ],
     },
@@ -281,7 +281,7 @@ const thisSite: Case = {
       label: 'Miksi tämä on olemassa',
       items: [
         {
-          p: 'Omissa projekteissa suunnittelu tehdään usein suoraan koodiin. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
+          p: 'Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
         },
         {
           h: 'Ratkaisu',
@@ -387,8 +387,12 @@ const thisSite: Case = {
  *
  * Järjestys on merkitsevä: pisin osuma ensin, jotta "Colliers
  * Asunnot" voittaa pelkän "Colliers".
+ *
+ * Sama mekanismi linkittää Työtapa-sivulle: maininta, jolla on
+ * `section`, vie sille sivulle eikä caseen (päätös 38).
  */
-export const caseRefs: { text: string; slug: string }[] = [
+export const caseRefs: CaseRef[] = [
+  { text: 'UX engineering -työtavalla', section: 'method' },
   { text: 'Colliers Asunnot', slug: 'colliers' },
   { text: 'Colliersissa', slug: 'colliers' },
   { text: 'Blokbookissa', slug: 'blokbook' },

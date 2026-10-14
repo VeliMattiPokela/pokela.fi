@@ -39,6 +39,7 @@ export const isLocale = (value: string): value is Locale =>
  */
 export const slugs = {
   work: { fi: 'tyot', en: 'work' },
+  method: { fi: 'tyotapa', en: 'method' },
   about: { fi: 'tietoa', en: 'about' },
   system: { fi: 'system', en: 'system' },
 } as const;
