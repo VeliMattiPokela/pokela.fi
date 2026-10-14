@@ -9,8 +9,8 @@ import type { PiirrosAihe } from '@/components/Piirros';
  * esimerkkiprojektia. Ks. päätös 38.
  */
 const tyotapa = {
-  eyebrow: 'Työtapa · UX engineering',
-  title: 'Suunnitellaan koodissa',
+  eyebrow: 'Työtapa',
+  title: 'UX engineering\u00a0– koodipohjainen suunnittelu',
   lede: 'UX engineering yhdistää käyttäjälähtöisen suunnittelun ja front end -toteutuksen. Palvelua suunnitellaan ja iteroidaan toimivana koodina, joten jokainen suunnittelupäätös on samalla valmista koodia ja sitä voi kokeilla heti.',
   facts: [
     { label: 'Mitä', value: 'Käyttäjälähtöinen suunnittelu ja front end' },
