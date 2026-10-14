@@ -27,12 +27,12 @@ const tyotapa = {
     {
       aihe: 'ymmarrys',
       h: 'Ymmärrys ensin',
-      p: 'Asiakasymmärrys ja yhteinen näkemys syntyvät ennen ensimmäistä koodiriviä. Protoilu ei korvaa konseptointia.',
+      p: 'Asiakasymmärrys ja yhteinen näkemys syntyvät ennen ensimmäistä koodiriviä. Koodi ei korvaa konseptointia.',
     },
     {
       aihe: 'pohja',
       h: 'Pohja ja brief',
-      p: 'Protoympäristö ja versionhallinta pystytetään heti. Projektin brief kirjoitetaan README:hen, jotta AI-avustaja tukee työtä samasta kontekstista.',
+      p: 'Kehitysympäristö ja versionhallinta pystytetään heti. Projektin brief kirjoitetaan README:hen, jotta AI-avustaja tukee työtä samasta kontekstista.',
     },
     {
       aihe: 'design-system',
@@ -47,12 +47,12 @@ const tyotapa = {
     {
       aihe: 'data',
       h: 'Data',
-      p: 'Realistinen mock-data tekee protosta uskottavan. Oikea rajapinta kytketään, kun se on valmis.',
+      p: 'Realistinen mock-data tekee palvelusta uskottavan jo ennen rajapintaa. Oikea rajapinta kytketään, kun se on valmis.',
     },
     {
       aihe: 'julkaisu',
       h: 'Julkaisu ja iterointi',
-      p: 'Proto julkaistaan verkkoon, ja sidosryhmät ja käyttäjät kokeilevat sitä omilla laitteillaan. Palaverissa sovitut muutokset ovat valmiina seuraavaan palaveriin.',
+      p: 'Palvelu julkaistaan testiympäristöön, ja sidosryhmät ja käyttäjät kokeilevat sitä omilla laitteillaan. Palaverissa sovitut muutokset ovat valmiina seuraavaan palaveriin, ja sama koodi jatkaa tuotantoon.',
     },
   ] satisfies { aihe: PiirrosAihe; h: string; p: string }[],
   benefitsTitle: 'Mitä se muuttaa',
@@ -66,7 +66,7 @@ const tyotapa = {
   ],
   limitsTitle: 'Rajat',
   limits: [
-    { h: 'Konseptointia ei oikaista.', p: 'Ensin ymmärrys ja yhteinen näkemys, sitten proto.' },
+    { h: 'Konseptointia ei oikaista.', p: 'Ensin ymmärrys ja yhteinen näkemys, sitten koodi.' },
     {
       h: 'AI:n koodi katselmoidaan.',
       p: 'Se toimii, mutta ei aina ole kestävin ratkaisu. Laatu varmistetaan ennen tuotantoa.',
@@ -76,8 +76,8 @@ const tyotapa = {
       p: 'Tietoturva, lisenssit ja datan käsittely arvioidaan organisaation kanssa tapauskohtaisesti.',
     },
     {
-      h: 'Proto pitää voida jakaa.',
-      p: 'Asiakkaan ympäristön on sallittava julkaisu, muuten ideoita ei voi kokeilla yhdessä.',
+      h: 'Testijulkaisu pitää sallia.',
+      p: 'Jos asiakkaan ympäristö ei salli sitä, ideoita ei voi kokeilla yhdessä.',
     },
     {
       h: 'Yksi työkalu muiden joukossa.',
