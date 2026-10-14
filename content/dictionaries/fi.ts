@@ -19,6 +19,7 @@ const fi = {
 
   nav: {
     work: 'Työt',
+    method: 'Työtapa',
     about: 'Tietoa',
     system: 'System',
     contact: 'Ota yhteyttä',

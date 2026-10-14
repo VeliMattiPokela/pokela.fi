@@ -1,0 +1,32 @@
+/* Piirros: Työtapa-sivun viivakuvitus (Piirros.tsx).
+   Kaikki värit tulevat tokeneista, joten piirros vaihtaa teemaa sivun
+   mukana (päätös 33). Viivojen paksuudet ja tekstikoot ovat viewBoxin
+   yksiköitä, eivät ruudun mittoja: ne kulkevat SVG-attribuutteina. */
+
+.piirros svg { display: block; width: 100%; height: auto; overflow: visible; }
+.piirros text { font-family: var(--font-ui); }
+
+/* Pieni vaihekuva istuu omalla pohjallaan, iso kuva kaistalla. */
+.piirros--pieni { background: var(--paper-alt); border: var(--hairline) solid var(--line); }
+
+.piirros__pohja { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+.piirros__kentta { fill: var(--paper-alt); stroke: var(--line); }
+.piirros__hius { fill: none; stroke: var(--line-strong); stroke-width: 0.75; opacity: 0.5; }
+.piirros__viiva { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.piirros__katko { fill: none; stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 4 3; }
+.piirros__paikka { fill: var(--placeholder-base); stroke: var(--line); }
+.piirros__kuva { fill: var(--badge-surface); }
+.piirros__vuori { fill: var(--ink-faint); opacity: 0.35; }
+.piirros__muste { fill: var(--ink); }
+.piirros__harmaa { fill: var(--ink-faint); }
+.piirros__haalea { fill: var(--ink-faint); opacity: 0.6; }
+.piirros__osoitin { fill: var(--ink); stroke: var(--paper); stroke-width: 1; }
+
+.piirros__meta { fill: var(--ink-faint); font-weight: var(--weight-600); letter-spacing: var(--tr-meta); }
+.piirros__faint { fill: var(--ink-faint); }
+.piirros__muted { fill: var(--ink-muted); }
+.piirros__merkki { fill: var(--ink); font-weight: var(--weight-600); letter-spacing: var(--tr-meta-s); }
+.piirros .piirros__display { fill: var(--ink); font-family: var(--font-display); }
+.piirros__painike { fill: var(--paper); font-weight: var(--weight-600); letter-spacing: var(--tr-meta); }
+.piirros__hinta { fill: var(--ink); font-weight: var(--weight-600); }
+.piirros .piirros__koodi { fill: var(--ink-muted); font-family: var(--font-code); white-space: pre; }

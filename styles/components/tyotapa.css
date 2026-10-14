@@ -1,0 +1,40 @@
+/* Työtapa-sivu (app/[locale]/tyotapa). Otsikko ja faktarivi lainaavat
+   casesivun luokat (case__eyebrow, case__tagline, case__facts), jotta
+   ne pysyvät samoina. Tässä vain sivun omat asettelut. */
+
+.tyotapa__head { padding-top: var(--space-40); padding-bottom: var(--space-56); }
+@media (min-width: 900px) { .tyotapa__head { padding-top: var(--space-56); } }
+.tyotapa__title { margin: 0 0 var(--space-24); }
+
+/* Pääkuva omalla kaistallaan, sivun reunasta reunaan. */
+.tyotapa__kaista {
+  margin: 0;
+  background: var(--paper-alt);
+  border-block: var(--hairline) solid var(--line);
+  padding-block: var(--space-40);
+}
+@media (min-width: 900px) { .tyotapa__kaista { padding-block: var(--space-56) var(--space-40); } }
+.tyotapa__kuvateksti { margin-top: var(--space-24); }
+
+/* Kapealla ruudulla pääkuva vieritetään sivuttain, jotta selainten
+   tekstit pysyvät luettavina. */
+@media (max-width: 899px) {
+  .tyotapa__kaista .piirros { overflow-x: auto; }
+  .tyotapa__kaista .piirros svg { width: 220%; max-width: none; }
+}
+
+.tyotapa__kaista + .reveal .section--aside { border-top: 0; }
+
+.tyotapa__vaiheet,
+.tyotapa__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+
+.tyotapa__vaiheet { gap: var(--space-48) var(--gutter); }
+@media (min-width: 600px) { .tyotapa__vaiheet { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .tyotapa__vaiheet { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.tyotapa__vaihe { display: flex; flex-direction: column; gap: var(--space-8); }
+.tyotapa__vaihe .piirros { margin-bottom: var(--space-12); }
+
+.tyotapa__lista { gap: var(--space-28) var(--gutter); }
+.tyotapa__lista li { display: flex; flex-direction: column; gap: var(--space-4); }
+@media (min-width: 600px) { .tyotapa__lista--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .tyotapa__lista--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

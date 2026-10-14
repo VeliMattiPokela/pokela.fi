@@ -48,6 +48,7 @@ export const POHJAT = {
   Casesivu: ['fi/tyot/colliers'],
   Lohkot: ['fi/tyot/tama-sivusto', 'fi/tyot/blokbook'],
   Tietoa: ['fi/tietoa'],
+  Työtapa: ['fi/tyotapa'],
 };
 
 /**

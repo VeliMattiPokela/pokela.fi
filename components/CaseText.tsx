@@ -11,6 +11,9 @@ import { getCaseRefs } from '@/content/cases';
  * linkkitekstiä casen nimestä: "Colliersissa" ei ole "Colliers
  * Asunnot".
  *
+ * Maininta voi viedä myös sivuston osioon (`section`), esimerkiksi
+ * Työtapa-sivulle.
+ *
  * Casen omalle sivulle ei linkitetä itseensä — `currentSlug`
  * jätetään pois osumista.
  */
@@ -42,7 +45,11 @@ export default function CaseText({
       {text.split(pattern).map((part, i) => {
         const ref = refs.find((r) => r.text === part);
         return ref ? (
-          <Link key={i} href={path(locale, 'work', ref.slug)} className="case-link">
+          <Link
+            key={i}
+            href={ref.section ? path(locale, ref.section) : path(locale, 'work', ref.slug)}
+            className="case-link"
+          >
             {part}
           </Link>
         ) : (
