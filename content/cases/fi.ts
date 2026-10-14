@@ -44,7 +44,7 @@ const colliers: Case = {
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Suunnittelu tehtiin suoraan koodissa.',
+      lead: 'Suunnittelu tehtiin suoraan koodissa',
       items: [
         {
           h: 'Valinta',
@@ -73,7 +73,7 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Iteroitiin toimivaa palvelua, ei kuvia.',
+      title: 'Iteroitiin toimivaa palvelua, ei kuvia',
       body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
@@ -121,7 +121,7 @@ const colliers: Case = {
     {
       kind: 'text',
       label: 'Lopputulos',
-      lead: 'Palvelu on julkaistu ja käytössä.',
+      lead: 'Palvelu on julkaistu ja käytössä',
       items: [
         { p: 'Mittareita ei ole vielä julkaistu. Ne lisätään tähän kun dataa on.' },
       ],
@@ -168,7 +168,7 @@ const blokbook: Case = {
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Ensin omaan käyttöön.',
+      lead: 'Ensin omaan käyttöön',
       items: [
         {
           h: 'Valinta',
@@ -204,7 +204,7 @@ const blokbook: Case = {
     },
     {
       kind: 'band',
-      title: 'Kun tekee kaiken itse, päätökset vaikuttavat toisiinsa.',
+      title: 'Kun tekee kaiken itse, päätökset vaikuttavat toisiinsa',
       body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
     },
     {
@@ -249,7 +249,7 @@ const blokbook: Case = {
     {
       kind: 'text',
       label: 'Tilanne nyt',
-      lead: 'Palvelu on markkinoilla, ja kehitys jatkuu.',
+      lead: 'Palvelu on markkinoilla, ja kehitys jatkuu',
       items: [
         {
           p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on oma, joten tuotteen suunta on omissa käsissä.',
@@ -284,14 +284,14 @@ const thisSite: Case = {
         },
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itse näyte. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Portfolion piti näyttää, että kumpikin tapa toimii.',
+          p: 'Portfolio, joka on itse näyte. Omissa projekteissani suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Portfolion tarkoitus on näyttää, että kumpikin tapa toimii.',
         },
       ],
     },
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Portfolio rakennettiin toimivaksi design systemiksi.',
+      lead: 'Portfolio rakennettiin toimivaksi design systemiksi',
       items: [
         {
           h: 'Valinta',
@@ -349,7 +349,7 @@ const thisSite: Case = {
     },
     {
       kind: 'band',
-      title: 'Tarkistuksilla on rajansa.',
+      title: 'Tarkistuksilla on rajansa',
       body: 'Jokainen build ajaa tarkistukset, ja ero koodin ja Figman välillä pysäyttää sen. Alla on lista siitä, mitä kukin tarkistus kattaa ja mitä se ei näe.',
     },
     {
@@ -385,7 +385,7 @@ const thisSite: Case = {
     {
       kind: 'text',
       label: 'Lopputulos',
-      lead: 'Portfolio on samalla työnäyte ja toimiva design system.',
+      lead: 'Portfolio on samalla työnäyte ja toimiva design system',
       items: [
         {
           p: 'Sivu on rakennettu samoista komponenteista, jotka näkyvät Storybookissa ja Figmassa. Tokenit ja komponentit julkaistaan npm-paketteina, ja jokainen muutos kulkee samojen tarkistusten läpi.',

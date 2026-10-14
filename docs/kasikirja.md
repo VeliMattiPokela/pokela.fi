@@ -35,6 +35,8 @@ alaa eikä todista mitään.
   ("Vastasin front endistä"). Otsikot ja sävyä asettavat lauseet
   ovat passiivissa tai neutraaleja: minäkertoja kuulostaa suomeksi
   itsekeskeiseltä.
+- Otsikon loppuun ei tule pistettä, ei myöskään kokonaisen lauseen
+  otsikkoon tai nauhan otsikkoon (päätös 39).
 - Käyttöliittymää ei selitetä. Ei "vie osoitin päälle", "klikkaa",
   "kun vierität" tai "Esc sulkee": jos toiminto tarvitsee ohjeen,
   korjataan toiminto, ei kirjoiteta ohjetta (päätös 32).
