@@ -97,11 +97,11 @@ const leads: Lead[] = [
   {
     slug: 'tama-sivusto',
     number: '03',
-    title: 'Tämä sivusto',
-    tagline: 'Design system, joka pysyy samana koodissa ja Figmassa',
+    title: 'Designer portfolio 2026',
+    tagline: 'Portfolio, joka on itse näyte työtavasta',
     lede:
-      'Design system on koodissa, ja Figmaa verrataan siihen automaattisesti. Storybook, Code Connect ja tarkistukset ovat kaikki avattavissa.',
-    meta: 'Design system, Storybook, Code Connect',
+      'Portfolio suunniteltiin ja rakennettiin koodissa. Design system pysyy samana koodissa ja Figmassa, ja Storybook, Code Connect ja tarkistukset ovat kaikki avattavissa.',
+    meta: 'Design, front end, design system',
     next: 'colliers',
   },
 ];

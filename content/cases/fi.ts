@@ -261,31 +261,66 @@ const blokbook: Case = {
       text: 'Täydennä: stack, julkaisuvuosi, taloyhtiöiden määrä (jos saa kertoa), isännöitsijän tai hallituksen lause, "mitä tekisin toisin".',
     },
   ],
-  next: { slug: 'tama-sivusto', title: 'Tämä sivusto' },
+  next: { slug: 'tama-sivusto', title: 'Designer portfolio 2026' },
 };
 
 const thisSite: Case = {
   slug: 'tama-sivusto',
-  eyebrow: 'Case 03 · Tämä sivusto',
-  title: 'Yksi lähde, kaksi suuntaa',
-  titleLines: ['Yksi lähde,', 'kaksi suuntaa'],
-  tagline: 'Design system on koodissa. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja, ja automaattiset tarkistukset huomaavat, jos ne alkavat erota.',
+  eyebrow: 'Case 03 · 2026 · Oma portfolio',
+  title: 'Designer portfolio 2026',
+  tagline: 'Portfolio, joka on itse näyte työtavasta. Se suunniteltiin koodissa, ja Figma ja AI-työkalut käyttävät samaa design systemiä.',
   facts: [
-    { label: 'Rooli', value: 'Kaikki, oma sivusto' },
+    { label: 'Rooli', value: 'Design, front end, design system' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
     { label: 'Erityistä', value: 'Kaikki artefaktit ovat julkisia ja avattavissa' },
   ],
   blocks: [
     {
       kind: 'text',
-      label: 'Miksi tämä on olemassa',
+      label: 'Lähtötilanne',
       items: [
         {
-          p: 'Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla. Monessa asiakasorganisaatiossa työ kuitenkin alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja.',
+          p: 'Portfolion piti näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
         },
         {
-          h: 'Ratkaisu',
-          p: 'Tämä sivusto on rakennettu niin, että kumpikin tapa toimii samasta lähteestä. Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
+          h: 'Tehtävä',
+          p: 'Portfolio, joka on itse näyte. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Portfolion piti näyttää, että kumpikin tapa toimii.',
+        },
+      ],
+    },
+    {
+      kind: 'text',
+      label: 'Päätös',
+      lead: 'Portfolio rakennettiin toimivaksi design systemiksi.',
+      items: [
+        {
+          h: 'Valinta',
+          p: 'Koodi on ainoa lähde. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja kuin sivusto.',
+        },
+        {
+          h: 'Miksi',
+          p: 'Silloin työn voi aloittaa koodista tai Figmasta, eikä kumpikaan jää jälkeen. Sama ratkaisu toimii asiakkaan tiimissä, jossa suunnittelijat työskentelevät Figmassa.',
+        },
+        {
+          h: 'Seuraus',
+          p: 'Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
+        },
+      ],
+    },
+    {
+      kind: 'choices',
+      label: 'Kaksi tapaa aloittaa',
+      title: 'Kumpi sopii, riippuu tiimistä',
+      items: [
+        {
+          h: 'Koodi ensin',
+          p: 'Nopein tapa, kun tiimi on pieni ja sama ihminen suunnittelee ja koodaa. Muutokset tehdään suoraan tuotteeseen.',
+          note: 'Näin tehtiin Colliersissa ja Blokbookissa.',
+        },
+        {
+          h: 'Figma ensin',
+          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa.',
+          note: 'Useimmissa asiakasprojekteissa työ alkaa näin.',
         },
       ],
     },
@@ -294,6 +329,12 @@ const thisSite: Case = {
       label: 'Kerroksina',
       title: 'Sama sivu kolmena kerroksena',
       body: 'Alimpana ovat tokenit, keskellä niistä tehdyt komponentit ja päällimmäisenä valmis sivu. Kerrokset ovat tämän sivuston omaa koodia, eivät kuvia.',
+    },
+    {
+      kind: 'component',
+      label: 'Yksi komponentti',
+      title: 'Yksi komponentti neljästä suunnasta',
+      body: 'Listarivi on tämän sivuston tunnusomaisin komponentti. Alla se näkyy valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan suoraan lähdetiedostoista buildin aikana, joten se on aina sama kuin käytössä oleva koodi.',
     },
     {
       kind: 'artefacts',
@@ -305,12 +346,6 @@ const thisSite: Case = {
       label: 'Prosessi',
       title: 'Prosessi vaihe vaiheelta',
       body: 'Prosessi alkaa yrityksen nykytilanteesta ja päättyy siihen, että AI:lla tehty prototyyppi palaa tuotteen koodiin. Useimpia vaiheita valvoo automaattinen tarkistus, ja ne joita ei valvo, on merkitty. Tarkoitus on näyttää, miten tällaisen prosessin voi rakentaa. Koodia ei ole tarkoitettu kopioitavaksi sellaisenaan.',
-    },
-    {
-      kind: 'component',
-      label: 'Yksi komponentti',
-      title: 'Yksi komponentti neljästä suunnasta',
-      body: 'Listarivi on tämän sivuston tunnusomaisin komponentti. Alla se näkyy valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan suoraan lähdetiedostoista buildin aikana, joten se on aina sama kuin käytössä oleva koodi.',
     },
     {
       kind: 'band',
@@ -348,19 +383,12 @@ const thisSite: Case = {
       ],
     },
     {
-      kind: 'choices',
-      label: 'Kaksi tapaa aloittaa',
-      title: 'Kumpi sopii, riippuu tiimistä',
+      kind: 'text',
+      label: 'Lopputulos',
+      lead: 'Portfolio on samalla työnäyte ja toimiva design system.',
       items: [
         {
-          h: 'Koodi ensin',
-          p: 'Nopein tapa, kun tiimi on pieni ja sama ihminen suunnittelee ja koodaa. Muutokset tehdään suoraan tuotteeseen.',
-          note: 'Näin tehtiin Colliersissa ja Blokbookissa.',
-        },
-        {
-          h: 'Figma ensin',
-          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa.',
-          note: 'Useimmissa asiakasprojekteissa työ alkaa näin.',
+          p: 'Sivu on rakennettu samoista komponenteista, jotka näkyvät Storybookissa ja Figmassa. Tokenit ja komponentit julkaistaan npm-paketteina, ja jokainen muutos kulkee samojen tarkistusten läpi.',
         },
       ],
     },
