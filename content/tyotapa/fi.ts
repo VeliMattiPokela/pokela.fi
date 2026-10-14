@@ -57,7 +57,10 @@ const tyotapa = {
   ] satisfies { aihe: PiirrosAihe; h: string; p: string }[],
   benefitsTitle: 'Mitä se muuttaa',
   benefits: [
-    { h: 'Kommentoitava asia toimii.', p: 'Asiakas kommentoi palvelua selaimessa, ei kuvaa palvelusta.' },
+    {
+      h: 'Palaute tulee toimivasta palvelusta.',
+      p: 'Asiakas kommentoi palvelua selaimessa, ei kuvaa palvelusta.',
+    },
     {
       h: 'Mikään ei katoa luovutuksessa.',
       p: 'Suunnittelupäätökset ovat jo koodia, joten niitä ei tulkita uudelleen toteutuksessa.',
