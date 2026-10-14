@@ -1281,3 +1281,18 @@ näkyvästi kuin hyödyt. Blokbook ei ole listalla, koska sen case kertoo
 tuotekehityksestä eikä tästä menetelmästä.
 
 *Kirjattu 14.10.2026 Vellun hyväksynnällä*
+
+## 39. Otsikoissa ei ole loppupistettä
+
+Vellu 2026-10-14: "otsikoiden loppuun ei tule pistettä". Sivulla oli
+otsikoita pisteellä ja ilman, esimerkiksi Työtapa-sivun hyötyjen ja
+rajojen otsikot sekä casejen lead- ja nauhaotsikot.
+
+Päätös: mikään otsikko (h1–h6, casen lead, nauhan otsikko) ei pääty
+pisteeseen, vaikka se olisi kokonainen lause. Kysymys- ja huutomerkki
+saavat jäädä, jos lause niitä vaatii. Leipäteksti, ingressit ja
+taglinet ovat lauseita ja saavat pisteen.
+
+Tarkistusta ei lisätty (päätös 8): sääntö on käsikirjassa, ja kaikki
+nykyiset otsikot korjattiin samassa muutoksessa koodiin ja Figmaan.
+

@@ -10,7 +10,7 @@ import type { PiirrosAihe } from '@/components/Piirros';
  */
 const tyotapa = {
   eyebrow: 'Työtapa · UX engineering',
-  title: 'Suunnitellaan koodissa.',
+  title: 'Suunnitellaan koodissa',
   lede: 'UX engineering yhdistää käyttäjälähtöisen suunnittelun ja front end -toteutuksen. Palvelua suunnitellaan ja iteroidaan toimivana koodina, joten jokainen suunnittelupäätös on samalla valmista koodia ja sitä voi kokeilla heti.',
   facts: [
     { label: 'Mitä', value: 'Käyttäjälähtöinen suunnittelu ja front end' },
@@ -58,32 +58,32 @@ const tyotapa = {
   benefitsTitle: 'Mitä se muuttaa',
   benefits: [
     {
-      h: 'Palaute tulee toimivasta palvelusta.',
+      h: 'Palaute tulee toimivasta palvelusta',
       p: 'Asiakas kommentoi palvelua selaimessa, ei kuvaa palvelusta.',
     },
     {
-      h: 'Mikään ei katoa luovutuksessa.',
+      h: 'Mikään ei katoa luovutuksessa',
       p: 'Suunnittelupäätökset ovat jo koodia, joten niitä ei tulkita uudelleen toteutuksessa.',
     },
-    { h: 'Design system pysyy totena.', p: 'Dokumentaatio on sama koodi, joka on tuotannossa.' },
+    { h: 'Design system pysyy totena', p: 'Dokumentaatio on sama koodi, joka on tuotannossa.' },
   ],
   limitsTitle: 'Rajat',
   limits: [
-    { h: 'Konseptointia ei oikaista.', p: 'Ensin ymmärrys ja yhteinen näkemys, sitten koodi.' },
+    { h: 'Konseptointia ei oikaista', p: 'Ensin ymmärrys ja yhteinen näkemys, sitten koodi.' },
     {
-      h: 'AI:n koodi katselmoidaan.',
+      h: 'AI:n koodi katselmoidaan',
       p: 'Se toimii, mutta ei aina ole kestävin ratkaisu. Laatu varmistetaan ennen tuotantoa.',
     },
     {
-      h: 'AI:n käyttö sovitaan.',
+      h: 'AI:n käyttö sovitaan',
       p: 'Tietoturva, lisenssit ja datan käsittely arvioidaan organisaation kanssa tapauskohtaisesti.',
     },
     {
-      h: 'Testijulkaisu pitää sallia.',
+      h: 'Testijulkaisu pitää sallia',
       p: 'Jos asiakkaan ympäristö ei salli sitä, ideoita ei voi kokeilla yhdessä.',
     },
     {
-      h: 'Yksi työkalu muiden joukossa.',
+      h: 'Yksi työkalu muiden joukossa',
       p: 'Kaikki projektit eivät hyödy tästä, ja perinteisille prosesseille on edelleen paikkansa.',
     },
   ],
