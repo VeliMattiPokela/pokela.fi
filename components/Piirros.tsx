@@ -190,7 +190,7 @@ function Kypsyminen() {
             <T x={x} y={28} k="meta" koko={11}>
               {nimi.toUpperCase()}
             </T>
-            <Selain x={x} y={44} w={w} h={h} url={i === 3 ? 'proto.palvelu.fi' : 'localhost:3000'}>
+            <Selain x={x} y={44} w={w} h={h} url={i === 3 ? 'palvelu.fi' : 'localhost:3000'}>
               <Nakyma w={w} vaihe={(i + 1) as 1 | 2 | 3 | 4} />
             </Selain>
             {i < 3 ? nuoli(x + w + 8, 44 + h / 2) : null}
@@ -346,7 +346,7 @@ function Data() {
 function Julkaisu() {
   return (
     <svg viewBox="0 0 240 150">
-      <Selain x={16} y={18} w={150} h={112} url="proto.palvelu.fi">
+      <Selain x={16} y={18} w={150} h={112} url="palvelu.fi">
         <rect className="piirros__kuva" x={10} y={10} width={130} height={44} />
         <rect className="piirros__muste" x={10} y={62} width={70} height={3} />
         <rect className="piirros__haalea" x={10} y={70} width={50} height={2} />
