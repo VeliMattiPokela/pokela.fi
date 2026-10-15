@@ -43,8 +43,6 @@ const EXEMPT = {
     'margin:-1px': 'Sama resepti kuin yllä.',
   },
   'about.css': {
-    '-webkit-mask-image:#000': 'Maskissa väri on alfakanava, ei väri: #000 tarkoittaa "täysin näkyvä".',
-    'mask-image:#000': 'Sama kuin yllä.',
     'grid-template-columns:300px': 'CV-rivin vuosisarake mitoitettu pisimmän vuosiluvun mukaan, ei asteikolta.',
   },
   'korkeuskayrat.css': {
