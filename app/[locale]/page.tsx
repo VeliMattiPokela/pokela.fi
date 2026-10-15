@@ -86,7 +86,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           ))}
         </div>
 
-        <div className="page home__clients">
+        <div className="page home__clients surface-tint">
           <LogoRow label={dict.common.clients} />
         </div>
 
