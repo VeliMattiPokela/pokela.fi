@@ -17,19 +17,25 @@
 }
 @media (min-width: 600px) { .about__actions { flex-direction: row; gap: var(--space-16); } }
 
-/* Muotokuva: tausta on poistettu, joten kuva piirtyy suoraan
-   paperille ilman kehystä. Alkuperäisessä tiedostossa rajaus
-   päättyy kaarevaan leikkaukseen — se häivytetään maskilla, jottei
-   reunaa näy kummassakaan teemassa.
-
-   HUOM: mustavalkoinen irtileikkaus ei kanna tummaa teemaa; hattu
-   ja paita sulautuvat taustaan. Oikea korjaus on uusi kuva, jossa
-   on aito tausta. Tämä on väliaikainen. */
+/* Muotokuva: pyöreä rajaus valkoisella taustalla. Valkoinen
+   sävytetään vaaleanharmaaksi pinnaksi kertomalla kuva harmaan
+   taustan päälle (multiply): tausta muuttuu harmaaksi, kasvot ja
+   paita pysyvät. Pinta on vaalean teeman --badge-surface molemmissa
+   teemoissa, joten kuva näyttää samalta kummassakin; tummaa sävyä
+   vasten kasvot tummuisivat liikaa. Ympyrä leikataan hieman sisään,
+   jottei lähteen pehmeä reuna jätä vaaleaa rengasta näkyviin.
+   Vellu 2026-10-15: alareunan häivytys pois, vaihtoehto C. */
+.about__portrait-pinta {
+  display: block;
+  background: var(--badge-surface-l);
+  clip-path: circle(49.6%);
+  isolation: isolate;
+}
 .about__portrait {
+  display: block;
   width: 100%;
   height: auto;
-  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
-          mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
+  mix-blend-mode: multiply;
 }
 
 .about__services {
