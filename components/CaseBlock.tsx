@@ -60,7 +60,7 @@ export default function CaseBlock({
     case 'text':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               {block.lead ? <h3 className="display-m case__h">{block.lead}</h3> : null}
               {block.items.map((item, i) => {
@@ -96,7 +96,7 @@ export default function CaseBlock({
     case 'pair':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label ?? ''}>
+          <Section layout="aside" title={block.label ?? ''} surface={block.surface}>
             <div className="case__pair">
               {block.items.map((media) => (
                 <figure key={media.caption} style={{ margin: 0 }}>
@@ -123,7 +123,7 @@ export default function CaseBlock({
         rajaukset(block.id, `${block.id}-ennen`) && rajaukset(block.id, `${block.id}-jalkeen`);
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               {taysi ? (
                 <BeforeAfter
@@ -158,7 +158,7 @@ export default function CaseBlock({
     case 'trio':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <div className="case__trio">
@@ -185,7 +185,7 @@ export default function CaseBlock({
     case 'scope':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -205,13 +205,13 @@ export default function CaseBlock({
     case 'kerrokset':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
             </div>
           </Section>
-          <div className="page case__kerrokset">
+          <div className={['page case__kerrokset', block.surface === 'tint' && 'surface-tint'].filter(Boolean).join(' ')}>
             <SivuKerroksina locale={locale} />
           </div>
         </Reveal>
@@ -220,7 +220,7 @@ export default function CaseBlock({
     case 'steps':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -242,7 +242,7 @@ export default function CaseBlock({
     case 'choices':
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <div className="case__pair">

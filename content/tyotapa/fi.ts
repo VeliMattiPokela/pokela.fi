@@ -96,7 +96,7 @@ const tyotapa = {
       meta: 'Koko menetelmä',
     },
     {
-      slug: 'tama-sivusto',
+      slug: 'portfolio',
       p: 'Menetelmän seuraava askel: koodi on ainoa lähde, ja Figma ja AI-työkalut seuraavat sitä tarkistettuina.',
       meta: 'Jatkokehitys',
     },

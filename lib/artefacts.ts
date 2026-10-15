@@ -78,39 +78,6 @@ const note = (s: ArtefactState, detail?: string): string => {
   return 'Tulossa';
 };
 
-/**
- * Yhden komponentin artefaktit — komponenttinäkymän alarivi.
- */
-export function componentArtefacts(storyPath: string): Artefact[] {
-  const storyCount = has(storyPath) ? readStories(storyPath).length : 0;
-  const remote = artefactUrls.repo ?? readGitRemote();
-  const connections = countCodeConnect();
-
-  const storybook = state(artefactUrls.storybook, storyCount > 0);
-  const figma = state(artefactUrls.figma, connections > 0);
-  const github = state(remote, false);
-
-  return [
-    {
-      label: 'Storybook',
-      state: storybook,
-      href: artefactUrls.storybook,
-      note: note(storybook, `${storyCount} storya, ei vielä julkinen`),
-    },
-    {
-      label: 'Figma',
-      state: figma,
-      href: artefactUrls.figma,
-      note: note(figma, `${connections} Code Connect -kytkentää`),
-    },
-    {
-      label: 'GitHub',
-      state: github,
-      href: remote,
-      note: note(github, 'repo ei ole vielä julkinen'),
-    },
-  ];
-}
 
 /**
  * Case 03:n viisi artefaktia. Sama totuus kuin yllä, laajempana.
@@ -156,18 +123,10 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
       state: state(remote, false),
       href: remote,
     },
-    {
-      number: '05',
-      label: 'Tämä case',
-      body: 'Jokaisesta osiosta pääsee sen komponenttiin Storybookissa ja Figmassa.',
-      state: 'julkaistu',
-      href: null,
-    },
   ];
 
   return items.map(({ detail, ...item }) => ({
     ...item,
-    /* "Tämä case" on julkaistu ilman osoitetta: sitä katsotaan juuri nyt. */
-    note: item.state === 'julkaistu' && !item.href ? 'Olet täällä' : note(item.state, detail),
+    note: note(item.state, detail),
   }));
 }

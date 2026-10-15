@@ -7,6 +7,7 @@
  * `Asettelu`: `stacked` (otsikko ja sivutieto rivinä, sisältö alla)
  * tai `aside` (otsikko vasemmalla, sisältö oikealla). Sisältö on
  * koodissa `children`; Figmassa se on piirretty esimerkiksi.
+ * `Pinta`: `paper` (oletus) tai `tint` (sävytetty luvun pinta).
  */
 
 import figma from 'figma';
@@ -16,10 +17,15 @@ const layout = figma.selectedInstance.getEnum('Asettelu', {
   aside: 'aside',
 });
 
+const surface = figma.selectedInstance.getEnum('Pinta', {
+  paper: 'paper',
+  tint: 'tint',
+});
+
 export default {
   id: 'Section',
   imports: ["import Section from '@/components/Section';"],
-  example: figma.code`<Section title="Osion otsikko"${figma.helpers.react.renderProp('layout', layout)}>
+  example: figma.code`<Section title="Osion otsikko"${figma.helpers.react.renderProp('layout', layout)}${figma.helpers.react.renderProp('surface', surface)}>
   {/* sisältö */}
 </Section>`,
 };

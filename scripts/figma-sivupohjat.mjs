@@ -46,7 +46,7 @@ export const POHJAT = {
   Etusivu: ['fi'],
   Työlista: ['fi/tyot'],
   Casesivu: ['fi/tyot/colliers'],
-  Lohkot: ['fi/tyot/tama-sivusto', 'fi/tyot/blokbook'],
+  Lohkot: ['fi/tyot/portfolio', 'fi/tyot/blokbook'],
   Tietoa: ['fi/tietoa'],
   Työtapa: ['fi/tyotapa'],
 };

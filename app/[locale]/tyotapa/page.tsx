@@ -54,7 +54,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
       </figure>
 
       <Reveal>
-        <Section title={t.stepsTitle} id="vaiheet" layout="aside">
+        <Section title={t.stepsTitle} id="vaiheet" layout="aside" surface="tint">
           <ol className="tyotapa__vaiheet">
             {t.steps.map((step, i) => (
               <li key={step.h} className="tyotapa__vaihe">

@@ -92,10 +92,10 @@ const leads: Lead[] = [
     lede:
       'Taloyhtiöiden tilojen varaus ja maksut webissä, iOS:llä ja Androidilla. Oma tuote ja yritys.',
     meta: 'Perustaja · tuote, design, toteutus',
-    next: 'tama-sivusto',
+    next: 'portfolio',
   },
   {
-    slug: 'tama-sivusto',
+    slug: 'portfolio',
     number: '03',
     title: 'Designer portfolio 2026',
     tagline: 'Portfolio, joka on itsessään näyte työtavasta',

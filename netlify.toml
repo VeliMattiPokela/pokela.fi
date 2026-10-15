@@ -16,3 +16,9 @@
   for = "/tokens.json"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+
+# Case 03:n vanha osoite (päätös 40).
+[[redirects]]
+  from = "/fi/tyot/tama-sivusto/*"
+  to = "/fi/tyot/portfolio/:splat"
+  status = 301
