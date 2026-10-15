@@ -17,14 +17,25 @@
 }
 @media (min-width: 600px) { .about__actions { flex-direction: row; gap: var(--space-16); } }
 
-/* Muotokuva: alkuperäinen pyöreä rajaus valkoisella taustalla,
-   ilman häivytystä (Vellu 2026-10-15: alareunan gradientti näytti
-   oudolta). Rajaus leikataan hieman ympyrän sisään, jotta lähteen
-   pehmennetty reuna ei jätä harmaita pisteitä paperille. */
+/* Muotokuva: pyöreä rajaus valkoisella taustalla. Valkoinen
+   sävytetään vaaleanharmaaksi pinnaksi kertomalla kuva harmaan
+   taustan päälle (multiply): tausta muuttuu harmaaksi, kasvot ja
+   paita pysyvät. Pinta on vaalean teeman --badge-surface molemmissa
+   teemoissa, joten kuva näyttää samalta kummassakin; tummaa sävyä
+   vasten kasvot tummuisivat liikaa. Ympyrä leikataan hieman sisään,
+   jottei lähteen pehmeä reuna jätä vaaleaa rengasta näkyviin.
+   Vellu 2026-10-15: alareunan häivytys pois, vaihtoehto C. */
+.about__portrait-pinta {
+  display: block;
+  background: var(--badge-surface-l);
+  clip-path: circle(49.6%);
+  isolation: isolate;
+}
 .about__portrait {
+  display: block;
   width: 100%;
   height: auto;
-  clip-path: circle(49.6%);
+  mix-blend-mode: multiply;
 }
 
 .about__services {

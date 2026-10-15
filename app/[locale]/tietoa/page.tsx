@@ -72,7 +72,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
           <Col base={4} sm={8} md={4} startMd={9}>
             {/* Muotokuva on pyöreä rajaus valkoisella taustalla, ja
-                ympyrän ulkopuoli on läpinäkyvä.
+                ympyrän ulkopuoli on läpinäkyvä. Valkoinen sävytetään
+                harmaaksi pinnaksi (ks. about.css).
 
                 Kuva kulkee saman putken läpi kuin casejen kuvat
                 (content/kuvat.ts → npm run kuvat), mutta se ei käytä
@@ -85,7 +86,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               const osa = rajaukset('muotokuva')?.[0];
               if (!osa) return null;
               return (
-                <picture>
+                <picture className="about__portrait-pinta">
                   <Lahteet nimi="muotokuva" r={osa} sizes={PORTRAIT_SIZES} />
                   <img
                     src={`/kuva/muotokuva-${osa.koko}-${osa.leveys}.webp`}
