@@ -64,8 +64,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
       </Reveal>
 
-      {/* ---- valitut työt --------------------------------------- */}
-      <section className="section" aria-labelledby="selected-work">
+      {/* ---- valitut työt ja asiakkaat: sävytetty luku (päätös 40) */}
+      <section className="section surface-tint" aria-labelledby="selected-work">
         <div className="page home__section-head">
           <h2 id="selected-work" className="meta">
             {home.selectedWork}
