@@ -98,9 +98,9 @@ const leads: Lead[] = [
     slug: 'tama-sivusto',
     number: '03',
     title: 'Designer portfolio 2026',
-    tagline: 'Portfolio, joka on itse näyte työtavasta',
+    tagline: 'Portfolio, joka on itsessään näyte työtavasta',
     lede:
-      'Portfolio suunniteltiin ja rakennettiin koodissa. Design system pysyy samana koodissa ja Figmassa, ja Storybook, Code Connect ja tarkistukset ovat kaikki avattavissa.',
+      'Portfolio suunniteltiin ja rakennettiin koodissa. Design system on sama koodissa ja Figmassa, ja Storybook, Code Connect -kytkennät ja tarkistukset ovat julkisia.',
     meta: 'Design, front end, design system',
     next: 'colliers',
   },
@@ -114,9 +114,9 @@ const previous: Previous[] = [
     tagline: 'Maksusovellus 1,2 milj. käyttäjälle',
     meta: 'Service design · UX/UI',
     detail: {
-      heading: 'Maksusovellus, jota käyttää yli miljoona ihmistä',
+      heading: 'Maksusovellus yli miljoonalle käyttäjälle',
       intro:
-        'Pivo on mobiilimaksamisen sovellus, jolla lähetetään rahaa, jaetaan yhteisiä kuluja ja maksetaan verkossa.',
+        'Mobiilimaksamisen sovellus rahan lähettämiseen, yhteisten kulujen jakamiseen ja verkkomaksuihin.',
       roleTitle: 'Service Designer / UX/UI Designer',
       roleNote: 'iOS ja Android. Prototyypit testattiin asiakkailla ennen toteutusta.',
       responsible: [
@@ -163,7 +163,7 @@ const previous: Previous[] = [
     slug: 'elisa-aisti',
     number: '05',
     title: 'Elisa Aisti',
-    tagline: 'Palveluiden reaaliaikainen seuranta',
+    tagline: 'Tilannekuvapalvelu Elisan yritysasiakkaille',
     meta: 'UI/UX · Konsepti · Front end',
     detail: {
       heading: 'Tilannekuva, jonka voi lukea yhdellä silmäyksellä',

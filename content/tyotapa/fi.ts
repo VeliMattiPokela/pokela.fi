@@ -32,7 +32,7 @@ const tyotapa = {
     {
       aihe: 'pohja',
       h: 'Pohja ja brief',
-      p: 'Kehitysympäristö ja versionhallinta pystytetään heti. Projektin brief kirjoitetaan README:hen, jotta AI-avustaja tukee työtä samasta kontekstista.',
+      p: 'Kehitysympäristö ja versionhallinta pystytetään heti. Brief, työtavat ja laatusäännöt kirjoitetaan alusta asti tekstitiedostoihin, joten AI-avustaja työskentelee samasta kontekstista ja samoilla säännöillä kuin tiimi.',
     },
     {
       aihe: 'design-system',
@@ -52,7 +52,7 @@ const tyotapa = {
     {
       aihe: 'julkaisu',
       h: 'Julkaisu ja iterointi',
-      p: 'Palvelu julkaistaan testiympäristöön, ja sidosryhmät ja käyttäjät kokeilevat sitä omilla laitteillaan. Palaverissa sovitut muutokset ovat valmiina seuraavaan palaveriin, ja sama koodi jatkaa tuotantoon.',
+      p: 'Palvelu julkaistaan testiympäristöön, ja sidosryhmät ja käyttäjät kokeilevat sitä omilla laitteillaan. Sidosryhmien kanssa sovitut muutokset ovat valmiina seuraavaan läpikäyntiin, ja sama koodi jatkaa tuotantoon.',
     },
   ] satisfies { aihe: PiirrosAihe; h: string; p: string }[],
   benefitsTitle: 'Mitä se muuttaa',
@@ -62,7 +62,7 @@ const tyotapa = {
       p: 'Asiakas kommentoi palvelua selaimessa, ei kuvaa palvelusta.',
     },
     {
-      h: 'Mikään ei katoa luovutuksessa',
+      h: 'Mikään ei katoa matkalla koodiksi',
       p: 'Suunnittelupäätökset ovat jo koodia, joten niitä ei tulkita uudelleen toteutuksessa.',
     },
     { h: 'Design system pysyy totena', p: 'Dokumentaatio on sama koodi, joka on tuotannossa.' },

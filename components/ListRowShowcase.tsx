@@ -138,9 +138,8 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
               </div>
 
               <p className="body-s cview__note">
-                Lista luetaan komponentin omasta tyylitiedostosta aina kun sivusto käännetään. Jos
-                komponentti alkaa käyttää uutta tokenia, se ilmestyy tähän itsestään — eikä tätä
-                sivua tarvitse muistaa päivittää.
+                Lista luetaan komponentin tyylitiedostosta aina, kun sivusto julkaistaan. Jos
+                komponentti alkaa käyttää uutta tokenia, se näkyy tässä itsestään.
               </p>
             </>
           ),
@@ -160,7 +159,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                 path={styleSrc.path}
                 html={styleHtml}
                 lines={styleSrc.lines}
-                note="Ei kovakoodattuja arvoja: jokainen väri, väli ja viiva tulee tokenista — siksi tumma teema ei vaadi omaa sääntöä. Kosketuslohko on tiedoston lopussa, jotta se voittaa hover-säännöt kaskadissa."
+                note="Jokainen väri, väli ja viiva tulee tokenista, joten tumma teema ei tarvitse omaa sääntöä."
               />
             </>
           ),
@@ -175,7 +174,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                 path={storySrc.path}
                 html={storyHtml}
                 lines={storySrc.lines}
-                note="Story ei ole dokumentaatiota komponentista. Se on komponentti — sama tiedosto jota tämä sivu importoi, eri tiloissa."
+                note="Story ei ole erillinen kuvaus komponentista. Se on sama komponentti, jota tämä sivu käyttää, eri tiloissaan."
               />
 
               {/* Kuvaukset luetaan storyjen omista kommenteista, ei
@@ -233,7 +232,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                       },
                       {
                         label: `Tokenit tässä komponentissa (${tokenCount})`,
-                        value: 'Samat nimet Figmassa kuin koodissa — ei käännöstaulukkoa.',
+                        value: 'Tokeneilla on Figmassa samat nimet kuin koodissa, joten suunnittelija ja kehittäjä puhuvat samoista asioista.',
                       },
                     ]}
                   />

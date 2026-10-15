@@ -240,8 +240,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
         <p className="body-l measure sys__note">
           Kaksi teemaa, samat token-nimet, yksi määrittely per token
-          (<code className="code">light-dark()</code>). Vaihda teemaa navin oikeasta reunasta —
-          arvot alla vaihtuvat mukana.
+          (<code className="code">light-dark()</code>).
         </p>
 
         <ul className="sys__swatches">
@@ -309,8 +308,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       >
 
         <p className="body-l measure sys__note">
-          Sarakemäärä on token, ei komponentin tieto. Kavenna ikkunaa — sarakkeet vähenevät
-          itsestään.
+          Sarakemäärä on token, ei komponentin tieto.
         </p>
 
         <Grid className="sys__grid-demo">
