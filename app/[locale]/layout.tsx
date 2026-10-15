@@ -8,6 +8,7 @@ import { getDictionary } from '@/content/dictionaries';
 import ThemeScript from '@/components/ThemeScript';
 import { HeroIntroScript } from '@/components/HeroIntro';
 import Nav from '@/components/Nav';
+import PageProgressRoute from '@/components/PageProgressRoute';
 import Footer from '@/components/Footer';
 
 /* Fontit itse tarjoiltuina: ei ulkoista pyyntöä, ei layout-hyppyä.
@@ -94,6 +95,7 @@ export default async function LocaleLayout({
         <a href="#main" className="skip-link">
           {dict.meta.skipToContent}
         </a>
+        <PageProgressRoute />
         <Nav locale={locale} dict={dict} />
         <main id="main">{children}</main>
         <Footer dict={dict} />

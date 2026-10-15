@@ -115,6 +115,31 @@ export const Mobiili: Story = {
   ),
 };
 
+/**
+ * Siirtymä kesken: kohdesivu latautuu, ja rivin alaviiva piirtyy
+ * musteella. Sivustolla viiva kasvaa hitaasti kohti oikeaa reunaa;
+ * tässä se näytetään pysähtyneenä.
+ */
+export const Siirtyma: Story = {
+  render: () => (
+    <div className="list-rows">
+      <ListRow
+        title="Colliers Asunnot"
+        description="Vuokra-asuntopalvelu, joka suunniteltiin koodissa"
+        meta="Design, front end, CMS"
+        href="#"
+        pending
+      />
+      <ListRow
+        title="Blokbook"
+        description="Oman taloyhtiön ongelmasta myytäväksi palveluksi"
+        meta="Perustaja — tuote, design, toteutus"
+        href="#"
+      />
+    </div>
+  ),
+};
+
 /** Sama komponentti, sama token-nimi, käännetty pinta. */
 export const Tumma: Story = {
   globals: { theme: 'dark' },

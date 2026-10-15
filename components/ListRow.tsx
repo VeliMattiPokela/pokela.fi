@@ -12,6 +12,12 @@ export type ListRowProps = {
   /** `m` on isompi otsikko ja väljempi rytmi — työlistan kärkirivit. */
   size?: 's' | 'm';
   href: string;
+  /**
+   * Siirtymä kohdesivulle on kesken: alaviiva piirtyy musteella.
+   * Sivustolla tilan asettaa PageProgress klikkauksesta; propsi
+   * näyttää sen staattisena (Storybook, Figma).
+   */
+  pending?: boolean;
   /** Lisäluokka, esim. `invert` kun tila näytetään staattisena. */
   className?: string;
   /**
@@ -43,6 +49,10 @@ export type ListRowProps = {
  * `.bleed` hoitaa vaakapaddingin, jotta rivi ulottuu reunaan mutta
  * teksti pysyy .page:n linjassa.
  *
+ * Siirtymän aikana (`pending`) alaviiva piirtyy musteella. Rivi
+ * merkitsee itsensä `data-siirtyma="oma"`, joten PageProgress ei
+ * piirrä sille yläreunan viivaa vaan merkitsee rivin (päätös 41).
+ *
  * Linkki tulee `as`-propsina eikä tuontina. Siksi komponentti ei tiedä
  * Next.js:stä mitään ja kelpaa sellaisenaan mihin tahansa projektiin.
  */
@@ -53,16 +63,19 @@ export default function ListRow({
   meta,
   size = 's',
   href,
+  pending = false,
   className,
   as: Link = 'a',
 }: ListRowProps) {
   return (
     <Link
       href={href}
+      data-siirtyma="oma"
       className={[
         'list-row bleed',
         number ? 'list-row--numbered' : null,
         size === 'm' ? 'list-row--m' : null,
+        pending ? 'list-row--pending' : null,
         className,
       ]
         .filter(Boolean)
