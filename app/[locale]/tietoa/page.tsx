@@ -71,13 +71,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </Col>
 
           <Col base={4} sm={8} md={4} startMd={9}>
-            {/* Muotokuvan tausta on poistettu, joten se piirretään
-                suoraan paperille ilman kehystä tai pintaa.
+            {/* Muotokuva on pyöreä rajaus valkoisella taustalla, ja
+                ympyrän ulkopuoli on läpinäkyvä.
 
                 Kuva kulkee saman putken läpi kuin casejen kuvat
                 (content/kuvat.ts → npm run kuvat), mutta se ei käytä
                 Media-komponenttia: sillä on oma luokkansa
-                maskihäivytystä varten eikä se saa paikanvaraajan
+                ympyrärajausta varten eikä se saa paikanvaraajan
                 taustaa taakseen — tausta näkyisi läpinäkyvän alueen
                 kohdalla. Rajaukset luetaan silti samasta
                 manifestista. */}

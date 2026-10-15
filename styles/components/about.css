@@ -17,19 +17,14 @@
 }
 @media (min-width: 600px) { .about__actions { flex-direction: row; gap: var(--space-16); } }
 
-/* Muotokuva: tausta on poistettu, joten kuva piirtyy suoraan
-   paperille ilman kehystä. Alkuperäisessä tiedostossa rajaus
-   päättyy kaarevaan leikkaukseen — se häivytetään maskilla, jottei
-   reunaa näy kummassakaan teemassa.
-
-   HUOM: mustavalkoinen irtileikkaus ei kanna tummaa teemaa; hattu
-   ja paita sulautuvat taustaan. Oikea korjaus on uusi kuva, jossa
-   on aito tausta. Tämä on väliaikainen. */
+/* Muotokuva: alkuperäinen pyöreä rajaus valkoisella taustalla,
+   ilman häivytystä (Vellu 2026-10-15: alareunan gradientti näytti
+   oudolta). Rajaus leikataan hieman ympyrän sisään, jotta lähteen
+   pehmennetty reuna ei jätä harmaita pisteitä paperille. */
 .about__portrait {
   width: 100%;
   height: auto;
-  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
-          mask-image: linear-gradient(to bottom, #000 72%, transparent 97%);
+  clip-path: circle(49.6%);
 }
 
 .about__services {
