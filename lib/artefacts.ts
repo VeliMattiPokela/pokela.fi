@@ -158,8 +158,8 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     },
     {
       number: '05',
-      label: 'Tämä sivu',
-      body: 'Jokaisesta osiosta pääsee sen omaan storyyn ja Figma-noodiin.',
+      label: 'Tämä case',
+      body: 'Jokaisesta osiosta pääsee sen komponenttiin Storybookissa ja Figmassa.',
       state: 'julkaistu',
       href: null,
     },
@@ -167,7 +167,7 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
 
   return items.map(({ detail, ...item }) => ({
     ...item,
-    /* "Tämä sivu" on julkaistu ilman osoitetta: sitä katsotaan juuri nyt. */
-    note: item.state === 'julkaistu' && !item.href ? 'Katsot sitä' : note(item.state, detail),
+    /* "Tämä case" on julkaistu ilman osoitetta: sitä katsotaan juuri nyt. */
+    note: item.state === 'julkaistu' && !item.href ? 'Olet täällä' : note(item.state, detail),
   }));
 }

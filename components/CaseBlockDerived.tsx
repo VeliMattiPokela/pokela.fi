@@ -48,7 +48,7 @@ export default function CaseBlockDerived({
             <div className="case__section-body">
               {/* Luku johdetaan listasta: käsin kirjoitettuna se
                   vanhenisi heti kun artefakti lisätään tai poistetaan. */}
-              <h3 className="display-m case__h">{artefacts.length} artefaktia</h3>
+              <h3 className="display-m case__h">{artefacts.length} paikkaa, joissa työn voi tarkistaa</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <div className="case__artefacts">
                 {artefacts.map((item) =>
@@ -112,8 +112,7 @@ export default function CaseBlockDerived({
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <p className="body-l measure case__p">
-                Ajossa {live} tarkistusta {all.length}:stä. Loput näkyvät tässä listassa
-                vasta kun ne oikeasti ajetaan.
+                Ajossa {live} tarkistusta {all.length}:stä.
               </p>
               <div className="case__checks">
                 {all.map((check) => (
@@ -129,7 +128,7 @@ export default function CaseBlockDerived({
                       <span className="body-s muted">{check.proves}</span>
                       {check.blind ? (
                         <span className="body-s faint case__check-blind">
-                          <strong>Ei näe:</strong> {check.blind}
+                          <strong>Ei kata:</strong> {check.blind}
                         </span>
                       ) : null}
                     </span>

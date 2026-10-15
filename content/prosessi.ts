@@ -37,7 +37,7 @@ export const ketju: Lenkki[] = [
     numero: 0,
     otsikko: 'Lähtötilanne',
     teksti:
-      'Yrityksellä on yleensä jo koodia ja Figma-tiedostoja. Ensin listataan automaattisesti, missä ne eroavat. Sen jälkeen ihminen päättää asia kerrallaan, kumpi on oikein, ja päätös kirjataan. Vanhat erot saavat jäädä, uusia ei tule.',
+      'Yrityksellä on yleensä jo koodia ja Figma-tiedostoja. Ensin listataan automaattisesti, missä ne eroavat. Sen jälkeen ihminen päättää asia kerrallaan, kumpi on oikein, ja päätös kirjataan. Jo olemassa olevat erot voivat jäädä, mutta uusia ei enää synny.',
     vartijat: [],
   },
   {
@@ -79,14 +79,14 @@ export const ketju: Lenkki[] = [
     numero: 6,
     otsikko: 'AI prototypoi oikeilla osilla',
     teksti:
-      'Tokenit ja komponentit julkaistaan npm-paketteina, ja Figma Make käyttää niitä. Ohjeet kertovat, milloin mitäkin käytetään. Näin prototyyppi tehdään samoilla komponenteilla kuin tuote.',
+      'Tokenit ja komponentit julkaistaan npm-paketteina, ja Figma Make käyttää niitä. Ohjeet kertovat, milloin mitäkin käytetään. Näin Figma Makessa tehty prototyyppi käyttää samoja komponentteja kuin tuote.',
     vartijat: ['paketti', 'docs'],
   },
   {
     numero: 7,
     otsikko: 'Takaisin tuotteeseen',
     teksti:
-      'Prototyypistä tulee muutosehdotus tuotteen koodiin, ja se kulkee samojen tarkistusten läpi kuin mikä tahansa muu muutos.',
+      'Figma Makessa tehty muutos tuodaan tuotteen koodiin muutosehdotuksena. Se kulkee samojen tarkistusten läpi kuin mikä tahansa muu muutos ja julkaistaan sitten tuotteeseen.',
     vartijat: [],
     tulossa: true,
   },

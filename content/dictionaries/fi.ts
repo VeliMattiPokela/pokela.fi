@@ -45,7 +45,7 @@ const fi = {
     aboutLink: 'Tietoa minusta',
     selectedWork: 'Valitut työt',
     allWork: 'Katso kaikki työt',
-    bandTitle: 'Suunnittelu ja toteutus samoissa käsissä.',
+    bandTitle: 'Suunnittelu ja toteutus samoissa käsissä',
     bandBody:
       'Design system, tuotesuunnittelu ja front end. Projektista riippuen yksi näistä tai kaikki kolme.',
   },
@@ -86,8 +86,8 @@ const fi = {
   },
 
   footer: {
-    ctaLines: ['Otetaan', 'yhteyttä'],
-    email: 'veli-matti@pokela.fi',
+    ctaLines: ['Ota', 'yhteyttä'],
+    email: 'velimatti.pokela@gmail.com',
     location: 'Helsinki, FI',
     linkedin: 'LinkedIn',
     linkedinUrl: 'https://www.linkedin.com/in/velimattipokela/',

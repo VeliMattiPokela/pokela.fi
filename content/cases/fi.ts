@@ -33,7 +33,7 @@ const colliers: Case = {
       label: 'Lähtötilanne',
       items: [
         {
-          p: 'Vanha palvelu oli vanhentunut kolmella tasolla yhtä aikaa: tekniikka, ilme ja käyttökokemus. Samaan aikaan liiketoiminta tarvitsi uusia ominaisuuksia, joita vanhan päälle ei voinut rakentaa.',
+          p: 'Palvelu oli ollut käytössä pitkään, ja tekniikka, ilme ja käyttökokemus kaipasivat uudistusta. Samaan aikaan liiketoiminta tarvitsi uusia ominaisuuksia, joille tarvittiin uusi pohja.',
         },
         {
           h: 'Tehtävä',
@@ -56,7 +56,7 @@ const colliers: Case = {
         },
         {
           h: 'Seuraus',
-          p: 'Asiakas kommentoi selaimessa toimivaa palvelua. Palaverissa sovitut muutokset olivat valmiina seuraavaan palaveriin.',
+          p: 'Asiakas kommentoi selaimessa toimivaa palvelua. Sovitut muutokset olivat valmiina seuraavaan läpikäyntiin.',
         },
       ],
     },
@@ -268,11 +268,11 @@ const thisSite: Case = {
   slug: 'tama-sivusto',
   eyebrow: 'Case 03 · 2026 · Oma portfolio',
   title: 'Designer portfolio 2026',
-  tagline: 'Portfolio, joka on itse näyte työtavasta. Se suunniteltiin koodissa, ja Figma ja AI-työkalut käyttävät samaa design systemiä.',
+  tagline: 'Portfolio, joka on itsessään näyte työtavasta. Se suunniteltiin koodissa, ja Figma ja AI-työkalut käyttävät samaa design systemiä.',
   facts: [
     { label: 'Rooli', value: 'Design, front end, design system' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
-    { label: 'Erityistä', value: 'Kaikki artefaktit ovat julkisia ja avattavissa' },
+    { label: 'Erityistä', value: 'Storybook, Figma ja koodi ovat julkisia' },
   ],
   blocks: [
     {
@@ -280,11 +280,11 @@ const thisSite: Case = {
       label: 'Lähtötilanne',
       items: [
         {
-          p: 'Portfolion piti näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
+          p: 'Portfolion tarkoitus on näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
         },
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itse näyte. Omissa projekteissani suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Portfolion tarkoitus on näyttää, että kumpikin tapa toimii.',
+          p: 'Portfolio, joka on itsessään näyte. Omissa projekteissani suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Tavoite on osoittaa, että kumpikin tapa toimii.',
         },
       ],
     },
@@ -319,7 +319,7 @@ const thisSite: Case = {
         },
         {
           h: 'Figma ensin',
-          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa.',
+          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa. Kun komponentit on julkaistu paketteina, myös Figma Make voi tehdä prototyypin samoilla osilla.',
           note: 'Useimmissa asiakasprojekteissa työ alkaa näin.',
         },
       ],
@@ -339,30 +339,25 @@ const thisSite: Case = {
     {
       kind: 'artefacts',
       label: 'Avaa ja tarkista',
-      note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin. Se mikä ei vielä ole julkisesti auki, on merkitty tulossa olevaksi.',
+      note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin.',
     },
     {
       kind: 'ketju',
       label: 'Prosessi',
       title: 'Prosessi vaihe vaiheelta',
-      body: 'Prosessi alkaa yrityksen nykytilanteesta ja päättyy siihen, että AI:lla tehty prototyyppi palaa tuotteen koodiin. Useimpia vaiheita valvoo automaattinen tarkistus, ja ne joita ei valvo, on merkitty. Tarkoitus on näyttää, miten tällaisen prosessin voi rakentaa. Koodia ei ole tarkoitettu kopioitavaksi sellaisenaan.',
-    },
-    {
-      kind: 'band',
-      title: 'Tarkistuksilla on rajansa',
-      body: 'Jokainen build ajaa tarkistukset, ja ero koodin ja Figman välillä pysäyttää sen. Alla on lista siitä, mitä kukin tarkistus kattaa ja mitä se ei näe.',
+      body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen. Useimpia vaiheita valvoo automaattinen tarkistus. Tarkoitus on näyttää, miten tällainen prosessi rakennetaan, eikä tarjota koodia kopioitavaksi.',
     },
     {
       kind: 'checks',
       label: 'Mitä build tarkistaa',
-      title: '{n} tarkistusta, ja niiden sokeat kohdat',
+      title: '{n} tarkistusta ja niiden rajat',
       note: 'Lista luetaan suoraan projektin asetuksista (package.json), joten siinä näkyvät vain tarkistukset, jotka oikeasti ajetaan.',
     },
     {
       kind: 'ajo',
       label: 'Viimeisin build',
-      title: 'Näin tämä sivu rakennettiin',
-      body: 'Aikajana on sen buildin, joka rakensi tämän sivun. Jos yksikin vaihe olisi kaatunut, sivua ei olisi julkaistu. Figma ja npm-paketit tarkistetaan erikseen ennen mergeä, koska ne tarvitsevat verkon.',
+      title: 'Viimeisin build vaihe vaiheelta',
+      body: 'Aikajana on oikea ajo, joka julkaisi tämän version sivustosta. Jos yksikin vaihe olisi kaatunut, versiota ei olisi julkaistu. Figma ja npm-paketit tarkistetaan erikseen ennen yhdistämistä, koska ne tarvitsevat verkon.',
     },
     {
       kind: 'text',
