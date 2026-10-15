@@ -1332,3 +1332,34 @@ isolle pinnalle, joten sävy on oma tokeninsa.
 etusivulla on jo nauha ja herokuva.
 
 *Kirjattu 15.10.2026 Vellun hyväksynnällä*
+
+## 41. Sivunvaihto näyttää latauksen viivalla
+
+**Tilanne:** Vellu huomasi, että sivunvaihto kesti välillä eikä
+käyttäjä nähnyt mitään. Syy on staattinen vienti: Next.js hakee
+etukäteen vain näkyvien tai osoittimen alla olevien linkkien
+sisällön. Hakematon linkki (kosketus, juuri näkyviin vieritetty rivi,
+hidas yhteys) jättää klikkauksen ja uuden sivun väliin tyhjän hetken.
+Hitaalla yhteydellä Työt → Portfolio kesti 1,9 s ilman palautetta.
+
+**Päätös:**
+
+- Klikatun ListRow'n alaviiva piirtyy musteella vasemmalta kohti
+  oikeaa reunaa, kun kohdesivu latautuu (`pending`-propsi, Figmassa
+  `State=pending`). Viiva on siinä, mihin juuri klikattiin, ja käyttää
+  rivin omaa viivaa.
+- Muille linkeille (navi, tekstilinkit) ruudun yläreunaan tulee sama
+  viiva (`PageProgress`, Figmassa `Tila`). Yläreunassa, koska navi voi
+  olla vieritettäessä piilossa.
+- Kumpikin näkyy vasta 120 ms:n jälkeen, joten nopea sivunvaihto ei
+  välähdä. Viiva kasvaa kohti 90 %:a ja sulkeutuu, kun polku vaihtuu.
+  Ilman liikettä viiva on paikallaan.
+- Ei `loading.tsx`-luurankoa: staattisella sivulla se välähtäisi
+  jokaisessa siirtymässä.
+
+**Perustelu:** pelkkä 2 px yläviiva jäi luonnoksessa huomaamatta.
+Vaihtoehdoista (vahvempi yläviiva, riviviiva) Vellu valitsi
+riviviivan: palaute tulee klikkauskohtaan eikä sivulle tule uutta
+elementtiä.
+
+*Kirjattu 15.10.2026 Vellun hyväksynnällä*

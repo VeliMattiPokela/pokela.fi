@@ -23,7 +23,7 @@ const VIIVE_MS = 120;
 /** Päättymisen kesto ennen kuin viiva palaa lepoon (--dur-base + --dur-slow). */
 const PAATOS_MS = 540;
 
-function sisainenLinkki(e: MouseEvent): URL | null {
+function sisainenLinkki(e: MouseEvent): HTMLAnchorElement | null {
   if (e.button !== 0) return null;
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
   const a = (e.target as Element | null)?.closest?.('a');
@@ -33,7 +33,7 @@ function sisainenLinkki(e: MouseEvent): URL | null {
   if (url.origin !== location.origin) return null;
   /* Sama sivu (tai pelkkä ankkuri) ei ole siirtymä. */
   if (url.pathname === location.pathname && url.search === location.search) return null;
-  return url;
+  return a;
 }
 
 /**
@@ -48,10 +48,15 @@ function sisainenLinkki(e: MouseEvent): URL | null {
  * Viiva ilmestyy vasta VIIVE_MS:n jälkeen, kasvaa hitaasti kohti
  * oikeaa reunaa mutta ei koskaan perille ennen kuin sivu on vaihtunut,
  * ja sulkeutuu sitten täyteen leveyteen ja häviää. Ei spinneriä, ei
- * prosentteja, ei väriä: sama --hairline-strong ja --ink kuin
- * aktiivisen navilinkin viivassa.
+ * prosentteja, ei väriä: --hairline-strong ja --ink, kuten
+ * ListRow'n siirtymäviivassa.
  *
- * Komponentti ei tuo Next.js:ää. Klikkaukset se kuuntelee DOMista, ja
+ * Linkki, jolla on oma tapansa näyttää siirtymä (`data-siirtyma="oma"`,
+ * esim. ListRow), saa sen sijaan `data-siirtyy`-attribuutin, ja viiva
+ * piirtyy sen omaan reunaan siihen, mihin juuri klikattiin.
+ *
+ * Komponentti ei tuo Next.js:ää (Next.js-sovelluksessa sen kytkee
+ * PageProgressRoute). Klikkaukset se kuuntelee DOMista, ja
  * perille pääsyn se saa `path`-propsina, joten se toimii minkä tahansa
  * reitittimen kanssa.
  */
@@ -59,15 +64,21 @@ export default function PageProgress({ path, state }: PageProgressProps) {
   const [tila, setTila] = useState<PageProgressState>('idle');
   const viive = useRef<number | undefined>(undefined);
   const odottaa = useRef(false);
+  const linkki = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
     if (state) return;
     const klikki = (e: MouseEvent) => {
-      if (!sisainenLinkki(e)) return;
+      const a = sisainenLinkki(e);
+      if (!a) return;
+      linkki.current?.removeAttribute('data-siirtyy');
+      linkki.current = a;
       odottaa.current = true;
       window.clearTimeout(viive.current);
       viive.current = window.setTimeout(() => {
-        if (odottaa.current) setTila('loading');
+        if (!odottaa.current) return;
+        if (a.dataset.siirtyma === 'oma') a.setAttribute('data-siirtyy', '');
+        else setTila('loading');
       }, VIIVE_MS);
     };
     /* Kaappausvaiheessa, koska next/link kutsuu preventDefaultia
@@ -84,6 +95,8 @@ export default function PageProgress({ path, state }: PageProgressProps) {
     if (state || !odottaa.current) return;
     odottaa.current = false;
     window.clearTimeout(viive.current);
+    linkki.current?.removeAttribute('data-siirtyy');
+    linkki.current = null;
     setTila((t) => (t === 'loading' ? 'done' : 'idle'));
   }, [path, state]);
 

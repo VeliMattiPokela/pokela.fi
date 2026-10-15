@@ -28,6 +28,8 @@
  *                      staattisena. :hover ja :focus-visible ovat
  *                      CSS:n tiloja, eivät propseja, joten ne eivät
  *                      käänny miksikään.
+ *   State=pending    → `pending`: siirtymä kohdesivulle on kesken,
+ *                      alaviiva piirtyy musteella (päätös 41).
  *   Breakpoint       → @media-katko, ei propsi. Ei kartoitu.
  *
  * Tiedostomuoto on Code Connect v2:n template, ei vanha
@@ -65,6 +67,14 @@ const className = figma.selectedInstance.getEnum('State', {
   default: undefined,
   hover: 'invert',
   focus: undefined,
+  pending: undefined,
+});
+
+const pending = figma.selectedInstance.getEnum('State', {
+  default: undefined,
+  hover: undefined,
+  focus: undefined,
+  pending: true,
 });
 
 export default {
@@ -79,6 +89,9 @@ export default {
   )}${figma.helpers.react.renderProp('description', description)}${figma.helpers.react.renderProp(
     'meta',
     meta,
-  )}${figma.helpers.react.renderProp('className', className)}/>`,
+  )}${figma.helpers.react.renderProp('className', className)}${figma.helpers.react.renderProp(
+    'pending',
+    pending,
+  )}/>`,
   metadata: { nestable: true },
 };

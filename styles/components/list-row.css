@@ -180,6 +180,43 @@
   .list-row:active .meta { color: var(--ink-muted); }
 }
 
+/* ---- siirtymä (päätös 41) ------------------------------------------
+
+   Kun rivin kohdesivu latautuu, rivin alaviiva piirtyy musteella
+   vasemmalta kohti oikeaa reunaa. Viiva on siinä, mihin juuri
+   klikattiin, eikä sivulle tule mitään uutta: rivillä on jo viiva.
+   Pinta pysyy hiljaisena, jotta kosketuksessa näkyy mikä rivi
+   valittiin, vaikka :active on jo päättynyt.
+
+   `.list-row--pending` on tila staattisena (`pending`-propsi).
+   Sivustolla PageProgress asettaa `data-siirtyy`-attribuutin
+   klikatulle riville, kun lataus kestää. Siirtymä näkyy vasta
+   viiveen jälkeen, joten nopea sivunvaihto ei välähdä. */
+.list-row--pending,
+.list-row[data-siirtyy] {
+  position: relative;
+  background: var(--badge-surface);
+}
+.list-row--pending::after,
+.list-row[data-siirtyy]::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 calc(var(--hairline) * -1) 0;
+  height: var(--hairline-strong);
+  background: var(--ink);
+  transform: scaleX(0.45);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.list-row[data-siirtyy]::after {
+  animation: list-row-siirtyma 10s var(--ease-standard) forwards;
+}
+@keyframes list-row-siirtyma {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(0.9); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .list-row { transition: none; }
+  .list-row[data-siirtyy]::after { animation: none; }
 }

@@ -82,6 +82,11 @@ const EXEMPT = {
     syy: 'palvelinkomponentti',
     huom: 'Lukee artefaktien tilan, tarkistuslistan ja komponentin lähdekoodin build-aikana.',
   },
+  'PageProgressRoute.tsx': {
+    syy: 'katettu-muualla',
+    missä: 'PageProgress',
+    huom: 'Kytkee PageProgressin Next.js:n reitittimeen, ei omaa ulkoasua.',
+  },
   'ListRowShowcase.tsx': {
     syy: 'palvelinkomponentti',
     huom: 'Lukee lähdekoodin build-aikana. Sen UI on ComponentView, jolla on omat storyt.',

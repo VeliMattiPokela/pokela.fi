@@ -5,6 +5,7 @@ Use these instead of building an equivalent.
 <!-- generated:make-komponentit -->
 - `Icon`, `ICON_NAMES`
 - `ListRow`
+- `PageProgress`
 - `Accordion`, `useAccordionGroup`
 - `Timeline`, `TimelineItem`
 - `ExplodedView`

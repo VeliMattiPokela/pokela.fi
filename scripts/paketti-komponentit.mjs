@@ -39,7 +39,7 @@ const TEKIJA = 'Veli-Matti Pokela';
 const VUOSI = 2026;
 
 /** Komponentit jotka paketti vie. Ks. tiedoston alku. */
-export const VIETAVAT = ['Icon', 'ListRow', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Table', 'Dialog', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle'];
+export const VIETAVAT = ['Icon', 'ListRow', 'PageProgress', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Table', 'Dialog', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle'];
 
 /**
  * CSS jonka vietävät komponentit tarvitsevat.
@@ -52,6 +52,7 @@ export const TYYLIT = [
   'styles/base.css',
   'styles/components/icon.css',
   'styles/components/list-row.css',
+  'styles/components/page-progress.css',
   'styles/components/accordion.css',
   'styles/components/timeline.css',
   'styles/components/exploded-view.css',
@@ -74,6 +75,7 @@ export const ULKOPUOLELLA = [
   ['Media, LogoRow, CaseText, CaseBlock, CaseBlocks, CaseBlockDerived, ListRowShowcase',
    'lukevat sivuston omaa sisältöä (`@/content`, `@/lib`)'],
   ['Nav, Footer', 'tarvitsevat sivuston sanakirjan ja reitityksen'],
+  ['PageProgressRoute', 'kytkee PageProgressin Next.js:n reitittimeen; muu sovellus antaa `path`-propsin itse'],
   ['BeforeAfter, Video', 'rakentuvat Median varaan, ja Media lukee kuvamanifestia'],
   ['HeroName', 'piirtää sivuston omaa nimeä fontin ääriviivoista (`@/content/nimi.generated.json`)'],
   ['SivuKerroksina', 'kokoaa tämän sivuston räjäytyskuvan sen omista tokeneista ja sisällöstä; yleinen osa on ExplodedView'],
