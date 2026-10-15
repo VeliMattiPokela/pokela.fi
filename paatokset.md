@@ -1328,7 +1328,10 @@ kohdalla antaa rytmin ilman että sivu pirstoutuu. Valmis `--paper-alt`
 (#FAFAF8) ei erotu valkoisesta, ja `--badge-surface` on liian raskas
 isolle pinnalle, joten sävy on oma tokeninsa.
 
-**Raja:** etusivua, Töitä ja Tietoa ei sävytetty: ne ovat lyhyitä, ja
-etusivulla on jo nauha ja herokuva.
+**Raja:** Töitä ja Tietoa ei sävytetty, koska ne ovat lyhyitä.
+Etusivulla sävy on vain asiakaslogojen rivillä, joka kulkee reunasta
+reunaan työlistan alla. Koko työluku sävytettynä teki sivusta
+tunkkaisen, koska etusivulla on jo herokuva ja tumma nauha (Vellu
+15.10.2026).
 
 *Kirjattu 15.10.2026 Vellun hyväksynnällä*
