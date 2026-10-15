@@ -36,3 +36,15 @@
 @media (min-width: 900px) {
   .section--aside { grid-template-columns: 200px minmax(0, 1fr); gap: var(--space-40); }
 }
+
+/* Luvun pinta (Section surface="tint", päätös 40). Tausta ulottuu
+   reunasta reunaan, vaikka osio itse pysyy .page-leveydessä: varjo
+   jatkaa pintaa sivuille ja clip-path rajaa sen pystysuunnassa osion
+   korkeuteen, joten vaakavieritystä ei synny. Pinottu osio vaihtaa
+   marginaalin paddingiksi, jotta pinta kattaa myös välin. */
+.surface-tint {
+  background: var(--tint-surface);
+  box-shadow: 0 0 0 100vmax var(--tint-surface);
+  clip-path: inset(0 -100vmax);
+}
+.section.surface-tint { margin-block: 0; padding-block: var(--section-gap); }

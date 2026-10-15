@@ -13,6 +13,7 @@ tulokset `docs/loki.md`:ssä.
 | **Omat ikonit** | Ikonikirjastoa ei käytetä — systeemi piirtää kuusi merkkiään itse (`components/Icon.tsx`). Ruudukko on 16×16, viiva `--hairline`, päätteet tylpät koska `--radius` on 0, väri aina `currentColor`. Merkit olivat ennen tekstiä (`↗`, `✕`, `+`), jolloin ne riippuivat siitä mitä fontin osajoukossa sattui olemaan: Figmassa `↗` ei löytynyt Archivosta lainkaan. Kun merkit ovat omia, sana `icon` on myös oikea — `sign` ja `indicator` olivat kiertoilmauksia. Teemanvaihto pysyy sanana: se ei ole toiminto vaan tila, ja tila luetaan. |
 | **Yksi lukumitta** | `--measure: 62ch` on ainoa. Se kelpaa myös 14 pikselin tekstille, koska `ch` skaalautuu fonttikoon mukana — sama luku tarkoittaa suunnilleen samaa merkkimäärää joka koossa. Mitattuna leipäteksti saa 63 merkkiä riville, mikä osuu klassiseen 45–75:n haarukkaan. Sivustolla oli välillä viisi eri `ch`-arvoa, mutta mittaus osoitti ettei kolme niistä ollut lukumittoja lainkaan: kuvateksti on sidottu kuvaan ja roolirivi on taittovarmistus. Ne ovat nyt pikseleinä ja kirjattuina poikkeuksina. **`ch` ei sovi harvennettuun tekstiin:** se ei tunne `letter-spacing`iä, joten roolirivin `68ch` lupasi 68 merkkiä kun riville mahtui 35. |
 | **CV tulostuu, ei lataudu** | Sivustolla ei ole CV-PDF:ää eikä sellaista tehdä: se olisi toinen kopio samasta sisällöstä ja eriytyisi sivusta heti kun jompaakumpaa muokataan. Tietoa-sivu **on** CV, ja `styles/print.css` tekee siitä paperille kelpaavan — selain tuottaa PDF:n samasta lähteestä (`content/cv/fi.ts`), joten se ei voi vanhentua. Kaksi kohtaa jotka olisivat rikkoneet tulosteen hiljaa: `.reveal` on `opacity: 0` kunnes osio on selattu näkyviin, ja tumma teema tulostaisi valkoisen tekstin valkoiselle paperille koska selain ei tulosta taustoja. Molemmat pakotetaan tulostuksessa. |
+| **Pinta luvuittain** | Pitkä sivu rytmitetään luvuilla, ei osioilla. `Section surface="tint"` sävyttää osion reunasta reunaan tokenilla `--tint-surface`, ja peräkkäiset sävytetyt osiot ovat yksi luku. Sävy kuuluu visuaaliselle tai interaktiiviselle luvulle (mitä rakennettiin, vaiheet, näytteet), tarina ja perustelut pysyvät paperilla. Tumma nauha (`band`) avaa luvun. Pintoja on kolme: paperi, sävy ja käännetty (päätös 40). |
 | **Nimeäminen** | Tokenit puhuvat materiaalista (`paper`, `ink`, `rule`, `bleed`, `measure`), komponentit käytöstä (`ListRow`, `Media`, `Button`). Jos komponentin nimi vaatii selityksen, se on väärä nimi. |
 
 ## Sivun teksti
@@ -61,7 +62,8 @@ sokeine kohtineen.
 **Buildin aikajana.** `npm run build` ajaa `scripts/ajo.mjs`:n, joka ajaa
 `check:sync`-ketjun tarkistukset ja kuvaputken, kirjaa kunkin keston ja
 yhteenvetorivin tiedostoon `.ajo/ajo.json` ja käynnistää sitten
-Next.js:n. Case 03 näyttää kirjauksen aikajanana (lohko `ajo`, yleinen
+Next.js:n. Case 03 näyttää kirjauksen tarkistuslistan viimeisenä
+rivinä, josta avautuu aikajana (lohko `checks`, yleinen
 `Timeline`-komponentti), joten
 sivu kertoo sen buildin, joka sen rakensi. Kaatunut vaihe pysäyttää
 buildin, joten aikajanalla ei voi olla punaista vaihetta. CI ajaa saman
@@ -993,7 +995,7 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       `lg 1440` -koossa. Niiden lisäksi on **Lohkot**-pohja molemmissa
       koissa, jossa ovat ne lohkot joita casepohjissa ei ollut.
 
-      <!-- generated:case-lohkot -->16 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ajo, ketju, steps, kerrokset, choices, component, todo<!-- /generated -->
+      <!-- generated:case-lohkot -->15 lohkotyyppiä: text, media, pair, compare, band, trio, scope, artefacts, checks, ketju, steps, kerrokset, choices, component, todo<!-- /generated -->
 
       Kaikki paitsi `todo` ovat nyt Figmassa. `todo` näkyy vain
       kehityksessä eikä tule Figmaan koskaan.

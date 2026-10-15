@@ -261,7 +261,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- typografia ------------------------------------------ */}
-      <Section id="type" title="02 — Typografia" meta="Bodoni Moda + Archivo">
+      <Section id="type" title="02 — Typografia" meta="Bodoni Moda + Archivo" surface="tint">
 
         <div className="sys__type">
           {typeNames.map((name) => {
@@ -321,7 +321,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- välistys -------------------------------------------- */}
-      <Section id="space" title="04 — Välistys" meta="4 px perusyksikkö">
+      <Section id="space" title="04 — Välistys" meta="4 px perusyksikkö" surface="tint">
 
         <ul className="sys__space">
           {spaceSteps.map(([step, value]) => (

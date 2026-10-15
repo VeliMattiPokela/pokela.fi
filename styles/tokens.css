@@ -117,6 +117,7 @@
   --ink-muted-l: #45464A;      --ink-muted-d: #B9BCBF;
   --ink-faint-l: #6A6C6E;      --ink-faint-d: #9A9DA1;
   --badge-surface-l: #EDEDEA;  --badge-surface-d: #232527;
+  --tint-surface-l: #F2F2F0;   --tint-surface-d: #17181A;
   --invert-surface-l: #101112; --invert-surface-d: #F4F4F2;
   --invert-ink-l: #F4F4F2;     --invert-ink-d: #0E0F10;
   --invert-faint-l: #B6B8BA;   --invert-faint-d: #4A4C4E;
@@ -148,6 +149,7 @@
   --ink-muted: var(--ink-muted-l);
   --ink-faint: var(--ink-faint-l);
   --badge-surface: var(--badge-surface-l);
+  --tint-surface: var(--tint-surface-l);
   --invert-surface: var(--invert-surface-l);
   --invert-ink: var(--invert-ink-l);
   --invert-faint: var(--invert-faint-l);
@@ -172,6 +174,7 @@
   --ink-muted: var(--ink-muted-d);
   --ink-faint: var(--ink-faint-d);
   --badge-surface: var(--badge-surface-d);
+  --tint-surface: var(--tint-surface-d);
   --invert-surface: var(--invert-surface-d);
   --invert-ink: var(--invert-ink-d);
   --invert-faint: var(--invert-faint-d);
@@ -196,6 +199,8 @@
     --ink-muted: var(--ink-muted-d);
     --ink-faint: var(--ink-faint-d);
     --badge-surface: var(--badge-surface-d);
+    --tint-surface: var(--tint-surface-d);
+  --tint-surface: var(--tint-surface-d);
     --invert-surface: var(--invert-surface-d);
     --invert-ink: var(--invert-ink-d);
     --invert-faint: var(--invert-faint-d);
@@ -232,6 +237,7 @@
     --ink-muted: #3a3b3e;
     --ink-faint: #56585a;
     --badge-surface: #ffffff;
+    --tint-surface: #ffffff;
     --invert-surface: #ffffff;
     --invert-ink: #101112;
     --invert-faint: #56585a;

@@ -60,6 +60,7 @@ const colorUse: Record<string, string> = {
   'ink-muted': 'Toissijainen teksti',
   'ink-faint': 'Metatiedot, vaimennettu tila',
   'badge-surface': 'Hiljainen merkintäpinta',
+  'tint-surface': 'Luvun pinta pitkällä sivulla',
   'invert-surface': 'Käännetty pinta — hover, nostopalkki',
   'invert-ink': 'Teksti käännetyllä pinnalla',
   'invert-faint': 'Metatieto käännetyllä pinnalla',

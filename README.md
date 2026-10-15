@@ -88,7 +88,7 @@ Uusi tarkistus lisätään vasta kun oikea virhe on päässyt läpi
 /fi/tyot/            Työlistaus — 3 kärkeä + aiempi työ avautuvana
 /fi/tyot/colliers        Case 01
 /fi/tyot/blokbook        Case 02
-/fi/tyot/tama-sivusto    Case 03
+/fi/tyot/portfolio       Case 03
 /fi/system/          Design system elävänä
 /fi/tietoa/          Info / CV
 ```

@@ -1,3 +1,4 @@
+import type { SectionSurface } from '@/components/Section';
 import type { Esitys, Ratio } from '@/components/Media';
 
 /**
@@ -27,7 +28,12 @@ export type MediaSlot = {
   label?: string;
 };
 
-export type Block =
+export type Block = BlockKind & {
+  /** Luvun pinta: `tint` sävyttää osion reunasta reunaan (Section). */
+  surface?: SectionSurface;
+};
+
+type BlockKind =
   /** Tekstiosio: valinnainen iso väite (display-m) + nimettyjä
       kappaleita. Vain lead on display-kokoinen — muuten sivu täyttyisi
       isoista otsikoista. */
@@ -61,16 +67,15 @@ export type Block =
   | { kind: 'artefacts'; label: string; note: string }
   /** Synkkatarkistukset. Lista johdetaan package.jsonista
       (lib/checks.ts) — mitä ajetaan, se näkyy. Casetekstiin ei
-      kirjoiteta mitä tarkistetaan, koska se väite vanheni kerran jo. */
+      kirjoiteta mitä tarkistetaan, koska se väite vanheni kerran jo.
+      Listan viimeinen rivi on viimeisin build: sen aikajana luetaan
+      tiedostosta, jonka scripts/ajo.mjs kirjoittaa ennen Next.js:n
+      buildia, joten sivu näyttää sen buildin, joka sen rakensi. */
   /* `title` on pakko sisältää `{n}`: renderöijä korvaa sen ajossa
      olevien tarkistusten määrällä. Ilman placeholderia build kaatuu.
      Luku vanheni kerran käsin kirjoitettuna — otsikko lupasi neljää
      kun niitä oli seitsemän. */
   | { kind: 'checks'; label: string; title: string; note: string }
-  /** Buildin aikajana. Vaiheet, kestot ja tulokset luetaan
-      tiedostosta jonka scripts/ajo.mjs kirjoittaa ennen Next.js:n
-      buildia, joten sivu näyttää sen buildin joka sen rakensi. */
-  | { kind: 'ajo'; label: string; title: string; body: string }
   /** Prosessi yhtenä ketjuna. Lenkit luetaan content/prosessi.ts:stä
       ja vartijat lib/checks.ts:stä build-aikana, joten casetekstiin
       kirjoitetaan vain otsikko ja johdanto. */
