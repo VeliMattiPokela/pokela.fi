@@ -1,0 +1,48 @@
+/* Sivunvaihdon viiva (päätös 41). Ruudun yläreunassa, navin päällä,
+   koska navi voi olla vieritettäessä piilossa. Viiva kasvaa vasemmalta
+   scaleX:llä, joten se ei koskaan siirrä sivua eikä aiheuta asettelua.
+
+   loading: kasvaa pitkällä hidastuvalla käyrällä kohti 90 %:a. Jos
+            sivu tulee nopeasti, viiva ehtii näkyä vain lyhyenä.
+   done:    sulkeutuu täyteen leveyteen ja häviää. */
+.page-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: var(--hairline-strong);
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  pointer-events: none;
+}
+.page-progress[data-tila='loading'] {
+  opacity: 1;
+  animation: page-progress-kasvu 10s var(--ease-standard) forwards;
+}
+.page-progress[data-tila='done'] {
+  transform: scaleX(1);
+  opacity: 0;
+  transition:
+    transform var(--dur-base) var(--ease-standard),
+    opacity var(--dur-slow) var(--ease-standard) var(--dur-base);
+}
+
+@keyframes page-progress-kasvu {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(0.9); }
+}
+
+/* Ilman liikettä viiva on paikallaan puolileveänä: tieto latauksesta
+   säilyy, liike jää pois. */
+@media (prefers-reduced-motion: reduce) {
+  .page-progress[data-tila='loading'] {
+    animation: none;
+    transform: scaleX(0.5);
+  }
+  .page-progress[data-tila='done'] { transition: opacity var(--dur-fast) linear; }
+}
+
+@media print {
+  .page-progress { display: none; }
+}
