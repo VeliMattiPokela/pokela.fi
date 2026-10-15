@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { readCodeConnect, readSource, readStories, readTokenGroups } from '@/lib/source';
-import { componentArtefacts } from '@/lib/artefacts';
 import { highlight } from '@/lib/highlight';
 import ComponentView, { CodeBlock, FactList } from './ComponentView';
 import { getDictionary } from '@/content/dictionaries';
@@ -47,11 +46,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
     highlight(connectSrc.code, 'ts'),
   ]);
 
-  const { groups: tokenGroups, total: tokenCount } = readTokenGroups(SOURCES.style);
-  /* Tila johdetaan tiedostoista: Storybook on olemassa vaikkei sitä
-     ole vielä julkaistu, eikä sitä saa esittää samana kuin Figmaa,
-     jota ei ole. */
-  const artefacts = componentArtefacts(SOURCES.story);
+  const { total: tokenCount } = readTokenGroups(SOURCES.style);
   /* Varianttien ja propsien nimet luetaan kytkennästä, koska siellä
      ne ovat siinä muodossa jota Figma oikeasti käyttää. */
   const connect = readCodeConnect(SOURCES.connect);
@@ -60,7 +55,6 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
   return (
     <ComponentView
       label={dict.showcase.label}
-      linksLabel={dict.showcase.elsewhere}
       tabs={[
         {
           id: 'nakyma',
@@ -113,33 +107,8 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                 ]}
               />
 
-              {/* Ryhmittely tulee token-nimien etuliitteistä: paljas
-                  22 nimen lista ei kertoisi lukijalle mitään. */}
-              <div className="cview__states">
-                <h4 className="meta">
-                  Mitä komponentti säätää — {tokenCount} tokenia, ei yhtään kovakoodattua arvoa
-                </h4>
-                <dl className="cview__facts">
-                  {tokenGroups.map((group) => (
-                    <div key={group.label} className="cview__fact">
-                      <dt className="meta">
-                        {group.label} ({group.tokens.length})
-                      </dt>
-                      <dd className="body-s muted cview__tokens">
-                        {group.tokens.map((token) => (
-                          <code key={token} className="cview__token">
-                            {token}
-                          </code>
-                        ))}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-
-              <p className="body-s cview__note">
-                Lista luetaan komponentin tyylitiedostosta aina, kun sivusto julkaistaan. Jos
-                komponentti alkaa käyttää uutta tokenia, se näkyy tässä itsestään.
+              <p className="meta cview__states">
+                {tokenCount} tokenia, ei yhtään kovakoodattua arvoa
               </p>
             </>
           ),
@@ -262,7 +231,6 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
           ),
         },
       ]}
-      links={artefacts}
     />
   );
 }

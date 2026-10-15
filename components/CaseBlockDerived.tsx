@@ -9,6 +9,7 @@ import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
 import Timeline, { TimelineItem } from './Timeline';
 import type { Locale } from '@/lib/i18n';
 import Section from './Section';
+import CheckList from './CheckList';
 
 /**
  * Casen johdetut lohkot: ne eivät piirrä annettua dataa vaan lukevat
@@ -98,6 +99,7 @@ export default function CaseBlockDerived({
          komponentissa. */
       const all = checks();
       const live = liveCheckCount();
+      const ajo = viimeisinAjo();
 
       if (!block.title.includes('{n}')) {
         throw new Error(
@@ -111,33 +113,30 @@ export default function CaseBlockDerived({
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
-              <p className="body-l measure case__p">
-                Ajossa {live} tarkistusta {all.length}:stä.
-              </p>
-              <div className="case__checks">
-                {all.map((check) => (
-                  <div
-                    key={check.id}
-                    className={[
-                      'case__check',
-                      check.runs ? 'case__check--live' : 'case__check--pending',
-                    ].join(' ')}
-                  >
-                    <span className="case__check-main">
-                      <span className="display-s case__check-name">{check.title}</span>
-                      <span className="body-s muted">{check.proves}</span>
-                      {check.blind ? (
-                        <span className="body-s faint case__check-blind">
-                          <strong>Ei kata:</strong> {check.blind}
-                        </span>
-                      ) : null}
-                    </span>
-                    <span className="meta case__check-state">
-                      {check.runs ? 'Ajossa' : 'Ei vielä kytketty'}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <CheckList
+                items={all.map(({ id, title, proves, blind, runs }) => ({ id, title, proves, blind: blind ?? null, runs }))}
+                build={ajo ? {
+                  description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
+                  meta: `${ajo.vaiheet.length + 1} vaihetta`,
+                  children: (
+                    <Timeline>
+                      {ajo.vaiheet.map((vaihe, i) => (
+                        <TimelineItem
+                          key={vaihe.id}
+                          label={kello(vaihe.alku)}
+                          group={i === 0 || ajo.vaiheet[i - 1].ryhma !== vaihe.ryhma ? vaihe.ryhma : null}
+                          title={vaihe.nimi}
+                          meta={kesto(vaihe.kesto)}
+                          description={vaihe.tulos}
+                          variant={vaihe === ajo.hitain ? 'emphasis' : 'default'}
+                          weight={vaihe.kesto / ajo.sivustoAlkoi}
+                        />
+                      ))}
+                      <TimelineItem label={kello(ajo.sivustoAlkoi)} title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
+                    </Timeline>
+                  ),
+                } : undefined}
+              />
             </div>
           </Section>
         </Reveal>

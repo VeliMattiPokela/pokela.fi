@@ -261,18 +261,18 @@ const blokbook: Case = {
       text: 'Täydennä: stack, julkaisuvuosi, taloyhtiöiden määrä (jos saa kertoa), isännöitsijän tai hallituksen lause, "mitä tekisin toisin".',
     },
   ],
-  next: { slug: 'tama-sivusto', title: 'Designer portfolio 2026' },
+  next: { slug: 'portfolio', title: 'Designer portfolio 2026' },
 };
 
 const thisSite: Case = {
-  slug: 'tama-sivusto',
+  slug: 'portfolio',
   eyebrow: 'Case 03 · 2026 · Oma portfolio',
   title: 'Designer portfolio 2026',
   tagline: 'Portfolio, joka on itsessään näyte työtavasta. Se suunniteltiin koodissa, ja Figma ja AI-työkalut käyttävät samaa design systemiä.',
   facts: [
     { label: 'Rooli', value: 'Design, front end, design system' },
     { label: 'Stack', value: 'Next.js, TypeScript, Storybook, Figma Code Connect' },
-    { label: 'Erityistä', value: 'Storybook, Figma ja koodi ovat julkisia' },
+    { label: 'Julkista', value: 'Storybook, Figma-tiedosto ja koodi' },
   ],
   blocks: [
     {
@@ -280,30 +280,26 @@ const thisSite: Case = {
       label: 'Lähtötilanne',
       items: [
         {
-          p: 'Portfolion tarkoitus on näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
+          p: 'Portfolion pitää näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
         },
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itsessään näyte. Omissa projekteissani suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta monessa asiakasorganisaatiossa työ alkaa Figmasta, ja sen ympärillä on suunnittelijoita, sidosryhmiä ja prosesseja. Tavoite on osoittaa, että kumpikin tapa toimii.',
+          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa yleensä Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
         },
       ],
     },
     {
       kind: 'text',
       label: 'Päätös',
-      lead: 'Portfolio rakennettiin toimivaksi design systemiksi',
+      lead: 'Koodi on ainoa lähde, ja Figma seuraa sitä',
       items: [
         {
           h: 'Valinta',
-          p: 'Koodi on ainoa lähde. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja kuin sivusto.',
+          p: 'Portfolio rakennettiin toimivaksi design systemiksi. Figma ja AI-työkalut käyttävät samoja arvoja ja komponentteja kuin sivusto.',
         },
         {
           h: 'Miksi',
-          p: 'Silloin työn voi aloittaa koodista tai Figmasta, eikä kumpikaan jää jälkeen. Sama ratkaisu toimii asiakkaan tiimissä, jossa suunnittelijat työskentelevät Figmassa.',
-        },
-        {
-          h: 'Seuraus',
-          p: 'Storybook, Figma-tiedosto ja Code Connect -kytkennät ovat julkisia, ja build tarkistaa, että ne vastaavat toisiaan.',
+          p: 'Työn voi aloittaa koodista tai Figmasta, eikä kumpikaan jää jälkeen. Sama ratkaisu toimii asiakkaan tiimissä, jossa suunnittelijat työskentelevät Figmassa.',
         },
       ],
     },
@@ -319,63 +315,39 @@ const thisSite: Case = {
         },
         {
           h: 'Figma ensin',
-          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa. Kun komponentit on julkaistu paketteina, myös Figma Make voi tehdä prototyypin samoilla osilla.',
+          p: 'Suunnittelijat ja sidosryhmät työskentelevät tutussa työkalussa, ja koodi pysyy silti lähteenä, koska Code Connect kytkee komponentit toisiinsa. Figma Make tekee prototyypin samoilla osilla.',
           note: 'Useimmissa asiakasprojekteissa työ alkaa näin.',
         },
       ],
     },
     {
+      kind: 'band',
+      title: 'Yksi design system koodissa, Figmassa ja AI-työkaluissa',
+      body: 'Tokenit, komponentit ja sivut ovat samaa koodia. Figman kirjasto ja Figma Make käyttävät samoja osia npm-paketteina.',
+    },
+    {
       kind: 'kerrokset',
       label: 'Kerroksina',
       title: 'Sama sivu kolmena kerroksena',
-      body: 'Alimpana ovat tokenit, keskellä niistä tehdyt komponentit ja päällimmäisenä valmis sivu. Kerrokset ovat tämän sivuston omaa koodia, eivät kuvia.',
+      body: 'Alimpana ovat tokenit, keskellä niistä tehdyt komponentit ja päällimmäisenä valmis sivu. Kerrokset ovat sivuston omaa koodia, eivät kuvia.',
     },
     {
       kind: 'component',
       label: 'Yksi komponentti',
       title: 'Yksi komponentti neljästä suunnasta',
-      body: 'Listarivi on tämän sivuston tunnusomaisin komponentti. Alla se näkyy valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan suoraan lähdetiedostoista buildin aikana, joten se on aina sama kuin käytössä oleva koodi.',
-    },
-    {
-      kind: 'artefacts',
-      label: 'Avaa ja tarkista',
-      note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin.',
+      body: 'Listarivi on sivuston tunnusomaisin komponentti. Se näkyy tässä valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan lähdetiedostoista buildin aikana.',
     },
     {
       kind: 'ketju',
       label: 'Prosessi',
       title: 'Prosessi vaihe vaiheelta',
-      body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen. Useimpia vaiheita valvoo automaattinen tarkistus. Tarkoitus on näyttää, miten tällainen prosessi rakennetaan, eikä tarjota koodia kopioitavaksi.',
+      body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen. Tarkoitus on näyttää, miten tällainen prosessi rakennetaan, eikä tarjota koodia kopioitavaksi.',
     },
     {
       kind: 'checks',
-      label: 'Mitä build tarkistaa',
-      title: '{n} tarkistusta ja niiden rajat',
-      note: 'Lista luetaan suoraan projektin asetuksista (package.json), joten siinä näkyvät vain tarkistukset, jotka oikeasti ajetaan.',
-    },
-    {
-      kind: 'ajo',
-      label: 'Viimeisin build',
-      title: 'Viimeisin build vaihe vaiheelta',
-      body: 'Aikajana on oikea ajo, joka julkaisi tämän version sivustosta. Jos yksikin vaihe olisi kaatunut, versiota ei olisi julkaistu. Figma ja npm-paketit tarkistetaan erikseen ennen yhdistämistä, koska ne tarvitsevat verkon.',
-    },
-    {
-      kind: 'text',
-      label: 'Ylläpito',
-      items: [
-        {
-          h: 'Mitä tarkistetaan',
-          p: 'Onko jokaisella komponentilla story ja jokaisella Figman komponentilla kytkentä koodiin. Löytyvätkö kytkennän lukemat propertyt ja variantit Figmasta. Figman muuttujia ei tarkisteta, vaikka se olisi hyödyllistä: rajapinta avaa ne vain Enterprise-tasolla. Organisaatiossa, jolla Enterprise on, saman tarkistuksen voi ulottaa myös muuttujiin.',
-        },
-        {
-          h: 'Milloin',
-          p: 'Joka buildissa ja jokaisessa pull requestissa, joten ero huomataan samana päivänä.',
-        },
-        {
-          h: 'Miksi',
-          p: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota toisistaan. Automaattinen tarkistus huomaa sen ajoissa.',
-        },
-      ],
+      label: 'Tarkistukset',
+      title: '{n} tarkistusta joka buildissa',
+      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Tarkistukset ajetaan joka buildissa ja pull requestissa, joten ero huomataan samana päivänä. Jokaisella tarkistuksella on myös rajansa.',
     },
     {
       kind: 'text',
@@ -385,17 +357,16 @@ const thisSite: Case = {
         {
           p: 'Sivu on rakennettu samoista komponenteista, jotka näkyvät Storybookissa ja Figmassa. Tokenit ja komponentit julkaistaan npm-paketteina, ja jokainen muutos kulkee samojen tarkistusten läpi.',
         },
-      ],
-    },
-    {
-      kind: 'text',
-      label: 'Rajat',
-      lead: 'Milloin tämä ei kannata',
-      items: [
         {
+          h: 'Milloin tämä ei kannata',
           p: 'Kytkentä vaatii ylläpitoa ja kannattaa vasta, kun komponentteja on tarpeeksi ja tekijöitä useampi. Yhden hengen projektissa tai kymmenen komponentin kirjastossa se on turhaa työtä.',
         },
       ],
+    },
+    {
+      kind: 'artefacts',
+      label: 'Avaa ja tarkista',
+      note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin.',
     },
   ],
   next: { slug: 'colliers', title: 'Colliers Asunnot' },
