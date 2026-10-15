@@ -36,7 +36,7 @@ const SIVUT = [
   '/fi/tietoa/',
   '/fi/system/',
   '/fi/tyot/colliers/',
-  '/fi/tyot/tama-sivusto/',
+  '/fi/tyot/portfolio/',
 ];
 
 /** Mitattavat ominaisuudet. Vain ne jotka muutos voi rikkoa. */

@@ -1296,3 +1296,39 @@ taglinet ovat lauseita ja saavat pisteen.
 Tarkistusta ei lisätty (päätös 8): sääntö on käsikirjassa, ja kaikki
 nykyiset otsikot korjattiin samassa muutoksessa koodiin ja Figmaan.
 
+
+## 40. Pitkä sivu rytmitetään luvuilla ja pinnalla
+
+**Tilanne:** case 03 (Designer portfolio 2026) oli kasvanut noin
+12 500 pikseliin ja kahteentoista osioon. Tarkistuksista kerrottiin
+neljään kertaan (prosessin vaiheet, tarkistuslista, buildin aikajana,
+Ylläpito), linkit Storybookiin, Figmaan ja repoon olivat kahdesti, ja
+osoite `/tyot/tama-sivusto` ei kertonut mitään. Kaikki sivut olivat
+yhtä tasaista paperia, joten pitkässä sivussa ei ollut lukuja.
+
+**Päätös:**
+
+- Case 03 tiivistetään yhdeksään osioon samassa tarinan kaaressa kuin
+  muut caset. Tarkistukset ovat yksi osio: rivillä nimi ja ensimmäinen
+  lause, raja ("Ei kata") ja viimeisimmän buildin aikajana avautuvat
+  rivistä (`CheckList`, `Accordion`). Ylläpito ja Rajat yhdistyvät
+  tarkistuksiin ja lopputulokseen, token-nimien lista jää
+  Storybookiin, ja linkit ovat kerran sivun lopussa.
+- Osoite on `/fi/tyot/portfolio/`. Vanha osoite ohjataan uuteen
+  (netlify.toml).
+- Uusi token `--tint-surface` ja `Section`-komponentin props
+  `surface` (`paper` | `tint`, Figmassa variantti `Pinta`). Sävy
+  kuuluu luvulle, jossa näytetään mitä rakennettiin: caseissa osiot
+  tumman nauhan jälkeen, Työtavan vaiheet ja Systemissä joka toinen
+  luku (Typografia, Välistys). Tarina ja perustelut pysyvät paperilla.
+
+**Perustelu:** tieto säilyy, mutta lukija näkee ensin tarinan ja
+avaa yksityiskohdat, jos haluaa. Pinnan vaihto luvun eikä osion
+kohdalla antaa rytmin ilman että sivu pirstoutuu. Valmis `--paper-alt`
+(#FAFAF8) ei erotu valkoisesta, ja `--badge-surface` on liian raskas
+isolle pinnalle, joten sävy on oma tokeninsa.
+
+**Raja:** etusivua, Töitä ja Tietoa ei sävytetty: ne ovat lyhyitä, ja
+etusivulla on jo nauha ja herokuva.
+
+*Kirjattu 15.10.2026 Vellun hyväksynnällä*

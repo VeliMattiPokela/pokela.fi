@@ -116,7 +116,6 @@ const fi = {
     label: 'Listarivi neljästä suunnasta',
     figmaHeading: 'Komponentti Figmassa',
     codeConnectHeading: 'Code Connect -kytkentä',
-    elsewhere: 'Sama komponentti muualla',
     name: 'Nimi',
     /* Keskimmäisen näyterivin meta ei ole sisältöä vaan selite siitä
        mitä rivi demonstroi. */

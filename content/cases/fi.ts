@@ -78,6 +78,7 @@ const colliers: Case = {
     },
     {
       kind: 'trio',
+      surface: 'tint',
       label: 'Mitä rakennettiin',
       title: 'Design ja toteutus samoissa käsissä',
       items: [
@@ -100,6 +101,7 @@ const colliers: Case = {
     },
     {
       kind: 'text',
+      surface: 'tint',
       label: 'Design system',
       lead: 'Design system on koodissa',
       items: [
@@ -209,6 +211,7 @@ const blokbook: Case = {
     },
     {
       kind: 'scope',
+      surface: 'tint',
       label: 'Vastuualueet',
       title: 'Mistä kaikesta vastaan',
       body: 'Tuotteen kaikki osa-alueet konseptista ylläpitoon, hinnoittelusta asiakastukeen.',
@@ -226,6 +229,7 @@ const blokbook: Case = {
     },
     {
       kind: 'trio',
+      surface: 'tint',
       label: 'Kolme alustaa',
       title: 'Sama palvelu, kolme alustaa',
       items: [
@@ -327,18 +331,21 @@ const thisSite: Case = {
     },
     {
       kind: 'kerrokset',
+      surface: 'tint',
       label: 'Kerroksina',
       title: 'Sama sivu kolmena kerroksena',
       body: 'Alimpana ovat tokenit, keskellä niistä tehdyt komponentit ja päällimmäisenä valmis sivu. Kerrokset ovat sivuston omaa koodia, eivät kuvia.',
     },
     {
       kind: 'component',
+      surface: 'tint',
       label: 'Yksi komponentti',
       title: 'Yksi komponentti neljästä suunnasta',
       body: 'Listarivi on sivuston tunnusomaisin komponentti. Se näkyy tässä valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan lähdetiedostoista buildin aikana.',
     },
     {
       kind: 'ketju',
+      surface: 'tint',
       label: 'Prosessi',
       title: 'Prosessi vaihe vaiheelta',
       body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen. Tarkoitus on näyttää, miten tällainen prosessi rakennetaan, eikä tarjota koodia kopioitavaksi.',

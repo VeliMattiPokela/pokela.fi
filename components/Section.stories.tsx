@@ -53,3 +53,13 @@ export const TummaTeema: Story = {
   args: Sivussa.args,
   globals: { theme: 'dark' },
 };
+
+/** Luvun pinta: sävy ulottuu reunasta reunaan, sisältö pysyy palstassa. */
+export const Savytetty: Story = {
+  args: { ...Sivussa.args, surface: 'tint', title: 'Mitä rakennettiin' },
+};
+
+export const SavytettyTumma: Story = {
+  args: Savytetty.args,
+  globals: { theme: 'dark' },
+};

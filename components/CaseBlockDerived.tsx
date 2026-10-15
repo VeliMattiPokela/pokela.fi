@@ -20,7 +20,7 @@ import CheckList from './CheckList';
  *   ketju       prosessin lenkit (content/prosessi.ts) ja niiden
  *               vartijat (lib/checks.ts)
  *   component   komponentin lähdekoodi (ListRowShowcase)
- *   ajo         buildin vaiheet, jotka scripts/ajo.mjs kirjasi
+ *               ja viimeisin build, jonka scripts/ajo.mjs kirjasi
  *               (lib/ajo.ts)
  *
  * Juuri siksi ne eivät voi vanhentua — eikä niillä voi olla storya:
@@ -28,7 +28,7 @@ import CheckList from './CheckList';
  * ListRowShowcase on kirjattu poikkeukseksi, ja se on kirjattu myös
  * tälle tiedostolle scripts/check-stories.mjs:ssä.
  */
-export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' | 'ketju' | 'ajo' }>;
+export type DerivedBlock = Extract<Block, { kind: 'artefacts' | 'checks' | 'component' | 'ketju' }>;
 
 export default function CaseBlockDerived({
   block,
@@ -45,7 +45,7 @@ export default function CaseBlockDerived({
       const artefacts = caseArtefacts();
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               {/* Luku johdetaan listasta: käsin kirjoitettuna se
                   vanhenisi heti kun artefakti lisätään tai poistetaan. */}
@@ -109,7 +109,7 @@ export default function CaseBlockDerived({
       }
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
@@ -148,7 +148,7 @@ export default function CaseBlockDerived({
       const nimet = new Map(checks().map((c) => [c.id, c.title]));
       return (
         <Reveal>
-          <Section layout="aside" title={block.label}>
+          <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
@@ -181,90 +181,9 @@ export default function CaseBlockDerived({
         </Reveal>
       );
     }
-    case 'ajo': {
-      /* Sivu näyttää sen buildin, joka sen rakensi. Ilman kirjausta
-         (next dev, pelkkä next build) aikajanaa ei keksitä. */
-      const ajo = viimeisinAjo();
-      return (
-        <Reveal>
-          <Section layout="aside" title={block.label}>
-            <div className="case__section-body">
-              <h3 className="display-m case__h">{block.title}</h3>
-              <p className="body-l measure case__p">{block.body}</p>
-              {ajo ? (
-                <>
-                  <dl className="case__ajo-tila">
-                    <div>
-                      <dt className="meta faint">Tulos</dt>
-                      <dd className="display-s">Läpi</dd>
-                    </div>
-                    <div>
-                      <dt className="meta faint">Kesto ennen sivua</dt>
-                      <dd className="display-s">{kello(ajo.sivustoAlkoi)}</dd>
-                    </div>
-                    <div>
-                      <dt className="meta faint">Vaiheita</dt>
-                      <dd className="display-s">{ajo.vaiheet.length + 1}</dd>
-                    </div>
-                    <div>
-                      <dt className="meta faint">Missä</dt>
-                      <dd className="display-s">{ajo.ymparisto}</dd>
-                    </div>
-                  </dl>
-                  <p className="body-s muted case__ajo-muutos">
-                    {[
-                      ajo.muutos,
-                      new Date(ajo.alkoi).toLocaleString('fi-FI', {
-                        timeZone: 'Europe/Helsinki',
-                        day: 'numeric',
-                        month: 'numeric',
-                        year: 'numeric',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                      }),
-                      ajo.commit,
-                    ]
-                      .filter(Boolean)
-                      .join(' · ')}
-                  </p>
-                  <Timeline>
-                    {ajo.vaiheet.map((vaihe, i) => (
-                      <TimelineItem
-                        key={vaihe.id}
-                        label={kello(vaihe.alku)}
-                        group={i === 0 || ajo.vaiheet[i - 1].ryhma !== vaihe.ryhma ? vaihe.ryhma : null}
-                        title={vaihe.nimi}
-                        meta={kesto(vaihe.kesto)}
-                        description={vaihe.tulos}
-                        variant={vaihe === ajo.hitain ? 'emphasis' : 'default'}
-                        weight={vaihe.kesto / ajo.sivustoAlkoi}
-                      />
-                    ))}
-                    <TimelineItem
-                      label={kello(ajo.sivustoAlkoi)}
-                      title="Sivusto rakennetaan"
-                      description="Tämä sivu on sen tulos."
-                      variant="end"
-                    />
-                  </Timeline>
-                  <p className="display-s case__ajo-nosto">
-                    Hitain vaihe: {ajo.hitain.nimi.toLowerCase()}, {kesto(ajo.hitain.kesto)}.
-                  </p>
-                </>
-              ) : (
-                <p className="body-s muted case__p">
-                  Tämä build ei kirjannut vaiheitaan. Aikajana syntyy, kun sivu rakennetaan
-                  komennolla npm run build.
-                </p>
-              )}
-            </div>
-          </Section>
-        </Reveal>
-      );
-    }
     case 'component':
       return (
-        <Section layout="aside" title={block.label}>
+        <Section layout="aside" title={block.label} surface={block.surface}>
           <div className="case__section-body">
             <h3 className="display-m case__h">{block.title}</h3>
             <p className="body-l measure case__p">{block.body}</p>
