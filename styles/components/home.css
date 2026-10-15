@@ -49,8 +49,9 @@
 .home__section-foot { padding-top: var(--space-20); justify-content: flex-end; }
 
 /* Logorivi tulee heti listan alle. Listan alaviiva erottaa ne, joten
-   rivin oma yläviiva jäisi tuplaviivaksi. */
-.home__clients .logo-row-block { border-top: 0; }
+   rivin oma yläviiva jäisi tuplaviivaksi. Rivi on sävytetyllä
+   pinnalla (päätös 40), joten pinnan reuna korvaa myös alaviivan. */
+.home__clients .logo-row-block { border-block: 0; }
 
 /* Käännetty nostorivi. Yksi per sivu. */
 .home__band {
