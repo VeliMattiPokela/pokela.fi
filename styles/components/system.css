@@ -1,6 +1,8 @@
 /* /system — design system elävänä. Arvot luetaan tokens.json:sta. */
 
-.code {
+/* Tekstin sisäinen koodi. Oma nimi, koska .code on koodilohkon
+   paneeli (component-view.css) ja sen display: flex katkaisi rivin. */
+.sys__code {
   font-family: var(--font-code);
   font-size: var(--text-code);
   background: var(--badge-surface);
