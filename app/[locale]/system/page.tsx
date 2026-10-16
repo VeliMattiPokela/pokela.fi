@@ -218,10 +218,10 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
   return (
     <>
-      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} />
+      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} lede="Design system on yhteinen kieli, jolla Figma, koodi ja AI tekevät samaa sivustoa. Tällä sivulla se on näkyvissä sellaisenaan: jokainen väri, mitta ja komponentti on sama, jota sivusto käyttää." />
 
       <section className="page section">
-        <p className="body-l measure">
+        <p className="body-s muted measure">
           Tämä sivu lukee arvot <code className="code">tokens.json</code>:sta build-aikana. Jos
           token muuttuu, tämä sivu muuttuu — eikä sitä tarvitse muistaa päivittää. Sama tiedosto
           ajetaan jokaisessa buildissa <code className="code">styles/tokens.css</code>:ää vasten,
