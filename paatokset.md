@@ -1372,3 +1372,26 @@ riviviivan: palaute tulee klikkauskohtaan eikä sivulle tule uutta
 elementtiä.
 
 *Kirjattu 15.10.2026 Vellun hyväksynnällä*
+
+## 42. Tarkistukset näytetään kahtena ryhmänä
+
+**Tilanne:** case 03:n tarkistuslistassa Favicon, Kuvat ja Kuvasuhteet
+olivat samanarvoisia rivejä kuin Figma tai Paketit. Vellu kysyi, miksi
+faviconille on pyhitetty oma vaihe. Vastaus: menetelmä on sama kuin
+muissa (johdettu tiedosto lasketaan lähteestä, ja tarkistus käyttää
+samaa laskentaa), mutta kohde on tämän sivuston oma eikä sille ole
+kirjattu löydöstä (päätös 8). Ryhmittelystä sovittiin jo 7.10.2026
+ketjun uudistuksessa.
+
+**Päätös:** tarkistukset näytetään kahtena ryhmänä: *Yleinen ydin*
+(tokenit, storyt, Code Connect, kovakoodatut arvot, Figma, paketit,
+dokumentaatio, tekstit) ja *Tuotekohtaiset vartijat* (favicon, kuvat,
+kuvasuhteet). Ryhmä on `lib/checks.ts`:n kenttä `group`, ja ryhmän
+otsikko ja selite tulevat samasta tiedostosta casesivulle, Figman
+Lohkot-pohjaan ja Jatkuva kehitys -sivun luotuun tekstiin.
+
+**Raja:** tarkistuksia ei poistettu eikä niiden ajoa muutettu.
+Tuotekohtaiset vartijat ajetaan yhä joka buildissa ja lasketaan
+otsikon lukuun.
+
+*Kirjattu 16.10.2026 Vellun hyväksynnällä*

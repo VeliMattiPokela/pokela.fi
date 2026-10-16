@@ -41,6 +41,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Perus: Story = {};
 
+/** Sivulla lista näytetään kahtena ryhmänä (päätös 42). */
+export const Ryhmissa: Story = {
+  args: {
+    groups: [
+      { id: 'ydin', title: 'Yleinen ydin', note: 'Koodi, Figma ja paketit pidetään samana.' },
+      { id: 'tuote', title: 'Tuotekohtaiset vartijat', note: 'Sama menetelmä tämän sivuston omiin tiedostoihin.' },
+    ],
+    items: [
+      { id: 'tokens', group: 'ydin', title: 'Tokenit', proves: 'styles/tokens.css ja tokens.json ovat samat arvot.', blind: null, runs: true },
+      { id: 'figma', group: 'ydin', title: 'Figma', proves: 'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin.', blind: null, runs: true },
+      { id: 'favicon', group: 'tuote', title: 'Favicon', proves: 'Favicon vastaa tokenien väriparia tavu tavulta.', blind: null, runs: true },
+    ],
+  },
+};
+
 export const Mobiilissa: Story = {
   globals: { viewport: { value: 'base' } },
 };
