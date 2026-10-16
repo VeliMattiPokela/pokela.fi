@@ -169,9 +169,12 @@ a.case__artefact:hover .meta { color: var(--ink-muted); }
 /* Putken askel: nimi + selite samalla rivillä. */
 .case__scope-item--wide { align-items: baseline; }
 .case__scope-item--wide > span:last-child { display: flex; flex-direction: column; gap: var(--space-4); }
-/* Ketjun lenkki joka ei vielä toimi: näkyy, mutta ei valmiina. */
-.case__scope-item--pending { border-bottom-style: dashed; }
-.case__scope-item--pending .body-s { color: var(--ink-faint); }
+/* Prosessin vaiheet: Työtapa-sivun vaiheruudukko (tyotapa.css).
+   Vartijarivi painuu kortin alaosaan, jotta rivit asettuvat linjaan. */
+.case__ketju-vartijat { margin-top: auto; padding-top: var(--space-8); }
+/* Vaihe joka ei vielä toimi: näkyy, mutta ei valmiina. */
+.case__ketju-tulossa .piirros { border-style: dashed; }
+.case__ketju-tulossa .title { color: var(--ink-muted); }
 
 /* Kaksi vaihtoehtoa rinnakkain. */
 .case__choice { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-20); border-top: var(--hairline) solid var(--line-strong); }

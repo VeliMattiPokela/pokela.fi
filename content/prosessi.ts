@@ -12,12 +12,16 @@
  * ajeta — niin kävi kerran jo.
  */
 
+import type { PiirrosAihe } from '@/components/Piirros';
+
 export type Lenkki = {
   /** Järjestysnumero. Lenkki nojaa edelliseen. 0 tehdään kerran, ja
       vain olemassa olevassa talossa. */
   numero: number;
   otsikko: string;
   teksti: string;
+  /** Vaiheen kuva (Piirros). */
+  aihe: PiirrosAihe;
   /**
    * Tarkistukset jotka vahtivat tätä lenkkiä: tunnisteet
    * lib/checks.ts:stä. Tyhjä lista on rehellinen vastaus silloin kun
@@ -36,6 +40,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 0,
     otsikko: 'Lähtötilanne',
+    aihe: 'lahtotilanne',
     teksti:
       'Yrityksellä on yleensä jo koodia ja Figma-tiedostoja. Ensin listataan automaattisesti, missä ne eroavat. Sen jälkeen ihminen päättää asia kerrallaan, kumpi on oikein, ja päätös kirjataan. Jo olemassa olevat erot voivat jäädä, mutta uusia ei enää synny.',
     vartijat: [],
@@ -43,6 +48,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 1,
     otsikko: 'Yksi lähde',
+    aihe: 'lahde',
     teksti:
       'Värit, typografia, välistys ja liike kirjataan yhteen tiedostoon, ja kaikki muu lukee arvot sieltä. Arvoja ei kopioida muualle käsin.',
     vartijat: ['tokens', 'hardcoded'],
@@ -50,6 +56,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 2,
     otsikko: 'Komponentit koodiin',
+    aihe: 'koodi',
     teksti:
       'Komponentti tehdään kerran, koodiin. Storybook näyttää sen selaimessa kaikissa tiloissaan, ja se on sama koodi, jota valmis tuote käyttää.',
     vartijat: ['stories'],
@@ -57,6 +64,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 3,
     otsikko: 'Arvot Figmaan',
+    aihe: 'arvot',
     teksti:
       'Arvot viedään Figmaan pluginilla. Kun arvot muuttuvat, suunnittelija ajaa pluginin, ja värit, tekstityylit ja välistykset päivittyvät kerralla.',
     vartijat: [],
@@ -64,6 +72,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 4,
     otsikko: 'Kirjasto Figmaan',
+    aihe: 'kirjasto',
     teksti:
       'Komponentit tehdään Figmaan kerran, samoilla nimillä ja tiloilla kuin koodissa. Kirjastoa ei voi generoida, mutta sen voi tehdä AI:n avulla koodin pohjalta. Sen jälkeen suunnittelija käyttää samoja osia, jotka on jo toteutettu.',
     vartijat: ['figma'],
@@ -71,6 +80,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 5,
     otsikko: 'Kytkennät',
+    aihe: 'kytkenta',
     teksti:
       'Jokainen Figman komponentti kytketään vastaavaan koodiin. Kehittäjä näkee Figmassa suoraan oikean koodin.',
     vartijat: ['code-connect', 'figma'],
@@ -78,6 +88,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 6,
     otsikko: 'AI prototypoi oikeilla osilla',
+    aihe: 'make',
     teksti:
       'Tokenit ja komponentit julkaistaan npm-paketteina, ja Figma Make käyttää niitä. Ohjeet kertovat, milloin mitäkin käytetään. Näin Figma Makessa tehty prototyyppi käyttää samoja komponentteja kuin tuote.',
     vartijat: ['paketti', 'docs'],
@@ -85,6 +96,7 @@ export const ketju: Lenkki[] = [
   {
     numero: 7,
     otsikko: 'Takaisin tuotteeseen',
+    aihe: 'paluu',
     teksti:
       'Figma Makessa tehty muutos tuodaan tuotteen koodiin muutosehdotuksena. Se kulkee samojen tarkistusten läpi kuin mikä tahansa muu muutos ja julkaistaan sitten tuotteeseen.',
     vartijat: [],
