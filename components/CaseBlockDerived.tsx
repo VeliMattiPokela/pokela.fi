@@ -3,7 +3,7 @@ import Reveal from './Reveal';
 import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
-import { checks, liveCheckCount } from '@/lib/checks';
+import { CHECK_GROUPS, checks, liveCheckCount } from '@/lib/checks';
 import { ketju } from '@/content/prosessi';
 import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
 import Timeline, { TimelineItem } from './Timeline';
@@ -115,7 +115,8 @@ export default function CaseBlockDerived({
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <CheckList
-                items={all.map(({ id, title, proves, blind, runs }) => ({ id, title, proves, blind: blind ?? null, runs }))}
+                items={all.map(({ id, title, proves, blind, runs, group }) => ({ id, title, proves, blind: blind ?? null, runs, group }))}
+                groups={CHECK_GROUPS}
                 build={ajo ? {
                   description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
                   meta: `${ajo.vaiheet.length + 1} vaihetta`,

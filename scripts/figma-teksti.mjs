@@ -54,7 +54,7 @@ export async function tekstit(tiedosto) {
   const tekstityylit = tyylit.filter((s) => s.styleType === 'TEXT').length;
 
   const { ketju, suunnat, rajat } = await import(join(root, 'content/prosessi.ts'));
-  const { checks } = await import(join(root, 'lib/checks.ts'));
+  const { checks, CHECK_GROUPS } = await import(join(root, 'lib/checks.ts'));
   const ajossa = checks().filter((c) => c.runs);
 
   const ulos = {
@@ -69,8 +69,10 @@ export async function tekstit(tiedosto) {
        casesivu yksityiskohdat sokeine kohtineen — sama lähde, ei
        samaa tekstiä kahdesti. */
     tarkistukset:
-      `${monikko(ajossa.length, 'tarkistus', 'tarkistusta')} joka buildissa: ` +
-      ajossa.map((c) => c.title).join(' · '),
+      `${monikko(ajossa.length, 'tarkistus', 'tarkistusta')} joka buildissa. ` +
+      CHECK_GROUPS.map(
+        (g) => `${g.title}: ${ajossa.filter((c) => c.group === g.id).map((c) => c.title).join(' · ')}`,
+      ).join('. '),
 
     rajat,
   };
