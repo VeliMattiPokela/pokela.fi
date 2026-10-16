@@ -348,7 +348,7 @@ const thisSite: Case = {
       surface: 'tint',
       label: 'Prosessi',
       title: 'Prosessi vaihe vaiheelta',
-      body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen. Tarkoitus on näyttää, miten tällainen prosessi rakennetaan, eikä tarjota koodia kopioitavaksi.',
+      body: 'Prosessi kulkee yrityksen nykyisestä koodista ja Figmasta siihen, että Figma Makessa tehty muutos julkaistaan tuotteeseen.',
     },
     {
       kind: 'checks',

@@ -428,8 +428,14 @@ function Lahtotilanne() {
           <circle className={i === 0 ? 'piirros__muste' : 'piirros__pohja'} cx={120} cy={y} r={4} />
         </g>
       ))}
-      <T x={120} y={142} k="meta" koko={8} keski>
-        3 EROA · 1 PÄÄTETTY
+      {/* Selite: täytetty ero on päätetty, avoin odottaa päätöstä. */}
+      <circle className="piirros__muste" cx={74} cy={139} r={3} />
+      <T x={81} y={142} k="meta" koko={8}>
+        PÄÄTETTY
+      </T>
+      <circle className="piirros__pohja" cx={140} cy={139} r={3} />
+      <T x={147} y={142} k="meta" koko={8}>
+        AUKI
       </T>
     </svg>
   );
