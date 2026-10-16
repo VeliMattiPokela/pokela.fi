@@ -30,38 +30,66 @@ export type Check = {
   proves: string;
   /** Mitä se ei näe. Tyhjä vain jos rajaa ei ole. */
   blind: string;
+  /** Yleinen ydin vai tämän tuotteen oma vartija. Ks. päätös 42. */
+  group: CheckGroupId;
   /** Onko se kytketty ketjuun ja onko skripti olemassa. Johdettu. */
   runs: boolean;
 };
+
+export type CheckGroupId = 'ydin' | 'tuote';
+
+/**
+ * Ryhmät näkyvät sivulla tässä järjestyksessä. Ydin siirtyy mihin
+ * tahansa tuotteeseen sellaisenaan. Tuotekohtaiset vartijat ovat saman
+ * menetelmän sovelluksia tämän sivuston omiin johdettuihin
+ * tiedostoihin, joten ne näytetään ryhmänä eivätkä ytimen rinnalla.
+ */
+export const CHECK_GROUPS: { id: CheckGroupId; title: string; note: string }[] = [
+  {
+    id: 'ydin',
+    title: 'Yleinen ydin',
+    note: 'Koodi, Figma ja paketit pidetään samana. Ydin sopii mihin tahansa tuotteeseen.',
+  },
+  {
+    id: 'tuote',
+    title: 'Tuotekohtaiset vartijat',
+    note: 'Sama menetelmä tämän sivuston omiin tiedostoihin: favicon ja kuvat lasketaan lähteestä, ja tarkistus käyttää samaa laskentaa.',
+  },
+];
 
 /** Kuvaukset. Arvot `runs` ja järjestys tulevat package.jsonista. */
 const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   {
     id: 'tokens',
+    group: 'ydin',
     title: 'Tokenit',
     proves: 'styles/tokens.css ja tokens.json ovat samat arvot jokaisella breakpointilla.',
     blind: 'Ei kerro käyttääkö arvoa kukaan: kuollut token on molemmissa tiedostoissa ja täsmää itsensä kanssa.',
   },
   {
     id: 'stories',
+    group: 'ydin',
     title: 'Storyt',
     proves: 'Jokaisella komponentilla on story, ja siinä on tumma teema ja mobiilikoko.',
     blind: 'Ei näe onko story hyvä, vain että se on olemassa ja kattaa tumman teeman ja mobiilikoon. Poikkeuksen syy valitaan kolmesta vaihtoehdosta, ja jokaisella on oma sääntönsä.',
   },
   {
     id: 'code-connect',
+    group: 'ydin',
     title: 'Code Connect',
     proves: 'Jokaisella kirjatulla Figma-komponentilla on kytkentätiedosto, ja se osoittaa oikeaan Figma-tiedostoon.',
     blind: 'Ei avaa Figmaa itse. Sen tekee Figma-tarkistus, joka ajetaan erikseen CI:ssä.',
   },
   {
     id: 'hardcoded',
+    group: 'ydin',
     title: 'Kovakoodatut arvot',
     proves: 'Tyyleissä ei ole kirjaamatonta mittaa, väriä eikä fonttipainoa.',
     blind: 'Sama kuin storyilla: poikkeuksen syy on tekstiä.',
   },
   {
     id: 'favicon',
+    group: 'tuote',
     title: 'Favicon',
     proves:
       'public/-kansion favicon-tiedostot vastaavat tavu tavulta sitä mitä tokens.css:n käännetty väripari tuottaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa, joten ne eivät voi erota toisistaan.',
@@ -70,6 +98,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'kuvat',
+    group: 'tuote',
     title: 'Kuvat',
     proves:
       'Kuvamanifesti vastaa lähdetiedostoja ja sisällössä ilmoitettuja kuvasuhteita, eikä kuvat-kansiossa ole lähdettä jolle ei ole paikkaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa.',
@@ -78,6 +107,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'suhteet',
+    group: 'tuote',
     title: 'Kuvasuhteet',
     proves:
       'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
@@ -86,6 +116,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'figma',
+    group: 'ydin',
     title: 'Figma',
     proves:
       'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta. Lisäksi: sivupohjien layout grid vastaa layout-tokeneita jokaisella moodilla, Media-komponentin Ratio-variantti vastaa kuvaputken SUHTEET-taulua, ja jokainen sivupohjan teksti löytyy siltä buildatulta sivulta, jota pohja kuvaa.',
@@ -94,6 +125,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'paketti',
+    group: 'ydin',
     title: 'Paketit',
     proves:
       'npm:ssä julkaistu @pokela/tokens ja @pokela/components vastaavat tavulleen sitä mitä repo rakentaisi. Jos sisältö eroaa mutta versio on sama, se sanotaan erikseen. npm ei päästä julkaisemaan samaa versiota uudelleen, joten korjaus alkaa versionnostosta.',
@@ -102,6 +134,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'docs',
+    group: 'ydin',
     title: 'Dokumentaatio',
     proves:
       'Dokumentissa mainittu tiedostopolku ja komento on olemassa, jokainen tarkistus on dokumentoitu, ja johdettavissa olevat kohdat (Figman kokoelmat, Perusta-sivut) vastaavat lähdettään.',
@@ -110,6 +143,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   },
   {
     id: 'strings',
+    group: 'ydin',
     title: 'Tekstit',
     proves: 'Näkyvät tekstit tulevat sanakirjasta, eivät komponenteista.',
     blind: '',
@@ -145,11 +179,12 @@ function wired(): Set<string> {
   return ids;
 }
 
-/** Kaikki tunnetut tarkistukset, ajossa olevat ensin. */
+/** Kaikki tunnetut tarkistukset ryhmittäin, ryhmän sisällä ajossa olevat ensin. */
 export function checks(): Check[] {
   const live = wired();
+  const ryhma = (c: Check) => CHECK_GROUPS.findIndex((g) => g.id === c.group);
   return DESCRIPTIONS.map((d) => ({ ...d, runs: live.has(d.id) })).sort(
-    (a, b) => Number(b.runs) - Number(a.runs),
+    (a, b) => ryhma(a) - ryhma(b) || Number(b.runs) - Number(a.runs),
   );
 }
 

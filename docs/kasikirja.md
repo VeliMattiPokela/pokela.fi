@@ -57,7 +57,9 @@ ajetaan vain CI:ssä.
 
 Jokainen tarkistus on syntynyt virheestä, joka pääsi läpi ennen sitä
 (päätös 8). Casesivun lista (`lib/checks.ts`) kertoo saman lyhyesti
-sokeine kohtineen.
+sokeine kohtineen. Lista on kahtena ryhmänä (päätös 42): yleinen
+ydin ja tuotekohtaiset vartijat (favicon, kuvat, kuvasuhteet). Ryhmä on
+kentässä `group`.
 
 **Buildin aikajana.** `npm run build` ajaa `scripts/ajo.mjs`:n, joka ajaa
 `check:sync`-ketjun tarkistukset ja kuvaputken, kirjaa kunkin keston ja
