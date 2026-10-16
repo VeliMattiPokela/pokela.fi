@@ -10,6 +10,7 @@ import Timeline, { TimelineItem } from './Timeline';
 import type { Locale } from '@/lib/i18n';
 import Section from './Section';
 import CheckList from './CheckList';
+import Piirros from './Piirros';
 
 /**
  * Casen johdetut lohkot: ne eivät piirrä annettua dataa vaan lukevat
@@ -152,26 +153,24 @@ export default function CaseBlockDerived({
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
               <p className="body-l measure case__p">{block.body}</p>
-              <ol className="case__scope">
+              {/* Sama vaiherakenne kuin Työtapa-sivulla: kuva, numero,
+                  otsikko ja teksti. Vartijat kulkevat viimeisenä rivinä. */}
+              <ol className="tyotapa__vaiheet case__ketju">
                 {ketju.map((lenkki) => (
                   <li
                     key={lenkki.numero}
-                    className={[
-                      'case__scope-item case__scope-item--wide',
-                      lenkki.tulossa ? 'case__scope-item--pending' : '',
-                    ].join(' ')}
+                    className={['tyotapa__vaihe', lenkki.tulossa ? 'case__ketju-tulossa' : ''].join(' ')}
                   >
-                    <span className="meta">{String(lenkki.numero).padStart(2, '0')}</span>
-                    <span>
-                      <span className="body-s">{lenkki.otsikko}</span>
-                      <span className="body-s muted">{lenkki.teksti}</span>
-                      <span className="meta faint">
-                        {lenkki.tulossa
-                          ? 'Tulossa'
-                          : lenkki.vartijat.length
-                            ? `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
-                            : 'Ei tarkistusta'}
-                      </span>
+                    <Piirros aihe={lenkki.aihe} />
+                    <span className="meta meta--s">{String(lenkki.numero).padStart(2, '0')}</span>
+                    <h4 className="title">{lenkki.otsikko}</h4>
+                    <p className="body-s muted">{lenkki.teksti}</p>
+                    <span className="meta faint case__ketju-vartijat">
+                      {lenkki.tulossa
+                        ? 'Tulossa'
+                        : lenkki.vartijat.length
+                          ? `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
+                          : 'Ei tarkistusta'}
                     </span>
                   </li>
                 ))}

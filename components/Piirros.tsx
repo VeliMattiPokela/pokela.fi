@@ -12,11 +12,29 @@ import type { ReactNode } from 'react';
  *   system, data ja julkaistu palvelu. Sivun pääkuva.
  * - `ymmarrys`, `pohja`, `design-system`, `polut`, `data`, `julkaisu`:
  *   menetelmän kuusi vaihetta pieninä kuvina.
+ * - `lahtotilanne`, `lahde`, `koodi`, `arvot`, `kirjasto`, `kytkenta`,
+ *   `make`, `paluu`: case 03:n prosessin kahdeksan vaihetta
+ *   (content/prosessi.ts).
  *
  * Mitat ovat viewBoxin yksiköitä, eivät ruudun pikseleitä: piirros
  * skaalautuu leveytensä mukaan.
  */
-export type PiirrosAihe = 'kypsyminen' | 'ymmarrys' | 'pohja' | 'design-system' | 'polut' | 'data' | 'julkaisu';
+export type PiirrosAihe =
+  | 'kypsyminen'
+  | 'ymmarrys'
+  | 'pohja'
+  | 'design-system'
+  | 'polut'
+  | 'data'
+  | 'julkaisu'
+  | 'lahtotilanne'
+  | 'lahde'
+  | 'koodi'
+  | 'arvot'
+  | 'kirjasto'
+  | 'kytkenta'
+  | 'make'
+  | 'paluu';
 
 export const PIIRROS_AIHEET: readonly PiirrosAihe[] = [
   'kypsyminen',
@@ -26,6 +44,14 @@ export const PIIRROS_AIHEET: readonly PiirrosAihe[] = [
   'polut',
   'data',
   'julkaisu',
+  'lahtotilanne',
+  'lahde',
+  'koodi',
+  'arvot',
+  'kirjasto',
+  'kytkenta',
+  'make',
+  'paluu',
 ];
 
 /** Pieni tekstirivi piirroksessa. */
@@ -361,6 +387,255 @@ function Julkaisu() {
   );
 }
 
+/* Prosessin vaiheet (case 03). Sama sanasto kuin menetelmän kuvissa:
+   musta täyte on valmis osa, katkoviiva puuttuva tai tuleva. */
+
+/** Koodirivit: lyhyitä viivoja kuin editorissa. */
+function Rivit({ x, y, n, w = 44 }: { x: number; y: number; n: number; w?: number }) {
+  return (
+    <>
+      {Array.from({ length: n }, (_, i) => (
+        <rect key={i} className="piirros__haalea" x={x + (i % 3 === 1 ? 8 : 0)} y={y + i * 10} width={w - (i % 4) * 8} height={2} />
+      ))}
+    </>
+  );
+}
+
+/** Pieni painike: musta täyte, tai ääriviiva kun `tila` on 'hius'. */
+function Painike({ x, y, w = 44, tila = 'muste' }: { x: number; y: number; w?: number; tila?: 'muste' | 'pohja' | 'katko' }) {
+  return <rect className={`piirros__${tila}`} x={x} y={y} width={w} height={14} />;
+}
+
+function Lahtotilanne() {
+  return (
+    <svg viewBox="0 0 240 150">
+      <T x={20} y={22} k="meta" koko={8}>
+        KOODI
+      </T>
+      <rect className="piirros__pohja" x={20} y={30} width={76} height={96} />
+      <Rivit x={28} y={40} n={8} w={56} />
+      <T x={144} y={22} k="meta" koko={8}>
+        FIGMA
+      </T>
+      <rect className="piirros__pohja" x={144} y={30} width={76} height={96} />
+      <rect className="piirros__paikka" x={152} y={38} width={60} height={26} />
+      <Painike x={152} y={72} w={36} />
+      <rect className="piirros__haalea" x={152} y={94} width={48} height={2} />
+      <rect className="piirros__haalea" x={152} y={102} width={36} height={2} />
+      {[52, 78, 104].map((y, i) => (
+        <g key={y}>
+          <path className="piirros__katko" d={`M98 ${y} H142`} />
+          <circle className={i === 0 ? 'piirros__muste' : 'piirros__pohja'} cx={120} cy={y} r={4} />
+        </g>
+      ))}
+      {/* Selite: täytetty ero on päätetty, avoin odottaa päätöstä. */}
+      <circle className="piirros__muste" cx={74} cy={139} r={3} />
+      <T x={81} y={142} k="meta" koko={8}>
+        PÄÄTETTY
+      </T>
+      <circle className="piirros__pohja" cx={140} cy={139} r={3} />
+      <T x={147} y={142} k="meta" koko={8}>
+        AUKI
+      </T>
+    </svg>
+  );
+}
+
+function Lahde() {
+  const kohteet: [number, string][] = [
+    [34, 'CSS'],
+    [75, 'FIGMA'],
+    [116, 'NPM'],
+  ];
+  return (
+    <svg viewBox="0 0 240 150">
+      <rect className="piirros__pohja" x={20} y={40} width={84} height={70} />
+      <T x={30} y={58} k="koodi" koko={9}>
+        tokens.json
+      </T>
+      <rect className="piirros__muste" x={30} y={70} width={12} height={12} />
+      <rect className="piirros__harmaa" x={46} y={70} width={12} height={12} />
+      <rect className="piirros__pohja" x={62} y={70} width={12} height={12} />
+      <rect className="piirros__haalea" x={30} y={92} width={52} height={2} />
+      {kohteet.map(([y, nimi]) => (
+        <g key={nimi}>
+          <path className="piirros__viiva" d={`M104 75 C130 75, 130 ${y}, 156 ${y} h10 m-5 -4 l5 4 l-5 4`} />
+          <rect className="piirros__pohja" x={172} y={y - 10} width={48} height={20} />
+          <T x={196} y={y + 3} k="meta" koko={7} keski>
+            {nimi}
+          </T>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function Koodi() {
+  return (
+    <svg viewBox="0 0 240 150">
+      <rect className="piirros__pohja" x={16} y={18} width={208} height={114} />
+      <line className="piirros__hius" x1={16} y1={36} x2={224} y2={36} />
+      <line className="piirros__hius" x1={72} y1={36} x2={72} y2={132} />
+      <T x={24} y={30} k="meta" koko={7}>
+        STORYBOOK
+      </T>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect key={i} className={i === 1 ? 'piirros__muste' : 'piirros__haalea'} x={24} y={50 + i * 14} width={i === 1 ? 36 : 30 - (i % 2) * 8} height={i === 1 ? 3 : 2} />
+      ))}
+      {[
+        ['OLETUS', 'muste'],
+        ['HOVER', 'harmaa'],
+        ['POIS', 'katko'],
+      ].map(([nimi, tila], i) => (
+        <g key={nimi}>
+          <T x={86} y={60 + i * 26} k="faint" koko={7}>
+            {nimi}
+          </T>
+          <rect className={`piirros__${tila}`} x={140} y={50 + i * 26} width={64} height={14} />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function Arvot() {
+  const muuttujat = ['color/ink', 'color/paper', 'space/16', 'type/display'];
+  return (
+    <svg viewBox="0 0 240 150">
+      <rect className="piirros__muste" x={20} y={36} width={22} height={22} />
+      <rect className="piirros__harmaa" x={20} y={64} width={22} height={22} />
+      <rect className="piirros__pohja" x={20} y={92} width={22} height={22} />
+      <T x={50} y={52} k="display" koko={16}>
+        Aa
+      </T>
+      <T x={50} y={80} k="meta" koko={7}>
+        16
+      </T>
+      {nuoli(76, 75)}
+      <rect className="piirros__pohja" x={104} y={22} width={120} height={106} />
+      <line className="piirros__hius" x1={104} y1={40} x2={224} y2={40} />
+      <T x={112} y={34} k="meta" koko={7}>
+        MUUTTUJAT
+      </T>
+      {muuttujat.map((m, i) => (
+        <g key={m}>
+          <rect className={i < 2 ? (i === 0 ? 'piirros__muste' : 'piirros__pohja') : 'piirros__kentta'} x={112} y={50 + i * 18} width={8} height={8} />
+          <T x={126} y={57 + i * 18} k="koodi" koko={8}>
+            {m}
+          </T>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function Kirjasto() {
+  return (
+    <svg viewBox="0 0 240 150">
+      <T x={20} y={22} k="meta" koko={8}>
+        BUTTON
+      </T>
+      <rect className="piirros__katko" x={20} y={30} width={96} height={96} />
+      <Painike x={30} y={42} w={76} />
+      <Painike x={30} y={64} w={76} tila="pohja" />
+      <Painike x={30} y={86} w={76} tila="katko" />
+      <rect className="piirros__haalea" x={30} y={110} width={40} height={2} />
+      <T x={130} y={22} k="meta" koko={8}>
+        LISTROW
+      </T>
+      <rect className="piirros__katko" x={130} y={30} width={90} height={96} />
+      {[0, 1, 2].map((i) => (
+        <g key={i}>
+          <line className="piirros__hius" x1={138} y1={48 + i * 26} x2={212} y2={48 + i * 26} />
+          <rect className="piirros__muste" x={138} y={56 + i * 26} width={8} height={3} />
+          <rect className={i === 1 ? 'piirros__muste' : 'piirros__haalea'} x={152} y={56 + i * 26} width={40} height={i === 1 ? 3 : 2} />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function Kytkenta() {
+  const rivit = ['<Button size="m">', '  Ota yhteyttä', '</Button>'];
+  return (
+    <svg viewBox="0 0 240 150">
+      <T x={20} y={36} k="meta" koko={8}>
+        FIGMA
+      </T>
+      <rect className="piirros__katko" x={20} y={44} width={76} height={70} />
+      <Painike x={30} y={72} w={56} />
+      <circle className="piirros__muste" cx={96} cy={79} r={3} />
+      <path className="piirros__viiva" d="M99 79 H125" />
+      <circle className="piirros__muste" cx={128} cy={79} r={3} />
+      <T x={132} y={36} k="meta" koko={8}>
+        KOODI
+      </T>
+      <rect className="piirros__pohja" x={128} y={44} width={96} height={70} />
+      {rivit.map((rivi, i) => (
+        <T key={rivi} x={136} y={66 + i * 14} k="koodi" koko={8}>
+          {rivi}
+        </T>
+      ))}
+    </svg>
+  );
+}
+
+function Make() {
+  return (
+    <svg viewBox="0 0 240 150">
+      <rect className="piirros__pohja" x={16} y={30} width={74} height={40} />
+      <T x={24} y={46} k="koodi" koko={7}>
+        @pokela/
+      </T>
+      <T x={24} y={58} k="koodi" koko={7}>
+        components
+      </T>
+      <rect className="piirros__pohja" x={16} y={80} width={74} height={40} />
+      <T x={24} y={96} k="koodi" koko={7}>
+        Guidelines.md
+      </T>
+      <rect className="piirros__haalea" x={24} y={104} width={50} height={2} />
+      <rect className="piirros__haalea" x={24} y={110} width={36} height={2} />
+      {nuoli(96, 75)}
+      <rect className="piirros__pohja" x={124} y={18} width={100} height={114} />
+      <T x={132} y={32} k="meta" koko={7}>
+        FIGMA MAKE
+      </T>
+      <rect className="piirros__paikka" x={132} y={40} width={84} height={30} />
+      <rect className="piirros__muste" x={132} y={78} width={60} height={3} />
+      <rect className="piirros__kentta" x={132} y={88} width={84} height={12} />
+      <Painike x={132} y={106} w={40} />
+      {osoitin(176, 108)}
+    </svg>
+  );
+}
+
+function Paluu() {
+  return (
+    <svg viewBox="0 0 240 150">
+      <T x={16} y={30} k="meta" koko={8}>
+        MAKE
+      </T>
+      <path className="piirros__katko" d="M40 44 C70 44, 70 96, 100 96" />
+      <circle className="piirros__pohja" cx={40} cy={44} r={4} />
+      <path className="piirros__katko" d="M16 96 H144" />
+      {[112, 128, 144].map((x) => (
+        <circle key={x} className="piirros__pohja" cx={x} cy={96} r={4} />
+      ))}
+      <T x={16} y={116} k="meta" koko={8}>
+        MAIN
+      </T>
+      <T x={128} y={116} k="faint" koko={7} keski>
+        TARKISTUKSET
+      </T>
+      <rect className="piirros__katko" x={160} y={58} width={64} height={76} />
+      <rect className="piirros__kentta" x={172} y={66} width={40} height={8} rx={4} />
+      <rect className="piirros__paikka" x={168} y={82} width={48} height={22} />
+      <rect className="piirros__haalea" x={168} y={112} width={34} height={2} />
+    </svg>
+  );
+}
+
 const PIIRROKSET: Record<PiirrosAihe, () => ReactNode> = {
   kypsyminen: Kypsyminen,
   ymmarrys: Ymmarrys,
@@ -369,6 +644,14 @@ const PIIRROKSET: Record<PiirrosAihe, () => ReactNode> = {
   polut: Polut,
   data: Data,
   julkaisu: Julkaisu,
+  lahtotilanne: Lahtotilanne,
+  lahde: Lahde,
+  koodi: Koodi,
+  arvot: Arvot,
+  kirjasto: Kirjasto,
+  kytkenta: Kytkenta,
+  make: Make,
+  paluu: Paluu,
 };
 
 export default function Piirros({ aihe, label }: { aihe: PiirrosAihe; label?: string }) {

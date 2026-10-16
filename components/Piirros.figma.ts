@@ -5,8 +5,8 @@
  * Code Connect — Piirros.
  * ---------------------------------------------------------------
  * Työtapa-sivun viivakuvitus. `Aihe`-variantti vastaa koodin
- * `aihe`-propsia: iso pääkuva (`kypsyminen`) ja menetelmän kuusi
- * vaihekuvaa. Figmassa piirros on tuotu samasta SVG:stä, jonka koodi
+ * `aihe`-propsia: iso pääkuva (`kypsyminen`), menetelmän kuusi
+ * vaihekuvaa ja case 03:n prosessin kahdeksan vaihekuvaa. Figmassa piirros on tuotu samasta SVG:stä, jonka koodi
  * piirtää, ja värit on sidottu muuttujiin.
  */
 
@@ -20,6 +20,14 @@ const aihe = figma.selectedInstance.getEnum('Aihe', {
   polut: 'polut',
   data: 'data',
   julkaisu: 'julkaisu',
+  lahtotilanne: 'lahtotilanne',
+  lahde: 'lahde',
+  koodi: 'koodi',
+  arvot: 'arvot',
+  kirjasto: 'kirjasto',
+  kytkenta: 'kytkenta',
+  make: 'make',
+  paluu: 'paluu',
 });
 
 export default {
