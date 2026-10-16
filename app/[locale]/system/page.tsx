@@ -218,16 +218,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
   return (
     <>
-      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} />
-
-      <section className="page section">
-        <p className="body-l measure">
-          Tämä sivu lukee arvot <code className="code">tokens.json</code>:sta build-aikana. Jos
-          token muuttuu, tämä sivu muuttuu — eikä sitä tarvitse muistaa päivittää. Sama tiedosto
-          ajetaan jokaisessa buildissa <code className="code">styles/tokens.css</code>:ää vasten,
-          ja build kaatuu jos ne eriytyvät.
-        </p>
-      </section>
+      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} lede={dict.system.lede} />
 
       {/* ---- kerroksina ------------------------------------------ */}
       <Section id="layers" title={dict.system.layersTitle}>
@@ -240,7 +231,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
         <p className="body-l measure sys__note">
           Kaksi teemaa, samat token-nimet, yksi määrittely per token
-          (<code className="code">light-dark()</code>).
+          (<code className="sys__code">light-dark()</code>).
         </p>
 
         <ul className="sys__swatches">
@@ -338,7 +329,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       <Section id="components" title="05 — Komponentit" meta={dict.system.rules}>
         <p className="body-l measure sys__note">
           Kaikki {komponentteja} komponenttia ryhmiteltynä käyttötarkoituksen mukaan, elävinä: samat
-          komponentit, jotka paketti <code className="code">@pokela/components</code> vie ja Figman
+          komponentit, jotka paketti <code className="sys__code">@pokela/components</code> vie ja Figman
           kirjasto kuvaa. Sovellus-merkityt ovat sovellusnäkymiä ja Makea varten; sivusto itse ei
           käytä niitä.
         </p>

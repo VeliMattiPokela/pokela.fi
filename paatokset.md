@@ -381,7 +381,7 @@ tiedosto kerrallaan lukien.
 `code`-typografia esiintyy viidessä säännössä kolmella eri määrittelyllä:
 
 ```
-system.css          .code              code-koko  + code-perhe + taustapalkki
+system.css          .sys__code         code-koko  + code-perhe + taustapalkki
 component-view.css  .code__body pre    code-koko  + code-perhe
 component-view.css  .cview__token      body-s     + code-perhe + taustapalkki
 component-view.css  .code__path        code-perhe
