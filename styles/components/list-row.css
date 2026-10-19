@@ -165,19 +165,25 @@
 .list-row:focus-visible { outline-offset: calc(var(--focus-offset) * -2); }
 .list-row[aria-expanded='true']:focus-visible { outline-color: var(--invert-ink); }
 
-/* Sisarrivit vaimennetaan hoverin aikana. */
-.list-rows:hover .list-row:not(:hover) { color: var(--ink-faint); }
-.list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-faint); }
+/* Sisarrivit vaimennetaan hoverin aikana. Käännetty rivi (avattu tai
+   .invert) jää pois: --ink-faint käännetyllä pinnalla jäi heikon
+   harmaaksi, kun osoitin oli avatun rivin paneelissa. Spesifisyys
+   ylitti käännöksen värit, joten rajaus on tässä eikä käännöksessä. */
+.list-rows:hover .list-row:not(:hover):not(.invert):not([aria-expanded='true']) { color: var(--ink-faint); }
+.list-rows:hover .list-row:not(:hover):not(.invert):not([aria-expanded='true']) .list-row__description { color: var(--ink-faint); }
 
 /* Kosketus: ei hoveria, hiljainen pinta :active-tilassa. Viimeisenä = voittaa. */
 @media (hover: none) {
-  .list-row:hover { background: transparent; }
-  .list-row:hover .meta { color: var(--ink-faint); }
-  .list-rows:hover .list-row:not(:hover) { color: var(--ink); }
-  .list-rows:hover .list-row:not(:hover) .list-row__description { color: var(--ink-muted); }
+  /* Käännetty rivi rajataan pois myös täällä: napautus jättää :hoverin
+     päälle, ja tämä sääntö tulee käännöksen jälkeen, joten avattu rivi
+     menetti pintansa ja metan värin. */
+  .list-row:hover:not(.invert):not([aria-expanded='true']) { background: transparent; }
+  .list-row:hover:not(.invert):not([aria-expanded='true']) .meta { color: var(--ink-faint); }
+  .list-rows:hover .list-row:not(:hover):not(.invert):not([aria-expanded='true']) { color: var(--ink); }
+  .list-rows:hover .list-row:not(:hover):not(.invert):not([aria-expanded='true']) .list-row__description { color: var(--ink-muted); }
 
-  .list-row:active { background: var(--badge-surface); }
-  .list-row:active .meta { color: var(--ink-muted); }
+  .list-row:active:not(.invert):not([aria-expanded='true']) { background: var(--badge-surface); }
+  .list-row:active:not(.invert):not([aria-expanded='true']) .meta { color: var(--ink-muted); }
 }
 
 /* ---- siirtymä (päätös 41) ------------------------------------------
