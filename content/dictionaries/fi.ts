@@ -90,7 +90,7 @@ const fi = {
     email: 'velimatti.pokela@gmail.com',
     location: 'Helsinki, FI',
     linkedin: 'LinkedIn',
-    linkedinUrl: 'https://www.linkedin.com/in/velimattipokela/',
+    linkedinUrl: 'https://www.linkedin.com/in/veli-matti-pokela-5b1b288a/',
     colophonLabel: 'Tämä sivusto',
     colophon: 'Next.js · TypeScript · Storybook · tokenit koodissa',
     year: '2026',
