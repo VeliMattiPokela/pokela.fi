@@ -13,7 +13,6 @@ const meta = {
   parameters: {
     /* Täysleveä: hoitaa oman sivupaddinginsa .bleed-utilitylla. */
     bleed: true,
-    nextjs: { appDirectory: true, navigation: { pathname: '/fi/tyot/' } },
     docs: {
       description: {
         component: [
@@ -22,6 +21,9 @@ const meta = {
           '',
           'Valikko sulkeutuu Escillä ja reitin vaihtuessa, lukitsee taustan vierityksen',
           'ja siirtää fokuksen sulkunappiin.',
+          '',
+          '**Linkit tulevat propseina**: `links`, `currentPath` ja `as`, kuten ListRow:ssa.',
+          'Sivusto antaa ne sanakirjastaan ja Next.js:n reitittimestä (NavRoute).',
           '',
           '**Teemanvaihto on tekstinappi**, ei kuvake. Kierto on Auto → Vaalea → Tumma.',
           'Ilman valintaa `data-theme` puuttuu kokonaan, jolloin `light-dark()` seuraa',
@@ -34,7 +36,24 @@ const meta = {
       },
     },
   },
-  args: { locale: 'fi', dict: fi },
+  args: {
+    brand: fi.meta.siteName,
+    brandHref: '/fi/',
+    currentPath: '/fi/tyot/',
+    links: [
+      { href: '/fi/tyot/', label: fi.nav.work },
+      { href: '/fi/tyotapa/', label: fi.nav.method },
+      { href: '/fi/tietoa/', label: fi.nav.about },
+      { href: '/fi/system/', label: fi.nav.system },
+    ],
+    contact: {
+      label: fi.nav.contact,
+      email: fi.footer.email,
+      location: fi.footer.location,
+      link: { label: fi.footer.linkedin, href: fi.footer.linkedinUrl },
+    },
+    labels: fi.nav,
+  },
 } satisfies Meta<typeof Nav>;
 
 export default meta;

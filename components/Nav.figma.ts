@@ -4,8 +4,9 @@
 /**
  * Code Connect — Nav.
  * ---------------------------------------------------------------
- * Navilla ei ole yhtään suunnitteluaikaista propsia. Se saa linkit
- * sanakirjasta ja tietää aktiivisen sivun reitistä (`usePathname`),
+ * Navilla ei ole yhtään suunnitteluaikaista varianttia. Linkit,
+ * nykyinen polku ja tekstit ovat sisältöä, jonka sovellus antaa
+ * propseina (sivustolla NavRoute sanakirjasta ja reitittimestä),
  * joten suunnittelija ei valitse siitä mitään — hän vain asettaa sen
  * sivun ylälaitaan.
  *
@@ -33,5 +34,15 @@ figma.selectedInstance.getEnum('Tila', {
 export default {
   id: 'Nav',
   imports: ["import Nav from '@/components/Nav';"],
-  example: figma.code`<Nav locale={locale} dict={dict} />`,
+  example: figma.code`<Nav
+  as={Link}
+  brand="Veli-Matti Pokela"
+  currentPath={pathname}
+  links={[
+    { href: '/fi/tyot/', label: 'Työt' },
+    { href: '/fi/tyotapa/', label: 'Työtapa' },
+    { href: '/fi/tietoa/', label: 'Tietoa' },
+    { href: '/fi/system/', label: 'System' },
+  ]}
+/>`,
 };

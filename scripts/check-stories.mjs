@@ -87,6 +87,11 @@ const EXEMPT = {
     missä: 'PageProgress',
     huom: 'Kytkee PageProgressin Next.js:n reitittimeen, ei omaa ulkoasua.',
   },
+  'NavRoute.tsx': {
+    syy: 'katettu-muualla',
+    missä: 'Nav',
+    huom: 'Kytkee Navin sivuston sanakirjaan ja Next.js:n reitittimeen, ei omaa ulkoasua.',
+  },
   'ListRowShowcase.tsx': {
     syy: 'palvelinkomponentti',
     huom: 'Lukee lähdekoodin build-aikana. Sen UI on ComponentView, jolla on omat storyt.',

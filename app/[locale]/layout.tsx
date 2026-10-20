@@ -7,7 +7,7 @@ import { locales, localeTags, isLocale, path, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
 import ThemeScript from '@/components/ThemeScript';
 import { HeroIntroScript } from '@/components/HeroIntro';
-import Nav from '@/components/Nav';
+import NavRoute from '@/components/NavRoute';
 import PageProgressRoute from '@/components/PageProgressRoute';
 import Footer from '@/components/Footer';
 
@@ -96,9 +96,20 @@ export default async function LocaleLayout({
           {dict.meta.skipToContent}
         </a>
         <PageProgressRoute />
-        <Nav locale={locale} dict={dict} />
+        <NavRoute locale={locale} dict={dict} />
         <main id="main">{children}</main>
-        <Footer dict={dict} />
+        <Footer
+          cta={dict.footer.ctaLines}
+          contact={{
+            email: dict.footer.email,
+            location: dict.footer.location,
+            link: { label: dict.footer.linkedin, href: dict.footer.linkedinUrl },
+          }}
+          legal={[
+            `© ${dict.footer.year} ${dict.home.name}`,
+            `${dict.footer.colophonLabel} — ${dict.footer.colophon}`,
+          ]}
+        />
       </body>
     </html>
   );

@@ -4,8 +4,9 @@
 /**
  * Code Connect — Footer.
  * ---------------------------------------------------------------
- * Kuten Navilla, suunnitteluaikaisia propseja ei ole: footer on sama
- * joka sivulla ja saa sisältönsä sanakirjasta. `Breakpoint` on
+ * Kuten Navilla, suunnitteluaikaisia variantteja ei ole: footer on
+ * sama joka sivulla, ja sen sisältö tulee propseina (sivustolla
+ * sanakirjasta). `Breakpoint` on
  * @media-katko, ei propsi.
  *
  * Yksi ero Figman ja selaimen välillä on kirjattu komponenttiin:
@@ -20,5 +21,12 @@ import figma from 'figma';
 export default {
   id: 'Footer',
   imports: ["import Footer from '@/components/Footer';"],
-  example: figma.code`<Footer dict={dict} />`,
+  example: figma.code`<Footer
+  cta={['Ota', 'yhteyttä']}
+  contact={{
+    email: 'velimatti.pokela@gmail.com',
+    location: 'Helsinki, FI',
+    link: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/veli-matti-pokela-5b1b288a/' },
+  }}
+/>`,
 };

@@ -1,12 +1,56 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { path, type Locale } from '@/lib/i18n';
-import type { Dictionary } from '@/content/dictionaries';
+import { useEffect, useRef, useState, type ElementType } from 'react';
 import ThemeToggle from './ThemeToggle';
 import Icon from './Icon';
+import { ContactMeta, type ContactInfo } from './Footer';
+
+export type NavLink = { href: string; label: string };
+
+export type NavLabels = {
+  /** Mobiilivalikon avausnappi ja valikon nimi ruudunlukijalle. */
+  menu: string;
+  close: string;
+  theme: string;
+  themeLight: string;
+  themeDark: string;
+  themeSystem: string;
+};
+
+const OLETUSTEKSTIT: NavLabels = {
+  menu: 'Menu',
+  close: 'Close',
+  theme: 'Theme',
+  themeLight: 'Light',
+  themeDark: 'Dark',
+  themeSystem: 'Auto',
+};
+
+export type NavProps = {
+  /** Tunnus vasemmassa laidassa, myös navin nimi ruudunlukijalle. */
+  brand: string;
+  /** Tunnuksen osoite. Oletus `/`. */
+  brandHref?: string;
+  links: readonly NavLink[];
+  /**
+   * Nykyinen polku. Linkki, jonka osoitteella polku alkaa, on
+   * aktiivinen. Next.js-sovellus antaa tähän `usePathname()`:n; ilman
+   * tätä mikään linkki ei ole aktiivinen.
+   */
+  currentPath?: string;
+  /**
+   * Yhteyslinkki linkkien perään (`mailto:`). Mobiilivalikko näyttää
+   * lisäksi yhteystiedot alalaidassaan. Valinnainen.
+   */
+  contact?: ContactInfo & { label: string };
+  /** Napit ja teemanvaihto. Oletus englanniksi. */
+  labels?: Partial<NavLabels>;
+  /**
+   * Linkkikomponentti, kuten ListRow:ssa. Oletus on tavallinen `<a>`;
+   * Next.js-sovellus antaa tähän `next/link`:n.
+   */
+  as?: ElementType;
+};
 
 /**
  * Navi. Aktiivinen kohta merkitään musteen täydellä sävyllä ja
@@ -22,9 +66,23 @@ import Icon from './Icon';
  * Mobiilissa linkit siirtyvät koko ruudun valikkoon. Valikko
  * sulkeutuu Escillä ja reitin vaihtuessa, ja se lukitsee taustan
  * vierityksen ollessaan auki.
+ *
+ * Linkit, nykyinen polku, tekstit ja linkkikomponentti tulevat
+ * propseina. Siksi Nav ei tiedä sivuston sanakirjasta eikä
+ * Next.js:stä mitään ja elää npm-paketissa; sivusto antaa ne omasta
+ * sanakirjastaan ja reitityksestään.
  */
-export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const pathname = usePathname();
+export default function Nav({
+  brand,
+  brandHref = '/',
+  links,
+  currentPath,
+  contact,
+  labels,
+  as: LinkComponent = 'a',
+}: NavProps) {
+  const t = { ...OLETUSTEKSTIT, ...labels };
+  const pathname = currentPath ?? '';
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const kehysRef = useRef<HTMLElement>(null);
@@ -32,14 +90,7 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
   const viivaRef = useRef<HTMLLIElement>(null);
   const [tila, setTila] = useState<'perus' | 'tiivis' | 'piilossa'>('perus');
 
-  const links = [
-    { href: path(locale, 'work'), label: dict.nav.work },
-    { href: path(locale, 'method'), label: dict.nav.method },
-    { href: path(locale, 'about'), label: dict.nav.about },
-    { href: path(locale, 'system'), label: dict.nav.system },
-  ];
-
-  const isCurrent = (href: string) => pathname === href || pathname.startsWith(href);
+  const isCurrent = (href: string) => pathname !== '' && (pathname === href || pathname.startsWith(href));
 
   /* Väistyminen. Raja on navin oma korkeus: sen yläpuolella navi on
      paikallaan, sen alapuolella suunta ratkaisee. Muutaman pikselin
@@ -121,44 +172,46 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
         data-tila={tila}
         onFocus={() => setTila((t) => (t === 'piilossa' ? 'tiivis' : t))}
       >
-        <nav className="nav page" aria-label={dict.meta.siteName}>
-          <Link href={path(locale)} className="meta ink nav__mark">
-            {dict.meta.siteName}
-          </Link>
+        <nav className="nav page" aria-label={brand}>
+          <LinkComponent href={brandHref} className="meta ink nav__mark">
+            {brand}
+          </LinkComponent>
 
           <ul ref={listaRef} className="nav__links">
             {links.map((link) => (
               <li key={link.href}>
-                <Link
+                <LinkComponent
                   href={link.href}
                   className="meta meta--s nav__link"
                   aria-current={isCurrent(link.href) ? 'page' : undefined}
                 >
                   {link.label}
-                </Link>
+                </LinkComponent>
               </li>
             ))}
-            <li>
-              <a href={`mailto:${dict.footer.email}`} className="meta meta--s nav__link">
-                {dict.nav.contact}
-              </a>
-            </li>
+            {contact ? (
+              <li>
+                <a href={`mailto:${contact.email}`} className="meta meta--s nav__link">
+                  {contact.label}
+                </a>
+              </li>
+            ) : null}
             <li ref={viivaRef} className="nav__viiva" aria-hidden="true" />
           </ul>
 
           <div className="nav__tools">
             <ThemeToggle
               labels={{
-                theme: dict.nav.theme,
-                light: dict.nav.themeLight,
-                dark: dict.nav.themeDark,
-                system: dict.nav.themeSystem,
+                theme: t.theme,
+                light: t.themeLight,
+                dark: t.themeDark,
+                system: t.themeSystem,
               }}
             />
             <button
               type="button"
               className="nav__menu-btn"
-              aria-label={dict.nav.menu}
+              aria-label={t.menu}
               aria-expanded={open}
               onClick={() => setOpen(true)}
             >
@@ -169,50 +222,43 @@ export default function Nav({ locale, dict }: { locale: Locale; dict: Dictionary
       </header>
 
       {open ? (
-        <div className="menu" role="dialog" aria-modal="true" aria-label={dict.nav.menu}>
+        <div className="menu" role="dialog" aria-modal="true" aria-label={t.menu}>
           <div className="menu__head">
-            <span className="meta ink nav__mark">{dict.meta.siteName}</span>
+            <span className="meta ink nav__mark">{brand}</span>
             <button
               ref={closeRef}
               type="button"
               className="meta meta--s ink menu__close"
               onClick={() => setOpen(false)}
             >
-              {dict.nav.close} <Icon name="close" size="s" />
+              {t.close} <Icon name="close" size="s" />
             </button>
           </div>
 
           <ul className="menu__links">
             {links.map((link) => (
               <li key={link.href}>
-                <Link
+                <LinkComponent
                   href={link.href}
                   className="display-l"
                   aria-current={isCurrent(link.href) ? 'page' : undefined}
                 >
                   {link.label}
-                </Link>
+                </LinkComponent>
               </li>
             ))}
-            <li>
-              <a href={`mailto:${dict.footer.email}`}>{dict.nav.contact}</a>
-            </li>
+            {contact ? (
+              <li>
+                <a href={`mailto:${contact.email}`}>{contact.label}</a>
+              </li>
+            ) : null}
           </ul>
 
-          <div className="menu__foot">
-            <a href={`mailto:${dict.footer.email}`} className="meta ink">
-              {dict.footer.email}
-            </a>
-            <span className="meta">{dict.footer.location}</span>
-            <a
-              href={dict.footer.linkedinUrl}
-              className="meta ink"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {dict.footer.linkedin} <Icon name="arrow-up-right" size="s" />
-            </a>
-          </div>
+          {contact ? (
+            <div className="menu__foot">
+              <ContactMeta {...contact} />
+            </div>
+          ) : null}
         </div>
       ) : null}
     </>

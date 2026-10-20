@@ -1395,3 +1395,22 @@ Tuotekohtaiset vartijat ajetaan yhä joka buildissa ja lasketaan
 otsikon lukuun.
 
 *Kirjattu 16.10.2026 Vellun hyväksynnällä*
+
+## 43. Nav ja Footer ovat paketissa
+
+**Tilanne:** Vellu testasi Make-kittiä ja kysyi, miksei sovelluksessa
+ole navigaatiokomponenttia. Nav ja Footer jätettiin paketista pois,
+koska ne lukivat sivuston sanakirjaa ja Next.js-reititystä. Make-ohjeet
+silti käskivät käyttää `Nav`ia, jota Make ei nähnyt.
+
+**Päätös:** Nav ja Footer saavat sisältönsä propseina. Navin linkit,
+nykyinen polku (`currentPath`), tekstit ja linkkikomponentti (`as`,
+kuten ListRow:ssa) annetaan sille; Footer saa CTA:n, yhteystiedot ja
+alarivit. Sivusto kytkee Navin sanakirjaan ja reitittimeen
+`NavRoute`lla, kuten PageProgressRoute kytkee PageProgressin. Molemmat
+viedään pakettiin tyyleineen (2.23.0).
+
+**Raja:** ulkoasu ei muuttunut, joten Figman komponentit pysyvät
+ennallaan; vain Code Connect -esimerkit vaihtuivat uusiin propseihin.
+
+*Kirjattu 20.10.2026 Vellun hyväksynnällä*
