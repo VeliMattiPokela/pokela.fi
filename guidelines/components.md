@@ -26,6 +26,8 @@ Use these instead of building an equivalent.
 - `Reveal`
 - `ThemeScript`, `THEME_STORAGE_KEY`
 - `ThemeToggle`
+- `Nav`
+- `Footer`, `ContactMeta`
 <!-- /generated -->
 
 `ListRow` is the signature component. Use it for any list of items — a work
@@ -226,6 +228,17 @@ beside it. Use one layout per page.
 <Section title="Road to launch" layout="aside">
   <Timeline>…</Timeline>
 </Section>
+```
+
+`Nav` and `Footer` frame every page, with the page's `main` between them. Use
+them for site navigation instead of building a header. Like `ListRow`, `Nav`
+renders plain `<a>`s, so pass the router's link component as `as` and the
+current path as `currentPath`. The mobile menu and theme switch are built in.
+
+```jsx
+<Nav as={Link} brand="Acme" currentPath={pathname} links={[{ href: '/team/', label: 'Team' }]} />
+<main>…</main>
+<Footer cta={['Get in', 'touch']} contact={{ email: 'hello@acme.com' }} />
 ```
 
 `Reveal` fades its children in on scroll. Wrap sections, not single elements.

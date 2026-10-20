@@ -8,9 +8,10 @@ component, or a change to an existing component?"**
 
 1. **A view or prototype**, new or existing. Ask what the page is, what is
    on it and what can be clicked. Build it only from this package: pages
-   start with `PageHeader`, content goes in `Section`s. If the view needs a
-   part the package does not have, do not invent it inside the view: build
-   it separately as in 2 and label it "Proposed component".
+   sit between `Nav` and `Footer`, start with `PageHeader`, and content goes
+   in `Section`s. If the view needs a part the package does not have, do not
+   invent it inside the view: build it separately as in 2 and label it
+   "Proposed component".
 2. **A new component.** Ask its name, what it does, its states, and which
    existing component is closest. Build it alone on an empty page, every
    state visible side by side, using only tokens. Name its props like the

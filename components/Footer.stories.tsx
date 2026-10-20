@@ -15,7 +15,15 @@ const meta = {
       },
     },
   },
-  args: { dict: fi },
+  args: {
+    cta: fi.footer.ctaLines,
+    contact: {
+      email: fi.footer.email,
+      location: fi.footer.location,
+      link: { label: fi.footer.linkedin, href: fi.footer.linkedinUrl },
+    },
+    legal: [`© ${fi.footer.year} ${fi.home.name}`, `${fi.footer.colophonLabel} — ${fi.footer.colophon}`],
+  },
 } satisfies Meta<typeof Footer>;
 
 export default meta;
