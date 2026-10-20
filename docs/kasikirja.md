@@ -370,14 +370,19 @@ tekemään.
 
 ### Make kitin kokoaminen
 
-Figman kuusi askelta. Ohjeet (askel 4) ovat tässä repossa, loput tehdään
-Figmassa:
+Askeleet ja kitin `setup.md` ovat myös paketin README:ssä (npm ja
+`node_modules/@pokela/components/README.md`), koska kitin kokoaja näkee
+paketin mutta ei välttämättä tätä repoa. Lähde: `scripts/paketti-komponentit.mjs`.
+
+<!-- generated:make-kit -->
+Kit kootaan kerran. Muut lisäävät valmiin kitin Make-tiedostoonsa, ja
+ohjeet tulevat sen mukana; heidän ei tarvitse tehdä tätä.
 
 1. Make-tiedosto → Settings → **Create a kit**
-2. Lisää npm-paketit: `@pokela/tokens` ja `@pokela/components`
+2. Lisää npm-paketit `@pokela/tokens` ja `@pokela/components`
 3. Erityisasetuksia ei tarvita: tyylit ja fontit latautuvat komponenttien mukana
-4. **Ohjeet** — kitin `setup.md`:hen vain osoitus paketin ohjeisiin, ks. alla; Maken muut kolme oletusohjetta poistetaan
-5. Testaa: pyydä Makelta näkymä (esim. "työlista ja aikajana") ja uusi komponentti, ja katso, kysyykö se ensin ja käyttääkö se `PageHeader`- ja `Section`-patterneja (päätös 21)
+4. **Ohjeet:** korvaa kitin `setup.md` kokonaan alla olevalla tekstillä ja poista Maken muut oletusohjeet. Varsinaiset ohjeet ovat paketissa (`guidelines/`) ja päivittyvät sen mukana.
+5. Testaa: pyydä Makelta näkymä (esim. "työlista ja aikajana") ja uusi komponentti, ja katso, kysyykö se ensin ja käyttääkö se `PageHeader`- ja `Section`-patterneja
 6. Julkaise kit
 
 Kitin `setup.md` kokonaan:
@@ -388,6 +393,7 @@ node_modules/@pokela/components/guidelines/setup.md, tokens.md, styles.md
 and components.md. They are the current rules; follow them over anything
 you assume.
 ```
+<!-- /generated -->
 
 Kahden ensimmäisen ajon tulokset: `docs/loki.md`.
 
