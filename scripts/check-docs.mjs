@@ -33,7 +33,7 @@ import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { VIETAVAT, viennit } from './paketti-komponentit.mjs';
+import { VIETAVAT, viennit, makeKitOhje } from './paketti-komponentit.mjs';
 import { ladatutFontit } from './fontit.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -216,6 +216,7 @@ const makeSanat = () => {
 };
 
 const GENERATORS = {
+  'make-kit': makeKitOhje,
   'make-sanat': makeSanat,
   'make-komponentit': makeKomponentit,
   'make-painot': makePainot,

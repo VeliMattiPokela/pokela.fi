@@ -48,6 +48,34 @@ export const VIETAVAT = ['Icon', 'ListRow', 'PageProgress', 'Accordion', 'Timeli
  * komponentit käyttävät (`.page`, `.bleed`, `.meta`, `.grid`,
  * `.reveal`). Sen pilkkominen olisi oma työnsä eikä kuulu tähän.
  */
+/**
+ * Make-kitin `setup.md` kokonaan. Teksti elää yhdessä paikassa ja
+ * kulkee paketin README:ssä, koska kitin kokoaja näkee paketin (npm,
+ * node_modules) mutta tuskin tätä repoa. Käsikirjan lohko `make-kit`
+ * luodaan tästä, joten kaksi kopiota ei voi erota.
+ */
+export const MAKE_KIT_SETUP = `Read the guidelines that ship with the package before writing any code:
+node_modules/${NIMI}/guidelines/setup.md, tokens.md, styles.md
+and components.md. They are the current rules; follow them over anything
+you assume.`;
+
+/** Kitin kokoamisen askeleet Figmassa, paketin README:hen ja käsikirjaan. */
+export const makeKitOhje = () => `Kit kootaan kerran. Muut lisäävät valmiin kitin Make-tiedostoonsa, ja
+ohjeet tulevat sen mukana; heidän ei tarvitse tehdä tätä.
+
+1. Make-tiedosto → Settings → **Create a kit**
+2. Lisää npm-paketit \`${TOKENIT}\` ja \`${NIMI}\`
+3. Erityisasetuksia ei tarvita: tyylit ja fontit latautuvat komponenttien mukana
+4. **Ohjeet:** korvaa kitin \`setup.md\` kokonaan alla olevalla tekstillä ja poista Maken muut oletusohjeet. Varsinaiset ohjeet ovat paketissa (\`guidelines/\`) ja päivittyvät sen mukana.
+5. Testaa: pyydä Makelta näkymä (esim. "työlista ja aikajana") ja uusi komponentti, ja katso, kysyykö se ensin ja käyttääkö se \`PageHeader\`- ja \`Section\`-patterneja
+6. Julkaise kit
+
+Kitin \`setup.md\` kokonaan:
+
+\`\`\`md
+${MAKE_KIT_SETUP}
+\`\`\``;
+
 export const TYYLIT = [
   'styles/base.css',
   'styles/components/icon.css',
@@ -303,6 +331,10 @@ import { ListRow, Icon, Accordion, Grid, Col, Reveal } from '${NIMI}';
 Tyylit, \`${TOKENIT}\`:n muuttujat ja fontit (Google Fonts) latautuvat
 komponenttien mukana. Erillistä tuontia ei tarvita. Ilman bundleria
 tyylit saa myös suoraan: \`${NIMI}/styles.css\`.
+
+## Figma Make -kit
+
+${makeKitOhje()}
 
 ## Komponentit
 
