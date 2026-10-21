@@ -1414,3 +1414,24 @@ viedään pakettiin tyyleineen (2.23.0).
 ennallaan; vain Code Connect -esimerkit vaihtuivat uusiin propseihin.
 
 *Kirjattu 20.10.2026 Vellun hyväksynnällä*
+
+## 44. Pitkä sivun otsikko pienenee pituuden mukaan
+
+**Tilanne:** Työtapa-sivun otsikko "UX engineering – koodipohjainen
+suunnittelu" (43 merkkiä) oli display-xl:nä 136 px ja kolmella
+rivillä. Vellu: iso ja näyttävä otsikko on pääasiassa hyvä, mutta
+pitkä otsikko paisuu liian suureksi.
+
+**Päätös:** sivun otsikon koko johdetaan sen pituudesta. Enintään 20
+merkin otsikko on `display-xl`, pidempi `display-l` (sama koko kuin
+casejen otsikoissa). `PageHeader` laskee koon itse (`otsikonKoko`),
+ja Työtapa-sivun otsikko käyttää samaa funktiota. Kokoa ei aseteta
+käsin; `size`-props on vain otsikolle, joka ei ole pelkkää tekstiä.
+Figmassa PageHeaderilla on variantti `Otsikko` = lyhyt / pitkä.
+
+**Raja:** uusia tokeneita ei tullut, vain kaksi olemassa olevaa
+tyyliä. `check:figma` luki enum-arvoista vain ASCII-alkuiset osat, joten
+"pitkä" olisi ohittunut hiljaa; säännöllinen lauseke hyväksyy nyt
+kaikki kirjaimet.
+
+*Kirjattu 21.10.2026 Vellun pyynnöstä*

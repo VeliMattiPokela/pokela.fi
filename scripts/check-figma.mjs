@@ -216,7 +216,9 @@ for (const connection of connections) {
       continue;
     }
     const options = new Set(definition.variantOptions ?? []);
-    for (const key of body.matchAll(/(?:^|[,{])\s*'?([A-Za-z][\w-]*)'?\s*:/g)) {
+    /* \p{L}: myös ä/ö-alkuiset ja -sisältöiset arvot ("pitkä"), jotka
+       ASCII-luokka ohitti hiljaa. */
+    for (const key of body.matchAll(/(?:^|[,{])\s*'?(\p{L}[\p{L}\d_-]*)'?\s*:/gu)) {
       if (!options.has(key[1])) {
         drift.push({
           file: connection.file,
