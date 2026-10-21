@@ -1277,14 +1277,18 @@ valitsi kolmesta vedoksesta vaihtoehdon A, jossa sama näkymä kulkee
 kuvana rungosta julkaisuun ja jokaisella vaiheella on oma kuvansa.
 
 **Raja:** sivu kuvaa menetelmän, ei myy sitä. Rajat kerrotaan yhtä
-näkyvästi kuin hyödyt. Blokbook ei ole listalla, koska sen case kertoo
-tuotekehityksestä eikä tästä menetelmästä.
+näkyvästi kuin hyödyt.
 
 **Lisäys 16.10.2026:** case 03:n "Prosessi vaihe vaiheelta" käyttää
 samaa vaiheruudukkoa. Jokaisella kahdeksalla vaiheella on oma
 Piirros-aihe (`lahtotilanne` … `paluu`), ja vaihe, joka on vasta
 tulossa, piirretään katkoviivoin. Pelkkä teksti tekstin perään ei
 kerro prosessista yhtä hyvin kuin kuva (Vellu).
+
+**Lisäys 21.10.2026:** Blokbook lisättiin caseihin, joissa menetelmää
+on käytetty. Alun perin se jätettiin pois, koska sen case kertoo
+tuotekehityksestä, mutta Vellu suunnitteli senkin suoraan koodiin
+samalla menetelmällä.
 
 *Kirjattu 14.10.2026 Vellun hyväksynnällä*
 
