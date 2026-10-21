@@ -13,7 +13,7 @@ const fi = {
     siteName: 'Pokela',
     title: 'Veli-Matti Pokela — Senior Designer',
     description:
-      'Suunnittelen käyttöliittymät ja koodaan ne tuotantoon. Senior Designer Helsingissä.',
+      'Suunnittelen käyttöliittymät ja koodaan ne tuotantoon. Senior Designer, Helsinki.',
     skipToContent: 'Siirry sisältöön',
   },
 
@@ -66,7 +66,7 @@ const fi = {
   about: {
     titleLines: ['Veli-Matti', 'Pokela'],
     lede:
-      'Senior Designer Helsingissä. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
+      'Senior Designer, Helsinki. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
     body:
       'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Siitä on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen kattaa useamman roolin.',
     contact: 'Ota yhteyttä',
