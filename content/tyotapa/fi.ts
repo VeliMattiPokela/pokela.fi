@@ -16,7 +16,7 @@ const tyotapa = {
     { label: 'Mitä', value: 'Käyttäjälähtöinen suunnittelu ja front end' },
     { label: 'Työkalut', value: 'React, TypeScript, Storybook, Git, AI-avustaja' },
     { label: 'Rooli', value: 'UX engineer: design ja toteutus samoissa käsissä' },
-    { label: 'Käytössä', value: 'Colliers Asunnot, tämä sivusto' },
+    { label: 'Käytössä', value: 'Colliers Asunnot, Blokbook, tämä sivusto' },
   ],
   hero: {
     label: 'Sama näkymä neljässä vaiheessa: runko, design system, data ja julkaistu palvelu.',
@@ -94,6 +94,11 @@ const tyotapa = {
       slug: 'colliers',
       p: 'Klikattava runko oli selaimessa ensimmäisinä viikkoina, ja design system syntyi Storybookiin koodina.',
       meta: 'Koko menetelmä',
+    },
+    {
+      slug: 'blokbook',
+      p: 'Oma tuote suunniteltiin suoraan koodiin. Design system ja Storybook syntyivät ensimmäisen alustan mukana.',
+      meta: 'Oma tuote',
     },
     {
       slug: 'portfolio',
