@@ -44,7 +44,6 @@ const meta = {
       { href: '/fi/tyot/', label: fi.nav.work },
       { href: '/fi/tyotapa/', label: fi.nav.method },
       { href: '/fi/tietoa/', label: fi.nav.about },
-      { href: '/fi/system/', label: fi.nav.system },
     ],
     contact: {
       label: fi.nav.contact,

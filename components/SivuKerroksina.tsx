@@ -71,7 +71,7 @@ export default function SivuKerroksina({ locale, tila = 'auki' }: { locale: Loca
     <span className="kerrokset__nav">
       <span className="meta ink">VMP</span>
       {/* Yksi tekstisolmu: Figman pohjan teksti verrataan tähän sellaisenaan. */}
-      <span className="meta">{[dict.nav.work, dict.nav.about, dict.nav.system].join(' · ')}</span>
+      <span className="meta">{[dict.nav.work, dict.nav.method, dict.nav.about].join(' · ')}</span>
     </span>
   );
   const nappi = (

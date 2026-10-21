@@ -19,7 +19,6 @@ export default function NavRoute({ locale, dict }: { locale: Locale; dict: Dicti
         { href: path(locale, 'work'), label: nav.work },
         { href: path(locale, 'method'), label: nav.method },
         { href: path(locale, 'about'), label: nav.about },
-        { href: path(locale, 'system'), label: nav.system },
       ]}
       contact={{
         label: nav.contact,

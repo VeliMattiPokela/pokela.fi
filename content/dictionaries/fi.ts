@@ -21,7 +21,6 @@ const fi = {
     work: 'Työt',
     method: 'Työtapa',
     about: 'Tietoa',
-    system: 'System',
     contact: 'Ota yhteyttä',
     menu: 'Valikko',
     close: 'Sulje',

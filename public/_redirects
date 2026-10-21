@@ -3,3 +3,6 @@
 /                 /fi/   302
 /tyot/*           /fi/tyot/:splat   301
 /tietoa/*         /fi/tietoa/:splat 301
+# Design system siirtyi Työtavan alle (päätös 45).
+/system/*         /fi/tyotapa/system/:splat 301
+/fi/system/*      /fi/tyotapa/system/:splat 301

@@ -41,7 +41,8 @@ export const slugs = {
   work: { fi: 'tyot', en: 'work' },
   method: { fi: 'tyotapa', en: 'method' },
   about: { fi: 'tietoa', en: 'about' },
-  system: { fi: 'system', en: 'system' },
+  /** Design system on Työtavan alasivu (päätös 45). */
+  system: { fi: 'tyotapa/system', en: 'method/system' },
 } as const;
 
 export type Section = keyof typeof slugs;
