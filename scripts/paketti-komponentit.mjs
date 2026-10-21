@@ -39,7 +39,7 @@ const TEKIJA = 'Veli-Matti Pokela';
 const VUOSI = 2026;
 
 /** Komponentit jotka paketti vie. Ks. tiedoston alku. */
-export const VIETAVAT = ['Icon', 'ListRow', 'PageProgress', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Table', 'Dialog', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle', 'Nav', 'Footer'];
+export const VIETAVAT = ['Icon', 'ListRow', 'PageProgress', 'Accordion', 'Timeline', 'ExplodedView', 'PageHeader', 'Section', 'TextField', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Select', 'Tabs', 'Tab', 'Alert', 'Table', 'Dialog', 'Grid', 'Reveal', 'ThemeScript', 'ThemeToggle', 'Nav', 'Footer', 'Korkeuskayrat', 'Nosto'];
 
 /**
  * CSS jonka vietävät komponentit tarvitsevat.
@@ -94,6 +94,8 @@ export const TYYLIT = [
   'styles/components/dialog.css',
   'styles/components/nav.css',
   'styles/components/footer.css',
+  'styles/components/korkeuskayrat.css',
+  'styles/components/nosto.css',
 ];
 
 /**
@@ -110,8 +112,6 @@ export const ULKOPUOLELLA = [
   ['HeroName', 'piirtää sivuston omaa nimeä fontin ääriviivoista (`@/content/nimi.generated.json`)'],
   ['SivuKerroksina', 'kokoaa tämän sivuston räjäytyskuvan sen omista tokeneista ja sisällöstä; yleinen osa on ExplodedView'],
   ['HeroIntro, HeroIntroLiike', 'ovat etusivun intro: sivuston ominaisuus, ei design systemin osa'],
-  ['Korkeuskayrat', 'on etusivun viivateos ja ajoittuu HeroIntroon: sivuston ominaisuus, ei design systemin osa'],
-  ['Nosto', 'käyttää taustanaan Korkeuskayrat-viivateosta: sivuston oma ilme, ei design systemin osa'],
   ['ComponentView, PrintCv',
    'ovat riippumattomia mutta sivuston ominaisuuksia — lähdekoodinäkymä ja CV:n tulostusasu — eivät design systemin osia'],
 ];

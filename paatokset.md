@@ -1488,8 +1488,13 @@ liukuva nauha) Vellu valitsi paneelin.
 viivateos sitoo noston etusivun heroon: sama teos avaa ja päättää
 etusivun. Erottuminen tulee teoksesta eikä pelkästä kontrastista.
 
-**Raja:** Nosto ei ole npm-paketissa, koska Korkeuskayrat on sivuston
-oma ilme eikä design systemin osa. Tausta on koriste, joten se on
-piilotettu ruudunlukijalta (Korkeuskayrat ilman `label`ia).
+**Paketti:** Nosto ja Korkeuskayrat siirtyvät @pokela/components-
+pakettiin tyyleineen. Korkeuskayrat oli rajattu ulos etusivun omana
+teoksena, mutta se ei lue sivuston sisältöä, ja HeroIntro-kytkös on
+valinnainen tapahtuma. Näin Make ja muut sovellukset saavat saman
+noston kuin sivusto (Vellu: "eikö sitä ole mahdollista sisällyttää").
+
+**Raja:** tausta on koriste, joten se on piilotettu ruudunlukijalta
+(Korkeuskayrat ilman `label`ia).
 
 *Kirjattu 21.10.2026 Vellun hyväksynnällä*
