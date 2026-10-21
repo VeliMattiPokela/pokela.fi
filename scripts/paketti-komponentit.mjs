@@ -111,6 +111,7 @@ export const ULKOPUOLELLA = [
   ['SivuKerroksina', 'kokoaa tämän sivuston räjäytyskuvan sen omista tokeneista ja sisällöstä; yleinen osa on ExplodedView'],
   ['HeroIntro, HeroIntroLiike', 'ovat etusivun intro: sivuston ominaisuus, ei design systemin osa'],
   ['Korkeuskayrat', 'on etusivun viivateos ja ajoittuu HeroIntroon: sivuston ominaisuus, ei design systemin osa'],
+  ['Nosto', 'käyttää taustanaan Korkeuskayrat-viivateosta: sivuston oma ilme, ei design systemin osa'],
   ['ComponentView, PrintCv',
    'ovat riippumattomia mutta sivuston ominaisuuksia — lähdekoodinäkymä ja CV:n tulostusasu — eivät design systemin osia'],
 ];

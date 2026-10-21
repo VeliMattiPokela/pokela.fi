@@ -53,27 +53,6 @@
    pinnalla (päätös 40), joten pinnan reuna korvaa myös alaviivan. */
 .home__clients .logo-row-block { border-block: 0; }
 
-/* Käännetty nostorivi. Yksi per sivu. */
-.home__band {
-  padding-block: var(--space-48);
-  margin-top: var(--section-gap);
-}
-@media (min-width: 900px) { .home__band { padding-block: var(--space-72); } }
-
-.home__band-inner {
-  max-width: var(--max-width);
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
-}
-@media (min-width: 900px) {
-  .home__band-inner { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--space-56); }
-  .home__band-title { flex: 1 1 55%; }
-  .home__band-body { flex: 0 1 38%; }
-}
-.home__band-body { color: var(--invert-faint); }
-
 /* Herokuva: nauha täyttää heron oman marginaalin (base.css), joten
    ilman tätä nauha osuisi kiinni viereisiin osioihin ja alle jäisi
    kapea rako ennen käännettyä nostoriviä. flow-root pitää heron
