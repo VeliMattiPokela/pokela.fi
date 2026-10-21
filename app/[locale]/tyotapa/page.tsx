@@ -9,6 +9,7 @@ import Piirros from '@/components/Piirros';
 import Section from '@/components/Section';
 import ListRow from '@/components/ListRow';
 import Reveal from '@/components/Reveal';
+import { otsikonKoko } from '@/components/PageHeader';
 
 export async function generateMetadata({
   params,
@@ -34,7 +35,7 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
     <article className="tyotapa">
       <header className="page tyotapa__head">
         <span className="meta case__eyebrow">{t.eyebrow}</span>
-        <h1 className="display-xl tyotapa__title">{t.title}</h1>
+        <h1 className={`display-${otsikonKoko(t.title)} tyotapa__title`}>{t.title}</h1>
         <p className="body-l case__tagline">{t.lede}</p>
         <dl className="case__facts">
           {t.facts.map((fact) => (

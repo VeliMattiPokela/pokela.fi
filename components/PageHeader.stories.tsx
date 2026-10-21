@@ -14,6 +14,7 @@ const meta = {
         component: [
           'Otsikko ja sivutieto samalla rivillä leveämmällä ruudulla.',
           'Ingressi on otsikon alla samassa sarakkeessa, ei sivussa.',
+          'Yli 20 merkin otsikko on display-l, lyhyempi display-xl. Koko johdetaan pituudesta.',
         ].join('\n'),
       },
     },
@@ -33,6 +34,14 @@ export const Ingressilla: Story = {
     title: 'Ideasta valmiiksi',
     meta: '9 viikkoa',
     lede: 'Selkeä prosessi tekee etenemisestä näkyvää. Jokainen vaihe päättyy yhteiseen päätökseen ennen seuraavaa askelta.',
+  },
+};
+
+/** Pitkä otsikko pienenee display-l:ään, jotta se ei kasva kolmelle riville. */
+export const PitkaOtsikko: Story = {
+  args: {
+    title: 'UX engineering\u00a0– koodipohjainen suunnittelu',
+    meta: 'Työtapa',
   },
 };
 

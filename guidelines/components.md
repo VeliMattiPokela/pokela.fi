@@ -9,7 +9,7 @@ Use these instead of building an equivalent.
 - `Accordion`, `useAccordionGroup`
 - `Timeline`, `TimelineItem`
 - `ExplodedView`
-- `PageHeader`
+- `PageHeader`, `otsikonKoko`
 - `Section`
 - `TextField`
 - `Checkbox`
@@ -216,7 +216,10 @@ the layout every page uses. Build pages from them instead of arranging
 headings and grids yourself.
 
 `PageHeader` is the page's title with an optional `meta` and `lede`. The lede
-always sits under the title in the same column, never beside it.
+always sits under the title in the same column, never beside it. The title
+size follows its length: up to 20 characters it is `display-xl`, a longer
+title is `display-l` so it stays on two lines. Don't set the size yourself;
+pass `size` only when the title is not plain text.
 
 `Section` names a part of the page with a small `title` (and optional
 `meta`). `layout="stacked"` puts the title row above the content;

@@ -37,7 +37,7 @@ const tyotapa = {
     {
       aihe: 'design-system',
       h: 'Design system koodiin',
-      p: 'Värit, typografia ja komponentit syntyvät suoraan koodiin. Muutos yhdessä paikassa näkyy heti kaikkialla.',
+      p: 'Värit, typografia sekä komponenttien rakenteet, tilat ja käyttäytyminen määritellään suoraan koodissa. Muutos yhdessä paikassa näkyy heti kaikkialla.',
     },
     {
       aihe: 'polut',
