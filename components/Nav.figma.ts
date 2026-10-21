@@ -40,8 +40,8 @@ export default {
   currentPath={pathname}
   links={[
     { href: '/fi/tyot/', label: 'Työt' },
-    { href: '/fi/tyotapa/', label: 'Työtapa' },
-    { href: '/fi/tietoa/', label: 'Tietoa' },
+    { href: '/fi/tyotapa/', label: 'Työtapani' },
+    { href: '/fi/tietoa/', label: 'Tietoa minusta' },
   ]}
 />`,
 };

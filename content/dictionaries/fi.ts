@@ -19,8 +19,8 @@ const fi = {
 
   nav: {
     work: 'Työt',
-    method: 'Työtapa',
-    about: 'Tietoa',
+    method: 'Työtapani',
+    about: 'Tietoa minusta',
     contact: 'Ota yhteyttä',
     menu: 'Valikko',
     close: 'Sulje',
