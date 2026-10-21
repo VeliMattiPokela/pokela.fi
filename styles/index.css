@@ -32,6 +32,7 @@
 @import './components/dialog.css';
 @import './components/piirros.css';
 @import './components/tyotapa.css';
+@import './components/nosto.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
 @import './print.css';

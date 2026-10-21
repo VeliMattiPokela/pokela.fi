@@ -23,6 +23,7 @@ const SIZES = {
     '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
 };
 import Reveal from './Reveal';
+import Nosto from './Nosto';
 import CaseText from './CaseText';
 import Link from 'next/link';
 import Icon from './Icon';
@@ -148,19 +149,17 @@ export default function CaseBlock({
     case 'band':
       return (
         <Reveal>
-          <section className="invert bleed case__band">
-            <div className="case__band-inner">
-              <p className="display-m case__band-title">{block.title}</p>
-              <div className="case__band-body">
-                <p className="body-l">{block.body}</p>
-                {block.link ? (
-                  <Link href={systemPath(locale)} className="btn btn--text">
-                    {block.link.label} <Icon name="arrow-right" />
-                  </Link>
-                ) : null}
-              </div>
-            </div>
-          </section>
+          <Nosto
+            title={block.title}
+            body={block.body}
+            action={
+              block.link ? (
+                <Link href={systemPath(locale)} className="btn btn--text">
+                  {block.link.label} <Icon name="arrow-right" />
+                </Link>
+              ) : undefined
+            }
+          />
         </Reveal>
       );
 
@@ -254,7 +253,7 @@ export default function CaseBlock({
           <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
-              <div className="case__pair">
+              <div className="case__choices">
                 {block.items.map((item) => (
                   <div key={item.h} className="case__choice">
                     <h4 className="display-s">{item.h}</h4>
