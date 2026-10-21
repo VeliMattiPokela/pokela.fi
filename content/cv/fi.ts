@@ -22,7 +22,7 @@ const services = [
   {
     number: '02',
     title: 'Toteutus',
-    body: 'Koodipohjainen design system, front end tuotantoon, interaktiiviset prototyypit.',
+    body: 'Koodipohjainen design system, front end tuotantoon ja interaktiiviset prototyypit UX engineering -työtavalla.',
   },
   {
     number: '03',

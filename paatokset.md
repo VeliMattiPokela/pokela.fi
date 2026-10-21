@@ -1468,3 +1468,33 @@ Vellun kysymyksestä nähtiin, että case on rehellisempi paikka.
 casen kautta, joten POC:n todiste ei katoa, vaikka se ei ole navissa.
 
 *Kirjattu 21.10.2026 Vellun hyväksynnällä*
+
+## 46. Nosto korvaa käännetyt nauhat
+
+**Tilanne:** etusivun ja casejen väitteet olivat käännettyjä nauhoja
+reunasta reunaan: tumma laatta, otsikko vasemmalla ja leipäteksti
+oikealla. Vellu koki nauhan hyppäävän sivulta liian rajusti esiin ja
+toistavan samaa kahden palstan asettelua kuin muut osiot. Väljempi
+yhden palstan sävypinta näytti vielä tylsemmältä.
+
+**Päätös:** uusi komponentti Nosto. Taustana on reunasta reunaan
+etusivun viivateos (Korkeuskayrat), ja keskellä on paperinen
+paneeli, jossa väite, leipäteksti ja valinnainen linkki ovat
+keskitettyinä. Etusivu ja kaikki casejen nauhat (`band`) käyttävät
+sitä. Kolmesta vaihtoehdosta (paneeli, jättikokoinen typografia,
+liukuva nauha) Vellu valitsi paneelin.
+
+**Perustelu:** keskitetty paneeli rikkoo kahden palstan rytmin, ja
+viivateos sitoo noston etusivun heroon: sama teos avaa ja päättää
+etusivun. Erottuminen tulee teoksesta eikä pelkästä kontrastista.
+
+**Paketti:** Nosto ja Korkeuskayrat siirtyvät @pokela/components-
+pakettiin tyyleineen. Korkeuskayrat oli rajattu ulos etusivun omana
+teoksena, mutta se ei lue sivuston sisältöä, ja HeroIntro-kytkös on
+valinnainen tapahtuma. Näin Make ja muut sovellukset saavat saman
+noston kuin sivusto (Vellu: "eikö sitä ole mahdollista sisällyttää").
+
+**Raja:** tausta on koriste, joten se on piilotettu ruudunlukijalta
+(Korkeuskayrat ilman `label`ia).
+
+*Kirjattu 21.10.2026 Vellun hyväksynnällä*

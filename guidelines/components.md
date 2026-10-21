@@ -28,6 +28,8 @@ Use these instead of building an equivalent.
 - `ThemeToggle`
 - `Nav`
 - `Footer`, `ContactMeta`
+- `Korkeuskayrat`
+- `Nosto`
 <!-- /generated -->
 
 `ListRow` is the signature component. Use it for any list of items — a work
@@ -242,6 +244,15 @@ current path as `currentPath`. The mobile menu and theme switch are built in.
 <Nav as={Link} brand="Acme" currentPath={pathname} links={[{ href: '/team/', label: 'Team' }]} />
 <main>…</main>
 <Footer cta={['Get in', 'touch']} contact={{ email: 'hello@acme.com' }} />
+```
+
+`Nosto` states a page's main point once: a centred paper panel over the
+full-bleed contour-line artwork (`Korkeuskayrat`). Use at most one or two per
+page, between chapters, never as a card inside a section. `action` takes a
+link or button.
+
+```jsx
+<Nosto title="Design and build in the same hands" body="Design system, product design and front end." />
 ```
 
 `Reveal` fades its children in on scroll. Wrap sections, not single elements.

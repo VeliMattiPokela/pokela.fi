@@ -16,6 +16,7 @@ const SIZES_TAYSI =
   '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
 
 import Reveal from '@/components/Reveal';
+import Nosto from '@/components/Nosto';
 import Icon from '@/components/Icon';
 import LogoRow from '@/components/LogoRow';
 
@@ -104,14 +105,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </Reveal>
 
-      {/* ---- käännetty nostorivi -------------------------------- */}
+      {/* ---- nosto: sivun pääväite ------------------------------ */}
       <Reveal>
-        <section className="invert bleed home__band">
-          <div className="home__band-inner">
-            <p className="display-m home__band-title">{home.bandTitle}</p>
-            <p className="body-l measure home__band-body">{home.bandBody}</p>
-          </div>
-        </section>
+        <Nosto title={home.bandTitle} body={home.bandBody} />
       </Reveal>
     </>
   );

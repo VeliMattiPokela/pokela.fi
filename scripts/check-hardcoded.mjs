@@ -50,6 +50,10 @@ const EXEMPT = {
     '-webkit-mask-image:#000': 'Maskissa väri on alfakanava, ei väri: #000 tarkoittaa "täysin näkyvä".',
     'mask-image:#000': 'Sama kuin yllä.',
   },
+  'nosto.css': {
+    'min-height:760px': 'Noston korkeus (min(88svh, 760px)): viivateosta jää paneelin ympärille näkyviin, eikä nosto veny isolla ruudulla koko näytön korkuiseksi.',
+    'max-width:920px': 'Paneelin leveys: kaksirivinen display-l-otsikko mahtuu, ja viivateosta jää kummallekin puolelle. Mitoitettu sisällön mukaan.',
+  },
   'hero-name.css': {
     'stroke-width:5px':
       'Nimikkeiden paperinvärinen reuna piirroksessa: irrottaa metatekstin kirjaimesta jonka päälle se osuu. Piirros, ei layout-mitta.',

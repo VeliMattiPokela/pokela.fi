@@ -23,7 +23,7 @@ import { useEffect, useRef } from 'react';
  * `prefers-reduced-motion`: kuvio on paikallaan, eikä mikään edellä
  * mainituista liiku. Animaatio pyörii vain, kun teos on näkyvissä.
  */
-export default function Korkeuskayrat({ label }: { label: string }) {
+export default function Korkeuskayrat({ label }: { label?: string }) {
   const juuri = useRef<HTMLDivElement>(null);
   const svg = useRef<SVGSVGElement>(null);
 
@@ -169,7 +169,12 @@ export default function Korkeuskayrat({ label }: { label: string }) {
   }, []);
 
   return (
-    <div ref={juuri} className="korkeuskayrat" role="img" aria-label={label}>
+    <div
+      ref={juuri}
+      className="korkeuskayrat"
+      /* Ilman labelia teos on koriste (Nosto-komponentin tausta). */
+      {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
+    >
       <svg ref={svg} className="korkeuskayrat__viivat" aria-hidden="true" />
     </div>
   );

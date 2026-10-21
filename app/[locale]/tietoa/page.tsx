@@ -7,6 +7,7 @@ import PrintCv from '@/components/PrintCv';
 import { Grid, Col } from '@/components/Grid';
 import Reveal from '@/components/Reveal';
 import Section from '@/components/Section';
+import CaseText from '@/components/CaseText';
 
 /** Muotokuva on neljä saraketta kahdestatoista, eli noin kolmannes. */
 const PORTRAIT_SIZES =
@@ -116,7 +117,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <div key={service.number} className="about__service">
                 <span className="meta">{service.number}</span>
                 <h3 className="title about__service-title">{service.title}</h3>
-                <p className="body-s muted measure about__service-body">{service.body}</p>
+                <p className="body-s muted measure about__service-body">
+                  <CaseText text={service.body} locale={locale as Locale} />
+                </p>
               </div>
             ))}
           </div>
