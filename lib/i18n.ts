@@ -41,8 +41,10 @@ export const slugs = {
   work: { fi: 'tyot', en: 'work' },
   method: { fi: 'tyotapa', en: 'method' },
   about: { fi: 'tietoa', en: 'about' },
-  system: { fi: 'system', en: 'system' },
 } as const;
+
+/** Case, jonka alasivu design system on (päätös 45). */
+export const SYSTEM_CASE = 'portfolio';
 
 export type Section = keyof typeof slugs;
 
@@ -53,3 +55,6 @@ export function path(locale: Locale, section?: Section, ...rest: string[]): stri
   parts.push(...rest);
   return `/${parts.join('/')}/`;
 }
+
+/** Design systemin polku: path('fi', 'work', 'portfolio', 'system'). */
+export const systemPath = (locale: Locale) => path(locale, 'work', SYSTEM_CASE, 'system');

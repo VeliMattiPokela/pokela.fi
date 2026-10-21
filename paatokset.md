@@ -1435,3 +1435,32 @@ tyyliä. `check:figma` luki enum-arvoista vain ASCII-alkuiset osat, joten
 kaikki kirjaimet.
 
 *Kirjattu 21.10.2026 Vellun pyynnöstä*
+
+## 45. Design system on case 03:n alasivu
+
+**Tilanne:** navissa oli Työt, Työtapa, Tietoa, System ja Ota
+yhteyttä. Vellu koki Työtavan ja Systemin irrallisiksi. Ne kertovat
+samasta asiasta, menetelmästä ja sen tuotoksesta, mutta Tietoa oli
+niiden välissä, sivut eivät linkittäneet toisiinsa, ja System oli
+navin ainoa englanninkielinen sana.
+
+**Päätös:** System poistuu navista, jolloin navissa ovat Työt,
+Työtapa, Tietoa ja Ota yhteyttä. Design system siirtyy osoitteeseen
+`/tyot/portfolio/system`, ja navi merkitsee siellä Työt aktiiviseksi.
+Case 03:n nauha "Yksi design system koodissa, Figmassa ja
+AI-työkaluissa" saa linkin "Design system elävänä" (nauhan `link`).
+Ketju on siis Työtapa → case 03 → design system: Työtavan "Missä
+käytetty" vie jo caseen. Vanhat osoitteet `/system/` ja `/fi/system/`
+ohjataan uuteen (`public/_redirects`). Räjäytyskuvan pienoisnavi
+seuraa oikeaa navia.
+
+**Perustelu:** design system on tämän portfolion tuotos, ei
+menetelmän. Menetelmä tuottaa jokaisessa projektissa oman design
+systeminsä: Colliersilla se oli Storybookissa, täällä tämä sivu.
+Ensin sivu siirrettiin Työtavan alle (`/tyotapa/system`), mutta
+Vellun kysymyksestä nähtiin, että case on rehellisempi paikka.
+
+**Raja:** design system on yhä linkin päässä casesta ja Työtavalta
+casen kautta, joten POC:n todiste ei katoa, vaikka se ei ole navissa.
+
+*Kirjattu 21.10.2026 Vellun hyväksynnällä*

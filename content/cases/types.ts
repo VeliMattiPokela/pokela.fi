@@ -56,7 +56,8 @@ type BlockKind =
       tarveLeveys?: number;
     }
   /** Käännetty väitepalkki. Yksi per case. */
-  | { kind: 'band'; title: string; body: string }
+  /** `link` vie sivuston omalle sivulle; `to` nimeää sen (päätös 45). */
+  | { kind: 'band'; title: string; body: string; link?: { label: string; to: 'system' } }
   /** Kolme kuvaa otsikoin. */
   | { kind: 'trio'; label: string; title: string; items: { media: MediaSlot; h: string; p: string }[] }
   /** Numeroitu vastuualuelista. */

@@ -89,7 +89,8 @@ Uusi tarkistus lisätään vasta kun oikea virhe on päässyt läpi
 /fi/tyot/colliers        Case 01
 /fi/tyot/blokbook        Case 02
 /fi/tyot/portfolio       Case 03
-/fi/system/          Design system elävänä
+/fi/tyot/portfolio/system/  Design system elävänä
+/fi/tyotapa/         Työtapa — UX engineering -menetelmä
 /fi/tietoa/          Info / CV
 ```
 

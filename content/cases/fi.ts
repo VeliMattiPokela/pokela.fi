@@ -328,6 +328,7 @@ const thisSite: Case = {
       kind: 'band',
       title: 'Yksi design system koodissa, Figmassa ja AI-työkaluissa',
       body: 'Tokenit, komponentit ja sivut ovat samaa koodia. Figman kirjasto ja Figma Make käyttävät samoja osia npm-paketteina.',
+      link: { label: 'Design system elävänä', to: 'system' },
     },
     {
       kind: 'kerrokset',

@@ -24,7 +24,9 @@ const SIZES = {
 };
 import Reveal from './Reveal';
 import CaseText from './CaseText';
-import type { Locale } from '@/lib/i18n';
+import Link from 'next/link';
+import Icon from './Icon';
+import { systemPath, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/content/dictionaries';
 
 /**
@@ -149,7 +151,14 @@ export default function CaseBlock({
           <section className="invert bleed case__band">
             <div className="case__band-inner">
               <p className="display-m case__band-title">{block.title}</p>
-              <p className="body-l case__band-body">{block.body}</p>
+              <div className="case__band-body">
+                <p className="body-l">{block.body}</p>
+                {block.link ? (
+                  <Link href={systemPath(locale)} className="btn btn--text">
+                    {block.link.label} <Icon name="arrow-right" />
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </section>
         </Reveal>

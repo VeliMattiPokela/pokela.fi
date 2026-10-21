@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { isLocale, path, type Locale } from '@/lib/i18n';
+import { isLocale, locales, path, SYSTEM_CASE, type Locale } from '@/lib/i18n';
 import { getWork } from '@/content/work';
 import { getDictionary } from '@/content/dictionaries';
 import tokens, { colorNames, typeNames, spaceSteps } from '@/lib/tokens';
@@ -64,6 +64,15 @@ function Nayte({ nimi, huom, leveä, children }: { nimi: string; huom?: string; 
       <div className="sys__specimen-body">{children}</div>
     </div>
   );
+}
+
+/**
+ * Design system on case 03:n alasivu: se on tämän portfolion tuotos,
+ * ei menetelmän (päätös 45). Muut caset eivät saa tätä sivua.
+ */
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale, slug: SYSTEM_CASE }));
 }
 
 export async function generateMetadata({

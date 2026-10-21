@@ -42,7 +42,6 @@ export default {
     { href: '/fi/tyot/', label: 'Työt' },
     { href: '/fi/tyotapa/', label: 'Työtapa' },
     { href: '/fi/tietoa/', label: 'Tietoa' },
-    { href: '/fi/system/', label: 'System' },
   ]}
 />`,
 };
