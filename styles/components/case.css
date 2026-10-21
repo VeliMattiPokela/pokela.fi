@@ -72,7 +72,7 @@
   .case__band-title { flex: 1 1 52%; }
   .case__band-body { flex: 1 1 42%; }
 }
-.case__band-body { color: var(--invert-faint); }
+.case__band-body { color: var(--invert-faint); display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-20); }
 
 /* Numeroitu lista (Blokbookin vastuualueet). */
 .case__scope { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--hairline) solid var(--line); }

@@ -23,8 +23,7 @@ export async function generateMetadata({
 /**
  * Työtapa: UX engineering -menetelmä omana kokonaisuutenaan. Caset,
  * joissa menetelmää on käytetty, linkittävät tänne ja tämä niihin
- * (päätös 38). Design system on sivun alasivu, ja navi pitää
- * Työtavan aktiivisena myös siellä (päätös 45).
+ * (päätös 38).
  */
 export default async function MethodPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -114,18 +113,6 @@ export default async function MethodPage({ params }: { params: Promise<{ locale:
               );
             })}
           </div>
-        </Section>
-      </Reveal>
-
-      <Reveal>
-        <Section title={t.systemTitle} id="system" layout="aside">
-          <ListRow
-            as={Link}
-            href={path(locale as Locale, 'system')}
-            title={t.system.title}
-            description={t.system.p}
-            meta={t.system.meta}
-          />
         </Section>
       </Reveal>
     </article>

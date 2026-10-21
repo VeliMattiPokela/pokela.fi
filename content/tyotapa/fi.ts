@@ -101,13 +101,6 @@ const tyotapa = {
       meta: 'Jatkokehitys',
     },
   ],
-  /** Design system on Työtavan alasivu, ja tämä rivi vie sinne (päätös 45). */
-  systemTitle: 'Design system',
-  system: {
-    title: 'Tämän sivuston design system',
-    p: 'Tokenit, komponentit ja tilat elävinä. Sama koodi, jota sivusto käyttää ja josta Figma ja AI-työkalut lukevat.',
-    meta: 'Elävä näyte',
-  },
 };
 
 export default tyotapa;

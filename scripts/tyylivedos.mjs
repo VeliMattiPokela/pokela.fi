@@ -34,7 +34,7 @@ const SIVUT = [
   '/fi/',
   '/fi/tyot/',
   '/fi/tietoa/',
-  '/fi/tyotapa/system/',
+  '/fi/tyot/portfolio/system/',
   '/fi/tyot/colliers/',
   '/fi/tyot/portfolio/',
 ];
