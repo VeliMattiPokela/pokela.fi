@@ -284,9 +284,6 @@ const thisSite: Case = {
       label: 'Lähtötilanne',
       items: [
         {
-          p: 'Portfolion pitää näyttää kaksi asiaa: tehdyt työt ja tapa, jolla ne tehdään. Kuvat valmiista näkymistä eivät kerro, miten suunnittelu tehdään koodissa.',
-        },
-        {
           h: 'Tehtävä',
           p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa yleensä Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
         },
