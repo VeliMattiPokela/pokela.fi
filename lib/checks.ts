@@ -26,9 +26,11 @@ export type Check = {
   /** npm-skriptin nimi ilman `check:`-etuliitettä. */
   id: string;
   title: string;
-  /** Mitä tarkistus todistaa. */
+  /** Mitä tarkistus todistaa. Rivillä näkyy ensimmäinen lause. */
   proves: string;
-  /** Mitä se ei näe. Tyhjä vain jos rajaa ei ole. */
+  /** Lista proves-tekstin perään, kun luettelo on selkeämpi kuin lause. */
+  items?: string[];
+  /** Mitä se ei näe. Kappaleet erotetaan tyhjällä rivillä (\n\n). */
   blind: string;
   /** Yleinen ydin vai tämän tuotteen oma vartija. Ks. päätös 42. */
   group: CheckGroupId;
@@ -63,90 +65,79 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     id: 'tokens',
     group: 'ydin',
     title: 'Tokenit',
-    proves: 'styles/tokens.css ja tokens.json ovat samat arvot jokaisella breakpointilla.',
-    blind: 'Ei kerro käyttääkö arvoa kukaan: kuollut token on molemmissa tiedostoissa ja täsmää itsensä kanssa.',
+    proves: 'Varmistaa, että koodin ja Figman tokenit ovat samat jokaisella näyttökoolla. Vertailussa ovat tokens.css ja tokens.json.',
+    blind: 'Ei kerro, käytetäänkö tokenia missään. Käyttämätön token on molemmissa tiedostoissa ja menee läpi.',
   },
   {
     id: 'stories',
     group: 'ydin',
     title: 'Storyt',
-    proves: 'Jokaisella komponentilla on story, ja siinä on tumma teema ja mobiilikoko.',
-    blind: 'Ei näe onko story hyvä, vain että se on olemassa ja kattaa tumman teeman ja mobiilikoon. Poikkeuksen syy valitaan kolmesta vaihtoehdosta, ja jokaisella on oma sääntönsä.',
+    proves: 'Varmistaa, että jokaisella komponentilla on Storybook-story, jossa on myös tumma teema ja mobiilikoko.',
+    blind: 'Ei arvioi storyn laatua, vain sen että se on olemassa. Jos story puuttuu tarkoituksella, syy valitaan kolmesta vakiovaihtoehdosta.',
   },
   {
     id: 'code-connect',
     group: 'ydin',
     title: 'Code Connect',
-    proves: 'Jokaisella kirjatulla Figma-komponentilla on kytkentätiedosto, ja se osoittaa oikeaan Figma-tiedostoon.',
-    blind: 'Ei avaa Figmaa itse. Sen tekee Figma-tarkistus, joka ajetaan erikseen CI:ssä.',
+    proves: 'Varmistaa, että jokaisella Figma-komponentilla on kytkentä koodin komponenttiin.',
+    blind: 'Katsoo vain koodin puolta. Sen, että komponentti todella löytyy Figmasta, varmistaa Figma-tarkistus (05).',
   },
   {
     id: 'hardcoded',
     group: 'ydin',
     title: 'Kovakoodatut arvot',
-    proves: 'Tyyleissä ei ole kirjaamatonta mittaa, väriä eikä fonttipainoa.',
-    blind: 'Sama kuin storyilla: poikkeuksen syy on tekstiä.',
+    proves: 'Varmistaa, että tyyleissä ei ole mittoja, värejä tai fonttipainoja tokenien ohi.',
+    blind: 'Poikkeus on sallittu, kun sen syy kirjataan. Tarkistus näkee, että syy on kirjattu, mutta ei sitä, onko syy hyvä.',
   },
   {
     id: 'favicon',
     group: 'tuote',
     title: 'Favicon',
-    proves:
-      'public/-kansion favicon-tiedostot vastaavat tavu tavulta sitä mitä tokens.css:n käännetty väripari tuottaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa, joten ne eivät voi erota toisistaan.',
-    blind:
-      'Ei arvioi merkin laatua. Muoto on koordinaatteina generaattorissa, ja sen luettavuus 16 pikselissä on tarkistettu silmällä — mikään ei valvo ettei seuraava muutos riko sitä.',
+    proves: 'Varmistaa, että favicon vastaa teeman värejä. Sama laskenta tuottaa faviconin ja tarkistaa sen, joten ne eivät voi erota toisistaan.',
+    blind: 'Ei arvioi merkin ulkonäköä. Luettavuus 16 pikselin koossa on katsottu silmällä, eikä mikään valvo sitä jatkossa.',
   },
   {
     id: 'kuvat',
     group: 'tuote',
     title: 'Kuvat',
-    proves:
-      'Kuvamanifesti vastaa lähdetiedostoja ja sisällössä ilmoitettuja kuvasuhteita, eikä kuvat-kansiossa ole lähdettä jolle ei ole paikkaa. Sama laskenta ajetaan tarkistuksessa ja generoinnissa.',
-    blind:
-      'Ei arvioi kuvaa. Rajaus on oletuksena keskeltä, eikä mikään huomaa jos kuvan olennainen kohta jää sen ulkopuolelle. Tyhjä paikka ei ole virhe vaan tila, joten puuttuva kuva ei kaada buildia. Se vain raportoidaan.',
+    proves: 'Varmistaa, että sivun kuvat vastaavat lähdekuvia ja sisällön kuvasuhteita, eikä kansiossa ole kuvia, joille ei ole paikkaa. Kuvista pidetään luetteloa, joka luodaan lähdekuvista. Sama laskenta luo luettelon ja tarkistaa sen.',
+    blind: 'Ei arvioi kuvaa. Kuva rajataan keskeltä, eikä mikään huomaa, jos olennainen kohta jää rajauksen ulkopuolelle.\n\nPuuttuva kuva ei kaada buildia. Paikka näytetään odottavana.',
   },
   {
     id: 'suhteet',
     group: 'tuote',
     title: 'Kuvasuhteet',
-    proves:
-      'Sama kuvasuhde rajaa kuvan levylle (scripts/kuvat.mjs) ja piirtää sen selaimeen (styles/base.css), ja sisältö saa kirjoittaa vain niitä nimiä jotka molemmat tuntevat (Ratio tiedostossa components/Media.tsx). Suhteet luetaan samasta taulusta jota generointi käyttää.',
-    blind:
-      'Ei arvioi onko suhde oikea, vain että kolme lähdettä sanovat samaa. Ei myöskään näe luokkanimen muunnosta: Media.tsx kirjoittaa 4:3 -> media-4-3 omalla rivillään, ja jos se muuttuisi, tarkistus vertaisi yhä vanhaa nimeä. Figman neljäs paikka (Media-komponentin Ratio-variantti) on katettu, mutta check:figmassa: se tarvitsee verkon eikä kuulu tähän ketjuun.',
+    proves: 'Varmistaa, että kuvasuhteet ovat samat kuvien rajauksessa, sivun tyyleissä ja sisällössä. Suhteet luetaan samasta taulukosta, jota kuvien rajaus käyttää. Figman osuus tarkistetaan Figma-tarkistuksessa (05).',
+    blind: 'Ei arvioi, onko suhde oikea, vain sen, että kaikki lähteet sanovat samaa.',
   },
   {
     id: 'figma',
     group: 'ydin',
     title: 'Figma',
-    proves:
-      'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin ja nimi täsmää, jokaisella kirjaston komponentilla on kytkentä, ja jokainen property ja variantti jonka kytkentä lukee on oikeasti Figmassa. Kirjaston sisältö luetaan Figma-tiedostosta, ei käsin ylläpidetystä listasta. Lisäksi: sivupohjien layout grid vastaa layout-tokeneita jokaisella moodilla, Media-komponentin Ratio-variantti vastaa kuvaputken SUHTEET-taulua, ja jokainen sivupohjan teksti löytyy siltä buildatulta sivulta, jota pohja kuvaa.',
-    blind:
-      'Ei tarkista muuttujia: rajapinta vaatii oikeuden file_variables:read, jota ei ole tämän tilin tunnusvalikoimassa. Kokeiltu 21.9.2026, vastaus 403. Muuttujat generoidaan tokens.jsonista, mutta generoinnin jälkeen tehtyä käsimuokkausta mikään ei huomaa. Sivupohjista se huomaa vanhentuneen tekstin mutta ei puuttuvaa osiota: sivulle lisätty uusi osio, jota pohjassa ei ole, ei kaada ajoa.',
+    proves: 'Varmistaa, että koodin komponentit ja Figma-kirjasto vastaavat toisiaan, variantteja myöten. Kirjaston sisältö luetaan suoraan Figmasta, ei käsin ylläpidetystä listasta. Lisäksi tarkistus varmistaa, että',
+    items: ['sivupohjien gridit vastaavat layout-tokeneita', 'kuvasuhteet ovat samat Figmassa ja kuvien käsittelyssä', 'sivupohjien tekstit ovat samat kuin julkaistulla sivulla.'],
+    blind: 'Ei tarkista Figman muuttujia, koska Figman rajapinta ei anna niihin lukuoikeutta tällä tilillä. Muuttujat luodaan tokens.jsonista, mutta Figmassa jälkikäteen tehtyä muutosta mikään ei huomaa.\n\nSivupohjista tarkistus huomaa vanhentuneen tekstin, mutta ei kokonaan puuttuvaa osiota.',
   },
   {
     id: 'paketti',
     group: 'ydin',
     title: 'Paketit',
-    proves:
-      'npm:ssä julkaistu @pokela/tokens ja @pokela/components vastaavat tavulleen sitä mitä repo rakentaisi. Jos sisältö eroaa mutta versio on sama, se sanotaan erikseen. npm ei päästä julkaisemaan samaa versiota uudelleen, joten korjaus alkaa versionnostosta.',
-    blind:
-      'Ei julkaise mitään eikä voi. Se kertoo että npm on jäljessä, ei korjaa sitä. Eikä se tiedä mitä versiota Figman Make kit osoittaa — kit voi olla kiinnitetty vanhaan versioon vaikka npm ja repo vastaisivat toisiaan.',
+    proves: 'Varmistaa, että npm:ssä julkaistut paketit ovat samat kuin repo rakentaisi. Paketit ovat @pokela/tokens ja @pokela/components, ja vertailu tehdään tavu tavulta. Jos sisältö on muuttunut mutta versio ei, korjaus on nostaa versiota pull requestissa. Kun muutos yhdistetään, main julkaisee uuden version npm:ään automaattisesti.',
+    blind: 'Ei näe, mihin versioon Figma Maken kit on kiinnitetty. Kitin päivitys tehdään Figmassa käsin.',
   },
   {
     id: 'docs',
     group: 'ydin',
     title: 'Dokumentaatio',
-    proves:
-      'Dokumentissa mainittu tiedostopolku ja komento on olemassa, jokainen tarkistus on dokumentoitu, ja johdettavissa olevat kohdat (Figman kokoelmat, Perusta-sivut) vastaavat lähdettään.',
-    blind:
-      'Ei voi todentaa proosaa. Väärä perustelu tai vanhentunut kuvaus menee läpi, jos se ei ole luotu lohko eikä sisällä polkua. Siksi kaikki mikä on johdettavissa merkitään luoduksi.',
+    proves: 'Varmistaa, että dokumentaatiossa mainitut tiedostot ja komennot ovat olemassa ja jokainen tarkistus on dokumentoitu. Koodista johdettavat kohdat, kuten Figman kokoelmat, luodaan automaattisesti ja tarkistetaan lähdettään vasten.',
+    blind: 'Ei voi tarkistaa vapaata tekstiä, joten väärä perustelu menee läpi. Siksi kaikki, mikä voidaan johtaa koodista, luodaan automaattisesti.',
   },
   {
     id: 'strings',
     group: 'ydin',
     title: 'Tekstit',
-    proves: 'Näkyvät tekstit tulevat sanakirjasta, eivät komponenteista.',
-    blind: '',
+    proves: 'Varmistaa, että sivun tekstit tulevat sanakirjasta eivätkä ole kirjoitettuina komponentteihin.',
+    blind: 'Tarkistusta ei vielä ajeta, joten se ei vielä estä mitään.',
   },
 ];
 

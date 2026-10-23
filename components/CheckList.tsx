@@ -16,7 +16,7 @@ export default function CheckList({
   groups,
   build,
 }: {
-  items: { id: string; title: string; proves: string; blind: string | null; runs: boolean; group?: string }[];
+  items: { id: string; title: string; proves: string; items?: string[]; blind: string | null; runs: boolean; group?: string }[];
   groups?: { id: string; title: string; note: string }[];
   build?: { description: string; meta: string; children: ReactNode };
 }) {
@@ -47,9 +47,19 @@ export default function CheckList({
           labels={labels}
         >
           {rest.length ? <p className="body-s muted measure">{rest.join(' ')}</p> : null}
-          <p className="body-s muted measure case__check-blind">
-            <strong>Ei kata:</strong> {check.blind ?? 'Rajaa ei ole kirjattu.'}
-          </p>
+          {check.items?.length ? (
+            <ul className="detail__list detail__list--muted body-s measure">
+              {check.items.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          ) : null}
+          <div className="case__check-blind">
+            {(check.blind ?? 'Rajaa ei ole kirjattu.').split('\n\n').map((kappale, k) => (
+              <p key={k} className="body-s muted measure">
+                {k === 0 ? <><strong>Ei kata:</strong> </> : null}
+                {kappale}
+              </p>
+            ))}
+          </div>
         </Accordion>
         </Fragment>
         );

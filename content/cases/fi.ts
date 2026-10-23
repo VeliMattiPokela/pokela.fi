@@ -352,7 +352,7 @@ const thisSite: Case = {
       kind: 'checks',
       label: 'Tarkistukset',
       title: '{n} tarkistusta joka buildissa',
-      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Tarkistukset ajetaan joka buildissa ja pull requestissa, joten ero huomataan samana päivänä. Jokaisella tarkistuksella on myös rajansa.',
+      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Tässä projektissa tarkistukset ajetaan joka buildissa ja pull requestissa, joten ero huomataan samana päivänä. Jokaisella tarkistuksella on myös rajansa, ja se kerrotaan auki.',
     },
     {
       kind: 'text',
