@@ -115,7 +115,7 @@ export default function CaseBlockDerived({
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <CheckList
-                items={all.map(({ id, title, proves, blind, runs, group }) => ({ id, title, proves, blind: blind ?? null, runs, group }))}
+                items={all.map(({ id, title, proves, items, blind, runs, group }) => ({ id, title, proves, items, blind: blind || null, runs, group }))}
                 groups={CHECK_GROUPS}
                 build={ajo ? {
                   description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
