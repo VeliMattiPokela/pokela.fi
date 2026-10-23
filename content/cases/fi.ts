@@ -159,11 +159,11 @@ const blokbook: Case = {
       label: 'Miksi',
       items: [
         {
-          p: 'Taloyhtiön saunat, pesutuvat, kerhotilat ja autopaikat varataan yhä listalla seinällä ja maksut hoidetaan erikseen. Omaan taloyhtiöön etsittiin palvelua, joka ratkaisisi tämän, eikä sellaista ollut.',
+          p: 'Taloyhtiön saunat, pesutuvat, kerhotilat ja autopaikat varataan yhä listalla seinällä ja maksut hoidetaan erikseen. Omaan taloyhtiöön etsittiin palvelua, joka ratkaisisi tämän, eikä sopivaa ollut.',
         },
         {
           h: 'Mitä siitä tuli',
-          p: 'Varaus- ja hallintapalvelu, jossa varaukset, maksut ja kulunhallinta ovat samassa järjestelmässä. Manuaalinen työ jää pois isännöinniltä ja hallitukselta. Nyt käytössä useammassa taloyhtiössä.',
+          p: 'Varaus- ja hallintapalvelu, jossa varaukset, maksut, kulunhallinta ja muu tilojen älyohjaus ovat samassa järjestelmässä. Manuaalinen työ jää pois isännöinniltä ja hallitukselta. Nyt käytössä useammassa taloyhtiössä.',
         },
       ],
     },
@@ -206,7 +206,7 @@ const blokbook: Case = {
     },
     {
       kind: 'band',
-      title: 'Kun tekee kaiken itse, päätökset vaikuttavat toisiinsa',
+      title: 'Tuote, hinta ja koodi riippuvat toisistaan',
       body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
     },
     {
