@@ -206,7 +206,7 @@ const blokbook: Case = {
     },
     {
       kind: 'band',
-      title: 'Tuote, hinta ja koodi riippuvat toisistaan',
+      title: 'Suunnittelupöydältä valmiiksi palveluksi',
       body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
     },
     {
