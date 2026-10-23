@@ -1,4 +1,4 @@
-import type { ElementType } from 'react';
+import type { ElementType, ReactNode } from 'react';
 
 export type ListRowProps = {
   /** Työn nimi. */
@@ -24,19 +24,17 @@ export type ListRowProps = {
    * Linkkikomponentti. Oletus on tavallinen `<a>`, jotta komponentti ei
    * ole sidottu mihinkään reititykseen — se on ehto sille että tämä voi
    * elää npm-paketissa. Next.js-sovellus antaa tähän `next/link`:n ja
-   * saa reitityksen takaisin.
+   * saa reitityksen takaisin. Tyyppi vaatii, että komponentti ottaa
+   * vastaan `href`:n.
    */
-  as?: ElementType;
+  as?: ElementType<{ href: string; className?: string; children?: ReactNode }>;
 };
 
 /**
  * Listarivi — sivuston tunnuskomponentti.
  *
- * Yksi rivi, kolme käyttöä. Sivustolla oli pitkään kolme lähes
- * samanlaista riviä: etusivun listarivi, työlistan kärkirivi ja
- * aiemman työn avautuva rivi. Niillä oli sama viiva, sama käännös ja
- * sama sisältö mutta kolme eri toteutusta, jotka ehtivät jo ajautua
- * erilleen. Nyt runko on yksi ja erot ovat modifioijia.
+ * Yksi runko, erot modifioijina: numero, koko (`s`, `m`) ja
+ * siirtymätila.
  *
  * Avautuva rivi on <Accordion>: se on <button> eikä linkki, joten se
  * ei mahdu tähän propsiksi ilman että komponentista tulee kaksi
