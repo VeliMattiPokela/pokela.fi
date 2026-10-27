@@ -820,7 +820,7 @@ export async function rakenna({ kirjoita = true } = {}) {
         kirjoita,
         leveys: paikka.ratio === 'hero' ? 1920 : 1600,
       });
-      manifesti[paikka.id] = { tyyppi: 'video', leveys, korkeus };
+      manifesti[paikka.id] = { tyyppi: 'video', esitys: esitys(paikka), leveys, korkeus };
       continue;
     }
 

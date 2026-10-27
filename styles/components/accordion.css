@@ -35,6 +35,19 @@
 .detail__section-title { margin: 0 0 var(--space-8); }
 .detail__section-body { margin: 0; color: var(--ink-muted); }
 
+/* Kuvaosio: otsikko ja ingressi kuvien yläpuolella, hiusviiva
+   erottaa osiot toisistaan. Otsikoton osio on pelkkä kuvarivi. */
+.detail__media-group { display: flex; flex-direction: column; gap: var(--space-24); }
+.detail__media-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-24);
+  border-top: var(--hairline) solid var(--line);
+}
+.detail__media-title { margin: 0; }
+.detail__media-intro { margin: 0; color: var(--ink-muted); }
+
 .detail__media { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); }
 /* Sarakkeet ovat kuvasuhteiden suhteessa, jotta rivin kuvat ovat yhtä
    korkeita (PreviousWork.tsx asettaa --sarakkeet). */

@@ -45,6 +45,12 @@ export type PreviousMedia =
       caption: string;
     };
 
+export type PreviousMediaGroup = {
+  title?: string;
+  intro?: string;
+  items: PreviousMedia[];
+};
+
 /* Vertailuparin tiedostopolut ja mitat olivat ennen tässä. Ne ovat
    nyt content/media.generated.json:ssa, jonka `npm run kuvat`
    kirjoittaa lähteistä — käsin kirjoitettuina ne olisivat voineet
@@ -68,8 +74,13 @@ export type Previous = {
     contributed: string[];
     sectionsTitle: string;
     sections: { title: string; body: string }[];
-    /** Kuva- ja videopaikat. Tyhjä lista = ei vielä materiaalia. */
-    media: PreviousMedia[];
+    /**
+     * Kuva- ja videopaikat osioittain. Tyhjä lista = ei vielä
+     * materiaalia. Otsikoton osio on pelkkä kuvarivi; otsikollinen
+     * saa otsikon ja ingressin, jotta eri aiheiden kuvat eivät
+     * näytä yhdeltä riviltä.
+     */
+    media: PreviousMediaGroup[];
   };
 };
 
@@ -150,11 +161,28 @@ const previous: Previous[] = [
       ],
       media: [
         {
-          id: 'pivo-kirjautuminen',
-          kind: 'compare',
-          ratio: '3:4',
-          caption:
-            'Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä.',
+          title: 'Lorem ipsum dolor sit amet',
+          intro:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          items: [
+            { id: 'pivo-ryhma', kind: 'video', ratio: '3:4', caption: 'Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu' },
+            { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan' },
+            { id: 'pivo-reaktio', kind: 'video', ratio: '3:4', caption: 'Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä' },
+          ],
+        },
+        {
+          title: 'Lorem ipsum dolor sit',
+          intro:
+            'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          items: [
+            {
+              id: 'pivo-kirjautuminen',
+              kind: 'compare',
+              ratio: '3:4',
+              caption:
+                'Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä.',
+            },
+          ],
         },
       ],
     },
@@ -197,9 +225,13 @@ const previous: Previous[] = [
         },
       ],
       media: [
-        { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Päänäkymä: toimipistelista ja kartta työpöydällä' },
-        { id: 'aisti-mobiili', kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
-        { id: 'aisti-tiketti', kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
+        {
+          items: [
+            { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Päänäkymä: toimipistelista ja kartta työpöydällä' },
+            { id: 'aisti-mobiili', kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
+            { id: 'aisti-tiketti', kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
+          ],
+        },
       ],
     },
   },
@@ -241,9 +273,13 @@ const previous: Previous[] = [
         },
       ],
       media: [
-        { id: 'op-aloitus', kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää' },
-        { id: 'op-vaurio', kind: 'image', ratio: '4:5', caption: 'Vaurionvalitsin: auto ylhäältä, klikattavat osat' },
-        { id: 'op-polku', kind: 'image', ratio: '4:3', caption: 'Mukautuva kysymyspolku' },
+        {
+          items: [
+            { id: 'op-aloitus', kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää' },
+            { id: 'op-vaurio', kind: 'image', ratio: '4:5', caption: 'Vaurionvalitsin: auto ylhäältä, klikattavat osat' },
+            { id: 'op-polku', kind: 'image', ratio: '4:3', caption: 'Mukautuva kysymyspolku' },
+          ],
+        },
       ],
     },
   },

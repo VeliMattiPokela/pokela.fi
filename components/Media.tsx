@@ -48,7 +48,7 @@ type Rajaus = {
 type Merkinta =
   | { tyyppi: 'kuva'; esitys: Esitys; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
-  | { tyyppi: 'video'; leveys: number; korkeus: number };
+  | { tyyppi: 'video'; esitys: Esitys; leveys: number; korkeus: number };
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
 const NUMEROT = manifesti.numerot as unknown as Record<string, number>;
@@ -117,6 +117,25 @@ export default function Media({
 }) {
   const luokka = `media media-${ratio.replace(':', '-')}`;
   const merkinta = id ? KUVAT[id] : undefined;
+
+  /* Video levyllä: kokonainen ruutu taustalevyn keskellä, kuten
+     puhelinkaappaus kuvana. Taukonappi jää paikan nurkkaan levylle
+     eikä peitä ruutua. */
+  if (merkinta?.tyyppi === 'video' && ratio !== 'hero' && (esitys ?? merkinta.esitys) === 'levy') {
+    return (
+      <div className={`${luokka} media--levy media--video`}>
+        <span className="media__levy">
+          <Video
+            id={id!}
+            leveys={merkinta.leveys}
+            korkeus={merkinta.korkeus}
+            caption={caption}
+            esitys="levy"
+          />
+        </span>
+      </div>
+    );
+  }
 
   if (merkinta?.tyyppi === 'video') {
     return (

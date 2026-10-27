@@ -71,6 +71,7 @@
     },
     "colliers-hero": {
       "tyyppi": "video",
+      "esitys": "taysi",
       "leveys": 2800,
       "korkeus": 1410
     },
@@ -213,12 +214,30 @@
           }
         ]
       }
+    },
+    "pivo-kulut": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 740,
+      "korkeus": 1316
+    },
+    "pivo-reaktio": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 750,
+      "korkeus": 1334
+    },
+    "pivo-ryhma": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 736,
+      "korkeus": 1308
     }
   },
   "numerot": {
-    "aisti-mobiili": 14,
-    "aisti-tiketti": 15,
-    "aisti-tyopoyta": 13,
+    "aisti-mobiili": 17,
+    "aisti-tiketti": 18,
+    "aisti-tyopoyta": 16,
     "blokbook-android": 11,
     "blokbook-asukas": 7,
     "blokbook-hallinta": 8,
@@ -230,14 +249,17 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-hero": 20,
-    "media-viiva": 19,
-    "muotokuva": 22,
-    "op-aloitus": 16,
-    "op-polku": 18,
-    "op-vaurio": 17,
-    "pivo-kirjautuminen": 12,
-    "tyot-storybook": 21
+    "etusivu-hero": 23,
+    "media-viiva": 22,
+    "muotokuva": 25,
+    "op-aloitus": 19,
+    "op-polku": 21,
+    "op-vaurio": 20,
+    "pivo-kirjautuminen": 15,
+    "pivo-kulut": 13,
+    "pivo-reaktio": 14,
+    "pivo-ryhma": 12,
+    "tyot-storybook": 24
   },
   "muodot": {
     "aisti-mobiili": {
@@ -323,6 +345,18 @@
     "pivo-kirjautuminen": {
       "suhde": "vapaa",
       "leveys": 880
+    },
+    "pivo-kulut": {
+      "suhde": "3:4",
+      "leveys": 1344
+    },
+    "pivo-reaktio": {
+      "suhde": "3:4",
+      "leveys": 1344
+    },
+    "pivo-ryhma": {
+      "suhde": "3:4",
+      "leveys": 1344
     },
     "tyot-storybook": {
       "suhde": "4:3",

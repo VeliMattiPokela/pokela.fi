@@ -19,11 +19,18 @@ const tila = figma.selectedInstance.getEnum('Tila', {
   tauolla: 'tauolla',
 });
 
+/* Esitys: täysi rajaa videon paikkaansa, levy näyttää puhelinruudun
+   kokonaisena levyn keskellä (Pivon ruutuvideot). */
+const esitys = figma.selectedInstance.getEnum('Esitys', {
+  taysi: 'taysi',
+  levy: 'levy',
+});
+
 export default {
   id: 'Video',
   imports: ["import Video from '@/components/Video';"],
   example: figma.code`<Video id="etusivu-hero" leveys={1920} korkeus={1080}${figma.helpers.react.renderProp(
     'tila',
     tila,
-  )} />`,
+  )}${figma.helpers.react.renderProp('esitys', esitys)} />`,
 };
