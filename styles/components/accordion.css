@@ -8,7 +8,17 @@
    Täällä on vain se mikä on tälle komponentille omaa: paneeli ja
    sen sisältö. */
 
+.accordion { position: relative; }
 .accordion__panel { padding-block: var(--space-40) var(--space-56); }
+
+/* Liike (päätös 47). Rivin vanha tila kloonina rivin päällä, kunnes
+   se on leikkautunut pois — ks. Accordion.tsx. */
+.accordion__kerros {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  pointer-events: none;
+}
 
 /* ---- avautuva sisältö ------------------------------------------- */
 

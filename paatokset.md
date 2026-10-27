@@ -1521,3 +1521,33 @@ vertailu ja videot tarvitsivat kumpikin selkeän oman osionsa eivätkä
 saaneet näyttää yhdeltä riviltä.
 
 *Kirjattu 27.10.2026 Vellun hyväksynnällä*
+
+## 47. Avautuva rivi avautuu liikkeenä
+
+**Tilanne:** avautuva rivi (Accordion) hyppäsi auki ja kiinni
+kerralla: rivi kääntyi mustaksi, paneeli ilmestyi ja plus vaihtui
+miinukseksi samassa ruudussa. Vellu halusi avautumisesta ja
+sulkeutumisesta näyttävämmät.
+
+**Päätös:** käännetty pinta nousee rivin alareunasta, ja tekstin väri
+vaihtuu täsmälleen musteen reunalla. Paneeli laskeutuu auki, sisältö
+nousee lohko kerrallaan, ja plussan pystyviiva kiertyy miinukseksi.
+Sulkeutuminen on lyhyempi: sisältö häivyy, paneeli painuu kiinni ja
+muste valuu alas. Kolmesta vaihtoehdosta (Laskos, Musteviiva,
+Kohdistus) Vellu valitsi Laskoksen.
+
+**Perustelu:** liike on näyttävä mutta pysyy sivuston rauhallisessa
+tyylissä, eikä se tuo paneeliin uutta sisältöä. Siksi sama liike
+sopii kaikkiin avautuviin riveihin: Aiempi työ, tarkistuslista ja
+System-sivun näytteet.
+
+**Toteutus:** rivin vanha tila jää kloonina rivin päälle ja
+leikkautuu pois. Pelkkä taustan animointi vaihtaisi tekstin värin
+koko rivillä kerralla. Paneeli pysyy DOMissa sulkeutumisen ajan.
+Figman tilat (suljettu, hover, auki) eivät muutu; liike on kirjattu
+komponentin kuvaukseen.
+
+**Raja:** vähennetty liike (`prefers-reduced-motion`) avaa ja sulkee
+rivin heti, kuten ennen.
+
+*Kirjattu 27.10.2026 Vellun hyväksynnällä*

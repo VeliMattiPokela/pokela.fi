@@ -129,6 +129,14 @@
      alareunaa — merkki istuu otsikon riville, ei kahden tekstirivin
      pystykeskelle. Koko tulee .icon--l:stä. */
 }
+/* Avattu rivi näyttää miinuksen: plussan pystyviiva kiertyy
+   vaakaviivan päälle (päätös 47). */
+.list-row__icon path:first-child {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-reveal) var(--ease-out);
+}
+.list-row[aria-expanded='true'] .list-row__icon path:first-child { transform: rotate(90deg); }
 
 /* ---- hover ja käännös ---------------------------------------------
 
@@ -224,5 +232,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .list-row { transition: none; }
+  .list-row__icon path:first-child { transition: none; }
   .list-row[data-siirtyy]::after { animation: none; }
 }
