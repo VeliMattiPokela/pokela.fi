@@ -1522,7 +1522,7 @@ saaneet näyttää yhdeltä riviltä.
 
 *Kirjattu 27.10.2026 Vellun hyväksynnällä*
 
-## 47. Avautuva rivi avautuu liikkeenä
+## 48. Avautuva rivi avautuu liikkeenä
 
 **Tilanne:** avautuva rivi (Accordion) hyppäsi auki ja kiinni
 kerralla: rivi kääntyi mustaksi, paneeli ilmestyi ja plus vaihtui

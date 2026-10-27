@@ -11,7 +11,7 @@
 .accordion { position: relative; }
 .accordion__panel { padding-block: var(--space-40) var(--space-56); }
 
-/* Liike (päätös 47). Rivin vanha tila kloonina rivin päällä, kunnes
+/* Liike (päätös 48). Rivin vanha tila kloonina rivin päällä, kunnes
    se on leikkautunut pois — ks. Accordion.tsx. */
 .accordion__kerros {
   position: absolute;

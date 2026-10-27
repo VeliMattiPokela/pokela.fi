@@ -130,7 +130,7 @@
      pystykeskelle. Koko tulee .icon--l:stä. */
 }
 /* Avattu rivi näyttää miinuksen: plussan pystyviiva kiertyy
-   vaakaviivan päälle (päätös 47). */
+   vaakaviivan päälle (päätös 48). */
 .list-row__icon path:first-child {
   transform-box: fill-box;
   transform-origin: center;

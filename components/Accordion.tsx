@@ -17,7 +17,7 @@ import Icon from './Icon';
  * vaatii jaetun tilan ja koska avautuva sisältö sisältää otsikoita
  * joiden pitää pysyä dokumentin rakenteessa.
  *
- * Avautuminen on liike (päätös 47): käännetty pinta nousee rivin
+ * Avautuminen on liike (päätös 48): käännetty pinta nousee rivin
  * alareunasta, paneeli laskeutuu auki ja sisältö nousee lohko
  * kerrallaan. Sulkeutuessa sama tapahtuu lyhyemmin toisin päin, joten
  * paneeli pysyy DOMissa liikkeen ajan. Vähennetty liike avaa ja sulkee
