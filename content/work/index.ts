@@ -9,4 +9,4 @@ export function getWork(locale: Locale): Work {
   return work;
 }
 
-export type { Work, Lead, Previous } from './fi';
+export type { Work, Lead, Previous, PreviousMedia, PreviousMediaGroup } from './fi';

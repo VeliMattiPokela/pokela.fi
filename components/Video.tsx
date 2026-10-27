@@ -19,9 +19,12 @@ import { useEffect, useRef, useState } from 'react';
  * käynnistetään vasta selaimessa.
  *
  * `Tila` on Figmassa variantti (`toistaa` / `tauolla`), jotta napin
- * kumpikin asu on myös sivupohjissa. Ks. Video.figma.ts.
+ * kumpikin asu on myös sivupohjissa. `Esitys` on toinen variantti:
+ * puhelinruudun video istuu levyllä kuten kaappaus kuvana (päätös 9).
+ * Ks. Video.figma.ts.
  */
 export type Tila = 'toistaa' | 'tauolla';
+export type VideoEsitys = 'taysi' | 'levy';
 
 export default function Video({
   id,
@@ -29,6 +32,7 @@ export default function Video({
   korkeus,
   caption,
   tila: alku,
+  esitys = 'taysi',
 }: {
   id: string;
   leveys: number;
@@ -36,6 +40,11 @@ export default function Video({
   caption?: string;
   /** Alkutila. Oletus: toistaa, ellei käyttäjä ole pyytänyt vähemmän liikettä. */
   tila?: Tila;
+  /**
+   * `taysi` täyttää Median laatikon rajattuna. `levy` näyttää videon
+   * kokonaisena levyn keskellä, kuten puhelinkaappauksen kuvana.
+   */
+  esitys?: VideoEsitys;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [tila, setTila] = useState<Tila>('tauolla');
@@ -68,7 +77,7 @@ export default function Video({
     <>
       <video
         ref={ref}
-        className="media-fill"
+        className={esitys === 'levy' ? 'media__levy-kuva' : 'media-fill'}
         muted
         loop
         playsInline

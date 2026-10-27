@@ -1074,19 +1074,22 @@ mitä kuvan pitää näyttää.
 |  | 9 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — varausnäkymä kapeana |
 |  | 10 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — natiivisovellus, ei laitekehystä |
 |  | 11 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
-| ✓ | 12 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | 13 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
-|  | 14 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
-|  | 15 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
-|  | 16 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-|  | 17 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-|  | 18 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
-| ✓ | 19 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
-|  | 20 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Valittu työ isona — täysleveä herokuva |
-|  | 21 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |
-| ✓ | 22 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+| ✓ | 12 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
+| ✓ | 13 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
+| ✓ | 14 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |
+| ✓ | 15 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
+|  | 16 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
+|  | 17 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
+|  | 18 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
+|  | 19 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+|  | 20 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+|  | 21 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
+| ✓ | 22 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
+|  | 23 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Valittu työ isona — täysleveä herokuva |
+|  | 24 | Työlista | `tyot-storybook` | 4:3 · ≥2736 px | Nosto: Storybook-näkymä |
+| ✓ | 25 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-8/22 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+11/25 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain

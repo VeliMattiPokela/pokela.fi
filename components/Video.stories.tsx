@@ -15,7 +15,8 @@ const meta = {
           'Toistuu itsestään mykkänä silmukkana. Taukonappi on aina näkyvissä, ja jos',
           'käyttäjä on pyytänyt vähemmän liikettä, video alkaa tauolla (päätös 11).',
           '',
-          'Kuvasuhde tulee Median laatikosta, ja video täyttää sen rajattuna kuten kuva.',
+          'Kuvasuhde tulee Median laatikosta. Oletuksena video täyttää sen rajattuna kuten kuva;',
+          'esitys `levy` näyttää puhelinruudun videon kokonaisena levyn keskellä.',
           'Storybookissa ei ole videotiedostoa, joten laatikko näyttää pelkän pohjan.',
         ].join('\n'),
       },
@@ -23,11 +24,18 @@ const meta = {
   },
   args: { id: 'esimerkki', leveys: 1920, korkeus: 1080, caption: 'Hero-video' },
   decorators: [
-    (Story) => (
-      <div className="media media-hero media--kuva media--video">
-        <Story />
-      </div>
-    ),
+    (Story, { args }) =>
+      args.esitys === 'levy' ? (
+        <div className="media media-3-4 media--levy media--video" style={{ maxWidth: 400 }}>
+          <span className="media__levy">
+            <Story />
+          </span>
+        </div>
+      ) : (
+        <div className="media media-hero media--kuva media--video">
+          <Story />
+        </div>
+      ),
   ],
 } satisfies Meta<typeof Video>;
 
@@ -47,4 +55,9 @@ export const Mobiilissa: Story = {
 export const TummaTeema: Story = {
   globals: { theme: 'dark' },
   args: { tila: 'toistaa' },
+};
+
+/** Puhelinruudun video levyllä: kokonaisena, kuten kaappaus kuvana. */
+export const Levylla: Story = {
+  args: { tila: 'toistaa', esitys: 'levy', leveys: 750, korkeus: 1334, caption: 'Puhelinruudun video' },
 };

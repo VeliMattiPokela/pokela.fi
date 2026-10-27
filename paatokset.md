@@ -1498,3 +1498,26 @@ noston kuin sivusto (Vellu: "eikö sitä ole mahdollista sisällyttää").
 (Korkeuskayrat ilman `label`ia).
 
 *Kirjattu 21.10.2026 Vellun hyväksynnällä*
+
+---
+
+## 47. Puhelinruudun video istuu levyllä, ja aiemman työn kuvat jaetaan osioihin
+
+**Tilanne:** Pivon caseen tuli kolme ruutuvideota. Kussakin oli eri
+laitekehys mustalla pohjalla, ja Median video täytti aina koko
+paikan. Kirjautumisen ennen/jälkeen-vertailu olisi jäänyt samaan
+kuvariviin videoiden kanssa ilman erotusta.
+
+**Päätös:** videot rajataan pelkkään ruutuun (9:16, ei ääntä), ja
+Video saa esityksen `levy`: video näytetään kokonaisena levyn
+keskellä samalla tavalla kuin puhelinkaappaus kuvana (päätös 9).
+Esitys tulee sisällöstä kuten kuvalla, ja levy on oletus muualla
+kuin herossa. Aiemman työn kuvat ovat osioina: otsikollinen osio saa
+otsikon ja ingressin, ja otsikoton osio on pelkkä kuvarivi.
+
+**Perustelu:** levy antaa ruutuvideoille saman rajan kuin
+kuville, ja kolme eri laitekehystä olisi rikkonut sen. Vellun mukaan
+vertailu ja videot tarvitsivat kumpikin selkeän oman osionsa eivätkä
+saaneet näyttää yhdeltä riviltä.
+
+*Kirjattu 27.10.2026 Vellun hyväksynnällä*

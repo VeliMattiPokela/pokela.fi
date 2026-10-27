@@ -1,7 +1,7 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import type { Previous } from '@/content/work';
+import type { Previous, PreviousMedia } from '@/content/work';
 import type { Dictionary } from '@/content/dictionaries';
 import { Accordion, useAccordionGroup } from './Accordion';
 import Media, { type Ratio } from './Media';
@@ -13,7 +13,7 @@ import BeforeAfter from './BeforeAfter';
  * (4:3 → 1.333fr, 4:5 → 0.8fr); vertailupari on omalla rivillään eikä
  * kuulu niihin. Sama periaate kuin etusivun nostoparissa (home.css).
  */
-function sarakkeet(media: Previous['detail']['media']) {
+function sarakkeet(media: PreviousMedia[]) {
   const kuvat = media.filter((m) => m.kind !== 'compare');
   if (kuvat.length < 2) return undefined;
   const fr = kuvat.map((m) => {
@@ -110,31 +110,39 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
         </div>
       </section>
 
-      {d.media.length > 0 ? (
-        <div className="detail__media" style={sarakkeet(d.media)}>
-          {d.media.map((media) =>
-            media.kind === 'compare' ? (
-              <BeforeAfter
-                key={media.caption}
-                id={media.id}
-                beforeLabel={dict.common.before}
-                afterLabel={dict.common.after}
-                alt={media.caption}
-                caption={media.caption}
-                sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
-              />
-            ) : (
-              <Media
-                key={media.caption}
-                id={media.id}
-                ratio={media.ratio as Ratio}
-                caption={media.caption}
-                sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
-              />
-            ),
-          )}
-        </div>
-      ) : null}
+      {d.media.map((osio, i) => (
+        <section key={osio.title ?? i} className="detail__media-group">
+          {osio.title ? (
+            <div className="detail__media-head">
+              <h4 className="title detail__media-title">{osio.title}</h4>
+              {osio.intro ? <p className="measure detail__media-intro">{osio.intro}</p> : null}
+            </div>
+          ) : null}
+          <div className="detail__media" style={sarakkeet(osio.items)}>
+            {osio.items.map((media) =>
+              media.kind === 'compare' ? (
+                <BeforeAfter
+                  key={media.caption}
+                  id={media.id}
+                  beforeLabel={dict.common.before}
+                  afterLabel={dict.common.after}
+                  alt={media.caption}
+                  caption={media.caption}
+                  sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
+                />
+              ) : (
+                <Media
+                  key={media.caption}
+                  id={media.id}
+                  ratio={media.ratio as Ratio}
+                  caption={media.caption}
+                  sizes="(min-width: 900px) 440px, (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)"
+                />
+              ),
+            )}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
