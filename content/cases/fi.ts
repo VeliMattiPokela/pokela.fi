@@ -351,8 +351,13 @@ const thisSite: Case = {
     {
       kind: 'checks',
       label: 'Tarkistukset',
-      title: '{n} tarkistusta joka buildissa',
-      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Tässä projektissa tarkistukset ajetaan joka buildissa ja pull requestissa, joten ero huomataan samana päivänä. Jokaisella tarkistuksella on myös rajansa, ja se kerrotaan auki.',
+      title: '{n} tarkistusta pitää koodin ja Figman samana',
+      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Täällä jokainen muutos kulkee tarkistusten läpi, ja jos jokin ei täsmää, muutos pysähtyy ennen julkaisua. Jokaisen tarkistuksen raja kerrotaan auki.',
+      pending: {
+        id: 'tulossa',
+        title: 'Tulossa',
+        note: 'Tarkistus on kirjoitettu, mutta sitä ei vielä ajeta, joten se ei ole otsikon luvussa.',
+      },
     },
     {
       kind: 'text',

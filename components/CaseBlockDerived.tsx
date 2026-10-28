@@ -3,7 +3,7 @@ import Reveal from './Reveal';
 import ListRowShowcase from './ListRowShowcase';
 import Icon from './Icon';
 import { caseArtefacts } from '@/lib/artefacts';
-import { CHECK_GROUPS, checks, liveCheckCount } from '@/lib/checks';
+import { checks, liveCheckCount } from '@/lib/checks';
 import { ketju } from '@/content/prosessi';
 import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
 import Timeline, { TimelineItem } from './Timeline';
@@ -98,7 +98,11 @@ export default function CaseBlockDerived({
          eikä muutos pääse läpi. Luku jää numeroksi eikä sanaksi,
          koska taivutus olisi taas käsin kirjoitettua kieltä
          komponentissa. */
-      const all = checks();
+      /* Listassa vain design systemin tarkistukset; sivuston omat
+         näkyvät viimeisimmän ajon aikajanalla omana ryhmänään
+         (päätös 50). Ajamaton tarkistus siirtyy Tulossa-ryhmään. */
+      const all = checks().filter((c) => c.group === 'ydin');
+      const lista = [...all.filter((c) => c.runs), ...all.filter((c) => !c.runs)];
       const live = liveCheckCount();
       const ajo = viimeisinAjo();
 
@@ -115,11 +119,10 @@ export default function CaseBlockDerived({
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <CheckList
-                items={all.map(({ id, title, proves, items, blind, runs, group }) => ({ id, title, proves, items, blind: blind || null, runs, group }))}
-                groups={CHECK_GROUPS}
+                items={lista.map(({ id, title, huomaa, proves, items, blind, runs }) => ({ id, title, huomaa, proves, items, blind: blind || null, runs, group: runs ? undefined : 'tulossa' }))}
+                groups={[block.pending]}
                 build={ajo ? {
                   description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
-                  meta: `${ajo.vaiheet.length + 1} vaihetta`,
                   children: (
                     <Timeline>
                       {ajo.vaiheet.map((vaihe, i) => (

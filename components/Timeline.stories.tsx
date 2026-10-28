@@ -40,7 +40,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Tavallinen kohta: ohut kisko, ontto piste. */
-export const Oletus: Story = { args: { variant: 'default', group: 'Synkka' } };
+export const Oletus: Story = { args: { variant: 'default', group: 'Design system' } };
 
 /** Nostettu kohta. Kisko on paksu ja venyy painon mukaan. */
 export const Korostettu: Story = {
@@ -64,7 +64,7 @@ export const Loppu: Story = {
 export const Jana: Story = {
   render: () => (
     <>
-      <TimelineItem label="0.00" group="Synkka" title="Tokenit" meta="alle sekunnin" description="101 tokenia tarkistettu" />
+      <TimelineItem label="0.00" group="Design system" title="Tokenit" meta="alle sekunnin" description="101 tokenia tarkistettu" />
       <TimelineItem label="0.01" title="Kuvat" meta="alle sekunnin" description="7/23 paikkaa täynnä, 16 odottaa kuvaa" />
       <TimelineItem label="0.03" group="Build" title="Kuvat ja videot" meta="5 min 32 s" variant="emphasis" weight={0.5} />
       <TimelineItem label="5.35" title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
