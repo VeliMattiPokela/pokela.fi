@@ -196,7 +196,11 @@ function sulje(btn: HTMLButtonElement, el: HTMLElement, valmis: () => void) {
   };
   Promise.all(anims.map((a) => a.finished)).then(() => {
     if (peruttu) return;
-    siivoa();
+    /* Paneelin animaatioita ei peruta: perutut animaatiot palauttaisivat
+       paneelin täyteen korkeuteen yhdeksi ruuduksi ennen kuin React
+       poistaa sen, ja se välähti. Paneeli poistuu kiinni-tilassa. */
+    k.remove();
+    btn.style.transition = '';
     valmis();
   }, () => {});
   return () => {
