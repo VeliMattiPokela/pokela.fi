@@ -128,15 +128,42 @@ a.case__artefact:hover .meta { color: var(--ink-muted); }
 .case__check-state { grid-area: state; }
 @media (min-width: 600px) { .case__check-state { text-align: right; } }
 
-/* Raja on eri asia kuin kuvaus, joten se erottuu myös typografisesti.
-   Se on sivun rehellisin kohta: tarkistus kertoo mitä se ei näe. */
-.case__check-blind {
+/* Avattu tarkistus: mitä se tarkistaa ja mitä se ei kata, kahtena
+   rinnakkaisena palstana. Palstat alkavat rivin otsikon linjasta,
+   ei numerosta, ja kumpikin aukeaa hiusviivalla ja meta-otsikolla.
+   Raja on oma palstansa eikä sisennetty lainaus: se on sivun
+   rehellisin kohta, tarkistus kertoo mitä se ei näe. */
+.check-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-40);
+}
+@media (min-width: 600px) { .check-detail { padding-left: calc(var(--space-56) + var(--space-24)); } }
+@media (min-width: 900px) {
+  .check-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-56); }
+}
+.check-detail__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding-top: var(--space-16);
+  border-top: var(--hairline) solid var(--line);
+}
+.check-detail__label { margin: 0; color: var(--ink-faint); }
+.check-detail__text { margin: 0; max-width: var(--measure); color: var(--ink-muted); }
+/* Viiva roikkuu omassa sarakkeessaan, joten rivit alkavat samasta
+   linjasta myös rivittyessään. */
+.check-detail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  padding-left: var(--space-16);
-  border-left: var(--hairline) solid var(--line);
+  max-width: var(--measure);
 }
+.check-detail__list li { display: grid; grid-template-columns: var(--space-24) minmax(0, 1fr); }
+.check-detail__list li::before { content: '—'; color: var(--ink-faint); }
 
 /* Kytkemätön tarkistus vaimennetaan kokonaan — sitä ei saa lukea
    samana kuin ajossa olevaa. */
