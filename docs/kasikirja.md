@@ -984,11 +984,10 @@ sinulta kuvat, faktat ja luvat. **Sisältö on ainoa este julkaisulle.**
       netlify deploy --prod --no-build --dir=storybook-static
       ```
 
-      `--no-build` on olennainen: ilman sitä Netlify lukee juuren
-      `netlify.toml`:n ja ajaa **sivuston** buildin Storybookin
-      julkaisun yhteydessä. Syy koko järjestelyyn on sama tiedosto:
-      molemmat sivustot tulisivat samasta reposta, ja `netlify.toml`
-      pakottaisi niille saman build-komennon. Automatisointi vaatii `NETLIFY_AUTH_TOKEN`in ja
+      `--no-build` on olennainen: ilman sitä Netlify ajaa buildin
+      omalla koneellaan ja kuluttaa build-minuutteja. Sivusto itse
+      julkaistaan Vercelistä (päätös 49), Storybook jäi Netlifyyn,
+      koska käsin tehty julkaisu ei kuluta minuutteja. Automatisointi vaatii `NETLIFY_AUTH_TOKEN`in ja
       `NETLIFY_SITE_ID`:n GitHubin secreteiksi — ne ovat sinun tunnuksiasi,
       joten en voi luoda niitä. CI rakentaa Storybookin jo, joten
       julkaisuaskel on yksi rivi lisää `ci.yml`:ään sen jälkeen.

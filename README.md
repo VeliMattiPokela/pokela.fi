@@ -11,7 +11,7 @@ Pystytys-sivulla. Koodipohjaa ei ole tarkoitus kopioida asiakkaalle
 sellaisenaan: siirrettävä asia on menetelmä ja sen pystyttäminen.
 
 **Stack:** Next.js (App Router, static export) · TypeScript · Storybook ·
-**Kielet:** fi (en rakenteessa valmiina) · **Julkaisu:** Netlify
+**Kielet:** fi (en rakenteessa valmiina) · **Julkaisu:** Vercel (`vercel.json`)
 
 ## Mistä lukea lisää
 
@@ -83,7 +83,7 @@ Uusi tarkistus lisätään vasta kun oikea virhe on päässyt läpi
 ## Sivukartta
 
 ```
-/                    → /fi/ (Netlify-ohjaus)
+/                    → /fi/ (Vercel-ohjaus)
 /fi/                 Etusivu
 /fi/tyot/            Työlistaus — 3 kärkeä + aiempi työ avautuvana
 /fi/tyot/colliers        Case 01

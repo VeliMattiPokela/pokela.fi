@@ -38,7 +38,7 @@ import ffmpegPolku from 'ffmpeg-static';
 import ffprobe from 'ffprobe-static';
 
 /* ffmpeg ja ffprobe tulevat npm-paketteina eivätkä koneelta. CI:n
-   ajokoneella ja Netlifyssä niitä ei ole, ja ensimmäinen video kaatoi
+   ajokoneella ja Vercelissä niitä ei ole, ja ensimmäinen video kaatoi
    tarkistuksen (8.10.2026). Paketti tuo saman binäärin kaikkialle,
    myös Macille ilman Homebrew'ta. */
 const FFMPEG = ffmpegPolku;
@@ -55,8 +55,13 @@ const LAHTEET = join(root, 'kuvat');
 const JULKAISU = join(root, 'public/kuva');
 export const MANIFESTI = join(root, 'content/media.generated.json');
 
-/** Johdannaisten välimuisti, ks. muistista(). Ei repossa; CI säilyttää sen ajosta toiseen. */
-const VALIMUISTI = join(root, '.kuvavalimuisti');
+/** Johdannaisten välimuisti, ks. muistista(). Ei repossa; CI säilyttää sen ajosta toiseen.
+    Vercel säilyttää buildista toiseen vain node_modulesin, joten siellä
+    välimuisti on sen alla. Ilman sitä jokainen julkaisu laskisi videot
+    alusta (yli 5 min). */
+const VALIMUISTI = process.env.VERCEL
+  ? join(root, 'node_modules/.cache/kuvavalimuisti')
+  : join(root, '.kuvavalimuisti');
 
 /** Lähteen enimmäismitta pitkältä sivulta. Yli menevä on arkistoa. */
 const LAHDE_MAX = 2800;

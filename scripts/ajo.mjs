@@ -60,14 +60,19 @@ const git = (...a) => {
   }
 };
 
+/* Vercel ei tuo buildiin .git-kansiota, joten commit ja viesti
+   luetaan sen ympäristömuuttujista. */
+const viesti = git('log', '-1', '--format=%B') ?? process.env.VERCEL_GIT_COMMIT_MESSAGE ?? null;
+
 /** Mergen otsikko on "Merge pull request #12 from …"; muutoksen nimi on rungon ensimmäinen rivi. */
 function muutos() {
-  const otsikko = git('log', '-1', '--format=%s');
-  if (otsikko?.startsWith('Merge pull request')) return git('log', '-1', '--format=%b')?.split('\n')[0] || otsikko;
+  if (!viesti) return null;
+  const [otsikko, ...runko] = viesti.trim().split('\n');
+  if (otsikko.startsWith('Merge pull request')) return runko.find((r) => r.trim())?.trim() || otsikko;
   return otsikko;
 }
 
-const ymparisto = process.env.NETLIFY ? 'Netlify' : process.env.GITHUB_ACTIONS ? 'GitHub Actions' : 'paikallinen';
+const ymparisto = process.env.VERCEL ? 'Vercel' : process.env.GITHUB_ACTIONS ? 'GitHub Actions' : 'paikallinen';
 const alkoi = new Date();
 const kirjatut = [];
 
@@ -89,7 +94,7 @@ writeFileSync(
     {
       alkoi: alkoi.toISOString(),
       ymparisto,
-      commit: (process.env.COMMIT_REF ?? git('rev-parse', 'HEAD'))?.slice(0, 7) ?? null,
+      commit: (git('rev-parse', 'HEAD') ?? process.env.VERCEL_GIT_COMMIT_SHA)?.slice(0, 7) ?? null,
       muutos: muutos(),
       vaiheet: kirjatut,
       /* Next.js:n build alkaa tästä; sen kestoa ei voi kirjata sivulle,
