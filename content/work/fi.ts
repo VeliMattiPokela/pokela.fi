@@ -161,9 +161,9 @@ const previous: Previous[] = [
       ],
       media: [
         {
-          title: 'Lorem ipsum dolor sit amet',
+          title: 'Polut, prototyypit ja liike',
           intro:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'Suunnittelin käyttöliittymäpolut, prototyypit, interaktiot ja animaatiot. Liike kertoo käyttäjälle, mitä juuri tapahtui: ryhmä syntyy, kulu tasataan ja saapuneeseen maksuun vastataan reaktiolla.',
           items: [
             { id: 'pivo-ryhma', kind: 'video', ratio: '3:4', caption: 'Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu' },
             { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan' },
@@ -171,9 +171,9 @@ const previous: Previous[] = [
           ],
         },
         {
-          title: 'Lorem ipsum dolor sit',
+          title: 'Saavutettavuus ennen ja jälkeen',
           intro:
-            'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            'Sovellus käytiin saavutettavuuden osalta läpi kokonaisuutena. Kirjautumisnäkymä näyttää, miltä sovellus näytti ennen parannuksia ja miltä niiden jälkeen.',
           items: [
             {
               id: 'pivo-kirjautuminen',
