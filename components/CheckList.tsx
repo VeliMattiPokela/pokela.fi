@@ -46,19 +46,24 @@ export default function CheckList({
           onToggle={() => group.toggle(check.id)}
           labels={labels}
         >
-          {rest.length ? <p className="body-s muted measure">{rest.join(' ')}</p> : null}
-          {check.items?.length ? (
-            <ul className="detail__list detail__list--muted body-s measure">
-              {check.items.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          ) : null}
-          <div className="case__check-blind">
-            {(check.blind ?? 'Rajaa ei ole kirjattu.').split('\n\n').map((kappale, k) => (
-              <p key={k} className="body-s muted measure">
-                {k === 0 ? <><strong>Ei kata:</strong> </> : null}
-                {kappale}
-              </p>
-            ))}
+          <div className="check-detail">
+            {rest.length || check.items?.length ? (
+              <section className="check-detail__col">
+                <h5 className="meta check-detail__label">Tarkistaa</h5>
+                {rest.length ? <p className="check-detail__text">{rest.join(' ')}</p> : null}
+                {check.items?.length ? (
+                  <ul className="check-detail__list">
+                    {check.items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                ) : null}
+              </section>
+            ) : null}
+            <section className="check-detail__col">
+              <h5 className="meta check-detail__label">Ei kata</h5>
+              {(check.blind ?? 'Rajaa ei ole kirjattu.').split('\n\n').map((kappale, k) => (
+                <p key={k} className="check-detail__text">{kappale}</p>
+              ))}
+            </section>
           </div>
         </Accordion>
         </Fragment>
