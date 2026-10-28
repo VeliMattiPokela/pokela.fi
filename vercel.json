@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/", "destination": "/fi/", "statusCode": 302 },
+    { "source": "/tyot/:polku*", "destination": "/fi/tyot/:polku*", "statusCode": 301 },
+    { "source": "/tietoa/:polku*", "destination": "/fi/tietoa/:polku*", "statusCode": 301 },
+    { "source": "/system/:polku*", "destination": "/fi/tyot/portfolio/system/:polku*", "statusCode": 301 },
+    { "source": "/fi/system/:polku*", "destination": "/fi/tyot/portfolio/system/:polku*", "statusCode": 301 },
+    { "source": "/fi/tyot/tama-sivusto/:polku*", "destination": "/fi/tyot/portfolio/:polku*", "statusCode": 301 }
+  ],
+  "headers": [
+    {
+      "source": "/tokens.json",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    }
+  ]
+}

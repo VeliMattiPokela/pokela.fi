@@ -965,7 +965,7 @@ ikkunan origin on "null", joten selain esti vastauksen.
 **Päätös:** `check:figma` vertaa Väri-sivun Light- ja Dark-taulujen
 rivejä tokens.jsonin väreihin: jokaisella värillä on rivi, jolla on
 `var(--nimi)` ja oikea hex, eikä ylimääräisiä rivejä ole
-(scripts/figma-varisivu.mjs). `netlify.toml` lähettää `/tokens.json`:lle
+(scripts/figma-varisivu.mjs). `vercel.json` lähettää `/tokens.json`:lle
 otsakkeen `Access-Control-Allow-Origin: *`.
 
 **Perustelu:** päätöksen 8 mukaan tarkistus lisätään vasta, kun virhe
@@ -1325,7 +1325,7 @@ yhtä tasaista paperia, joten pitkässä sivussa ei ollut lukuja.
   tarkistuksiin ja lopputulokseen, token-nimien lista jää
   Storybookiin, ja linkit ovat kerran sivun lopussa.
 - Osoite on `/fi/tyot/portfolio/`. Vanha osoite ohjataan uuteen
-  (netlify.toml).
+  (`vercel.json`).
 - Uusi token `--tint-surface` ja `Section`-komponentin props
   `surface` (`paper` | `tint`, Figmassa variantti `Pinta`). Sävy
   kuuluu luvulle, jossa näytetään mitä rakennettiin: caseissa osiot
@@ -1455,7 +1455,7 @@ Case 03:n nauha "Yksi design system koodissa, Figmassa ja
 AI-työkaluissa" saa linkin "Design system elävänä" (nauhan `link`).
 Ketju on siis Työtapa → case 03 → design system: Työtavan "Missä
 käytetty" vie jo caseen. Vanhat osoitteet `/system/` ja `/fi/system/`
-ohjataan uuteen (`public/_redirects`). Räjäytyskuvan pienoisnavi
+ohjataan uuteen (`vercel.json`). Räjäytyskuvan pienoisnavi
 seuraa oikeaa navia.
 
 **Perustelu:** design system on tämän portfolion tuotos, ei
@@ -1551,3 +1551,30 @@ komponentin kuvaukseen.
 rivin heti, kuten ennen.
 
 *Kirjattu 27.10.2026 Vellun hyväksynnällä*
+
+
+## 49. Sivusto julkaistaan Vercelistä
+
+**Tilanne:** Netlifyn ilmaiset build-minuutit loppuivat kesken
+kuukauden. Kuvaputki laskee videot alusta jokaisessa Netlifyn
+buildissa (yli 5 min, ks. päätös 23), koska välimuisti ei säily siellä
+ajosta toiseen.
+
+**Päätös:** sivusto julkaistaan Vercelin Hobby-tasolta. `vercel.json`
+korvaa Netlifyn asetus- ja ohjaustiedostot: sama build
+(`npm run build`), julkaisukansio `out/`, samat ohjaukset ja
+`/tokens.json`:n CORS-otsake. Kuvaputken välimuisti on Vercelissä
+`node_modules/.cache/`:n alla, koska Vercel säilyttää sen buildista
+toiseen. Storybook jää Netlifyyn, koska se julkaistaan käsin ilman
+buildia.
+
+**Perustelu:** Hobby-tasolla ei ole build-minuuttikattoa: rajat ovat
+45 minuuttia buildia kohden ja 100 julkaisua päivässä. Ylitys pysäyttää
+palvelun, se ei tuo laskua. Next.js:n static export toimii Vercelissä
+ilman sovitinta.
+
+**Raja:** Hobby on vain ei-kaupalliseen, henkilökohtaiseen käyttöön.
+Henkilökohtainen portfolio sopii siihen. Jos sivusta tulee yrityksen
+myyntisivu, edessä on Pro-taso (20 $/kk) tai paluu toiseen palveluun.
+
+*Kirjattu 28.10.2026 Vellun pyynnöstä*

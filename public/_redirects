@@ -1,8 +1,0 @@
-# Juuri ohjataan oletuskielelle. Kun EN julkaistaan, tähän voi lisätä
-# kieliohjauksen selaimen Accept-Languagen perusteella.
-/                 /fi/   302
-/tyot/*           /fi/tyot/:splat   301
-/tietoa/*         /fi/tietoa/:splat 301
-# Design system siirtyi case 03:n alle (päätös 45).
-/system/*         /fi/tyot/portfolio/system/:splat 301
-/fi/system/*      /fi/tyot/portfolio/system/:splat 301
