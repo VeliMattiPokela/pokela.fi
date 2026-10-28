@@ -114,7 +114,6 @@ function kerros(btn: HTMLButtonElement, oliAuki: boolean) {
   k.inert = true;
   k.setAttribute('aria-expanded', String(oliAuki));
   k.classList.add('accordion__kerros');
-  k.style.height = `${btn.offsetHeight}px`;
   if (!oliAuki) {
     /* Suljettu rivi oli osoittimen alla: hiljainen pinta. Värit
        suoraan, koska sisarrivien vaimennus osuisi myös klooniin. */
