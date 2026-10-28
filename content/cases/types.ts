@@ -69,14 +69,16 @@ type BlockKind =
   /** Synkkatarkistukset. Lista johdetaan package.jsonista
       (lib/checks.ts) — mitä ajetaan, se näkyy. Casetekstiin ei
       kirjoiteta mitä tarkistetaan, koska se väite vanheni kerran jo.
-      Listan viimeinen rivi on viimeisin build: sen aikajana luetaan
+      Listassa on vain design systemin tarkistukset, ja ajamattomat
+      ovat `pending`-ryhmässä (päätös 50).
+      Listan viimeinen rivi on viimeisin ajo: sen aikajana luetaan
       tiedostosta, jonka scripts/ajo.mjs kirjoittaa ennen Next.js:n
       buildia, joten sivu näyttää sen buildin, joka sen rakensi. */
   /* `title` on pakko sisältää `{n}`: renderöijä korvaa sen ajossa
      olevien tarkistusten määrällä. Ilman placeholderia build kaatuu.
      Luku vanheni kerran käsin kirjoitettuna — otsikko lupasi neljää
      kun niitä oli seitsemän. */
-  | { kind: 'checks'; label: string; title: string; note: string }
+  | { kind: 'checks'; label: string; title: string; note: string; pending: { id: string; title: string; note: string } }
   /** Prosessi yhtenä ketjuna. Lenkit luetaan content/prosessi.ts:stä
       ja vartijat lib/checks.ts:stä build-aikana, joten casetekstiin
       kirjoitetaan vain otsikko ja johdanto. */

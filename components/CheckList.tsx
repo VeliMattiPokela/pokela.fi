@@ -4,21 +4,23 @@ import { Fragment, type ReactNode } from 'react';
 import { Accordion, useAccordionGroup } from './Accordion';
 
 /**
- * Tarkistuslista casessa: nimi ja mitä tarkistus todistaa näkyvät
- * aina, raja ("Ei kata") avautuu rivistä. Viimeinen rivi voi olla
- * viimeisin build, jonka aikajana avautuu samalla tavalla.
+ * Tarkistuslista casessa: nimi ja millaisen virheen tarkistus
+ * pysäyttää näkyvät aina, tarkka kuvaus ja raja ("Ei kata") avautuvat
+ * rivistä. Viimeinen rivi voi olla viimeisin ajo, jonka aikajana
+ * avautuu samalla tavalla.
  *
- * Kun `groups` on annettu, ryhmän otsikko ja selite tulevat sen
- * ensimmäisen rivin eteen. Numerointi jatkuu ryhmien yli.
+ * Vain ajossa olevat rivit numeroidaan, jotta numerot vastaavat
+ * otsikon lukua. Kun `groups` on annettu, ryhmän otsikko ja selite
+ * tulevat sen ensimmäisen rivin eteen (sivulla: Tulossa, päätös 50).
  */
 export default function CheckList({
   items,
   groups,
   build,
 }: {
-  items: { id: string; title: string; proves: string; items?: string[]; blind: string | null; runs: boolean; group?: string }[];
+  items: { id: string; title: string; huomaa: string; proves: string; items?: string[]; blind: string | null; runs: boolean; group?: string }[];
   groups?: { id: string; title: string; note: string }[];
-  build?: { description: string; meta: string; children: ReactNode };
+  build?: { description: string; children: ReactNode };
 }) {
   const group = useAccordionGroup();
   const labels = { open: 'Avaa', close: 'Sulje' };
@@ -26,9 +28,7 @@ export default function CheckList({
   return (
     <div className="list-rows case__checklist">
       {items.map((check, i) => {
-        /* Rivillä vain ensimmäinen lause. Avattuna se siirtyy paneeliin
-           loppujen kanssa, ks. case.css. */
-        const [first, ...rest] = check.proves.split(/(?<=\.)\s+(?=[A-ZÄÖ])/);
+        const numero = items.slice(0, i + 1).filter((c) => c.runs).length;
         const alku = check.group !== items[i - 1]?.group ? groups?.find((g) => g.id === check.group) : undefined;
         return (
         <Fragment key={check.id}>
@@ -39,10 +39,9 @@ export default function CheckList({
           </div>
         ) : null}
         <Accordion
-          number={String(i + 1).padStart(2, '0')}
+          number={check.runs ? String(numero).padStart(2, '0') : '—'}
           title={check.title}
-          description={first}
-          meta={check.runs ? 'Ajossa' : 'Ei vielä kytketty'}
+          description={check.huomaa}
           open={group.isOpen(check.id)}
           onToggle={() => group.toggle(check.id)}
           labels={labels}
@@ -53,8 +52,7 @@ export default function CheckList({
             <section className="check-detail__col">
               <h5 className="meta check-detail__label">Tarkistaa</h5>
               <p className="check-detail__text">
-                <span className="check-detail__lead">{first}</span>
-                {rest.length ? ` ${rest.join(' ')}` : null}
+                <span className="check-detail__lead">{check.huomaa}</span> {check.proves}
               </p>
               {check.items?.length ? (
                 <ul className="check-detail__list">
@@ -76,9 +74,8 @@ export default function CheckList({
       {build ? (
         <Accordion
           number="—"
-          title="Viimeisin build"
+          title="Viimeisin ajo"
           description={build.description}
-          meta={build.meta}
           open={group.isOpen('ajo')}
           onToggle={() => group.toggle('ajo')}
           labels={labels}

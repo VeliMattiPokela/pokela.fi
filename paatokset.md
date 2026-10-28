@@ -1578,3 +1578,33 @@ Henkilökohtainen portfolio sopii siihen. Jos sivusta tulee yrityksen
 myyntisivu, edessä on Pro-taso (20 $/kk) tai paluu toiseen palveluun.
 
 *Kirjattu 28.10.2026 Vellun pyynnöstä*
+
+## 50. Tarkistuslista kertoo, mitä tarkistus huomaa
+
+**Tilanne:** Vellu ei ymmärtänyt case 03:n tarkistusosiota. Otsikko
+lupasi 10 tarkistusta, listassa oli 11 ja viimeisimmän buildin rivillä
+luki "10 vaihetta". Jokainen rivi alkoi "Varmistaa, että…", jokaisella
+oli tila "Ajossa", ja ryhmät *Yleinen ydin* ja *Tuotekohtaiset
+vartijat* (päätös 42) olivat sisäistä termistöä. Sivuston omat
+tarkistukset (favicon, kuvat, kuvasuhteet) olivat lukijalle
+sivupolku.
+
+**Päätös:** listassa ovat vain design systemin tarkistukset, ja
+otsikon luku laskee vain ne. Rivillä kerrotaan, millaisen virheen
+tarkistus pysäyttää (`huomaa`, "Huomaa, jos…"), ja tarkka kuvaus ja
+raja ovat avattavassa paneelissa. Tila "Ajossa" poistuu. Ajamaton
+tarkistus on listan lopussa Tulossa-ryhmässä ilman numeroa, joten
+numerot vastaavat otsikon lukua. Sivuston omat tarkistukset näkyvät
+vain viimeisimmän ajon aikajanalla omana ryhmänään ("Sivuston omat
+tarkistukset"). Siksi `check:sync` ajaa ne viimeisinä. Rivin nimi on
+nyt "Viimeisin ajo", eikä siinä ole vaihemäärää.
+
+**Perustelu:** kolme eri lukua samassa osiossa kumosi osion oman
+väitteen, ja konkreettinen virhe kertoo lukijalle enemmän kuin
+tarkistuksen määritelmä. Päätöksen 42 ryhmittely säilyy
+rekisterissä (`group`), mutta casessa se näkyy vain aikajanalla.
+
+**Raja:** Figma- ja pakettitarkistus ajetaan vain pull requestissa,
+joten ne eivät näy buildin aikajanalla, vaikka ne ovat listassa.
+
+*Kirjattu 28.10.2026 Vellun pyynnöstä*

@@ -27,7 +27,7 @@ export type AccordionProps = {
   number: string;
   title: string;
   description: string;
-  meta: string;
+  meta?: string;
   children: ReactNode;
   open: boolean;
   onToggle: () => void;
@@ -79,7 +79,7 @@ export function Accordion({
           <span className="display-s list-row__title">{title}</span>
           <span className="body-s muted list-row__description">{description}</span>
         </span>
-        <span className="meta list-row__meta">{meta}</span>
+        {meta ? <span className="meta list-row__meta">{meta}</span> : null}
         {/* Plus kääntyy miinukseksi CSS:ssä: pystyviiva kiertyy vaakaviivan päälle. */}
         <Icon name="plus" size="l" className="list-row__icon" />
         <span className="visually-hidden">{open ? labels.close : labels.open}</span>

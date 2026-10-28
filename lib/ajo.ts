@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { checks } from './checks';
+import { CHECK_GROUPS, checks } from './checks';
 
 /**
  * Buildin vaiheet sivulla.
@@ -21,7 +21,8 @@ export type Vaihe = {
   alku: number;
   kesto: number;
   tulos: string | null;
-  ryhma: 'Synkka' | 'Build';
+  /** Ryhmän nimi: tarkistuksen ryhmä rekisteristä tai Build. */
+  ryhma: string;
 };
 
 export type Ajo = {
@@ -49,15 +50,18 @@ export function viimeisinAjo(): Ajo | null {
   if (!existsSync(tiedosto)) return null;
   const kirjattu = JSON.parse(readFileSync(tiedosto, 'utf8')) as Kirjattu;
 
-  /* Nimi tarkistusrekisteristä, jotta se on sama kuin listassa. */
-  const nimet = new Map(checks().map((c) => [c.id, c.title]));
+  /* Nimi ja ryhmä tarkistusrekisteristä, jotta ne ovat samat kuin
+     listassa. Sivuston omat tarkistukset näkyvät vain täällä, joten
+     ryhmän nimi erottaa ne design systemin tarkistuksista (päätös 50). */
+  const rekisteri = new Map(checks().map((c) => [c.id, c]));
+  const ryhmat = new Map(CHECK_GROUPS.map((g) => [g.id, g.title]));
   let alku = 0;
   const vaiheet = kirjattu.vaiheet.map((v): Vaihe => {
     const vaihe: Vaihe = {
       ...v,
-      nimi: v.id === 'kuvaputki' ? 'Kuvat ja videot' : (nimet.get(v.id) ?? v.id),
+      nimi: v.id === 'kuvaputki' ? 'Kuvat ja videot' : (rekisteri.get(v.id)?.title ?? v.id),
       alku,
-      ryhma: v.id === 'kuvaputki' ? 'Build' : 'Synkka',
+      ryhma: v.id === 'kuvaputki' ? 'Build' : (ryhmat.get(rekisteri.get(v.id)?.group ?? 'ydin') ?? 'Tarkistukset'),
     };
     alku += v.kesto;
     return vaihe;
