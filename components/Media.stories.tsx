@@ -84,3 +84,17 @@ export const Levylla: Story = {
 export const Viiva: Story = {
   args: { id: 'media-viiva', ratio: 'hero', esitys: 'viiva', caption: 'Korkeuskäyrät viivapiirroksena' },
 };
+
+/**
+ * Omat kuvat teemoille: kuvalla on oma tausta, joten tummaan teemaan
+ * on oma kuvansa (`<id>-tumma`), ja näkyvissä on teeman mukainen.
+ * Vaihda teemaa työkalupalkista.
+ */
+export const OmatTeemoille: Story = {
+  args: { id: 'tyot-storybook', ratio: '4:3', esitys: 'taysi', teema: 'omat', caption: 'Design systemin komponentit' },
+};
+
+export const OmatTeemoilleTumma: Story = {
+  globals: { theme: 'dark' },
+  args: { id: 'tyot-storybook', ratio: '4:3', esitys: 'taysi', teema: 'omat', caption: 'Design systemin komponentit' },
+};
