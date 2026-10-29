@@ -51,7 +51,7 @@ const fi = {
 
   work: {
     title: 'Työt',
-    subtitle: 'Kolme kärkeä · aiempi työ',
+    subtitle: 'Neljä kärkeä · aiempi työ',
     previous: 'Aiempi työ',
     previousHint: 'Avautuu sivulla',
     nextCase: 'Seuraava case',

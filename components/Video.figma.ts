@@ -26,11 +26,18 @@ const esitys = figma.selectedInstance.getEnum('Esitys', {
   levy: 'levy',
 });
 
+/* Mobiili: herolla on oma puhelinvideo. Pääversio alkaa samasta
+   kohdasta kuin heron 16:9-rajaus. */
+const mobiili = figma.selectedInstance.getBoolean('Mobiili', {
+  true: '(min-width: 600px)',
+  false: undefined,
+});
+
 export default {
   id: 'Video',
   imports: ["import Video from '@/components/Video';"],
   example: figma.code`<Video id="etusivu-hero" leveys={1920} korkeus={1080}${figma.helpers.react.renderProp(
     'tila',
     tila,
-  )}${figma.helpers.react.renderProp('esitys', esitys)} />`,
+  )}${figma.helpers.react.renderProp('esitys', esitys)}${figma.helpers.react.renderProp('mobiili', mobiili)} />`,
 };

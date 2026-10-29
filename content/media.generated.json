@@ -116,6 +116,47 @@
         ]
       }
     },
+    "himat-hero": {
+      "tyyppi": "video",
+      "esitys": "taysi",
+      "leveys": 1920,
+      "korkeus": 822,
+      "mobiili": {
+        "leveys": 1170,
+        "korkeus": 1464,
+        "paaAlkaen": "(min-width: 600px)"
+      }
+    },
+    "himat-kansi": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1178,
+      "korkeus": 2556
+    },
+    "himat-kulut": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1178,
+      "korkeus": 2556
+    },
+    "himat-sijainti": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1178,
+      "korkeus": 2556
+    },
+    "himat-tuonti": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1178,
+      "korkeus": 2556
+    },
+    "himat-vertailu": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1178,
+      "korkeus": 2556
+    },
     "media-viiva": {
       "tyyppi": "kuva",
       "esitys": "viiva",
@@ -282,9 +323,9 @@
     }
   },
   "numerot": {
-    "aisti-mobiili": 17,
-    "aisti-tiketti": 18,
-    "aisti-tyopoyta": 16,
+    "aisti-mobiili": 23,
+    "aisti-tiketti": 24,
+    "aisti-tyopoyta": 22,
     "blokbook-android": 11,
     "blokbook-asukas": 7,
     "blokbook-hallinta": 8,
@@ -296,17 +337,23 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-hero": 23,
-    "media-viiva": 22,
-    "muotokuva": 25,
-    "op-aloitus": 19,
-    "op-polku": 21,
-    "op-vaurio": 20,
-    "pivo-kirjautuminen": 15,
-    "pivo-kulut": 13,
-    "pivo-reaktio": 14,
-    "pivo-ryhma": 12,
-    "tyot-storybook": 24
+    "etusivu-hero": 29,
+    "himat-hero": 12,
+    "himat-kansi": 14,
+    "himat-kulut": 15,
+    "himat-sijainti": 16,
+    "himat-tuonti": 13,
+    "himat-vertailu": 17,
+    "media-viiva": 28,
+    "muotokuva": 31,
+    "op-aloitus": 25,
+    "op-polku": 27,
+    "op-vaurio": 26,
+    "pivo-kirjautuminen": 21,
+    "pivo-kulut": 19,
+    "pivo-reaktio": 20,
+    "pivo-ryhma": 18,
+    "tyot-storybook": 30
   },
   "muodot": {
     "aisti-mobiili": {
@@ -368,6 +415,30 @@
     "etusivu-hero": {
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
+    },
+    "himat-hero": {
+      "suhde": "4:5 · 16:9 · 21:9",
+      "leveys": 2736
+    },
+    "himat-kansi": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "himat-kulut": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "himat-sijainti": {
+      "suhde": "3:4",
+      "leveys": 1344
+    },
+    "himat-tuonti": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "himat-vertailu": {
+      "suhde": "3:4",
+      "leveys": 1344
     },
     "media-viiva": {
       "suhde": "4:5 · 16:9 · 21:9",

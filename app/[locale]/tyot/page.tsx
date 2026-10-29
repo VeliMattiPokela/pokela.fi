@@ -37,7 +37,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
     <>
       <PageHeader title={dict.work.title} meta={dict.work.subtitle} />
 
-      {/* ---- kolme kärkeä ---------------------------------------- */}
+      {/* ---- neljä kärkeä ----------------------------------------- */}
       <section className="list-rows" aria-label={dict.home.selectedWork}>
         {work.leads.map((lead) => (
           <ListRow

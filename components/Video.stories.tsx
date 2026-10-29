@@ -51,6 +51,15 @@ export const Mobiilissa: Story = {
   args: { tila: 'toistaa' },
 };
 
+/**
+ * Herolla oma puhelinvideo: kapealla ruudulla selain valitsee
+ * `<id>-mobiili`-lähteen, ja juliste vaihtuu sen mukana.
+ */
+export const OmaMobiilivideo: Story = {
+  globals: { viewport: { value: 'base' } },
+  args: { tila: 'toistaa', mobiili: '(min-width: 600px)' },
+};
+
 /** Nappi on paperin värinen, joten se kääntyy teeman mukana. */
 export const TummaTeema: Story = {
   globals: { theme: 'dark' },
