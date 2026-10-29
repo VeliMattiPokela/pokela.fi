@@ -210,7 +210,8 @@
       const py = (paikka.y - k.y) * s + NAKYMA.h / 2;
       const koko = 0.9 + 0.25 * Math.sqrt(k.zoom);
       const alas = painallus == null ? 0 : Math.sin(valilla(t, painallus - 0.06, painallus + 0.16) * Math.PI);
-      kursori.style.opacity = valilla(t, 0.6, 1.0) * pois;
+      /* Kohtauksessa ilman klikkauksia osoitinta ei näytetä. */
+      kursori.style.opacity = A.kursori.length > 1 ? valilla(t, 0.6, 1.0) * pois : 0;
       kursori.style.transform = `translate(${px - 3}px, ${py - 2}px) scale(${koko * (1 - 0.14 * alas)})`;
       const r = painallus == null ? 1 : valilla(t, painallus, painallus + 0.5);
       rengas.style.opacity = (1 - r) * 0.35 * (r > 0 ? 1 : 0);

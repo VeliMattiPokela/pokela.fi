@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<!--
+  Figma-kohtauksen taulu. Kuvat ovat Figma-tiedoston kehysten
+  renderöintejä (scripts/video.mjs hakee ne Figman rajapinnasta, kun
+  FIGMA_ACCESS_TOKEN on saatavilla). Taulu asettaa ne riviin kuten
+  Figman kanvaasilla, kehyksen nimi yläpuolella.
+-->
+<link rel="stylesheet" href="/styles/tokens.css" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=block" rel="stylesheet" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #F1F1EF; font-family: 'Archivo', Helvetica, Arial, sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 56px;
+  }
+  figure { margin: 0; }
+  figcaption { font-size: 11px; color: #6A6C6E; margin: 0 0 8px; letter-spacing: 0.01em; }
+  img { display: block; height: auto; box-shadow: 0 1px 3px rgb(0 0 0 / 0.08); }
+</style>
+</head>
+<body>
+  <figure id="vari"><figcaption>Väri</figcaption><img src="vari.png" width="520" /></figure>
+  <figure id="button"><figcaption>Button</figcaption><img src="button.png" width="396" /></figure>
+  <figure id="dokumentaatio"><figcaption>Button — dokumentaatio</figcaption><img src="button-dokumentaatio.png" width="300" /></figure>
+</body>
+</html>

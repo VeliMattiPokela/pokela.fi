@@ -41,7 +41,7 @@ export type Kohtaus =
       otsikko: string;
       /** Ikkunan yläpalkin osoiteteksti. */
       osoiteteksti: string;
-      lahde: 'storybook' | 'sivusto';
+      lahde: 'storybook' | 'sivusto' | 'figma';
       polku: string;
       vaiheet: Vaihe[];
     }
@@ -67,6 +67,8 @@ const valilehti = (nimi: string): Kohde => ({ valitsin: `[role=tab]:text-is("${n
 const vaihe = (nimi: string): Kohde => ({ valitsin: `li.tyotapa__vaihe:has-text("${nimi}")` });
 
 const tarkistus = (nimi: string): Kohde => ({ valitsin: `button[aria-expanded]:has(:text-is("${nimi}"))` });
+
+const kehys = (id: string): Kohde => ({ valitsin: `figure#${id}` });
 
 const CASE = '/fi/tyot/portfolio/';
 
@@ -97,6 +99,37 @@ export const kohtaukset: Kohtaus[] = [
         kohde: valilehti('Figma'),
         s: 2.8,
         otsikko: 'Figma näyttää saman komponentin samoilla tiloilla',
+      },
+    ],
+  },
+  {
+    id: 'figma',
+    tunniste: '02  Figma',
+    otsikko: 'Sama design system Figmassa',
+    osoiteteksti: 'Figma — Pokela Portfolio',
+    lahde: 'figma',
+    polku: '/video/figma/taulu.html',
+    /* Figma on kanvaasi, joten kohtaus on kameran kierros:
+       värit, komponenttijoukko ja sen dokumentaatio. */
+    vaiheet: [
+      { tee: 'odota', s: 1.4 },
+      {
+        tee: 'odota',
+        s: 2.6,
+        kamera: { kohde: kehys('vari'), zoom: 1.6 },
+        otsikko: 'Värit ovat Figmassa samat kuin koodissa',
+      },
+      {
+        tee: 'odota',
+        s: 2.6,
+        kamera: { kohde: kehys('button'), zoom: 1.9 },
+        otsikko: 'Komponentilla on samat variantit ja koot',
+      },
+      {
+        tee: 'odota',
+        s: 2.8,
+        kamera: { kohde: kehys('dokumentaatio'), zoom: 1.6 },
+        otsikko: 'Code Connect kytkee komponentin koodiin',
       },
     ],
   },

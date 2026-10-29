@@ -86,6 +86,43 @@ function varmistaSivusto() {
   if (ajo.status !== 0) throw new Error('Sivuston rakennus epäonnistui');
 }
 
+/* Figma-kohtauksen kuvat ovat Figma-tiedoston kehysten renderöintejä.
+   Kun FIGMA_ACCESS_TOKEN on saatavilla (ympäristö tai .env.local, kuten
+   check:figmalla), ne haetaan rajapinnasta joka ajossa, jolloin video
+   näyttää aina nykyisen Figman. Ilman tunnusta käytetään viimeksi
+   haettuja kuvia (video/figma/). */
+const FIGMA_TIEDOSTO = 'PVyeKV6J1Rzyj2VL4X27FR';
+const FIGMA_KEHYKSET = { vari: '3:25', button: '12:28', 'button-dokumentaatio': '13:2' };
+
+function figmaTunnus() {
+  if (process.env.FIGMA_ACCESS_TOKEN) return process.env.FIGMA_ACCESS_TOKEN;
+  const env = join(JUURI, '.env.local');
+  if (!existsSync(env)) return null;
+  return readFileSync(env, 'utf8').match(/^FIGMA_ACCESS_TOKEN=(.+)$/m)?.[1].trim() ?? null;
+}
+
+async function haeFigma() {
+  const kansio = join(JUURI, 'video', 'figma');
+  const tunnus = figmaTunnus();
+  if (!tunnus) {
+    const puuttuvat = Object.keys(FIGMA_KEHYKSET).filter((n) => !existsSync(join(kansio, `${n}.png`)));
+    if (puuttuvat.length) throw new Error(`Figma-kuvia puuttuu (${puuttuvat.join(', ')}) eikä FIGMA_ACCESS_TOKEN ole asetettu`);
+    console.log('Figma: ei tunnusta, käytetään tallennettuja kuvia');
+    return;
+  }
+  const idt = Object.values(FIGMA_KEHYKSET).join(',');
+  const vastaus = await fetch(`https://api.figma.com/v1/images/${FIGMA_TIEDOSTO}?ids=${idt}&scale=2&format=png`, {
+    headers: { 'X-Figma-Token': tunnus },
+  });
+  if (!vastaus.ok) throw new Error(`Figma: ${vastaus.status}`);
+  const { images } = await vastaus.json();
+  for (const [nimi, id] of Object.entries(FIGMA_KEHYKSET)) {
+    const kuva = await fetch(images[id]);
+    writeFileSync(join(kansio, `${nimi}.png`), Buffer.from(await kuva.arrayBuffer()));
+  }
+  console.log('Figma: kuvat haettu');
+}
+
 async function odotaRauha(sivu) {
   await sivu.waitForLoadState('networkidle');
   for (const kehys of sivu.frames()) {
@@ -339,13 +376,14 @@ if (!ajettavat.length) {
 
 if (ajettavat.some((k) => k.lahde === 'storybook')) varmistaStorybook();
 if (ajettavat.some((k) => k.lahde === 'sivusto')) varmistaSivusto();
+if (ajettavat.some((k) => k.lahde === 'figma')) await haeFigma();
 const storybook = await palvele(STORYBOOK);
 const sivusto = await palvele(SIVUSTO);
 const repo = await palvele(JUURI);
 const selain = await chromium.launch();
 try {
   for (const kohtaus of ajettavat) {
-    const aikajana = await tallenna(selain, kohtaus, { storybook: storybook.osoite, sivusto: sivusto.osoite });
+    const aikajana = await tallenna(selain, kohtaus, { storybook: storybook.osoite, sivusto: sivusto.osoite, figma: repo.osoite });
     await kokoa(selain, kohtaus.id, aikajana, repo.osoite);
   }
   if (!valitut.length) yhdista(ajettavat.map((k) => k.id));
