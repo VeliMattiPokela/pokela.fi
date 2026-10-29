@@ -74,12 +74,12 @@ export default function CheckList({
       {build ? (
         <>
         <div className="case__checkgroup">
-          <h4 className="meta case__checkgroup-title">Ajo</h4>
-          <p className="body-s muted measure">Jokainen build ajaa tarkistukset ennen sivua. Tämä sivu on alla olevan ajon tulos.</p>
+          <h4 className="meta case__checkgroup-title">Sivuston päivitys</h4>
+          <p className="body-s muted measure">Jokainen päivitys kulkee tarkistusten läpi ennen julkaisua. Tämä sivu on alla olevan päivityksen tulos.</p>
         </div>
         <Accordion
           number="—"
-          title="Viimeisin ajo"
+          title="Viimeisin päivitys"
           description={build.description}
           open={group.isOpen('ajo')}
           onToggle={() => group.toggle('ajo')}
