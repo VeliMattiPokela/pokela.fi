@@ -22,7 +22,7 @@
 
 import { spawn, spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
-import { existsSync, mkdirSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { chromium } from 'playwright';
 import ffmpegPolku from 'ffmpeg-static';
@@ -31,6 +31,7 @@ import { kohtaukset } from '../video/kasikirjoitus.ts';
 const JUURI = resolve(import.meta.dirname, '..');
 const ULOS = join(JUURI, '.video');
 const STORYBOOK = join(JUURI, 'storybook-static');
+const SIVUSTO = join(JUURI, 'out');
 const FPS = 60;
 const NAKYMA = { width: 1440, height: 900 };
 
@@ -39,8 +40,13 @@ const NAKYMA = { width: 1440, height: 900 };
 const OSOITIN_LAHTEE = 0.1;
 const OSOITIN_PERILLA = 1.05;
 const KLIKKAUS = 1.2;
+/* Linkin odotustila näkyy tämän ajan ennen uutta sivua. */
+const SIVUNVAIHTO = 0.8;
 const KAMERA_ENINTAAN = 1.4;
 const LOPPU = 0.6;
+/* Vieritys pysähtyy niin, että kohde jää tämän verran yläreunasta. */
+const VIERITYS_YLAREUNA = 96;
+const VIERITYS_ENINTAAN = 1.8;
 /* Tyhjää kohteen ympärillä, kun kamera rajaa siihen (CSS-pikseleinä). */
 const VALJYYS = 48;
 
@@ -73,12 +79,32 @@ function varmistaStorybook() {
   if (ajo.status !== 0) throw new Error('Storybookin rakennus epäonnistui');
 }
 
+function varmistaSivusto() {
+  if (existsSync(join(SIVUSTO, 'fi', 'index.html'))) return;
+  console.log('Sivustoa ei ole rakennettu, rakennetaan…');
+  const ajo = spawnSync('npm', ['run', 'build'], { cwd: JUURI, stdio: 'inherit' });
+  if (ajo.status !== 0) throw new Error('Sivuston rakennus epäonnistui');
+}
+
 async function odotaRauha(sivu) {
   await sivu.waitForLoadState('networkidle');
   for (const kehys of sivu.frames()) {
     await kehys.evaluate(() => document.fonts.ready).catch(() => {});
   }
   await sivu.waitForTimeout(700);
+}
+
+/* Sivuston osiot ilmestyvät, kun ne vieritetään näkyviin (Reveal).
+   Sivu vieritetään kerran läpi, jotta kuvissa ei ole puuttuvia osioita. */
+async function esivierita(sivu) {
+  await sivu.evaluate(async () => {
+    for (let y = 0; y < document.documentElement.scrollHeight; y += 600) {
+      window.scrollTo(0, y);
+      await new Promise((ok) => setTimeout(ok, 60));
+    }
+    window.scrollTo(0, 0);
+  });
+  await sivu.waitForTimeout(900);
 }
 
 function etsi(sivu, kohde) {
@@ -148,6 +174,18 @@ function kameranPaikka(laatikko, zoomEnintaan) {
 }
 
 async function tallenna(selain, kohtaus, osoitteet) {
+  if (kohtaus.lahde === 'kortti') {
+    return {
+      kesto: kohtaus.s,
+      tunniste: kohtaus.tunniste,
+      otsikot: [{ t: 0, teksti: kohtaus.otsikko }],
+      kortti: { teksti: kohtaus.teksti },
+      kuvat: [],
+      kamera: [],
+      kursori: [],
+    };
+  }
+
   const kansio = join(ULOS, 'kuvat', kohtaus.id);
   rmSync(kansio, { recursive: true, force: true });
   mkdirSync(kansio, { recursive: true });
@@ -155,15 +193,19 @@ async function tallenna(selain, kohtaus, osoitteet) {
   const sivu = await selain.newPage({ viewport: NAKYMA, deviceScaleFactor: 2 });
   await sivu.goto(osoitteet[kohtaus.lahde] + kohtaus.polku);
   await odotaRauha(sivu);
+  if (kohtaus.lahde === 'sivusto') await esivierita(sivu);
 
   const kuvat = [];
+  const vieritys = () => sivu.evaluate(() => window.scrollY);
   const kuva = async (t0) => {
     const nimi = `${String(kuvat.length).padStart(2, '0')}.png`;
     await sivu.screenshot({ path: join(kansio, nimi) });
-    kuvat.push({ src: `/.video/kuvat/${kohtaus.id}/${nimi}`, t0 });
+    kuvat.push({ src: `/.video/kuvat/${kohtaus.id}/${nimi}`, t0, y: await vieritys() });
   };
 
-  const kamera = [{ ...kameranPaikka(null, 1), t0: 0, t1: 0 }];
+  /* Kameran x, y ja zoom ovat näkymän koordinaateissa; vy on sivun
+     vierityskohta, jota kuvat seuraavat. */
+  const kamera = [{ ...kameranPaikka(null, 1), vy: await vieritys(), t0: 0, t1: 0 }];
   const kursori = [{ x: NAKYMA.width * 0.72, y: NAKYMA.height * 0.78, t0: 0, t1: 0 }];
   const otsikot = [{ t: 0, teksti: kohtaus.otsikko }];
 
@@ -174,7 +216,29 @@ async function tallenna(selain, kohtaus, osoitteet) {
     if (vaihe.kamera) {
       const laatikko = vaihe.kamera.kohde ? await yhdistetytRajat(sivu, vaihe.kamera.kohde) : null;
       const kesto = Math.min(KAMERA_ENINTAAN, vaihe.s * 0.7);
-      kamera.push({ ...kameranPaikka(laatikko, vaihe.kamera.zoom), t0: t, t1: t + kesto });
+      kamera.push({ ...kameranPaikka(laatikko, vaihe.kamera.zoom), vy: await vieritys(), t0: t, t1: t + kesto });
+    }
+    if (vaihe.tee === 'vierita') {
+      /* Vieritys kuvataan näkymän korkuisina paloina alku- ja
+         loppukohdan väliltä, ja sommittelu liu'uttaa niitä. Navi
+         piilotetaan paloista, koska se väistyy vierittäessä alas
+         (päätös 37). */
+      const alku = await vieritys();
+      const laatikko = await etsi(sivu, vaihe.kohde).boundingBox();
+      const korkeus = await sivu.evaluate(() => document.documentElement.scrollHeight);
+      const loppu = Math.round(Math.min(korkeus - NAKYMA.height, Math.max(0, alku + laatikko.y - VIERITYS_YLAREUNA)));
+      const kesto = Math.min(VIERITYS_ENINTAAN, vaihe.s * 0.8);
+      const piilotus = await sivu.addStyleTag({ content: '.nav-kehys { visibility: hidden !important; }' });
+      for (let y = alku; ; y = Math.min(loppu, y + NAKYMA.height)) {
+        await sivu.evaluate((y) => window.scrollTo(0, y), y);
+        await sivu.waitForTimeout(250);
+        await kuva(t);
+        if (y === loppu) break;
+      }
+      await piilotus.evaluate((n) => n.remove());
+      await sivu.waitForTimeout(600);
+      kamera.push({ ...kamera.at(-1), vy: loppu, t0: t, t1: t + kesto });
+      await kuva(t + kesto);
     }
     if (vaihe.tee === 'klikkaa') {
       const kohde = etsi(sivu, vaihe.kohde);
@@ -187,9 +251,25 @@ async function tallenna(selain, kohtaus, osoitteet) {
       await sivu.mouse.move(x, y);
       await sivu.waitForTimeout(400);
       await kuva(t + OSOITIN_PERILLA - 0.05);
+      const linkki = await kohde.evaluate((n) => !!n.closest('a[href]'));
+      const ennen = sivu.url();
       await sivu.mouse.click(x, y);
-      await odotaRauha(sivu);
-      await kuva(t + KLIKKAUS + 0.04);
+      if (linkki) {
+        /* Sivunvaihto: ensin sivuston oma odotustila (päätös 41),
+           sitten uusi sivu, kun osoite on vaihtunut. */
+        await sivu.waitForTimeout(300);
+        await kuva(t + KLIKKAUS + 0.04);
+        await sivu.waitForURL((u) => u.href !== ennen, { timeout: 8000 });
+        await odotaRauha(sivu);
+        /* Uusi sivu alkaa omasta vierityskohdastaan, joten kamera
+           hyppää siihen samalla hetkellä kuin kuva vaihtuu. */
+        const hetki = t + KLIKKAUS + SIVUNVAIHTO;
+        kamera.push({ ...kamera.at(-1), vy: await vieritys(), t0: hetki, t1: hetki + 0.001 });
+        await kuva(hetki);
+      } else {
+        await odotaRauha(sivu);
+        await kuva(t + KLIKKAUS + 0.04);
+      }
     }
     t += vaihe.s;
   }
@@ -236,6 +316,20 @@ async function kokoa(selain, id, aikajana, osoite) {
   console.log(`\r${id}: ${tiedosto}`);
 }
 
+/** Kohtaukset peräkkäin yhdeksi videoksi. Jokainen kohtaus alkaa ja
+    päättyy pohjaväriin, joten leikkaus ei näy. */
+function yhdista(idt) {
+  const lista = join(ULOS, 'kohtaukset.txt');
+  writeFileSync(lista, idt.map((id) => `file '${id}.mp4'`).join('\n'));
+  const tiedosto = join(ULOS, 'demo.mp4');
+  const ajo = spawnSync(ffmpegPolku, [
+    '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lista,
+    '-c', 'copy', '-movflags', '+faststart', tiedosto,
+  ], { stdio: 'inherit' });
+  if (ajo.status !== 0) throw new Error('Kohtausten yhdistäminen epäonnistui');
+  console.log(`demo: ${tiedosto}`);
+}
+
 const valitut = process.argv.slice(2);
 const ajettavat = valitut.length ? kohtaukset.filter((k) => valitut.includes(k.id)) : kohtaukset;
 if (!ajettavat.length) {
@@ -244,16 +338,20 @@ if (!ajettavat.length) {
 }
 
 if (ajettavat.some((k) => k.lahde === 'storybook')) varmistaStorybook();
+if (ajettavat.some((k) => k.lahde === 'sivusto')) varmistaSivusto();
 const storybook = await palvele(STORYBOOK);
+const sivusto = await palvele(SIVUSTO);
 const repo = await palvele(JUURI);
 const selain = await chromium.launch();
 try {
   for (const kohtaus of ajettavat) {
-    const aikajana = await tallenna(selain, kohtaus, { storybook: storybook.osoite });
+    const aikajana = await tallenna(selain, kohtaus, { storybook: storybook.osoite, sivusto: sivusto.osoite });
     await kokoa(selain, kohtaus.id, aikajana, repo.osoite);
   }
+  if (!valitut.length) yhdista(ajettavat.map((k) => k.id));
 } finally {
   await selain.close();
   storybook.palvelin.close();
+  sivusto.palvelin.close();
   repo.palvelin.close();
 }

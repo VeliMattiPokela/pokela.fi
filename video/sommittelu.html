@@ -55,6 +55,18 @@
     transform-origin: 0 0; opacity: 0;
   }
 
+  /* Väliotsikkokortti: avaus ja lopetus ilman ikkunaa. */
+  .kortti { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; padding: 0 96px 0 584px; }
+  .kortti .tunniste { position: static; margin-bottom: 32px; }
+  .kortti h1 {
+    margin: 0; max-width: 1100px;
+    font-family: var(--font-display); font-weight: var(--weight-400);
+    font-size: 112px; line-height: 1.05; letter-spacing: var(--tr-display-xl);
+  }
+  .kortti p { margin: 40px 0 0; max-width: 640px; font-size: 22px; line-height: 1.5; color: var(--ink-muted); }
+  body.on-kortti .kortti { display: flex; }
+  body.on-kortti .ikkuna, body.on-kortti .teksti > :not(.merkki) { display: none; }
+
   .kursori { position: absolute; left: 0; top: 0; width: 26px; height: 26px; transform-origin: 3px 2px; }
   .rengas {
     position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px;
@@ -68,6 +80,11 @@
     <h1 class="otsikko" id="otsikkoA"></h1>
     <h1 class="otsikko" id="otsikkoB"></h1>
     <div class="merkki">pokela.fi</div>
+  </div>
+  <div class="kortti" id="kortti">
+    <div class="tunniste" id="korttiTunniste"></div>
+    <h1 id="korttiOtsikko"></h1>
+    <p id="korttiTeksti"></p>
   </div>
   <div class="ikkuna" id="ikkuna">
     <div class="palkki"><i></i><i></i><i></i><span id="osoite"></span></div>
@@ -109,11 +126,28 @@
     return nyt;
   }
 
+  /* Kortti: tunniste, otsikko ja teksti nousevat porrastetusti. */
+  function kortti(t) {
+    const pois = 1 - valilla(t, A.kesto - 0.6, A.kesto);
+    [['korttiTunniste', 0.1], ['korttiOtsikko', 0.3], ['korttiTeksti', 0.7]].forEach(([id, alku]) => {
+      const p = ulos(valilla(t, alku, alku + 1.0));
+      const e = document.getElementById(id);
+      e.style.opacity = p * pois;
+      e.style.transform = `translateY(${(1 - p) * 18}px)`;
+    });
+  }
+
   window.piirra = {
     async alusta(aikajana) {
       A = aikajana;
       document.getElementById('tunniste').textContent = A.tunniste;
-      document.getElementById('osoite').textContent = A.osoiteteksti;
+      document.getElementById('osoite').textContent = A.osoiteteksti ?? '';
+      if (A.kortti) {
+        document.body.classList.add('on-kortti');
+        document.getElementById('korttiTunniste').textContent = A.tunniste;
+        document.getElementById('korttiOtsikko').textContent = A.otsikot[0].teksti;
+        document.getElementById('korttiTeksti').textContent = A.kortti.teksti ?? '';
+      }
       const nakyma = document.getElementById('nakyma');
       for (const k of A.kuvat) {
         const img = new Image();
@@ -126,6 +160,7 @@
     },
 
     ruutu(t) {
+      if (A.kortti) return kortti(t);
       /* Sisääntulo ja poistuminen. */
       const sisaan = ulos(valilla(t, 0, 0.9));
       const pois = 1 - valilla(t, A.kesto - 0.6, A.kesto);
@@ -147,12 +182,12 @@
       b.style.opacity = ed ? (1 - valilla(t, nyt.t, nyt.t + 0.3)) * pois : 0;
 
       /* Kamera. */
-      const k = avain(A.kamera, t, ['x', 'y', 'zoom']);
+      const k = avain(A.kamera, t, ['x', 'y', 'zoom', 'vy']);
       const s = S0 * k.zoom;
       const tx = NAKYMA.w / 2 - k.x * s;
       const ty = NAKYMA.h / 2 - k.y * s;
       for (const kuva of kuvat) {
-        kuva.img.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+        kuva.img.style.transform = `translate(${tx}px, ${ty + (kuva.y - k.vy) * s}px) scale(${s})`;
         kuva.img.style.opacity = rajaa((t - kuva.t0) / 0.14) * (kuva.t1 == null ? 1 : 1 - rajaa((t - kuva.t1) / 0.14));
       }
 
