@@ -834,6 +834,19 @@ export async function rakenna({ kirjoita = true } = {}) {
         leveys: paikka.ratio === 'hero' ? 1920 : 1600,
       });
       manifesti[paikka.id] = { tyyppi: 'video', esitys: esitys(paikka), leveys, korkeus };
+      /* Heron oma mobiilivideo, kuten heron oma mobiilikuva: 4:5
+         leikkaa leveästä videosta yli puolet, joten puhelimelle voi
+         antaa oman nauhoituksen. Pääversio näytetään siitä alkaen,
+         mistä heron seuraava kuvasuhde alkaa (SUHTEET.hero), joten
+         raja on sama kuin kuvalla. */
+      const mobiiliVideo = omat.find(
+        (l) => l.osa === 'mobiili' && l.tiedosto &&
+          VIDEOPAATTEET.includes(extname(l.tiedosto).toLowerCase()),
+      );
+      if (mobiiliVideo) {
+        const koko = await teeVideo(mobiiliVideo.nimi, mobiiliVideo.tiedosto, { kirjoita, leveys: 1080 });
+        manifesti[paikka.id].mobiili = { ...koko, paaAlkaen: SUHTEET.hero[1].media };
+      }
       continue;
     }
 
