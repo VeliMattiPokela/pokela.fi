@@ -227,7 +227,7 @@ async function tallenna(selain, kohtaus, osoitteet) {
   rmSync(kansio, { recursive: true, force: true });
   mkdirSync(kansio, { recursive: true });
 
-  const sivu = await selain.newPage({ viewport: NAKYMA, deviceScaleFactor: 2 });
+  const sivu = await selain.newPage({ viewport: NAKYMA, deviceScaleFactor: kohtaus.tarkkuus ?? 2 });
   await sivu.goto(osoitteet[kohtaus.lahde] + kohtaus.polku);
   await odotaRauha(sivu);
   if (kohtaus.lahde === 'sivusto') await esivierita(sivu);

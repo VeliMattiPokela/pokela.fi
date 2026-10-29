@@ -43,6 +43,8 @@ export type Kohtaus =
       osoiteteksti: string;
       lahde: 'storybook' | 'sivusto' | 'figma';
       polku: string;
+      /** Tallennuksen pikselitiheys, oletus 2. Suurempi, kun kamera tarkentaa pieneen tekstiin. */
+      tarkkuus?: number;
       vaiheet: Vaihe[];
     }
   | {
@@ -68,7 +70,8 @@ const vaihe = (nimi: string): Kohde => ({ valitsin: `li.tyotapa__vaihe:has-text(
 
 const tarkistus = (nimi: string): Kohde => ({ valitsin: `button[aria-expanded]:has(:text-is("${nimi}"))` });
 
-const kehys = (id: string): Kohde => ({ valitsin: `figure#${id}` });
+/* Figma-taulun kohdealue kehyksen sisällä (video/figma/taulu.html). */
+const alue = (id: string): Kohde => ({ valitsin: `#${id}` });
 
 const CASE = '/fi/tyot/portfolio/';
 
@@ -109,26 +112,30 @@ export const kohtaukset: Kohtaus[] = [
     osoiteteksti: 'Figma — Pokela Portfolio',
     lahde: 'figma',
     polku: '/video/figma/taulu.html',
-    /* Figma on kanvaasi, joten kohtaus on kameran kierros:
-       värit, komponenttijoukko ja sen dokumentaatio. */
+    /* Figma tallennetaan tarkempana, koska kamera tarkentaa kehysten
+       pieneen tekstiin. */
+    tarkkuus: 4,
+    /* Yksi liike: kanvaasin yleiskuvasta tarkennetaan kerran, ja kamera
+       liukuu samalla zoomilla vasemmalta oikealle muuttujista
+       komponenttiin ja sen Code Connect -kytkentään. */
     vaiheet: [
       { tee: 'odota', s: 1.4 },
       {
         tee: 'odota',
-        s: 2.6,
-        kamera: { kohde: kehys('vari'), zoom: 1.6 },
-        otsikko: 'Värit ovat Figmassa samat kuin koodissa',
+        s: 2.8,
+        kamera: { kohde: alue('vari-muuttujat'), zoom: 2.4 },
+        otsikko: 'Värit ovat Figman muuttujia, samat kuin koodissa',
       },
       {
         tee: 'odota',
         s: 2.6,
-        kamera: { kohde: kehys('button'), zoom: 1.9 },
+        kamera: { kohde: alue('button-variantit'), zoom: 2.4 },
         otsikko: 'Komponentilla on samat variantit ja koot',
       },
       {
         tee: 'odota',
-        s: 2.8,
-        kamera: { kohde: kehys('dokumentaatio'), zoom: 1.6 },
+        s: 3,
+        kamera: { kohde: alue('dokumentaatio-koodissa'), zoom: 2.4 },
         otsikko: 'Code Connect kytkee komponentin koodiin',
       },
     ],
