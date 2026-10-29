@@ -1073,7 +1073,7 @@ mitä kuvan pitää näyttää.
 |  | 9 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — varausnäkymä kapeana |
 |  | 10 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — natiivisovellus, ei laitekehystä |
 |  | 11 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
-| ✓ | 12 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu työpöydällä: hinta, arvio ja huomiot heti ilmoituksen lukemisen jälkeen. |
+| ✓ | 12 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivun kansi työpöydällä: ilmoituksen kuva, osoite, koko ja hinta heti lukemisen jälkeen. |
 | ✓ | 13 | Himat | `himat-tuonti` | 3:4 · ≥880 px | Ilmoituksen linkki liitetään, ja Himat lukee ilmoituksen |
 | ✓ | 14 | Himat | `himat-kansi` | 3:4 · ≥880 px | Kohteen kansi: arvio, huomioitavaa ja hyvää |
 | ✓ | 15 | Himat | `himat-kulut` | 3:4 · ≥880 px | Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat |

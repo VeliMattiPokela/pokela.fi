@@ -404,7 +404,7 @@ const himat: Case = {
       media: {
         id: 'himat-hero',
         ratio: 'hero',
-        caption: 'Kohdesivu työpöydällä: hinta, arvio ja huomiot heti ilmoituksen lukemisen jälkeen.',
+        caption: 'Kohdesivun kansi työpöydällä: ilmoituksen kuva, osoite, koko ja hinta heti lukemisen jälkeen.',
       },
     },
     {
