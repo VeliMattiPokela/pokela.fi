@@ -117,54 +117,10 @@
       }
     },
     "himat-hero": {
-      "tyyppi": "kuva",
+      "tyyppi": "video",
       "esitys": "taysi",
-      "teema": "yhteinen",
-      "osat": {
-        "himat-hero": [
-          {
-            "koko": "base",
-            "media": null,
-            "suhde": 0.8,
-            "leveydet": [
-              480,
-              780
-            ],
-            "leveys": 780,
-            "korkeus": 975
-          },
-          {
-            "koko": "sm",
-            "media": "(min-width: 600px)",
-            "suhde": 1.7778,
-            "leveydet": [
-              480,
-              800,
-              1200,
-              1600,
-              2000,
-              2489
-            ],
-            "leveys": 2489,
-            "korkeus": 1400
-          },
-          {
-            "koko": "lg",
-            "media": "(min-width: 900px)",
-            "suhde": 2.3333,
-            "leveydet": [
-              480,
-              800,
-              1200,
-              1600,
-              2000,
-              2800
-            ],
-            "leveys": 2800,
-            "korkeus": 1200
-          }
-        ]
-      }
+      "leveys": 2800,
+      "korkeus": 1200
     },
     "himat-kansi": {
       "tyyppi": "video",
