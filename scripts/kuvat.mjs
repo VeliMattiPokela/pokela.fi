@@ -174,6 +174,7 @@ export async function paikat() {
         missa: oma ?? '(tuntematon)',
         tarveLeveys: solmu.tarveLeveys,
         esitys: solmu.esitys,
+        teema: solmu.teema,
         lohko: omaLohko ?? 'media',
         vertailu: solmu.kind === 'compare',
       });
@@ -205,6 +206,7 @@ export async function paikat() {
  *
  *   vertailupari   ennen + jalkeen, molemmat pakollisia
  *   hero           pääkuva pakollinen, mobiili valinnainen
+ *   teema: omat    pääkuva vaaleaan teemaan, tumma pakollinen
  *
  * Hero rajataan kolmeen kuvasuhteeseen (4:5 → 16:9 → 21:9), ja
  * mobiilin 4:5 leikkaa leveästä lähteestä yli puolet. Oma
@@ -217,6 +219,11 @@ export async function paikat() {
  * molempiin.
  */
 function osat(paikka) {
+  /* Kuva, jossa on oma tausta, ei voi seurata teemaa maskina kuten
+     viiva. Silloin kumpaankin teemaan tehdään oma kuva (päätös 51),
+     ja tumma on pakollinen: ilman sitä tumma teema näyttäisi vaalean
+     kuvan, eikä mikään kertoisi siitä. */
+  const tumma = paikka.teema === 'omat' ? [{ osa: 'tumma', pakollinen: true }] : [];
   if (paikka.vertailu) {
     return [
       { osa: 'ennen', pakollinen: true },
@@ -227,9 +234,10 @@ function osat(paikka) {
     return [
       { osa: null, pakollinen: true },
       { osa: 'mobiili', pakollinen: false },
+      ...tumma,
     ];
   }
-  return [{ osa: null, pakollinen: true }];
+  return [{ osa: null, pakollinen: true }, ...tumma];
 }
 
 /** Osan lähdenimi: `colliers-hero` tai `colliers-hero-mobiili`. */
@@ -845,6 +853,10 @@ export async function rakenna({ kirjoita = true } = {}) {
             { ulos: paikka.id, lahde: paa, koot: ['sm', 'lg'] },
           ]
         : [{ ulos: paikka.id, lahde: paa, koot: null }];
+    /* Tumman teeman kuva rajataan kaikkiin samoihin kokoihin omasta
+       lähteestään, omalla nimellään. */
+    const tumma = omat.find((l) => l.osa === 'tumma' && l.tiedosto);
+    if (tumma) palat.push({ ulos: tumma.nimi, lahde: tumma, koot: null });
 
     const tapa = esitys(paikka);
     const tulokset = {};
@@ -904,7 +916,7 @@ export async function rakenna({ kirjoita = true } = {}) {
     );
     manifesti[paikka.id] = paikka.vertailu
       ? { tyyppi: 'vertailu', osat }
-      : { tyyppi: 'kuva', esitys: tapa, osat };
+      : { tyyppi: 'kuva', esitys: tapa, teema: tumma ? 'omat' : 'yhteinen', osat };
   }
 
   const logot = await teeLogot({ kirjoita });

@@ -3,6 +3,7 @@
     "blokbook-hero": {
       "tyyppi": "kuva",
       "esitys": "taysi",
+      "teema": "yhteinen",
       "osat": {
         "blokbook-hero": [
           {
@@ -53,6 +54,7 @@
     "colliers-haku": {
       "tyyppi": "kuva",
       "esitys": "levy",
+      "teema": "yhteinen",
       "osat": {
         "colliers-haku": [
           {
@@ -78,6 +80,7 @@
     "colliers-strapi": {
       "tyyppi": "kuva",
       "esitys": "levy",
+      "teema": "yhteinen",
       "osat": {
         "colliers-strapi": [
           {
@@ -96,6 +99,7 @@
     "colliers-vuokraus": {
       "tyyppi": "kuva",
       "esitys": "levy",
+      "teema": "yhteinen",
       "osat": {
         "colliers-vuokraus": [
           {
@@ -115,6 +119,7 @@
     "media-viiva": {
       "tyyppi": "kuva",
       "esitys": "viiva",
+      "teema": "yhteinen",
       "osat": {
         "media-viiva": [
           {
@@ -166,6 +171,7 @@
     "muotokuva": {
       "tyyppi": "kuva",
       "esitys": "taysi",
+      "teema": "yhteinen",
       "osat": {
         "muotokuva": [
           {
@@ -232,6 +238,47 @@
       "esitys": "levy",
       "leveys": 736,
       "korkeus": 1308
+    },
+    "tyot-storybook": {
+      "tyyppi": "kuva",
+      "esitys": "taysi",
+      "teema": "omat",
+      "osat": {
+        "tyot-storybook": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 1.3333,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              2000,
+              2736
+            ],
+            "leveys": 2736,
+            "korkeus": 2052
+          }
+        ],
+        "tyot-storybook-tumma": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 1.3333,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              2000,
+              2736
+            ],
+            "leveys": 2736,
+            "korkeus": 2052
+          }
+        ]
+      }
     }
   },
   "numerot": {

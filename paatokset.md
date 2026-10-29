@@ -1608,3 +1608,29 @@ rekisterissä (`group`), mutta casessa se näkyy vain aikajanalla.
 joten ne eivät näy buildin aikajanalla, vaikka ne ovat listassa.
 
 *Kirjattu 28.10.2026 Vellun pyynnöstä*
+
+## 51. Kuvalla, jossa on oma tausta, on oma kuva kumpaankin teemaan
+
+**Tilanne:** Työt-sivun nostokuvaksi (paikka 21) tehtiin seinä
+design systemin komponenteista perspektiivissä. Kuvassa on teeman
+mukainen tausta ja komponentit, joten sama kuva näytti tummassa
+teemassa vaalealta laatalta. Viiva-esitys (päätös 35) ei auta, koska
+se piirtää vain yhden värin maskina.
+
+**Päätös:** paikalle voi antaa sisällössä `teema: 'omat'`. Silloin
+kuvaputki vaatii kaksi lähdettä, `<id>` ja `<id>-tumma`, ja rajaa
+molemmat samoihin kokoihin. Media piirtää kaksi kuvaa päällekkäin, ja
+CSS näyttää teeman mukaisen samoilla ehdoilla kuin tokens.css: oma
+valinta voittaa, muuten käyttöjärjestelmä. Piilotettua laiskaa kuvaa
+selain ei lataa. Median `teema`-props on Code Connectin
+`Teema`-variantti, joten Figma-tarkistus vaatii tilan myös
+kirjastoon (päätös 10).
+
+**Perustelu:** tumma teema on sivuston tasavertainen tila, ei
+jälkikäteen sovitettu. Tumma lähde on pakollinen, koska puuttuva
+tumma kuva ei kaatuisi mihinkään vaan näkyisi vain väärän värisenä.
+
+**Raja:** vain täysi esitys. Levy ja vertailupari eivät vielä tunne
+teemaa, koska niissä ei ole tarvetta.
+
+*Kirjattu 29.10.2026 Vellun pyynnöstä*
