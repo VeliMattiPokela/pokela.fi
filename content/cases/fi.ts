@@ -404,7 +404,7 @@ const himat: Case = {
       media: {
         id: 'himat-hero',
         ratio: 'hero',
-        caption: 'Kohdesivu työpöydällä alusta loppuun: kansi, yhteenveto, kulut, arki, taloyhtiö ja ilmoituksen tiedot.',
+        caption: 'Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen ja kokoaa kohteen kannen.',
       },
     },
     {
