@@ -70,8 +70,12 @@
   /* Vaihepolku: koko videon ajan näkyvä aikajana, joka kertoo, missä
      kohtaa prosessia ollaan. Täyttyy kohtaus kohtaukselta, joten
      kohtausten leikkauksissa se jatkuu katkeamatta. */
-  .polku { position: absolute; left: 96px; right: 96px; top: 1002px; display: flex; }
-  .polku .rata { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); }
+  .nauha {
+    position: absolute; left: 0; right: 0; top: 984px; bottom: 0;
+    background: var(--badge-surface); border-top: var(--hairline) solid var(--line);
+  }
+  .polku { position: absolute; left: 96px; right: 96px; top: 1020px; display: flex; }
+  .polku .rata { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--ink-faint); opacity: 0.35; }
   .polku .taytto { position: absolute; left: 0; top: 0; height: 1px; background: var(--ink); }
   .polku .paa {
     position: absolute; top: 0; width: 9px; height: 9px; margin: -4px 0 0 -4px;
@@ -80,7 +84,7 @@
   .polku .askel { position: relative; flex: 1; padding-top: 18px; }
   .polku .askel::before {
     content: ''; position: absolute; left: 0; top: -2px; width: 5px; height: 5px;
-    border-radius: 50%; background: var(--paper-alt); border: 1px solid var(--line-strong);
+    border-radius: 50%; background: var(--badge-surface); border: 1px solid var(--line-strong);
   }
   .polku .askel.ohi::before { background: var(--ink); border-color: var(--ink); }
   .polku .nro {
@@ -122,6 +126,7 @@
     </div>
   </div>
 
+  <div class="nauha" id="nauha"></div>
   <div class="polku" id="polku"><div class="rata"></div><div class="taytto" id="taytto"></div><div class="paa" id="paa"></div></div>
 
 <script>
@@ -181,6 +186,7 @@
       edistys = (i + rajaa(t / A.kesto)) / n;
     }
     polku.style.opacity = nakyvyys;
+    document.getElementById('nauha').style.opacity = nakyvyys;
     document.getElementById('taytto').style.width = `${edistys * 100}%`;
     const paa = document.getElementById('paa');
     paa.style.left = `${edistys * 100}%`;
