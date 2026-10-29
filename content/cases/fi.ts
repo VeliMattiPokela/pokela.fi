@@ -358,6 +358,11 @@ const thisSite: Case = {
         title: 'Tulossa',
         note: 'Tarkistus on kirjoitettu, mutta sitä ei vielä ajeta, joten se ei ole otsikon luvussa.',
       },
+      paivitys: {
+        title: 'Sivuston päivitys',
+        note: 'Jokainen päivitys kulkee tarkistusten läpi ennen julkaisua. Tämä sivu on alla olevan päivityksen tulos.',
+        row: 'Viimeisin päivitys',
+      },
     },
     {
       kind: 'text',

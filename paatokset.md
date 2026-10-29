@@ -1609,6 +1609,13 @@ joten ne eivät näy buildin aikajanalla, vaikka ne ovat listassa.
 
 *Kirjattu 28.10.2026 Vellun pyynnöstä*
 
+**Tarkennus 29.10.2026:** "Viimeisin ajo" näytti kuuluvan
+Tulossa-ryhmään, koska se oli listan viimeinen rivi ilman omaa
+otsikkoa. Sillä on nyt oma ryhmä *Sivuston päivitys* selitteineen, ja
+rivin nimi on "Viimeisin päivitys": "ajo" on kehittäjän sana, ja
+lukija ymmärtää päivityksen. Tekstit ovat casen sisällössä
+(`paivitys`).
+
 ## 51. Kuvalla, jossa on oma tausta, on oma kuva kumpaankin teemaan
 
 **Tilanne:** Työt-sivun nostokuvaksi (paikka 21) tehtiin seinä
