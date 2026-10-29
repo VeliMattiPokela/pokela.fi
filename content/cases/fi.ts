@@ -384,6 +384,195 @@ const thisSite: Case = {
       note: 'Linkit vievät oikeisiin työkaluihin ja tiedostoihin.',
     },
   ],
+  next: { slug: 'himat', title: 'Himat' },
+};
+
+const himat: Case = {
+  slug: 'himat',
+  eyebrow: 'Case 04 · 2026 · Oma tuote',
+  title: 'Himat',
+  tagline: 'Asuntoportaalit auttavat löytämään kodin. Himat auttaa ymmärtämään, mitä sen ostaminen tarkoittaisi.',
+  facts: [
+    { label: 'Rooli', value: 'Oma tuote · tuote, design, toteutus' },
+    { label: 'Palvelun nykytila', value: 'Beta, rajattu ulkoinen pilotti' },
+    { label: 'Alusta', value: 'Web, mobiili edellä' },
+    { label: 'Stack', value: 'Next.js, TypeScript, Supabase, Claude' },
+  ],
+  blocks: [
+    {
+      kind: 'media',
+      media: {
+        id: 'himat-hero',
+        ratio: 'hero',
+        caption: 'Kohdesivu työpöydällä: hinta, arvio ja huomiot heti ilmoituksen lukemisen jälkeen.',
+      },
+    },
+    {
+      kind: 'text',
+      label: 'Lähtötilanne',
+      items: [
+        {
+          p: 'Asunnon ostaminen on useimmille elämän suurin taloudellinen päätös, mutta siihen tarvittava tieto on hajallaan: ilmoitus yhdessä palvelussa, taloyhtiön dokumentit PDF:inä, lainalaskelma pankin sivulla ja oma talous taulukossa. Nykyiset työkalut lisäävät dataa ostajan eteen.',
+        },
+        {
+          h: 'Tehtävä',
+          p: 'Palvelu, joka vähentää ostajan tulkintatyötä. Ilmoituksen linkistä syntyy kohdenäkymä, joka kertoo heti, mitä kohteesta kannattaa huomata ja mitä se maksaisi juuri tälle kotitaloudelle. Ei uusi asuntoportaali, ei pankkilaskuri eikä yksi pistemäärä.',
+        },
+      ],
+    },
+    {
+      kind: 'text',
+      label: 'Päätös',
+      lead: 'Tekoäly lukee ja selittää, koodi laskee ja arvioi',
+      items: [
+        {
+          h: 'Valinta',
+          p: 'Kielimalli poimii tiedot ilmoituksesta ja taloyhtiön dokumenteista, luokittelee ne ja kirjoittaa yhteenvedon. Laskelmat ja arvioiden tasot tehdään testatulla koodilla.',
+        },
+        {
+          h: 'Miksi',
+          p: 'Asuntokaupassa väärä luku on kallis. Mallin vastaus tarkistetaan skeemaa ja lähdettä vasten, ja koodi hylkää yhteenvedon, jonka lukuja lähteestä ei löydy.',
+        },
+        {
+          h: 'Seuraus',
+          p: 'Jokainen väite johtaa lähteeseen tai laskelmaan, ja puuttuva tieto näytetään puuttuvana eikä arvattuna.',
+        },
+      ],
+    },
+    {
+      kind: 'trio',
+      label: 'Linkistä päätökseen',
+      title: 'Ilmoituksen linkki riittää alkuun',
+      items: [
+        {
+          media: { id: 'himat-tuonti', ratio: '3:4', caption: 'Ilmoituksen linkki liitetään, ja Himat lukee ilmoituksen' },
+          h: 'Liitä linkki',
+          p: 'Ei lomakkeita eikä kopiointia. Ensimmäisen kodin saa luettua ennen kuin tiliä tarvitaan.',
+        },
+        {
+          media: { id: 'himat-kansi', ratio: '3:4', caption: 'Kohteen kansi: arvio, huomioitavaa ja hyvää' },
+          h: 'Kokonaiskuva kerralla',
+          p: 'Kansi kertoo ensin olennaisen: mikä on hyvää ja mitä kannattaa selvittää. Yksityiskohdat ja lähteet ovat sen alla.',
+        },
+        {
+          media: { id: 'himat-kulut', ratio: '3:4', caption: 'Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat' },
+          h: 'Mitä koti maksaisi',
+          p: 'Laskelma lainasta, vastikkeista ja kaupan hetken rahoista. Talouskysymykset kysytään yksi kerrallaan, ei pitkänä lomakkeena.',
+        },
+      ],
+    },
+    {
+      kind: 'band',
+      title: 'Fakta, laskelma ja arvio pidetään erillään',
+      body: 'Ostaja näkee aina, mikä on lähteen tietoa, mikä on laskettu ja mikä on arvio. Siksi tulkintaan voi luottaa, ja sen voi tarkistaa.',
+    },
+    {
+      kind: 'text',
+      label: 'Arvolupaus',
+      lead: 'Vähemmän tulkintaa, ei lisää dataa',
+      items: [
+        {
+          h: 'Arvoa ennen kirjautumista',
+          p: 'Ensimmäisen kodin voi tuoda ja lukea ilman tiliä. Tili tarvitaan vasta, kun koteja tallennetaan tai verrataan.',
+        },
+        {
+          h: 'Ei yhtä pistemäärää',
+          p: 'Kustannustaso, taloudellinen liikkumavara ja sopivuus ovat erillisiä tulkintoja, ja jokaisen taustalla oleva sääntö on avattavissa.',
+        },
+        {
+          h: 'Epävarmuus näkyy',
+          p: 'Kun tieto puuttuu, palvelu sanoo sen ja kertoo, mistä tiedon saa, esimerkiksi isännöitsijäntodistuksesta.',
+        },
+        {
+          h: 'Koko kotitalous',
+          p: 'Kodit ja talous voidaan jakaa kumppanin kanssa, ja laskelmat tehdään kotitalouden omista luvuista.',
+        },
+      ],
+    },
+    {
+      kind: 'pair',
+      label: 'Arki ja vertailu',
+      items: [
+        {
+          id: 'himat-sijainti',
+          ratio: '3:4',
+          label: 'Sopiiko arkeen',
+          caption: 'Sijainti: matkat, palvelut, luonto ja melu',
+        },
+        {
+          id: 'himat-vertailu',
+          ratio: '3:4',
+          label: 'Kaksi kotia rinnakkain',
+          caption: 'Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä',
+        },
+      ],
+    },
+    {
+      kind: 'scope',
+      surface: 'tint',
+      label: 'Vastuualueet',
+      title: 'Ideasta betaan yhdellä tekijällä',
+      body: 'Tuotteen kaikki osa-alueet, ja tekoäly työn keskiössä alusta asti.',
+      items: [
+        'Tuotekonsepti ja rajaus',
+        'Brändi ja ilme',
+        'UX ja käyttöliittymä',
+        'Design system ja tokenit',
+        'Front end',
+        'Backend, tietokanta ja tietoturva',
+        'Tekoälyn poiminta ja sen mittaus',
+        'Saavutettavuus ja laatuportit',
+        'Infra ja julkaisu',
+      ],
+    },
+    {
+      kind: 'text',
+      label: 'Laatu',
+      lead: 'Säännöt ovat rekisterissä, eivät kehotteessa',
+      items: [
+        {
+          h: 'Mitattu tekoäly',
+          p: 'Jokainen poiminnan sääntö ja normalisointi on kirjattu syineen, ja sen takana on testiaineisto, joka todistaa sen. Kehotteen muutos mitataan aineistoa vasten ennen käyttöönottoa.',
+        },
+        {
+          h: 'Samat portit joka muutoksessa',
+          p: 'Saavutettavuus WCAG 2.2 AA -tasolla, rivitason tietoturva jokaisessa taulussa, tiukka sisältöturvakäytäntö sekä yksikkö-, komponentti- ja E2E-testit.',
+        },
+        {
+          h: 'Päätökset kirjattuina',
+          p: 'Arkkitehtuuripäätökset on kirjattu perusteluineen, joten tekoälyagentti ja ihminen työskentelevät samoilla säännöillä.',
+        },
+      ],
+    },
+    {
+      kind: 'text',
+      label: 'Lopputulos',
+      lead: 'Beta on rajatussa ulkoisessa pilotissa',
+      items: [
+        {
+          p: 'Himat lukee ilmoituksen, taloyhtiön dokumentit ja sijainnin, laskee kulut kotitalouden taloudesta ja vertaa koteja rinnakkain. Kehitys jatkuu pilotin palautteen pohjalta.',
+        },
+      ],
+    },
+    {
+      kind: 'text',
+      label: 'Rajat',
+      items: [
+        {
+          h: 'Suomen asuntokauppa',
+          p: 'Säännöt, vertailuluvut ja aluetiedot ovat suomalaisia, ja osa sijaintitiedoista kattaa vain Helsingin.',
+        },
+        {
+          h: 'Ei ostosuositusta',
+          p: 'Himat ei kerro, kannattaako kohde ostaa. Se kertoo, mitä lähteet sanovat ja mitä luvut tarkoittavat, ja päätös jää ostajalle.',
+        },
+        {
+          h: 'Design system vain koodissa',
+          p: 'Yhden tekijän tuotteessa erillinen Figma-kirjasto olisi ollut ylläpitoa ilman hyötyä. Kytkentä kannattaa vasta, kun tekijöitä on useampi.',
+        },
+      ],
+    },
+  ],
   next: { slug: 'colliers', title: 'Colliers Asunnot' },
 };
 
@@ -408,5 +597,5 @@ export const caseRefs: CaseRef[] = [
   { text: 'Blokbook', slug: 'blokbook' },
 ];
 
-const cases: Case[] = [colliers, blokbook, thisSite];
+const cases: Case[] = [colliers, blokbook, thisSite, himat];
 export default cases;

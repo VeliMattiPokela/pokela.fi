@@ -113,6 +113,16 @@ const leads: Lead[] = [
     lede:
       'Portfolio suunniteltiin ja rakennettiin koodissa. Design system on sama koodissa ja Figmassa, ja Storybook, Code Connect -kytkennät ja tarkistukset ovat julkisia.',
     meta: 'Design, front end, design system',
+    next: 'himat',
+  },
+  {
+    slug: 'himat',
+    number: '04',
+    title: 'Himat',
+    tagline: 'Asuntoilmoituksesta ymmärrettäväksi päätökseksi',
+    lede:
+      'Palvelu asunnon ostajalle: ilmoituksen linkistä syntyy kohdenäkymä, joka kertoo riskit, kulut ja sen, mitä koti tarkoittaisi omalle taloudelle. Oma tuote, betana pilottikäytössä.',
+    meta: 'Oma tuote · tuote, design, toteutus',
     next: 'colliers',
   },
 ];
@@ -120,7 +130,7 @@ const leads: Lead[] = [
 const previous: Previous[] = [
   {
     slug: 'pivo',
-    number: '04',
+    number: '05',
     title: 'Pivo',
     tagline: 'Maksusovellus 1,2 milj. käyttäjälle',
     meta: 'Service design · UX/UI',
@@ -189,7 +199,7 @@ const previous: Previous[] = [
   },
   {
     slug: 'elisa-aisti',
-    number: '05',
+    number: '06',
     title: 'Elisa Aisti',
     tagline: 'Tilannekuvapalvelu Elisan yritysasiakkaille',
     meta: 'UI/UX · Konsepti · Front end',
@@ -237,7 +247,7 @@ const previous: Previous[] = [
   },
   {
     slug: 'op-vahinkoapuri',
-    number: '06',
+    number: '07',
     title: 'OP Vahinkoapuri',
     tagline: 'Keskusteleva vahinkoilmoitus',
     meta: 'UI/UX · Konsepti · Testaus',
