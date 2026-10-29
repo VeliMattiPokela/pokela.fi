@@ -203,18 +203,26 @@ export const kohtaukset: Kohtaus[] = [
   {
     id: 'paketit',
     tunniste: '06  Paketit ja Make',
-    otsikko: 'Figma Make käyttää samoja npm-paketteja',
+    otsikko: 'Figma Make prototypoi tuotteen omilla komponenteilla',
     osoiteteksti: 'pokela.fi',
     lahde: 'sivusto',
     polku: CASE,
+    /* Make-linkin arvo kolmessa askeleessa: mistä se rakentaa, mitä sillä
+       tehdään ja mihin muutos päätyy. Paluu tuotteeseen on vielä
+       tulossa (prosessin vaihe 07), joten se sanotaan suoraan. */
     vaiheet: [
       { tee: 'vierita', kohde: vaihe('AI prototypoi'), s: 2.0 },
-      { tee: 'odota', s: 2.4, kamera: { kohde: vaihe('AI prototypoi'), zoom: 2 } },
       {
         tee: 'odota',
-        s: 3.0,
+        s: 2.8,
+        kamera: { kohde: vaihe('AI prototypoi'), zoom: 2 },
+        otsikko: 'Protot ja uudet komponentit samasta design systemistä',
+      },
+      {
+        tee: 'odota',
+        s: 3.2,
         kamera: { kohde: [vaihe('AI prototypoi'), vaihe('Takaisin tuotteeseen')], zoom: 2 },
-        otsikko: 'Tulossa: Make-muutos palaa tuotteeseen pull requestina',
+        otsikko: 'Tulossa: hyväksytty muutos palaa sovellukseen pull requestina',
       },
     ],
   },

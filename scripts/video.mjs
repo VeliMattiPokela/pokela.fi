@@ -243,7 +243,14 @@ async function tallenna(selain, kohtaus, osoitteet) {
   rmSync(kansio, { recursive: true, force: true });
   mkdirSync(kansio, { recursive: true });
 
-  const sivu = await selain.newPage({ viewport: NAKYMA, deviceScaleFactor: kohtaus.tarkkuus ?? 2 });
+  /* Sivusto tallennetaan vähemmän liikettä -tilassa: etusivun
+     korkeuskäyrät ovat silloin valmiiksi piirrettyinä paikallaan eivätkä
+     ajelehdi pysäytyskuvien välillä, ja intro jää pois. */
+  const sivu = await selain.newPage({
+    viewport: NAKYMA,
+    deviceScaleFactor: kohtaus.tarkkuus ?? 2,
+    reducedMotion: kohtaus.lahde === 'sivusto' ? 'reduce' : 'no-preference',
+  });
   await sivu.goto(osoitteet[kohtaus.lahde] + kohtaus.polku);
   await odotaRauha(sivu);
   if (kohtaus.lahde === 'sivusto') await esivierita(sivu);
