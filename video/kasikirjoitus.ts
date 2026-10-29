@@ -19,8 +19,8 @@ export type Kohde = {
 };
 
 export type Kamera = {
-  /** Mihin kamera tähtää. Ilman kohdetta koko näkymä. */
-  kohde?: Kohde;
+  /** Mihin kamera tähtää. Useampi kohde rajataan yhdessä. Ilman kohdetta koko näkymä. */
+  kohde?: Kohde | Kohde[];
   /** 1 = koko näkymä, 2 = kaksinkertainen. */
   zoom: number;
 };
@@ -46,6 +46,7 @@ const sivupalkki = (nimi: string): Kohde => ({
   valitsin: `.sidebar-container a:text-is("${nimi}")`,
 });
 const esikatselu: Kohde = { valitsin: '#storybook-root', esikatselu: true, sisalto: true };
+const teemavalikko: Kohde = { valitsin: 'button[aria-label^="Teema"]' };
 
 export const kohtaukset: Kohtaus[] = [
   {
@@ -55,19 +56,20 @@ export const kohtaukset: Kohtaus[] = [
     osoiteteksti: 'Pokela — design system',
     lahde: 'storybook',
     polku: '/?path=/story/komponentit-button--variantit&panel=false',
+    /* Yksi liike: kokonaiskuva, siirtymä koko-tilaan, yksi tarkennus,
+       ja teema vaihdetaan tarkennuksen sisällä työkalurivistä. */
     vaiheet: [
-      { tee: 'odota', s: 1.4 },
-      { tee: 'odota', s: 2.2, kamera: { kohde: esikatselu, zoom: 1.7 } },
-      { tee: 'klikkaa', kohde: sivupalkki('Koot'), s: 2.2, kamera: { zoom: 1 } },
-      { tee: 'odota', s: 2.2, kamera: { kohde: esikatselu, zoom: 1.6 } },
+      { tee: 'odota', s: 1.3 },
+      { tee: 'klikkaa', kohde: sivupalkki('Koot'), s: 1.9 },
+      { tee: 'odota', s: 1.5, kamera: { kohde: [teemavalikko, esikatselu], zoom: 1.8 } },
+      { tee: 'klikkaa', kohde: teemavalikko, s: 1.5 },
       {
         tee: 'klikkaa',
-        kohde: sivupalkki('Tumma'),
-        s: 2.4,
-        kamera: { zoom: 1 },
+        kohde: { valitsin: 'p:text-is("Tumma")' },
+        s: 2.6,
         otsikko: 'Tumma teema syntyy samoista tokeneista',
       },
-      { tee: 'odota', s: 2.4, kamera: { kohde: esikatselu, zoom: 1.6 } },
+      { tee: 'odota', s: 1.4 },
     ],
   },
 ];

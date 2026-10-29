@@ -119,6 +119,15 @@ async function rajat(sivu, kohde) {
   return { x: kehys.x + sisa.x, y: kehys.y + sisa.y, width: sisa.width, height: sisa.height };
 }
 
+/** Usean kohteen rajat yhtenä laatikkona. */
+async function yhdistetytRajat(sivu, kohteet) {
+  const laatikot = await Promise.all([kohteet].flat().map((k) => rajat(sivu, k)));
+  const x0 = Math.min(...laatikot.map((r) => r.x)), y0 = Math.min(...laatikot.map((r) => r.y));
+  const x1 = Math.max(...laatikot.map((r) => r.x + r.width));
+  const y1 = Math.max(...laatikot.map((r) => r.y + r.height));
+  return { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
+}
+
 /** Kameran paikka: keskipiste rajataan niin, ettei näkymän reuna tule kuvaan. */
 function kameranPaikka(laatikko, zoomEnintaan) {
   /* Kohde mahtuu kuvaan väljästi: zoom on enintään käsikirjoituksen
@@ -163,7 +172,7 @@ async function tallenna(selain, kohtaus, osoitteet) {
   for (const vaihe of kohtaus.vaiheet) {
     if (vaihe.otsikko) otsikot.push({ t, teksti: vaihe.otsikko });
     if (vaihe.kamera) {
-      const laatikko = vaihe.kamera.kohde ? await rajat(sivu, vaihe.kamera.kohde) : null;
+      const laatikko = vaihe.kamera.kohde ? await yhdistetytRajat(sivu, vaihe.kamera.kohde) : null;
       const kesto = Math.min(KAMERA_ENINTAAN, vaihe.s * 0.7);
       kamera.push({ ...kameranPaikka(laatikko, vaihe.kamera.zoom), t0: t, t1: t + kesto });
     }
