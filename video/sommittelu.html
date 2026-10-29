@@ -67,6 +67,31 @@
   body.on-kortti .kortti { display: flex; }
   body.on-kortti .ikkuna, body.on-kortti .teksti > :not(.merkki) { display: none; }
 
+  /* Vaihepolku: koko videon ajan näkyvä aikajana, joka kertoo, missä
+     kohtaa prosessia ollaan. Täyttyy kohtaus kohtaukselta, joten
+     kohtausten leikkauksissa se jatkuu katkeamatta. */
+  .polku { position: absolute; left: 96px; right: 96px; top: 1002px; display: flex; }
+  .polku .rata { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); }
+  .polku .taytto { position: absolute; left: 0; top: 0; height: 1px; background: var(--ink); }
+  .polku .paa {
+    position: absolute; top: 0; width: 9px; height: 9px; margin: -4px 0 0 -4px;
+    border-radius: 50%; background: var(--ink);
+  }
+  .polku .askel { position: relative; flex: 1; padding-top: 18px; }
+  .polku .askel::before {
+    content: ''; position: absolute; left: 0; top: -2px; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--paper-alt); border: 1px solid var(--line-strong);
+  }
+  .polku .askel.ohi::before { background: var(--ink); border-color: var(--ink); }
+  .polku .nro {
+    font-size: 11px; letter-spacing: var(--tr-meta); font-weight: var(--weight-500);
+    color: var(--ink-faint); margin-right: 10px;
+  }
+  .polku .nimi { font-size: 14px; color: var(--ink-faint); }
+  .polku .askel.ohi .nimi { color: var(--ink-muted); }
+  .polku .askel.nyt .nro, .polku .askel.nyt .nimi { color: var(--ink); }
+  .polku .askel.nyt .nimi { font-weight: var(--weight-500); }
+
   .kursori { position: absolute; left: 0; top: 0; width: 26px; height: 26px; transform-origin: 3px 2px; }
   .rengas {
     position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px;
@@ -96,6 +121,8 @@
       </svg>
     </div>
   </div>
+
+  <div class="polku" id="polku"><div class="rata"></div><div class="taytto" id="taytto"></div><div class="paa" id="paa"></div></div>
 
 <script>
   /* Näkymän leveys / tallennuksen leveys (1440 CSS-pikseliä). */
@@ -137,6 +164,33 @@
     });
   }
 
+  /* Vaihepolku etenee tasaisesti kohtauksen läpi. Avauskortin lopussa
+     polku ilmestyy tyhjänä, lopetuskortissa se on täynnä ja häipyy. */
+  function vaihepolku(t) {
+    const { vaiheet, i } = A.polku;
+    const n = vaiheet.length;
+    const polku = document.getElementById('polku');
+    let edistys, nakyvyys = 1;
+    if (i < 0) {
+      edistys = 0;
+      nakyvyys = ulos(valilla(t, A.kesto - 1.4, A.kesto - 0.4));
+    } else if (i >= n) {
+      edistys = 1;
+      nakyvyys = 1 - valilla(t, A.kesto - 0.6, A.kesto);
+    } else {
+      edistys = (i + rajaa(t / A.kesto)) / n;
+    }
+    polku.style.opacity = nakyvyys;
+    document.getElementById('taytto').style.width = `${edistys * 100}%`;
+    const paa = document.getElementById('paa');
+    paa.style.left = `${edistys * 100}%`;
+    paa.style.opacity = i >= 0 && i < n ? 1 : 0;
+    polku.querySelectorAll('.askel').forEach((e, j) => {
+      e.classList.toggle('ohi', j < i || (j === i && i < n));
+      e.classList.toggle('nyt', j === i);
+    });
+  }
+
   window.piirra = {
     async alusta(aikajana) {
       A = aikajana;
@@ -156,10 +210,20 @@
         nakyma.insertBefore(img, document.getElementById('rengas'));
         kuvat.push({ ...k, img });
       }
+      const polku = document.getElementById('polku');
+      for (const v of A.polku.vaiheet) {
+        const e = document.createElement('div');
+        e.className = 'askel';
+        e.innerHTML = `<span class="nro"></span><span class="nimi"></span>`;
+        e.children[0].textContent = v.nro;
+        e.children[1].textContent = v.nimi;
+        polku.appendChild(e);
+      }
       await document.fonts.ready;
     },
 
     ruutu(t) {
+      vaihepolku(t);
       if (A.kortti) return kortti(t);
       /* Sisääntulo ja poistuminen. */
       const sisaan = ulos(valilla(t, 0, 0.9));

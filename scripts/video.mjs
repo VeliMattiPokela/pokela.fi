@@ -210,9 +210,25 @@ function kameranPaikka(laatikko, zoomEnintaan) {
   };
 }
 
+/** Vaihepolku: prosessin vaiheet ja kohtauksen paikka niissä. Avaus
+    on ennen ensimmäistä vaihetta (-1), lopetus viimeisen jälkeen. */
+function vaihepolku(kohtaus) {
+  const vaiheet = kohtaukset.filter((k) => k.lahde !== 'kortti');
+  let i = vaiheet.indexOf(kohtaus);
+  if (i < 0) i = kohtaukset.indexOf(kohtaus) < kohtaukset.indexOf(vaiheet[0]) ? -1 : vaiheet.length;
+  return {
+    i,
+    vaiheet: vaiheet.map((k) => {
+      const [nro, ...nimi] = k.tunniste.trim().split(/\s+/);
+      return { nro, nimi: nimi.join(' ') };
+    }),
+  };
+}
+
 async function tallenna(selain, kohtaus, osoitteet) {
   if (kohtaus.lahde === 'kortti') {
     return {
+      polku: vaihepolku(kohtaus),
       kesto: kohtaus.s,
       tunniste: kohtaus.tunniste,
       otsikot: [{ t: 0, teksti: kohtaus.otsikko }],
@@ -313,6 +329,7 @@ async function tallenna(selain, kohtaus, osoitteet) {
   await sivu.close();
 
   return {
+    polku: vaihepolku(kohtaus),
     kesto: t + LOPPU,
     tunniste: kohtaus.tunniste,
     osoiteteksti: kohtaus.osoiteteksti,
