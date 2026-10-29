@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<!--
+  Videon sommittelu. scripts/video.mjs avaa tämän sivun, antaa sille
+  aikajanan (piirra.alusta) ja ottaa ruudun jokaisella hetkellä
+  (piirra.ruutu). Sivu ei animoi itse mitään: kaikki on ajan funktio,
+  joten sama aikajana tuottaa aina saman videon.
+
+  Värit, fontit ja välit tulevat sivuston tokeneista.
+-->
+<link rel="stylesheet" href="/styles/tokens.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Archivo:wght@400;500;600&display=block"
+  rel="stylesheet"
+/>
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body { background: var(--paper-alt); color: var(--ink); font-family: var(--font-ui); }
+
+  .teksti { position: absolute; left: 96px; top: 0; bottom: 0; width: 400px; }
+  .tunniste {
+    position: absolute; top: 134px; left: 0;
+    font-size: 13px; letter-spacing: var(--tr-meta); text-transform: uppercase;
+    font-weight: var(--weight-500); color: var(--ink-muted); white-space: pre;
+  }
+  .otsikko {
+    position: absolute; top: 190px; left: 0; width: 400px; margin: 0;
+    font-family: var(--font-display); font-weight: var(--weight-400);
+    font-size: 52px; line-height: 1.08; letter-spacing: var(--tr-display-xl);
+  }
+  .merkki {
+    position: absolute; bottom: 134px; left: 0;
+    font-family: var(--font-display); font-size: 22px; color: var(--ink-muted);
+  }
+
+  .ikkuna {
+    position: absolute; left: 584px; top: 134px; width: 1240px;
+    background: var(--paper); border: var(--hairline) solid var(--line);
+    box-shadow: 0 32px 80px -24px rgb(0 0 0 / 0.14), 0 2px 6px rgb(0 0 0 / 0.04);
+  }
+  .palkki {
+    height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 16px;
+    border-bottom: var(--hairline) solid var(--line);
+    font-size: 13px; color: var(--ink-muted);
+  }
+  .palkki i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); opacity: 0.6; }
+  .palkki span { margin-left: 12px; }
+  .nakyma { position: relative; width: 1240px; height: 775px; overflow: hidden; }
+  .nakyma img {
+    position: absolute; left: 0; top: 0; width: 1440px; height: 900px;
+    transform-origin: 0 0; opacity: 0;
+  }
+
+  .kursori { position: absolute; left: 0; top: 0; width: 26px; height: 26px; transform-origin: 3px 2px; }
+  .rengas {
+    position: absolute; left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+    border-radius: 50%; border: 2px solid var(--ink); opacity: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="teksti">
+    <div class="tunniste" id="tunniste"></div>
+    <h1 class="otsikko" id="otsikkoA"></h1>
+    <h1 class="otsikko" id="otsikkoB"></h1>
+    <div class="merkki">pokela.fi</div>
+  </div>
+  <div class="ikkuna" id="ikkuna">
+    <div class="palkki"><i></i><i></i><i></i><span id="osoite"></span></div>
+    <div class="nakyma" id="nakyma">
+      <div class="rengas" id="rengas"></div>
+      <svg class="kursori" id="kursori" viewBox="0 0 26 26">
+        <path d="M3 2 L3 21 L8 16.5 L11.5 24 L15 22.5 L11.5 15 L18 15 Z"
+              fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+
+<script>
+  /* Näkymän leveys / tallennuksen leveys (1440 CSS-pikseliä). */
+  const NAKYMA = { w: 1240, h: 775 };
+  const S0 = NAKYMA.w / 1440;
+
+  const pehmea = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const ulos = (x) => 1 - Math.pow(1 - x, 3);
+  const rajaa = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const valilla = (t, a, b) => rajaa((t - a) / (b - a));
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  let A; // aikajana
+  const kuvat = [];
+
+  /* Avainkehysten arvo hetkellä t. Jokainen kehys on {t0, t1, ...arvot}:
+     arvo liukuu edellisestä tähän välillä t0–t1. */
+  function avain(kehykset, t, kentat, kayra = pehmea) {
+    let nyt = { ...kehykset[0] };
+    for (const k of kehykset.slice(1)) {
+      if (t <= k.t0) break;
+      const p = kayra(valilla(t, k.t0, k.t1));
+      const uusi = {};
+      for (const f of kentat) uusi[f] = lerp(nyt[f], k[f], p);
+      nyt = { ...nyt, ...uusi };
+      if (t < k.t1) break;
+    }
+    return nyt;
+  }
+
+  window.piirra = {
+    async alusta(aikajana) {
+      A = aikajana;
+      document.getElementById('tunniste').textContent = A.tunniste;
+      document.getElementById('osoite').textContent = A.osoiteteksti;
+      const nakyma = document.getElementById('nakyma');
+      for (const k of A.kuvat) {
+        const img = new Image();
+        img.src = k.src;
+        await img.decode();
+        nakyma.insertBefore(img, document.getElementById('rengas'));
+        kuvat.push({ ...k, img });
+      }
+      await document.fonts.ready;
+    },
+
+    ruutu(t) {
+      /* Sisääntulo ja poistuminen. */
+      const sisaan = ulos(valilla(t, 0, 0.9));
+      const pois = 1 - valilla(t, A.kesto - 0.6, A.kesto);
+      const ikkuna = document.getElementById('ikkuna');
+      ikkuna.style.opacity = sisaan * pois;
+      ikkuna.style.transform = `translateY(${(1 - sisaan) * 24}px)`;
+      document.getElementById('tunniste').style.opacity = ulos(valilla(t, 0.1, 0.8)) * pois;
+
+      /* Otsikot: vaihtuva otsikko ristihäivytetään. */
+      const [a, b] = ['otsikkoA', 'otsikkoB'].map((id) => document.getElementById(id));
+      let i = 0;
+      A.otsikot.forEach((o, j) => { if (t >= o.t) i = j; });
+      const nyt = A.otsikot[i], ed = A.otsikot[i - 1];
+      const vaihto = i === 0 ? ulos(valilla(t, 0.2, 1.0)) : ulos(valilla(t, nyt.t + 0.25, nyt.t + 0.95));
+      a.textContent = nyt.teksti;
+      a.style.opacity = vaihto * pois;
+      a.style.transform = `translateY(${(1 - vaihto) * 14}px)`;
+      b.textContent = ed ? ed.teksti : '';
+      b.style.opacity = ed ? (1 - valilla(t, nyt.t, nyt.t + 0.3)) * pois : 0;
+
+      /* Kamera. */
+      const k = avain(A.kamera, t, ['x', 'y', 'zoom']);
+      const s = S0 * k.zoom;
+      const tx = NAKYMA.w / 2 - k.x * s;
+      const ty = NAKYMA.h / 2 - k.y * s;
+      for (const kuva of kuvat) {
+        kuva.img.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+        kuva.img.style.opacity = rajaa((t - kuva.t0) / 0.14) * (kuva.t1 == null ? 1 : 1 - rajaa((t - kuva.t1) / 0.14));
+      }
+
+      /* Osoitin: liike kevyesti kaarevaa rataa pitkin. */
+      const kursori = document.getElementById('kursori');
+      const rengas = document.getElementById('rengas');
+      let paikka = { ...A.kursori[0] };
+      let painallus = null;
+      for (const m of A.kursori.slice(1)) {
+        if (t <= m.t0) break;
+        const p = pehmea(valilla(t, m.t0, m.t1));
+        const dx = m.x - paikka.x, dy = m.y - paikka.y;
+        const kaari = Math.sin(p * Math.PI) * 0.08;
+        paikka = { x: lerp(paikka.x, m.x, p) - dy * kaari, y: lerp(paikka.y, m.y, p) + dx * kaari };
+        if (t >= m.t1) paikka = { x: m.x, y: m.y };
+        if (m.klikkaus != null && t >= m.klikkaus) painallus = m.klikkaus;
+        if (t < m.t1) break;
+      }
+      const px = (paikka.x - k.x) * s + NAKYMA.w / 2;
+      const py = (paikka.y - k.y) * s + NAKYMA.h / 2;
+      const koko = 0.9 + 0.25 * Math.sqrt(k.zoom);
+      const alas = painallus == null ? 0 : Math.sin(valilla(t, painallus - 0.06, painallus + 0.16) * Math.PI);
+      kursori.style.opacity = valilla(t, 0.6, 1.0) * pois;
+      kursori.style.transform = `translate(${px - 3}px, ${py - 2}px) scale(${koko * (1 - 0.14 * alas)})`;
+      const r = painallus == null ? 1 : valilla(t, painallus, painallus + 0.5);
+      rengas.style.opacity = (1 - r) * 0.35 * (r > 0 ? 1 : 0);
+      rengas.style.transform = `translate(${px}px, ${py}px) scale(${0.3 + 0.7 * ulos(r)})`;
+    },
+  };
+</script>
+</body>
+</html>

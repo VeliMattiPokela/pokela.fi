@@ -40,3 +40,7 @@ packages/
 # lasketaan lähteestä ja asetuksista; CI säilyttää kansion ajosta
 # toiseen.
 .kuvavalimuisti/
+
+# Prosessidemon video (scripts/video.mjs). Pysäytyskuvat ja mp4
+# syntyvät käsikirjoituksesta komennolla `npm run video`.
+.video/
