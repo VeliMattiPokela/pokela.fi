@@ -72,6 +72,11 @@ export default function CheckList({
         );
       })}
       {build ? (
+        <>
+        <div className="case__checkgroup">
+          <h4 className="meta case__checkgroup-title">Ajo</h4>
+          <p className="body-s muted measure">Jokainen build ajaa tarkistukset ennen sivua. Tämä sivu on alla olevan ajon tulos.</p>
+        </div>
         <Accordion
           number="—"
           title="Viimeisin ajo"
@@ -82,6 +87,7 @@ export default function CheckList({
         >
           {build.children}
         </Accordion>
+        </>
       ) : null}
     </div>
   );
