@@ -14,7 +14,6 @@ const SIZES_TAYSI =
   '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
 import Reveal from '@/components/Reveal';
 import PageHeader from '@/components/PageHeader';
-import Icon from '@/components/Icon';
 
 export async function generateMetadata({
   params,
@@ -70,20 +69,10 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* ---- nosto + outro --------------------------------------- */}
+      {/* ---- nosto ---------------------------------------------- */}
       <Reveal>
         <section className="page section">
           <Media {...kuvapaikka('tyot-storybook')} sizes={SIZES_TAYSI} />
-
-          <div className="work__outro">
-            <h2 className="display-m">{dict.work.outroTitle}</h2>
-            <div>
-              <p className="body-l measure work__outro-body">{dict.work.outroBody}</p>
-              <a href={`mailto:${dict.footer.email}`} className="btn btn--text work__outro-cta">
-                {dict.work.outroCta} <Icon name="arrow-right" />
-              </a>
-            </div>
-          </div>
         </section>
       </Reveal>
     </>

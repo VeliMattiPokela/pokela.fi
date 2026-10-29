@@ -4,17 +4,6 @@
    Niillä oli ennen oma .lead-row-toteutus, joka oli listarivin kopio
    isommalla otsikolla — ks. list-row.css. */
 
-.work__outro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
-  padding-top: var(--space-40);
-}
-@media (min-width: 900px) {
-  .work__outro { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: var(--space-56); }
-}
-.work__outro-body { color: var(--ink-muted); }
-
 /* Logorivi tulee heti aiemman työn listan alle. Listan alaviiva
    erottaa ne, joten rivin oma yläviiva jäisi tuplaviivaksi. */
 .work__clients .logo-row-block { border-top: 0; }
