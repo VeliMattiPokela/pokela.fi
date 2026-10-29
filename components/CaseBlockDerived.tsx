@@ -122,6 +122,8 @@ export default function CaseBlockDerived({
                 items={lista.map(({ id, title, huomaa, proves, items, blind, runs }) => ({ id, title, huomaa, proves, items, blind: blind || null, runs, group: runs ? undefined : 'tulossa' }))}
                 groups={[block.pending]}
                 build={ajo ? {
+                  group: block.paivitys,
+                  title: block.paivitys.row,
                   description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
                   children: (
                     <Timeline>

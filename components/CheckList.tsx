@@ -6,8 +6,9 @@ import { Accordion, useAccordionGroup } from './Accordion';
 /**
  * Tarkistuslista casessa: nimi ja millaisen virheen tarkistus
  * pysäyttää näkyvät aina, tarkka kuvaus ja raja ("Ei kata") avautuvat
- * rivistä. Viimeinen rivi voi olla viimeisin ajo, jonka aikajana
- * avautuu samalla tavalla.
+ * rivistä. Viimeinen rivi voi olla viimeisin päivitys, jonka aikajana
+ * avautuu samalla tavalla. Sillä on oma ryhmäotsikkonsa, jottei se
+ * näytä kuuluvan edelliseen ryhmään (Tulossa).
  *
  * Vain ajossa olevat rivit numeroidaan, jotta numerot vastaavat
  * otsikon lukua. Kun `groups` on annettu, ryhmän otsikko ja selite
@@ -20,7 +21,7 @@ export default function CheckList({
 }: {
   items: { id: string; title: string; huomaa: string; proves: string; items?: string[]; blind: string | null; runs: boolean; group?: string }[];
   groups?: { id: string; title: string; note: string }[];
-  build?: { description: string; children: ReactNode };
+  build?: { group: { title: string; note: string }; title: string; description: string; children: ReactNode };
 }) {
   const group = useAccordionGroup();
   const labels = { open: 'Avaa', close: 'Sulje' };
@@ -74,12 +75,12 @@ export default function CheckList({
       {build ? (
         <>
         <div className="case__checkgroup">
-          <h4 className="meta case__checkgroup-title">Sivuston päivitys</h4>
-          <p className="body-s muted measure">Jokainen päivitys kulkee tarkistusten läpi ennen julkaisua. Tämä sivu on alla olevan päivityksen tulos.</p>
+          <h4 className="meta case__checkgroup-title">{build.group.title}</h4>
+          <p className="body-s muted measure">{build.group.note}</p>
         </div>
         <Accordion
           number="—"
-          title="Viimeisin päivitys"
+          title={build.title}
           description={build.description}
           open={group.isOpen('ajo')}
           onToggle={() => group.toggle('ajo')}
