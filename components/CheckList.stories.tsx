@@ -65,3 +65,16 @@ export const Mobiilissa: Story = {
 export const TummaTeema: Story = {
   globals: { theme: 'dark' },
 };
+
+/** Viimeisin päivitys on listan lopussa omassa ryhmässään, jottei se näytä kuuluvan Tulossa-ryhmään. */
+export const Paivityksella: Story = {
+  args: {
+    ...Ryhmissa.args,
+    build: {
+      group: { title: 'Sivuston päivitys', note: 'Jokainen päivitys kulkee tarkistusten läpi ennen julkaisua. Tämä sivu on alla olevan päivityksen tulos.' },
+      title: 'Viimeisin päivitys',
+      description: 'Läpi · 29.10.2026 · d6e8d49',
+      children: <p className="body-s">Päivityksen aikajana.</p>,
+    },
+  },
+};

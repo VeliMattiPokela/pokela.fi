@@ -78,7 +78,7 @@ type BlockKind =
      olevien tarkistusten määrällä. Ilman placeholderia build kaatuu.
      Luku vanheni kerran käsin kirjoitettuna — otsikko lupasi neljää
      kun niitä oli seitsemän. */
-  | { kind: 'checks'; label: string; title: string; note: string; pending: { id: string; title: string; note: string } }
+  | { kind: 'checks'; label: string; title: string; note: string; pending: { id: string; title: string; note: string }; paivitys: { title: string; note: string; row: string } }
   /** Prosessi yhtenä ketjuna. Lenkit luetaan content/prosessi.ts:stä
       ja vartijat lib/checks.ts:stä build-aikana, joten casetekstiin
       kirjoitetaan vain otsikko ja johdanto. */
