@@ -57,7 +57,14 @@ type Rajaus = {
 type Merkinta =
   | { tyyppi: 'kuva'; esitys: Esitys; teema?: Teema; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
-  | { tyyppi: 'video'; esitys: Esitys; leveys: number; korkeus: number };
+  | {
+      tyyppi: 'video';
+      esitys: Esitys;
+      leveys: number;
+      korkeus: number;
+      /** Heron oma puhelinvideo ja media-ehto, josta pääversio alkaa. */
+      mobiili?: { leveys: number; korkeus: number; paaAlkaen: string };
+    };
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
 const NUMEROT = manifesti.numerot as unknown as Record<string, number>;
@@ -152,7 +159,13 @@ export default function Media({
   if (merkinta?.tyyppi === 'video') {
     return (
       <div className={`${luokka} media--kuva media--video`}>
-        <Video id={id!} leveys={merkinta.leveys} korkeus={merkinta.korkeus} caption={caption} />
+        <Video
+          id={id!}
+          leveys={merkinta.leveys}
+          korkeus={merkinta.korkeus}
+          caption={caption}
+          mobiili={ratio === 'hero' ? merkinta.mobiili?.paaAlkaen : undefined}
+        />
       </div>
     );
   }

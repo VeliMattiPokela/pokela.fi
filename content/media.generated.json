@@ -120,7 +120,12 @@
       "tyyppi": "video",
       "esitys": "taysi",
       "leveys": 1920,
-      "korkeus": 822
+      "korkeus": 822,
+      "mobiili": {
+        "leveys": 1170,
+        "korkeus": 1464,
+        "paaAlkaen": "(min-width: 600px)"
+      }
     },
     "himat-kansi": {
       "tyyppi": "video",

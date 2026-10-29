@@ -910,6 +910,12 @@ Rajaukset:
        ↳ oma mobiilikuva: 7-mobiili
 ```
 
+Sama koskee herovideota: `12-mobiili.mp4` on puhelimen oma video.
+Video ei rajaudu putkessa vaan CSS:llä, joten se nauhoitetaan valmiiksi
+4:5-muotoon. `Video` saa propsin `mobiili` (Figmassa `Mobiili`), ja
+selain valitsee lähteen media-ehdolla: pääversio heron 16:9-rajasta
+alkaen, sitä kapeammalla puhelinvideo.
+
 Tämä ei poista sitä että hero on kolme kuvasuhdetta. `lg` (21:9)
 leikkaa yhä korkeutta 16:9-lähteestä, ja siihen tarvittaisiin kolmas
 lähde. Kaksi on hallittavissa; kolme alkaisi olla kuvapankki.
