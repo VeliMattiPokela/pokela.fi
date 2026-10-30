@@ -308,6 +308,18 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
 
 .media-fill { width: 100%; height: 100%; object-fit: cover; }
 
+/* Teemakohtainen kuva (teema `omat`): kaksi kuvaa päällekkäin, ja
+   näkyvissä on teeman mukainen. Ehdot ovat samat kuin tokens.css:n
+   teemavalinnassa: oma valinta voittaa, muuten käyttöjärjestelmä. */
+.media--teemat > .media__teema { position: absolute; inset: 0; }
+.media__teema--tumma { display: none; }
+:root[data-theme='dark'] .media__teema--vaalea { display: none; }
+:root[data-theme='dark'] .media__teema--tumma { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .media__teema--vaalea { display: none; }
+  :root:not([data-theme='light']) .media__teema--tumma { display: block; }
+}
+
 /* Viivapiirros (esitys `viiva`): kuva on maski ja väri tulee tokenista,
    joten viivat seuraavat teemaa eikä kuvalla ole omaa pohjaa. Viivat
    piirtyvät paikan pinnalle (herossa nauhan väri). Maski on lapsessa:

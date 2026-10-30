@@ -36,6 +36,15 @@ export type Ratio = 'hero' | '4:3' | '4:5' | '3:4' | '1:1';
  */
 export type Esitys = 'levy' | 'taysi' | 'viiva';
 
+/**
+ * Seuraako kuva teemaa. `yhteinen`: sama kuva kummassakin teemassa.
+ * `omat`: kuvalla on oma tausta, joten tummaan teemaan on oma
+ * kuvansa (`<id>-tumma`), ja CSS näyttää teeman mukaisen. Viiva ei
+ * tarvitse tätä, koska se piirretään tokenin värillä. Arvo tulee
+ * sisällöstä paikan vierestä kuten `esitys` (päätös 51).
+ */
+export type Teema = 'yhteinen' | 'omat';
+
 type Rajaus = {
   koko: string;
   media: string | null;
@@ -46,9 +55,16 @@ type Rajaus = {
 };
 
 type Merkinta =
-  | { tyyppi: 'kuva'; esitys: Esitys; osat: Record<string, Rajaus[]> }
+  | { tyyppi: 'kuva'; esitys: Esitys; teema?: Teema; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
-  | { tyyppi: 'video'; esitys: Esitys; leveys: number; korkeus: number };
+  | {
+      tyyppi: 'video';
+      esitys: Esitys;
+      leveys: number;
+      korkeus: number;
+      /** Heron oma puhelinvideo ja media-ehto, josta pääversio alkaa. */
+      mobiili?: { leveys: number; korkeus: number; paaAlkaen: string };
+    };
 
 const KUVAT = manifesti.paikat as unknown as Record<string, Merkinta>;
 const NUMEROT = manifesti.numerot as unknown as Record<string, number>;
@@ -102,6 +118,7 @@ export default function Media({
   ratio = '4:3',
   caption,
   esitys,
+  teema,
   sizes = '100vw',
   priority = false,
 }: {
@@ -109,6 +126,8 @@ export default function Media({
   ratio?: Ratio;
   /** Oletus tulee kuvaputken manifestista, joka lukee sen sisällöstä. */
   esitys?: Esitys;
+  /** Oletus tulee kuvaputken manifestista, kuten esityksellä. */
+  teema?: Teema;
   caption?: string;
   /** Kuinka leveänä kuva piirtyy. Lohko tietää sen, kuva ei. */
   sizes?: string;
@@ -140,7 +159,13 @@ export default function Media({
   if (merkinta?.tyyppi === 'video') {
     return (
       <div className={`${luokka} media--kuva media--video`}>
-        <Video id={id!} leveys={merkinta.leveys} korkeus={merkinta.korkeus} caption={caption} />
+        <Video
+          id={id!}
+          leveys={merkinta.leveys}
+          korkeus={merkinta.korkeus}
+          caption={caption}
+          mobiili={ratio === 'hero' ? merkinta.mobiili?.paaAlkaen : undefined}
+        />
       </div>
     );
   }
@@ -232,30 +257,49 @@ export default function Media({
     );
   }
 
-  return (
-    <picture className={`${luokka} media--kuva`}>
-      {jarjestetyt.flatMap((r) =>
-        ['avif', 'webp'].map((muoto) => (
-          <source
-            key={`${r.koko}-${muoto}`}
-            {...(r.media ? { media: r.media } : {})}
-            type={`image/${muoto}`}
-            srcSet={srcset(id!, r, muoto)}
-            sizes={sizes}
-          />
-        )),
-      )}
-      <img
-        src={`/kuva/${id}-${perus.koko}-${perus.leveys}.webp`}
-        alt={caption ?? ''}
-        width={perus.leveys}
-        height={perus.korkeus}
-        sizes={sizes}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding={priority ? 'sync' : 'async'}
-        fetchPriority={priority ? 'high' : undefined}
-        className="media-fill"
-      />
-    </picture>
-  );
+  /* Täysi kuva yhtenä <picture>-elementtinä. Teemakohtaisessa
+     paikassa niitä on kaksi, ja CSS näyttää teeman mukaisen
+     (base.css). Piilotettua laiskaa kuvaa selain ei lataa. */
+  const kuva = (nimi: string, lista: Rajaus[], luokat: string) => {
+    const pohja = lista[0];
+    return (
+      <picture className={luokat}>
+        {[...lista].reverse().flatMap((r) =>
+          ['avif', 'webp'].map((muoto) => (
+            <source
+              key={`${r.koko}-${muoto}`}
+              {...(r.media ? { media: r.media } : {})}
+              type={`image/${muoto}`}
+              srcSet={srcset(nimi, r, muoto)}
+              sizes={sizes}
+            />
+          )),
+        )}
+        <img
+          src={`/kuva/${nimi}-${pohja.koko}-${pohja.leveys}.webp`}
+          alt={caption ?? ''}
+          width={pohja.leveys}
+          height={pohja.korkeus}
+          sizes={sizes}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding={priority ? 'sync' : 'async'}
+          fetchPriority={priority ? 'high' : undefined}
+          className="media-fill"
+        />
+      </picture>
+    );
+  };
+
+  const tummat = rajaukset(id!, `${id}-tumma`);
+  const omat = (teema ?? (merkinta?.tyyppi === 'kuva' ? merkinta.teema : undefined)) === 'omat';
+  if (omat && tummat) {
+    return (
+      <div className={`${luokka} media--kuva media--teemat`}>
+        {kuva(id!, osat, 'media__teema media__teema--vaalea')}
+        {kuva(`${id}-tumma`, tummat, 'media__teema media__teema--tumma')}
+      </div>
+    );
+  }
+
+  return kuva(id!, osat, `${luokka} media--kuva`);
 }

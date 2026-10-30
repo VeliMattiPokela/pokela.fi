@@ -1,4 +1,4 @@
-import type { Esitys, Ratio } from '@/components/Media';
+import type { Esitys, Ratio, Teema } from '@/components/Media';
 
 /**
  * Kuvapaikat jotka eivät ole casejen sisällössä.
@@ -34,6 +34,11 @@ export type Kuvapaikka = {
   tarveLeveys?: number;
   /** `taysi` valokuvalle, `viiva` viivapiirrokselle. Oletus `levy`, ks. Media. */
   esitys?: Esitys;
+  /**
+   * `omat`: kuvalla on oma tausta, joten kumpaankin teemaan tehdään
+   * oma kuva (`<id>` ja `<id>-tumma`). Oletus `yhteinen`, ks. Media.
+   */
+  teema?: Teema;
 };
 
 export const erilliset: Kuvapaikka[] = [
@@ -57,9 +62,15 @@ export const erilliset: Kuvapaikka[] = [
     missa: 'Etusivu',
   },
   {
+    /* Design systemin komponentit seinänä kallistettuna: kuva on
+       rakennettu System-sivun oikeista komponenteista. Tausta ja
+       komponentit ovat teeman värisiä, joten tummaan teemaan on oma
+       kuvansa. */
     id: 'tyot-storybook',
     ratio: '4:3',
-    caption: 'Nosto: Storybook-näkymä',
+    esitys: 'taysi',
+    teema: 'omat',
+    caption: 'Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana',
     missa: 'Työlista',
   },
   {

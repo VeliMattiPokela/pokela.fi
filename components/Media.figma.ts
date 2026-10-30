@@ -35,6 +35,14 @@ const esitys = figma.selectedInstance.getEnum('Esitys', {
   viiva: 'viiva',
 });
 
+/* Teema on oma varianttinsa samasta syystä: `omat` tarkoittaa kahta
+   kuvaa, ja Figma-tarkistus vaatii sen tilan myös kirjastoon
+   (päätös 51). */
+const teema = figma.selectedInstance.getEnum('Teema', {
+  yhteinen: 'yhteinen',
+  omat: 'omat',
+});
+
 const caption = figma.selectedInstance.getBoolean('showCaption', {
   true: figma.selectedInstance.getString('caption'),
   false: undefined,
@@ -47,6 +55,9 @@ export default {
     'ratio',
     ratio,
   )}${figma.helpers.react.renderProp('esitys', esitys)}${figma.helpers.react.renderProp(
+    'teema',
+    teema,
+  )}${figma.helpers.react.renderProp(
     'caption',
     caption,
   )} />`,
