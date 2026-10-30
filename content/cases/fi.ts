@@ -415,7 +415,7 @@ const himat: Case = {
       media: {
         id: 'himat-hero',
         ratio: 'hero',
-        caption: 'Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen ja kokoaa kohteen kannen.',
+        caption: 'Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen, kokoaa kannen ja laskee kulut.',
       },
     },
     {
@@ -451,24 +451,30 @@ const himat: Case = {
       ],
     },
     {
-      kind: 'trio',
+      kind: 'text',
       label: 'Linkistä päätökseen',
-      title: 'Ilmoituksen linkki riittää alkuun',
+      lead: 'Ilmoituksen linkki riittää alkuun',
       items: [
         {
-          media: { id: 'himat-tuonti', ratio: '3:4', caption: 'Ilmoituksen linkki liitetään, ja Himat lukee ilmoituksen' },
-          h: 'Liitä linkki',
-          p: 'Ei lomakkeita eikä kopiointia. Ensimmäisen kodin saa luettua ennen kuin tiliä tarvitaan.',
+          p: 'Ilmoituksen linkki liitetään, ja Himat lukee loput. Kohteen kansi kertoo ensin olennaisen, eli mikä kohteessa on hyvää ja mitä kannattaa vielä selvittää. Yksityiskohdat lähteineen ovat kannen alla, ja kulut lasketaan lainasta, vastikkeista ja kaupan hetken rahoista. Talouden tiedot kysytään yksi kerrallaan, ei pitkänä lomakkeena.',
+        },
+      ],
+    },
+    {
+      kind: 'pair',
+      label: 'Kansi ja kulut',
+      items: [
+        {
+          id: 'himat-kansi',
+          ratio: '3:4',
+          label: 'Olennainen ensin',
+          caption: 'Kohteen kansi: arvio, huomioitavaa ja hyvää',
         },
         {
-          media: { id: 'himat-kansi', ratio: '3:4', caption: 'Kohteen kansi: arvio, huomioitavaa ja hyvää' },
-          h: 'Kokonaiskuva kerralla',
-          p: 'Kansi kertoo ensin olennaisen: mikä on hyvää ja mitä kannattaa selvittää. Yksityiskohdat ja lähteet ovat sen alla.',
-        },
-        {
-          media: { id: 'himat-kulut', ratio: '3:4', caption: 'Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat' },
-          h: 'Mitä koti maksaisi',
-          p: 'Laskelma lainasta, vastikkeista ja kaupan hetken rahoista. Talouskysymykset kysytään yksi kerrallaan, ei pitkänä lomakkeena.',
+          id: 'himat-kulut',
+          ratio: '3:4',
+          label: 'Mitä koti maksaisi',
+          caption: 'Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat',
         },
       ],
     },
@@ -562,24 +568,6 @@ const himat: Case = {
       items: [
         {
           p: 'Himat lukee ilmoituksen, taloyhtiön dokumentit ja sijainnin, laskee kulut kotitalouden taloudesta ja vertaa koteja rinnakkain. Kehitys jatkuu pilotin palautteen pohjalta.',
-        },
-      ],
-    },
-    {
-      kind: 'text',
-      label: 'Rajat',
-      items: [
-        {
-          h: 'Suomen asuntokauppa',
-          p: 'Säännöt, vertailuluvut ja aluetiedot ovat suomalaisia, ja osa sijaintitiedoista kattaa vain Helsingin.',
-        },
-        {
-          h: 'Ei ostosuositusta',
-          p: 'Himat ei kerro, kannattaako kohde ostaa. Se kertoo, mitä lähteet sanovat ja mitä luvut tarkoittavat, ja päätös jää ostajalle.',
-        },
-        {
-          h: 'Design system vain koodissa',
-          p: 'Yhden tekijän tuotteessa erillinen Figma-kirjasto olisi ollut ylläpitoa ilman hyötyä. Kytkentä kannattaa vasta, kun tekijöitä on useampi.',
         },
       ],
     },
