@@ -1080,28 +1080,27 @@ mitä kuvan pitää näyttää.
 |  | 10 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — natiivisovellus, ei laitekehystä |
 |  | 11 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
 | ✓ | 12 | Designer portfolio | `portfolio-prosessi` | 4:3 · ≥2736 px | Prosessi alusta loppuun: koodi, Figma, Storybook, tarkistukset, sivusto ja Figma Make. |
-| ✓ | 13 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen ja kokoaa kohteen kannen. |
-| ✓ | 14 | Himat | `himat-tuonti` | 3:4 · ≥880 px | Ilmoituksen linkki liitetään, ja Himat lukee ilmoituksen |
-| ✓ | 15 | Himat | `himat-kansi` | 3:4 · ≥880 px | Kohteen kansi: arvio, huomioitavaa ja hyvää |
-| ✓ | 16 | Himat | `himat-kulut` | 3:4 · ≥880 px | Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat |
-| ✓ | 17 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matkat, palvelut, luonto ja melu |
-| ✓ | 18 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä |
-| ✓ | 19 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
-| ✓ | 20 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
-| ✓ | 21 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |
-| ✓ | 22 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | 23 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
-|  | 24 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
-|  | 25 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
-|  | 26 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-|  | 27 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-|  | 28 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
-| ✓ | 29 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
-|  | 30 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Valittu työ isona — täysleveä herokuva |
-| ✓ | 31 | Työlista | `tyot-storybook` + `tyot-storybook-tumma` | 4:3 · ≥2736 px | Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana |
-| ✓ | 32 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+| ✓ | 13 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen, kokoaa kannen ja laskee kulut. |
+| ✓ | 14 | Himat | `himat-kansi` | 3:4 · ≥1344 px | Kohteen kansi: arvio, huomioitavaa ja hyvää |
+| ✓ | 15 | Himat | `himat-kulut` | 3:4 · ≥1344 px | Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat |
+| ✓ | 16 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matkat, palvelut, luonto ja melu |
+| ✓ | 17 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä |
+| ✓ | 18 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
+| ✓ | 19 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
+| ✓ | 20 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |
+| ✓ | 21 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
+|  | 22 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
+|  | 23 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
+|  | 24 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
+|  | 25 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
+|  | 26 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
+|  | 27 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
+| ✓ | 28 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
+|  | 29 | Etusivu | `etusivu-hero` + `etusivu-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Valittu työ isona — täysleveä herokuva |
+| ✓ | 30 | Työlista | `tyot-storybook` + `tyot-storybook-tumma` | 4:3 · ≥2736 px | Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana |
+| ✓ | 31 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-19/32 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+18/31 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain
