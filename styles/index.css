@@ -33,6 +33,7 @@
 @import './components/piirros.css';
 @import './components/tyotapa.css';
 @import './components/nosto.css';
+@import './components/ikkuna.css';
 
 /* Viimeisenä: tulostussäännöt saavat voittaa ruudun säännöt. */
 @import './print.css';

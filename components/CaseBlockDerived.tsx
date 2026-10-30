@@ -1,7 +1,7 @@
 import type { Block } from '@/content/cases';
 import Reveal from './Reveal';
 import ListRowShowcase from './ListRowShowcase';
-import Icon from './Icon';
+import Ikkuna from './Ikkuna';
 import { caseArtefacts } from '@/lib/artefacts';
 import { checks, liveCheckCount } from '@/lib/checks';
 import { ketju } from '@/content/prosessi';
@@ -52,32 +52,20 @@ export default function CaseBlockDerived({
                   vanhenisi heti kun artefakti lisätään tai poistetaan. */}
               <h3 className="display-m case__h">{artefacts.length} paikkaa, joissa työn voi tarkistaa</h3>
               <p className="body-l measure case__p">{block.note}</p>
-              <div className="case__artefacts">
-                {artefacts.map((item) =>
-                  item.href ? (
-                    <a
-                      key={item.number}
-                      href={item.href}
-                      className="case__artefact"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ArtefactBody item={item} />
-                    </a>
-                  ) : (
-                    <div
-                      key={item.number}
-                      className={[
-                        'case__artefact',
-                        item.state === 'olemassa'
-                          ? 'case__artefact--ready'
-                          : 'case__artefact--pending',
-                      ].join(' ')}
-                    >
-                      <ArtefactBody item={item} />
-                    </div>
-                  ),
-                )}
+              <div className="ikkunat">
+                {artefacts.map((item) => (
+                  <Ikkuna
+                    key={item.number}
+                    aihe={item.aihe}
+                    number={item.number}
+                    title={item.label}
+                    body={item.body}
+                    host={item.host}
+                    note={item.note}
+                    state={item.state}
+                    href={item.href}
+                  />
+                ))}
               </div>
             </div>
           </Section>
@@ -198,29 +186,4 @@ export default function CaseBlockDerived({
         </Section>
       );
   }
-}
-
-function ArtefactBody({
-  item,
-}: {
-  item: { number: string; label: string; body: string; href: string | null; note: string };
-}) {
-  return (
-    <>
-      <span className="meta case__artefact-num">{item.number}</span>
-      <span className="case__artefact-main">
-        <span className="display-s case__artefact-name">{item.label}</span>
-        <span className="body-s muted">{item.body}</span>
-      </span>
-      <span className="meta case__artefact-link">
-        {item.href ? (
-          <>
-            Avaa <Icon name="arrow-up-right" size="s" />
-          </>
-        ) : (
-          item.note
-        )}
-      </span>
-    </>
-  );
 }
