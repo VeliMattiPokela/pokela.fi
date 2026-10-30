@@ -202,7 +202,7 @@ export const kohtaukset: Kohtaus[] = [
   },
   {
     id: 'paketit',
-    tunniste: '06  Paketit ja Make',
+    tunniste: '06  NPM-paketit ja Figma Make',
     otsikko: 'Figma Make prototypoi tuotteen omilla komponenteilla',
     osoiteteksti: 'pokela.fi',
     lahde: 'sivusto',

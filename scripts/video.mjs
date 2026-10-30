@@ -47,6 +47,12 @@ const LOPPU = 0.6;
 /* Vieritys pysähtyy niin, että kohde jää tämän verran yläreunasta. */
 const VIERITYS_YLAREUNA = 96;
 const VIERITYS_ENINTAAN = 1.8;
+/* Vasemman palstan otsikon lukuaika: häivytys sisään, perusaika ja
+   aika sanaa kohden. Otsikko vaihtuu aikaisintaan tämän jälkeen, ja
+   kohtauksen viimeinen otsikko pysyy näkyvissä yhtä kauan ennen
+   loppuhäivytystä. Suomen sanat ovat pitkiä, joten tahti on hidas. */
+const lukuaika = (teksti) => 0.6 + 1.2 + 0.35 * teksti.trim().split(/\s+/).length;
+
 /* Tyhjää kohteen ympärillä, kun kamera rajaa siihen (CSS-pikseleinä). */
 const VALJYYS = 48;
 
@@ -229,7 +235,8 @@ async function tallenna(selain, kohtaus, osoitteet) {
   if (kohtaus.lahde === 'kortti') {
     return {
       polku: vaihepolku(kohtaus),
-      kesto: kohtaus.s,
+      /* Kortin otsikko ja teksti luetaan peräkkäin ennen häivytystä. */
+      kesto: Math.max(kohtaus.s, lukuaika(`${kohtaus.otsikko} ${kohtaus.teksti ?? ''}`) + 0.6),
       tunniste: kohtaus.tunniste,
       otsikot: [{ t: 0, teksti: kohtaus.otsikko }],
       kortti: { teksti: kohtaus.teksti },
@@ -272,7 +279,13 @@ async function tallenna(selain, kohtaus, osoitteet) {
   await kuva(-1);
   let t = 0;
   for (const vaihe of kohtaus.vaiheet) {
-    if (vaihe.otsikko) otsikot.push({ t, teksti: vaihe.otsikko });
+    if (vaihe.otsikko) {
+      /* Edellinen otsikko saa lukuaikansa: tila pysyy paikallaan, kunnes
+         se on luettu. */
+      const ed = otsikot.at(-1);
+      t = Math.max(t, ed.t + lukuaika(ed.teksti));
+      otsikot.push({ t, teksti: vaihe.otsikko });
+    }
     if (vaihe.kamera) {
       const laatikko = vaihe.kamera.kohde ? await yhdistetytRajat(sivu, vaihe.kamera.kohde) : null;
       const kesto = Math.min(KAMERA_ENINTAAN, vaihe.s * 0.7);
@@ -334,6 +347,7 @@ async function tallenna(selain, kohtaus, osoitteet) {
     t += vaihe.s;
   }
   await sivu.close();
+  t = Math.max(t, otsikot.at(-1).t + lukuaika(otsikot.at(-1).teksti));
 
   return {
     polku: vaihepolku(kohtaus),
