@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { readStories } from './source';
 import { artefactUrls } from '@/content/artefacts';
+import type { IkkunaAihe } from '@/components/Ikkuna';
 
 /**
  * Artefaktien tila.
@@ -62,6 +63,10 @@ function countCodeConnect(): number {
   return count;
 }
 
+/** Ikkunan yläpalkin osoite: linkin palvelin ilman www-alkua. */
+const host = (href: string | null, fallback: string): string =>
+  href ? new URL(href).host.replace(/^www\./, '') : fallback;
+
 const state = (href: string | null, exists: boolean): ArtefactState =>
   href ? 'julkaistu' : exists ? 'olemassa' : 'tulossa';
 
@@ -82,15 +87,23 @@ const note = (s: ArtefactState, detail?: string): string => {
 /**
  * Case 03:n viisi artefaktia. Sama totuus kuin yllä, laajempana.
  */
-export function caseArtefacts(): (Artefact & { number: string; body: string })[] {
+export function caseArtefacts(): (Artefact & { number: string; body: string; aihe: IkkunaAihe; host: string })[] {
   const remote = artefactUrls.repo ?? readGitRemote();
   const connections = countCodeConnect();
   const hasStorybook = has('.storybook/main.ts');
   const hasFigma = has('components/IndexRow.figma.ts');
 
-  const items: (Omit<Artefact, 'note'> & { number: string; body: string; detail?: string })[] = [
+  const items: (Omit<Artefact, 'note'> & {
+    number: string;
+    body: string;
+    aihe: IkkunaAihe;
+    host: string;
+    detail?: string;
+  })[] = [
     {
       number: '01',
+      aihe: 'storybook',
+      host: host(artefactUrls.storybook, 'Storybook'),
       label: 'Storybook',
       body: 'Komponentit, tokenit ja tilat selaimessa. Sama koodi, jota tämä sivu käyttää.',
       state: state(artefactUrls.storybook, hasStorybook),
@@ -99,6 +112,8 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     },
     {
       number: '02',
+      aihe: 'figma',
+      host: host(artefactUrls.figma, 'Figma'),
       label: 'Figma-tiedosto',
       body: 'Sama kirjasto Figmassa: komponentit, variantit ja tokenit.',
       state: state(artefactUrls.figma, hasFigma),
@@ -106,6 +121,8 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     },
     {
       number: '03',
+      aihe: 'code-connect',
+      host: 'Figma Dev Mode',
       label: 'Code Connect -kytkennät',
       body: 'Määrittelyt jotka kertovat Figmalle, mikä koodikomponentti vastaa mitä.',
       state: state(artefactUrls.codeConnect, connections > 0),
@@ -118,6 +135,8 @@ export function caseArtefacts(): (Artefact & { number: string; body: string })[]
     },
     {
       number: '04',
+      aihe: 'repo',
+      host: host(remote, 'Git'),
       label: 'Repo',
       body: 'Koko sivusto, tokenit, build ja tarkistukset.',
       state: state(remote, false),

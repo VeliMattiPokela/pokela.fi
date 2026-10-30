@@ -1,0 +1,56 @@
+/* Ikkuna: paikka, jossa työn voi tarkistaa (Ikkuna.tsx, päätös 53).
+   Kehys, palkki ja kaaviokuva tulevat tokeneista, joten ikkuna vaihtaa
+   teemaa sivun mukana kuten Piirros. */
+
+.ikkuna { display: flex; flex-direction: column; gap: var(--space-16); color: var(--ink); }
+a.ikkuna:hover { text-decoration: none; }
+
+.ikkuna__ikkuna {
+  display: block;
+  border: var(--hairline) solid var(--line-strong);
+  background: var(--paper);
+  transition: background var(--dur-base) var(--ease-standard);
+}
+a.ikkuna:hover .ikkuna__ikkuna { background: var(--paper-alt); }
+
+.ikkuna__palkki {
+  display: flex; align-items: center; gap: var(--space-12);
+  padding: var(--space-8) var(--space-12);
+  border-bottom: var(--hairline) solid var(--line);
+}
+.ikkuna__pisteet { display: flex; gap: var(--space-4); }
+.ikkuna__pisteet i { width: var(--space-8); height: var(--space-8); border: var(--hairline) solid var(--line-strong); border-radius: 50%; }
+.ikkuna__osoite { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ikkuna__kuva { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.ikkuna__pinta { fill: var(--paper-alt); }
+.ikkuna__hius { stroke: var(--line); stroke-width: 1; }
+.ikkuna__rivi, .ikkuna__valittu, .ikkuna__kaanto { stroke-width: 4; stroke-linecap: round; }
+.ikkuna__rivi { stroke: var(--line); }
+.ikkuna__valittu { stroke: var(--ink); }
+.ikkuna__kaanto { stroke: var(--paper); }
+.ikkuna__muste { fill: var(--ink); }
+.ikkuna__harmaa { fill: var(--ink-faint); }
+.ikkuna__kehys { fill: var(--badge-surface); }
+.ikkuna__valinta { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.ikkuna__kahva { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+.ikkuna__kytkos { fill: none; stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 4; }
+
+.ikkuna__teksti {
+  display: grid;
+  grid-template-columns: var(--space-36) minmax(0, 1fr);
+  gap: var(--space-4) var(--space-12);
+}
+.ikkuna__teksti > :not(.ikkuna__numero) { grid-column: 2; }
+.ikkuna__numero { padding-top: var(--space-8); }
+.ikkuna__tila { margin-top: var(--space-4); }
+
+/* Ei avattavissa: kehys hiljenee, tulossa myös teksti. */
+.ikkuna--olemassa .ikkuna__ikkuna,
+.ikkuna--tulossa .ikkuna__ikkuna { border-color: var(--line); }
+.ikkuna--tulossa .ikkuna__nimi,
+.ikkuna--tulossa .ikkuna__kuva { color: var(--ink-faint); opacity: 0.6; }
+
+/* Ryhmä: kaksi rinnakkain leveällä ruudulla. */
+.ikkunat { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-40); margin-top: var(--space-32); }
+@media (min-width: 900px) { .ikkunat { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-48) var(--space-32); } }

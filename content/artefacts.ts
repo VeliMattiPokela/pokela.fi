@@ -17,6 +17,8 @@ export const artefactUrls = {
   storybook: 'https://pokela-storybook.netlify.app' as string | null,
   figma: 'https://www.figma.com/design/PVyeKV6J1Rzyj2VL4X27FR' as string | null,
   codeConnect: null as string | null,
-  /** Jätä null: luetaan .git/configista. Täytä vain jos haluat ohittaa. */
-  repo: null as string | null,
+  /** Kirjoitettu auki: Vercelin buildissa ei ole .git/configin remotea,
+      joten luettu osoite jäi tyhjäksi ja repo näkyi tulossa olevana.
+      null = luetaan .git/configista. */
+  repo: 'https://github.com/VeliMattiPokela/pokela.fi' as string | null,
 } as const;

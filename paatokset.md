@@ -1683,3 +1683,33 @@ aiheuttanut ongelman. Figma-kuvat haetaan rajapinnasta, kun
 tallennettuja.
 
 *Kirjattu 30.10.2026 Vellun pyynnöstä*
+
+## 53. Avaa ja tarkista -osio näyttää työkalut ikkunoina
+
+**Tilanne:** case 03:n Avaa ja tarkista -osio oli taas listarivejä:
+numero, nimi, kuvaus ja tila allekkain. Listarivejä on sivustolla jo
+joka paikassa, eikä neljä linkkiä oikeisiin työkaluihin erottunut
+niistä mitenkään.
+
+**Päätös:** jokainen paikka on oma `Ikkuna`: pieni selainikkuna,
+jonka yläpalkissa on osoite (netlify.app, figma.com, github.com) ja
+sisällä työkalun kaaviokuva. Kuva piirretään SVG:nä koodissa kuten
+Piirros (päätös 33), joten kuvatiedostoja ei ole ja värit tulevat
+tokeneista. Leveällä ruudulla ikkunoita on kaksi rinnakkain. Tila
+(`julkaistu`, `olemassa`, `tulossa`) on propsi ja Figman variantti,
+ja se johdetaan edelleen lib/artefacts.ts:stä. Vaihtoehto A (laatat
+ruudukossa) hylättiin, koska se oli yhä pelkkää tekstiä.
+
+Samalla repon osoite kirjoitettiin auki content/artefacts.ts:ään.
+Vercelin buildissa `.git/config`issa ei ole remotea, joten luettu
+osoite jäi tyhjäksi ja julkinen repo näkyi tilassa "Tulossa".
+
+**Perustelu:** linkki työkaluun näyttää työkalulta, ja osio erottuu
+sivun listoista. Kaaviokuva seuraa teemaa ilman kuvaputkea.
+
+**Raja:** kaaviot ovat yleisiä kuvia työkaluista, eivät
+kuvakaappauksia, joten ne eivät vanhene, kun työkalun sisältö
+muuttuu. Komponentti ei ole @pokela/components-paketissa, koska se on
+casen oma esitystapa kuten Piirros.
+
+*Kirjattu 30.10.2026 Vellun pyynnöstä*
