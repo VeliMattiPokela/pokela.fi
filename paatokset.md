@@ -1641,3 +1641,45 @@ tumma kuva ei kaatuisi mihinkään vaan näkyisi vain väärän värisenä.
 teemaa, koska niissä ei ole tarvetta.
 
 *Kirjattu 29.10.2026 Vellun pyynnöstä*
+
+## 52. Prosessidemo generoidaan käsikirjoituksesta
+
+**Tilanne:** prosessista haluttiin video, joka näyttää koko polun
+koodista Figmaan, Storybookiin, tarkistuksiin, sivustolle ja Figma
+Makeen. Käsin kuvattu ja leikattu video olisi vanhentunut heti, kun
+sivu tai kirjasto muuttuu, eikä kukaan olisi huomannut sitä.
+
+**Päätös:** video tehdään yhdellä komennolla, `npm run video`.
+Kohtaukset, otsikot ja kameran liikkeet ovat dataa tiedostossa
+`video/kasikirjoitus.ts`. Playwright ottaa pysäytyskuvat oikeasta
+sivustosta, Storybookista ja Figman kehysten renderöinneistä, ja
+`video/sommittelu.html` piirtää videon ruutu ruudulta (60 fps):
+kamera, osoitin, otsikot ja vaihepolku ovat ajan funktioita, joten
+sama käsikirjoitus tuottaa aina saman videon. Ulkoasu tulee sivuston
+tokeneista. Valmis video viedään case 03:n alkuun kuvaputken kautta
+(paikka `portfolio-prosessi`), kokonaisena levyllä, koska heron
+rajaus leikkaisi tekstit.
+
+Säännöt, jotka syntyivät tekovaiheessa:
+
+- Yksi kohtaus, yksi liike. Samaa zoomausta ei toisteta.
+- Vasemman palstan otsikko pysyy näkyvissä lukuajan verran:
+  1,8 s ja 0,35 s sanaa kohden. Ajan laskee skripti, ei käsin.
+- Vaihepolku alareunassa näyttää koko ajan, missä kohtaa prosessia
+  ollaan.
+- Sivusto kuvataan vähemmän liikettä -tilassa, jotta animaatiot
+  (etusivun käyrät) ovat valmiina eivätkä vaihdu kuvien välillä.
+- Tulevat vaiheet sanotaan tulevina ("Tulossa"), kuten sivullakin.
+
+**Perustelu:** video on osa samaa prosessia kuin muu sivu: yksi
+lähde, josta tulos johdetaan. Kun sivu muuttuu, video tehdään
+uudelleen eikä leikata käsin.
+
+**Raja:** uutta tarkistusta ei lisätä (päätös 8). Video ei vanhene
+huomaamatta vain, jos se tehdään uudelleen muutosten jälkeen; se on
+käsin muistettava askel, kunnes vanhentunut video on oikeasti
+aiheuttanut ongelman. Figma-kuvat haetaan rajapinnasta, kun
+`FIGMA_ACCESS_TOKEN` on saatavilla, muuten käytetään repoon
+tallennettuja.
+
+*Kirjattu 30.10.2026 Vellun pyynnöstä*

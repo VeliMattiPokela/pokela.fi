@@ -280,6 +280,17 @@ const thisSite: Case = {
   ],
   blocks: [
     {
+      /* Prosessidemo (video/kasikirjoitus.ts, npm run video) kokonaisena
+         levyllä: video on vaakakuva, jonka tekstit leikkautuisivat
+         heron rajauksessa. */
+      kind: 'media',
+      media: {
+        id: 'portfolio-prosessi',
+        ratio: '4:3',
+        caption: 'Prosessi alusta loppuun: koodi, Figma, Storybook, tarkistukset, sivusto ja Figma Make.',
+      },
+    },
+    {
       kind: 'text',
       label: 'Lähtötilanne',
       items: [

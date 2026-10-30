@@ -280,6 +280,12 @@
       "leveys": 736,
       "korkeus": 1308
     },
+    "portfolio-prosessi": {
+      "tyyppi": "video",
+      "esitys": "levy",
+      "leveys": 1920,
+      "korkeus": 1080
+    },
     "tyot-storybook": {
       "tyyppi": "kuva",
       "esitys": "taysi",
@@ -323,9 +329,9 @@
     }
   },
   "numerot": {
-    "aisti-mobiili": 23,
-    "aisti-tiketti": 24,
-    "aisti-tyopoyta": 22,
+    "aisti-mobiili": 24,
+    "aisti-tiketti": 25,
+    "aisti-tyopoyta": 23,
     "blokbook-android": 11,
     "blokbook-asukas": 7,
     "blokbook-hallinta": 8,
@@ -337,23 +343,24 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-hero": 29,
-    "himat-hero": 12,
-    "himat-kansi": 14,
-    "himat-kulut": 15,
-    "himat-sijainti": 16,
-    "himat-tuonti": 13,
-    "himat-vertailu": 17,
-    "media-viiva": 28,
-    "muotokuva": 31,
-    "op-aloitus": 25,
-    "op-polku": 27,
-    "op-vaurio": 26,
-    "pivo-kirjautuminen": 21,
-    "pivo-kulut": 19,
-    "pivo-reaktio": 20,
-    "pivo-ryhma": 18,
-    "tyot-storybook": 30
+    "etusivu-hero": 30,
+    "himat-hero": 13,
+    "himat-kansi": 15,
+    "himat-kulut": 16,
+    "himat-sijainti": 17,
+    "himat-tuonti": 14,
+    "himat-vertailu": 18,
+    "media-viiva": 29,
+    "muotokuva": 32,
+    "op-aloitus": 26,
+    "op-polku": 28,
+    "op-vaurio": 27,
+    "pivo-kirjautuminen": 22,
+    "pivo-kulut": 20,
+    "pivo-reaktio": 21,
+    "pivo-ryhma": 19,
+    "portfolio-prosessi": 12,
+    "tyot-storybook": 31
   },
   "muodot": {
     "aisti-mobiili": {
@@ -475,6 +482,10 @@
     "pivo-ryhma": {
       "suhde": "3:4",
       "leveys": 1344
+    },
+    "portfolio-prosessi": {
+      "suhde": "4:3",
+      "leveys": 2736
     },
     "tyot-storybook": {
       "suhde": "4:3",
