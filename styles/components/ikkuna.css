@@ -48,8 +48,10 @@ a.ikkuna:hover .ikkuna__ikkuna { background: var(--paper-alt); }
 /* Ei avattavissa: kehys hiljenee, tulossa myös teksti. */
 .ikkuna--olemassa .ikkuna__ikkuna,
 .ikkuna--tulossa .ikkuna__ikkuna { border-color: var(--line); }
-.ikkuna--tulossa .ikkuna__nimi,
-.ikkuna--tulossa .ikkuna__kuva { color: var(--ink-faint); opacity: 0.6; }
+/* Vain kuva haalenee läpinäkyvyydellä. Nimi pysyy ink-faintina, jotta
+   kontrasti riittää (axe, 3:1 isolle tekstille). */
+.ikkuna--tulossa .ikkuna__nimi { color: var(--ink-faint); }
+.ikkuna--tulossa .ikkuna__kuva { opacity: 0.6; }
 
 /* Ryhmä: kaksi rinnakkain leveällä ruudulla. */
 .ikkunat { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-40); margin-top: var(--space-32); }
