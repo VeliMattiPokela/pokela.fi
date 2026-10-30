@@ -166,7 +166,9 @@
   function kortti(t) {
     const pois = 1 - valilla(t, A.kesto - 0.6, A.kesto);
     [['korttiTunniste', 0.1], ['korttiOtsikko', 0.3], ['korttiTeksti', 0.7]].forEach(([id, alku]) => {
-      const p = ulos(valilla(t, alku, alku + 1.0));
+      /* Videon ensimmäinen kortti on valmiina heti ensimmäisessä
+         ruudussa: siitä tulee sivun julistekuva ja jaon esikatselu. */
+      const p = A.kortti.alussa ? 1 : ulos(valilla(t, alku, alku + 1.0));
       const e = document.getElementById(id);
       e.style.opacity = p * pois;
       e.style.transform = `translateY(${(1 - p) * 18}px)`;

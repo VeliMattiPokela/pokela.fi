@@ -239,7 +239,7 @@ async function tallenna(selain, kohtaus, osoitteet) {
       kesto: Math.max(kohtaus.s, lukuaika(`${kohtaus.otsikko} ${kohtaus.teksti ?? ''}`) + 0.6),
       tunniste: kohtaus.tunniste,
       otsikot: [{ t: 0, teksti: kohtaus.otsikko }],
-      kortti: { teksti: kohtaus.teksti },
+      kortti: { teksti: kohtaus.teksti, alussa: kohtaukset.indexOf(kohtaus) === 0 },
       kuvat: [],
       kamera: [],
       kursori: [],
