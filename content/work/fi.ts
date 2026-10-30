@@ -108,7 +108,7 @@ const leads: Lead[] = [
   {
     slug: 'portfolio',
     number: '03',
-    title: 'Designer portfolio 2026',
+    title: 'Designer portfolio',
     tagline: 'Portfolio, joka on itsessään näyte työtavasta',
     lede:
       'Portfolio suunniteltiin ja rakennettiin koodissa. Design system on sama koodissa ja Figmassa, ja Storybook, Code Connect -kytkennät ja tarkistukset ovat julkisia.',
