@@ -102,7 +102,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                   },
                   {
                     label: 'Käytössä',
-                    value: 'Etusivu · työlistaus · aiempi työ · tämä näkymä',
+                    value: 'Etusivu · työlistaus · aiemmat työt · tämä näkymä',
                   },
                 ]}
               />

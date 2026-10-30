@@ -85,7 +85,7 @@ Uusi tarkistus lisätään vasta kun oikea virhe on päässyt läpi
 ```
 /                    → /fi/ (Vercel-ohjaus)
 /fi/                 Etusivu
-/fi/tyot/            Työlistaus — 3 kärkeä + aiempi työ avautuvana
+/fi/tyot/            Työlistaus — 3 kärkeä + aiemmat työt avautuvana
 /fi/tyot/colliers        Case 01
 /fi/tyot/blokbook        Case 02
 /fi/tyot/portfolio       Case 03

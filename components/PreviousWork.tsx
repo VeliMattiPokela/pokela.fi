@@ -24,7 +24,7 @@ function sarakkeet(media: PreviousMedia[]) {
 }
 
 /**
- * Aiempi työ. Rivit avautuvat paikallaan — vanhat projektit eivät saa
+ * Aiemmat työt. Rivit avautuvat paikallaan — vanhat projektit eivät saa
  * omia sivuja, jotta kaksi kärkicasea pitävät huomion.
  *
  * Vastuut on eroteltu: vastuullani vs. osallistuin. Yksi lista olisi

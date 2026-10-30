@@ -53,7 +53,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
         ))}
       </section>
 
-      {/* ---- aiempi työ ------------------------------------------ */}
+      {/* ---- aiemmat työt ------------------------------------------ */}
       <section className="section" aria-labelledby="previous">
         <div className="page section-head">
           <h2 id="previous" className="meta">

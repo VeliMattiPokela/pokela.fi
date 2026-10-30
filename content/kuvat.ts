@@ -62,7 +62,7 @@ export const erilliset: Kuvapaikka[] = [
     missa: 'Etusivu',
   },
   {
-    /* Design systemin komponentit seinänä perspektiivissä: kuva on
+    /* Design systemin komponentit seinänä kallistettuna: kuva on
        rakennettu System-sivun oikeista komponenteista. Tausta ja
        komponentit ovat teeman värisiä, joten tummaan teemaan on oma
        kuvansa. */

@@ -4,7 +4,7 @@ import fi from '@/content/dictionaries/fi';
 import work from '@/content/work/fi';
 
 /**
- * Aiempi työ. Vanhat projektit eivät saa omia sivuja — ne avautuvat
+ * Aiemmat työt. Vanhat projektit eivät saa omia sivuja — ne avautuvat
  * paikallaan, jotta kaksi kärkicasea pitävät huomion.
  */
 const meta = {
