@@ -1081,8 +1081,8 @@ mitä kuvan pitää näyttää.
 |  | 11 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — sama näkymä |
 | ✓ | 12 | Designer portfolio | `portfolio-prosessi` | 4:3 · ≥2736 px | Prosessi alusta loppuun: koodi, Figma, Storybook, tarkistukset, sivusto ja Figma Make. |
 | ✓ | 13 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen, kokoaa kannen ja laskee kulut. |
-| ✓ | 14 | Himat | `himat-kansi` | 3:4 · ≥1344 px | Kohteen kansi: arvio, huomioitavaa ja hyvää |
-| ✓ | 15 | Himat | `himat-kulut` | 3:4 · ≥1344 px | Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat |
+| ✓ | 14 | Himat | `himat-talous` | 3:4 · ≥1344 px | Oma talous: tulot, kotitalous ja säästöt kolmella kysymyksellä |
+| ✓ | 15 | Himat | `himat-paperit` | 3:4 · ≥1344 px | Kunnossapitotarveselvitys luetaan, ja remontit näkyvät sivunumeroineen |
 | ✓ | 16 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matkat, palvelut, luonto ja melu |
 | ✓ | 17 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä |
 | ✓ | 18 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
