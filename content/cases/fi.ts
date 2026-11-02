@@ -125,7 +125,7 @@ const colliers: Case = {
       label: 'Lopputulos',
       lead: 'Palvelu on julkaistu ja käytössä',
       items: [
-        { p: 'Mittareita ei ole vielä julkaistu. Ne lisätään tähän kun dataa on.' },
+        { p: 'colliersasunnot.com' },
       ],
     },
     { kind: 'todo', text: 'Asiakkaan sitaatti — yksi lause, nimi ja titteli. Odottaa lupaa.' },
