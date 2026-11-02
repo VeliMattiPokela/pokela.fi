@@ -1713,3 +1713,21 @@ muuttuu. Komponentti ei ole @pokela/components-paketissa, koska se on
 casen oma esitystapa kuten Piirros.
 
 *Kirjattu 30.10.2026 Vellun pyynnöstä*
+
+## 54. Kuvapaikka vain, kun kuvalla on sanottavaa
+
+**Tilanne:** etusivun valittujen töiden alla oli täysleveä
+`etusivu-hero`, joka oli yhä tyhjä raidallinen paikka ("Valittu työ
+isona — täysleveä herokuva"). Työt-sivun lopussa oli
+`tyot-storybook`, design systemin komponentit kallistettuna, joka ei
+liittynyt listan töihin. Kumpikin oli kohinaa: kuva ilman väitettä.
+
+**Päätös:** molemmat paikat poistetaan sivuilta ja Figman
+sivupohjista. `etusivu-hero` poistuu kuvaluettelosta kokonaan.
+`tyot-storybook` jää Storybookiin Median täyden esityksen
+esimerkiksi, koska kuva on valmis ja havainnollistaa esitystapaa.
+
+**Perustelu:** sivun kuva on väite, ei täyte. Uusi kuvapaikka
+tuodaan vasta, kun kuvalla on jotain sanottavaa, jota teksti ei sano.
+
+*Kirjattu 2.11.2026 Vellun pyynnöstä*

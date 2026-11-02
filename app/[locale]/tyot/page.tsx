@@ -6,13 +6,6 @@ import { getWork } from '@/content/work';
 import ListRow from '@/components/ListRow';
 import LogoRow from '@/components/LogoRow';
 import PreviousWork from '@/components/PreviousWork';
-import Media from '@/components/Media';
-import { kuvapaikka } from '@/content/kuvat';
-
-/** Nosto on koko sisältöleveys. */
-const SIZES_TAYSI =
-  '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
-import Reveal from '@/components/Reveal';
 import PageHeader from '@/components/PageHeader';
 
 export async function generateMetadata({
@@ -68,13 +61,6 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
           <LogoRow label={dict.common.clients} />
         </div>
       </section>
-
-      {/* ---- nosto ---------------------------------------------- */}
-      <Reveal>
-        <section className="page section">
-          <Media {...kuvapaikka('tyot-storybook')} sizes={SIZES_TAYSI} />
-        </section>
-      </Reveal>
     </>
   );
 }

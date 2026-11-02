@@ -4,17 +4,9 @@ import { getDictionary } from '@/content/dictionaries';
 import { getWork } from '@/content/work';
 import { Grid, Col } from '@/components/Grid';
 import ListRow from '@/components/ListRow';
-import Media from '@/components/Media';
 import HeroName from '@/components/HeroName';
 import HeroIntro from '@/components/HeroIntro';
 import Korkeuskayrat from '@/components/Korkeuskayrat';
-import { kuvapaikka } from '@/content/kuvat';
-
-/* Herokuva on sivun levyinen; nauha jatkuu sen ulkopuolelle. Sama
-   arvo kuin casejen herolla (CaseBlock). */
-const SIZES_TAYSI =
-  '(min-width: 1440px) 1368px, (min-width: 900px) calc(100vw - 72px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)';
-
 import Reveal from '@/components/Reveal';
 import Nosto from '@/components/Nosto';
 import Icon from '@/components/Icon';
@@ -97,13 +89,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </Link>
         </div>
       </section>
-
-      {/* ---- herokuva: nauha ruudun reunoihin, kuva sivun levyinen -- */}
-      <Reveal>
-        <div className="page home__hero">
-          <Media {...kuvapaikka('etusivu-hero')} sizes={SIZES_TAYSI} />
-        </div>
-      </Reveal>
 
       {/* ---- nosto: sivun pääväite ------------------------------ */}
       <Reveal>
