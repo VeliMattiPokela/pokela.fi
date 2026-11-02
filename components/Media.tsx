@@ -57,6 +57,8 @@ type Rajaus = {
 type Merkinta =
   | { tyyppi: 'kuva'; esitys: Esitys; teema?: Teema; osat: Record<string, Rajaus[]> }
   | { tyyppi: 'vertailu'; osat: Record<string, Rajaus[]> }
+  /** Vertailupari videoina: `<id>-ennen` ja `<id>-jalkeen`, samankokoiset. */
+  | { tyyppi: 'videovertailu'; leveys: number; korkeus: number }
   | {
       tyyppi: 'video';
       esitys: Esitys;
@@ -89,8 +91,14 @@ const MERKINTA = process.env.NODE_ENV !== 'production';
  */
 export function rajaukset(id: string, osa: string = id): Rajaus[] | null {
   const merkinta = KUVAT[id];
-  if (!merkinta || merkinta.tyyppi === 'video') return null;
+  if (!merkinta || !('osat' in merkinta)) return null;
   return merkinta.osat[osa] ?? null;
+}
+
+/** Videovertailun yhteiset mitat, tai null jos paikka ei ole sellainen. */
+export function videovertailu(id: string): { leveys: number; korkeus: number } | null {
+  const merkinta = KUVAT[id];
+  return merkinta?.tyyppi === 'videovertailu' ? merkinta : null;
 }
 
 export const srcset = (nimi: string, r: Rajaus, muoto: string) =>

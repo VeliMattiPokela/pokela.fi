@@ -1,5 +1,5 @@
 import type { Block } from '@/content/cases';
-import Media, { rajaukset } from './Media';
+import Media, { rajaukset, videovertailu } from './Media';
 import BeforeAfter from './BeforeAfter';
 import SivuKerroksina from './SivuKerroksina';
 import Section from './Section';
@@ -123,7 +123,8 @@ export default function CaseBlock({
       /* BeforeAfter ei piirrä mitään ilman molempia lähteitä, joten
          tyhjä paikka näytetään tavallisena paikanvaraajana. */
       const taysi =
-        rajaukset(block.id, `${block.id}-ennen`) && rajaukset(block.id, `${block.id}-jalkeen`);
+        videovertailu(block.id) ||
+        (rajaukset(block.id, `${block.id}-ennen`) && rajaukset(block.id, `${block.id}-jalkeen`));
       return (
         <Reveal>
           <Section layout="aside" title={block.label} surface={block.surface}>
