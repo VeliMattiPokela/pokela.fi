@@ -456,25 +456,25 @@ const himat: Case = {
       lead: 'Ilmoituksen linkki riittää alkuun',
       items: [
         {
-          p: 'Ilmoituksen linkki liitetään, ja Himat lukee loput. Kohteen kansi kertoo ensin olennaisen, eli mikä kohteessa on hyvää ja mitä kannattaa vielä selvittää. Yksityiskohdat lähteineen ovat kannen alla, ja kulut lasketaan lainasta, vastikkeista ja kaupan hetken rahoista. Talouden tiedot kysytään yksi kerrallaan, ei pitkänä lomakkeena.',
+          p: 'Ilmoituksen linkki liitetään, ja Himat lukee loput. Kohteen kansi kertoo ensin olennaisen, eli mikä kohteessa on hyvää ja mitä kannattaa vielä selvittää. Kulut lasketaan lainasta, vastikkeista ja kaupan hetken rahoista, ja oma talous kysytään kolmella kysymyksellä, ei pitkänä lomakkeena. Kun välittäjän lähettämät taloyhtiön paperit lisätään, puuttuvat tiedot täydentyvät lähteineen.',
         },
       ],
     },
     {
       kind: 'pair',
-      label: 'Kansi ja kulut',
+      label: 'Talous ja taloyhtiö',
       items: [
         {
-          id: 'himat-kansi',
+          id: 'himat-talous',
           ratio: '3:4',
-          label: 'Olennainen ensin',
-          caption: 'Kohteen kansi: arvio, huomioitavaa ja hyvää',
+          label: 'Sopiiko talouteen',
+          caption: 'Oma talous: tulot, kotitalous ja säästöt kolmella kysymyksellä',
         },
         {
-          id: 'himat-kulut',
+          id: 'himat-paperit',
           ratio: '3:4',
-          label: 'Mitä koti maksaisi',
-          caption: 'Kuukausikulut: laina, vastikkeet ja kaupan hetken rahat',
+          label: 'Taloyhtiön paperit',
+          caption: 'Kunnossapitotarveselvitys luetaan, ja remontit näkyvät sivunumeroineen',
         },
       ],
     },
