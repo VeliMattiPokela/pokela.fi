@@ -133,7 +133,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <article key={job.period} className="cv-job">
             <div className="cv-job__head">
               <span className="meta">{job.period}</span>
-              <h3 className="display-s cv-job__title">{job.title}</h3>
+              {job.title && <h3 className="display-s cv-job__title">{job.title}</h3>}
               <span className="body-s faint">{job.company}</span>
             </div>
             <dl className="cv-job__projects">

@@ -64,7 +64,7 @@ const fi = {
     lede:
       'Senior Designer, Helsinki. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
     body:
-      'Olen tehnyt tuotesuunnittelua, palvelumuotoilua ja front end -kehitystä vuodesta 2010, usein samassa projektissa. Työ alkaa yleensä liiketoiminnan ja käyttäjien tarpeista ja päättyy responsiiviseen, koodattuun käyttöliittymään. Laajasta ja monipuolisesta roolista on ollut hyötyä varsinkin pienissä tiimeissä, joissa yksi ihminen tekee monta asiaa.',
+      'Olen työskennellyt digitaalisten tuotteiden ja palveluiden suunnittelun parissa vuodesta 2010. Yhdistän työssäni UX/UI-suunnittelua, palvelumuotoilua ja front end -kehitystä. Työ alkaa käyttäjien ja liiketoiminnan tarpeiden ymmärtämisestä ja etenee konsepteista ja prototyypeistä toimiviin, koodattuihin käyttöliittymiin. Työskentelen sujuvasti sekä Figmassa että suoraan koodissa ja hyödynnän tekoälyä osana suunnittelu- ja kehitystyötä. Kokemusta on niin kuluttajille suunnatuista digitaalisista palveluista kuin monimutkaisista sisäisistä työkaluista.',
     contact: 'Ota yhteyttä',
     /* Ei "Lataa PDF": PDF:ää ei ole eikä tehdä. Sivu tulostuu
        CV:ksi, ja selain tekee siitä tiedoston jos lukija haluaa. */
