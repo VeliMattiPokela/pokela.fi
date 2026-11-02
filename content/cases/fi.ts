@@ -139,10 +139,10 @@ const blokbook: Case = {
   title: 'Blokbook',
   tagline: 'Oman taloyhtiön ongelmasta myytäväksi palveluksi.',
   facts: [
-    { label: 'Rooli', value: 'Perustaja · tuote, design, toteutus' },
-    { label: 'Palvelun nykytila', value: 'Markkinoilla, käytössä useammassa taloyhtiössä' },
+    { label: 'Rooli', value: 'Perustaja · tuotesuunnittelu · kehitys' },
+    { label: 'Palvelun nykytila', value: 'Julkaistu, käytössä useammassa taloyhtiössä' },
     { label: 'Alustat', value: 'Web, iOS, Android' },
-    { label: 'Stack', value: null },
+    { label: 'Stack', value: 'Vue, TypeScript, Storybook, Supabase, Capacitor, Stripe' },
   ],
   blocks: [
     {
@@ -205,9 +205,16 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'band',
-      title: 'Suunnittelupöydältä valmiiksi palveluksi',
-      body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
+      kind: 'text',
+      label: 'Suunnittelusta toteutukseen',
+      items: [
+        {
+          p: 'Blokbookissa käyttöliittymät, varaussäännöt ja tekninen toteutus kehittyvät yhdessä. Käyttökokemusta suunnitellessa määrittelen samalla, mitä järjestelmän pitää osata ja miten tieto kulkee asukkaan ja hallinnan välillä.',
+        },
+        {
+          p: 'Yhteinen koodipohja ja design system pitävät käyttöliittymät yhtenäisinä webissä, iOS:ssä ja Androidissa.',
+        },
+      ],
     },
     {
       kind: 'scope',
@@ -262,7 +269,7 @@ const blokbook: Case = {
     },
     {
       kind: 'todo',
-      text: 'Täydennä: stack, julkaisuvuosi, taloyhtiöiden määrä (jos saa kertoa), isännöitsijän tai hallituksen lause, "mitä tekisin toisin".',
+      text: 'Täydennä: julkaisuvuosi, taloyhtiöiden määrä (jos saa kertoa), isännöitsijän tai hallituksen lause, "mitä tekisin toisin".',
     },
   ],
   next: { slug: 'portfolio', title: 'Designer portfolio' },
