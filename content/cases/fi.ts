@@ -115,7 +115,7 @@ const colliers: Case = {
       label: 'Työtapa',
       items: [
         {
-          p: 'Tiivis aikataulu vaati nopeita päätöksiä. Projekti tehtiin UX engineering -työtavalla: suunnittelu ja toteutus iteroitiin samassa koodissa.',
+          p: 'Valitsin UX engineering -työtavan, koska palvelun laatu ratkesi vasta käytössä: hakupolut, vuokrauksen vaiheet ja sisällönhallinnan komponentit piti kokeilla selaimessa eikä kuvina. Kun suunnittelu ja toteutus ovat samassa koodissa, mikään ei katoa luovutuksessa, ja jokainen päätös nähdään heti siinä muodossa, jossa käyttäjä sen kohtaa. Sama työtapa teki myös kahdeksan kuukauden aikataulusta mahdollisen.',
         },
       ],
     },
