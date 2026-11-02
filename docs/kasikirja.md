@@ -1069,7 +1069,7 @@ mitä kuvan pitää näyttää.
 | | # | Missä | Tunniste | Muoto | Mitä kuvassa |
 |---|---|---|---|---|---|
 | ✓ | 1 | Colliers Asunnot | `colliers-hero` + `colliers-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Kohdesivu isona — terävä, tarkoituksella rajattu, min. 2800 px leveä |
-|  | 2 | Colliers Asunnot | `colliers-runko-ennen` + `colliers-runko-jalkeen` | vapaa · ≥1344 px | Sama näkymä viikolla 1 ja julkaisussa: toimiva runko ja siitä jatkokehitetty valmis ilme. |
+| ✓ | 2 | Colliers Asunnot | `colliers-runko-ennen` + `colliers-runko-jalkeen` | vapaa · ≥1344 px | Asuntosivu koodiin tehtynä rautalankana viikolla 1 ja julkaistuna. Rautalangalla käytiin idea ja kokonaisuus läpi, ja valmis näkymä rakennettiin sen päälle. |
 | ✓ | 3 | Colliers Asunnot | `colliers-haku` | 4:5 · ≥880 px | AI-haku: kirjoitettu kuvaus + tulokset |
 | ✓ | 4 | Colliers Asunnot | `colliers-vuokraus` | 4:5 · ≥880 px | Vuokraa heti -polku, yksi vaihe |
 | ✓ | 5 | Colliers Asunnot | `colliers-strapi` | 4:5 · ≥880 px | Strapi-editori sisältöä muokattaessa |
