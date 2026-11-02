@@ -62,7 +62,7 @@ const jobs: Job[] = [
     company: 'Blokbook Oy',
     projects: [
       {
-        name: 'Blokbook',
+        name: 'Blokbook — oma tuote ja yritys',
         body: 'Tilojen varaus- ja hallintapalvelu. Tuotesuunnittelu, UX/UI ja tekninen toteutus',
       },
     ],
