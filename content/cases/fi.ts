@@ -205,9 +205,16 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'band',
-      title: 'Suunnittelupöydältä valmiiksi palveluksi',
-      body: 'Hinnoittelu muuttaa tuotetta, tuoterajaus muuttaa koodia ja koodivalinta muuttaa sitä, mitä voi myydä. Siksi jokaista valintaa pitää katsoa sekä tuotteena että toteutuksena.',
+      kind: 'text',
+      label: 'Suunnittelusta toteutukseen',
+      items: [
+        {
+          p: 'Blokbookissa käyttöliittymät, varaussäännöt ja tekninen toteutus kehittyvät yhdessä. Käyttökokemusta suunnitellessa määrittelen samalla, mitä järjestelmän pitää osata ja miten tieto kulkee asukkaan ja hallinnan välillä.',
+        },
+        {
+          p: 'Yhteinen koodipohja ja design system pitävät käyttöliittymät yhtenäisinä webissä, iOS:ssä ja Androidissa.',
+        },
+      ],
     },
     {
       kind: 'scope',
