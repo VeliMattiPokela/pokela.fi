@@ -69,3 +69,23 @@ export const Tumma: Story = {
       'Merkinnät kääntyvät teeman mukana: "Ennen" on käännetyllä pinnalla, "Jälkeen" paperilla.',
   },
 };
+
+/**
+ * Videovertailu: kaksi samaan tahtiin toistuvaa scroll-videota.
+ * Colliersin asuntosivu skeletonina viikolla 1 ja julkaistuna. Vaakasuuntainen
+ * lähde saa koko leveyden; taukonappi on Videon oma.
+ */
+export const Video: Story = {
+  args: {
+    id: 'colliers-runko',
+    beforeLabel: 'Viikko 1',
+    afterLabel: 'Julkaisu',
+    alt: 'Colliers Asuntojen asuntosivu skeletonina ja julkaistuna',
+    caption: 'Sama asuntosivu viikolla 1 ja julkaisussa, osio osiolta samassa tahdissa.',
+  },
+};
+
+/** Videovertailu tauolla: vähemmän liikettä pyytänyt katsoja näkee julisteet. */
+export const VideoTauolla: Story = {
+  args: { ...Video.args, tila: 'tauolla' },
+};

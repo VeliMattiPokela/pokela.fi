@@ -22,6 +22,16 @@
 
 .compare__img { position: absolute; inset: 0; }
 
+/* Vaakasuuntainen lähde, kuten työpöytänäkymän video: koko sarake.
+   320 pikseliä on puhelinkaappauksen leveys, ja työpöytänäkymä
+   sen kokoisena olisi lukukelvoton. */
+.compare--leve .compare__frame { max-width: none; }
+
+/* Videovertailun taukonappi range-syötteen päällä, jotta painallus
+   osuu nappiin eikä siirrä jakajaa. Paikka ja asu tulevat
+   .video__toisto-luokasta. */
+.compare__toisto { z-index: 1; }
+
 /* Ennen-kuva leikataan jakajan kohdalta. Ei transitionia:
    jakajan pitää seurata osoitinta 1:1. */
 .compare__img--before {

@@ -66,10 +66,10 @@ const colliers: Case = {
       id: 'colliers-runko',
       ratio: '4:3',
       tarveLeveys: 1344,
-      beforeLabel: 'Viikko 1',
+      beforeLabel: 'Rautalanka koodissa',
       afterLabel: 'Julkaisu',
       caption:
-        'Sama näkymä viikolla 1 ja julkaisussa: toimiva runko ja siitä jatkokehitetty valmis ilme.',
+        'Asuntosivu koodiin tehtynä rautalankana viikolla 1 ja julkaistuna. Rautalangalla käytiin idea ja kokonaisuus läpi, ja valmis näkymä rakennettiin sen päälle.',
     },
     {
       kind: 'band',

@@ -828,6 +828,23 @@ export async function rakenna({ kirjoita = true } = {}) {
        paikka, jollaista ei ollut yhtään, ja heroon pudotettu mp4
        kaatui sharpiin (8.10.2026). */
     const paa0 = omat.find((l) => !l.osa) ?? omat[0];
+    /* Videovertailu: molemmat puolet videoina, kumpikin omalla
+       nimellään. Puolet toistetaan päällekkäin samaan tahtiin, joten
+       niiden pitää olla samankokoiset; eri kokoiset kehys venyttäisi
+       toisen hiljaa. Kuva toisella ja video toisella puolella ei käy,
+       koska jakaja paljastaisi liikkumattoman puolen. */
+    if (paikka.vertailu && omat.some((l) => VIDEOPAATTEET.includes(extname(l.tiedosto).toLowerCase()))) {
+      if (!omat.every((l) => VIDEOPAATTEET.includes(extname(l.tiedosto).toLowerCase()))) {
+        throw new Error(`${paikka.id}: vertailuparin molempien puolten pitää olla videoita tai kuvia`);
+      }
+      const koot = [];
+      for (const l of omat) koot.push(await teeVideo(l.nimi, l.tiedosto, { kirjoita }));
+      if (koot.some((k) => k.leveys !== koot[0].leveys || k.korkeus !== koot[0].korkeus)) {
+        throw new Error(`${paikka.id}: videovertailun puolet ovat eri kokoiset`);
+      }
+      manifesti[paikka.id] = { tyyppi: 'videovertailu', ...koot[0] };
+      continue;
+    }
     if (VIDEOPAATTEET.includes(extname(paa0.tiedosto).toLowerCase())) {
       const { leveys, korkeus } = await teeVideo(paikka.id, paa0.tiedosto, {
         kirjoita,
