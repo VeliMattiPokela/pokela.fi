@@ -73,7 +73,7 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Iteroitiin toimivaa palvelua, ei kuvia',
+      title: 'Iteroimme toimivaa palvelua, emme kuvia',
       body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
@@ -115,7 +115,7 @@ const colliers: Case = {
       label: 'Työtapa',
       items: [
         {
-          p: 'Tiivis aikataulu vaati nopeita päätöksiä. Projekti tehtiin UX engineering -työtavalla: suunnittelu ja toteutus iteroitiin samassa koodissa.',
+          p: 'Valitsin UX engineering -työtavan, koska palvelun laatu ratkesi vasta käytössä: hakupolut, vuokrauksen vaiheet ja sisällönhallinnan komponentit piti kokeilla selaimessa eikä kuvina. Kun suunnittelu ja toteutus ovat samassa koodissa, mikään ei katoa luovutuksessa, ja jokainen päätös nähdään heti siinä muodossa, jossa käyttäjä sen kohtaa. Sama työtapa teki myös kahdeksan kuukauden aikataulusta mahdollisen.',
         },
       ],
     },
@@ -125,7 +125,7 @@ const colliers: Case = {
       label: 'Lopputulos',
       lead: 'Palvelu on julkaistu ja käytössä',
       items: [
-        { p: 'Mittareita ei ole vielä julkaistu. Ne lisätään tähän kun dataa on.' },
+        { p: 'colliersasunnot.com' },
       ],
     },
     { kind: 'todo', text: 'Asiakkaan sitaatti — yksi lause, nimi ja titteli. Odottaa lupaa.' },
