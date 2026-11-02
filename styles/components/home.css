@@ -53,16 +53,6 @@
    pinnalla (päätös 40), joten pinnan reuna korvaa myös alaviivan. */
 .home__clients .logo-row-block { border-block: 0; }
 
-/* Herokuva: nauha täyttää heron oman marginaalin (base.css), joten
-   ilman tätä nauha osuisi kiinni viereisiin osioihin ja alle jäisi
-   kapea rako ennen käännettyä nostoriviä. flow-root pitää heron
-   marginaalin laatikon sisällä, ja oma marginaali antaa nauhan
-   ympärille saman paperin kuin osioiden välissä on muutenkin. */
-.home__hero {
-  display: flow-root;
-  margin-block: var(--section-gap);
-}
-
 /* Ensimmäinen ruutu: nimi ja viivateos täyttävät vähintään ruudun
    korkeuden, ja teos venyy nimen alta ruudun alareunaan. */
 .home__alku {

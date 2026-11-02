@@ -54,24 +54,17 @@ export const erilliset: Kuvapaikka[] = [
     missa: 'Storybook',
   },
   {
-    /* Yksi iso kuva nostoparin tilalla: nauha jatkuu ruudun reunoihin
-       ja kuva pysyy keskellä sivun levyisenä, kuten casejen herossa. */
-    id: 'etusivu-hero',
-    ratio: 'hero',
-    caption: 'Valittu työ isona — täysleveä herokuva',
-    missa: 'Etusivu',
-  },
-  {
     /* Design systemin komponentit seinänä kallistettuna: kuva on
        rakennettu System-sivun oikeista komponenteista. Tausta ja
        komponentit ovat teeman värisiä, joten tummaan teemaan on oma
-       kuvansa. */
+       kuvansa. Kuva oli ennen Työt-sivun lopussa; nyt se on
+       Media-komponentin täyden esityksen esimerkki. */
     id: 'tyot-storybook',
     ratio: '4:3',
     esitys: 'taysi',
     teema: 'omat',
     caption: 'Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana',
-    missa: 'Työlista',
+    missa: 'Storybook',
   },
   {
     id: 'muotokuva',

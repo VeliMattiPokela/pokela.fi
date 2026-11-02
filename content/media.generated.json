@@ -337,14 +337,13 @@
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "etusivu-hero": 29,
     "himat-hero": 13,
     "himat-paperit": 15,
     "himat-sijainti": 16,
     "himat-talous": 14,
     "himat-vertailu": 17,
     "media-viiva": 28,
-    "muotokuva": 31,
+    "muotokuva": 30,
     "op-aloitus": 25,
     "op-polku": 27,
     "op-vaurio": 26,
@@ -353,7 +352,7 @@
     "pivo-reaktio": 20,
     "pivo-ryhma": 18,
     "portfolio-prosessi": 12,
-    "tyot-storybook": 30
+    "tyot-storybook": 29
   },
   "muodot": {
     "aisti-mobiili": {
@@ -411,10 +410,6 @@
     "colliers-vuokraus": {
       "suhde": "4:5",
       "leveys": 880
-    },
-    "etusivu-hero": {
-      "suhde": "4:5 · 16:9 · 21:9",
-      "leveys": 2736
     },
     "himat-hero": {
       "suhde": "4:5 · 16:9 · 21:9",
