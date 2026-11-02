@@ -1100,7 +1100,7 @@ mitä kuvan pitää näyttää.
 | ✓ | 30 | Työlista | `tyot-storybook` + `tyot-storybook-tumma` | 4:3 · ≥2736 px | Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana |
 | ✓ | 31 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-18/31 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+19/31 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain
