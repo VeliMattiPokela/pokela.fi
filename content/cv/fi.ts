@@ -58,7 +58,7 @@ const jobs: Job[] = [
     ],
   },
   {
-    period: '2024 —',
+    period: '2025 —',
     company: 'Blokbook Oy',
     projects: [
       {
