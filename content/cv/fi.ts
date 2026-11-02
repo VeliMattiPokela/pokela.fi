@@ -8,7 +8,9 @@
 
 export type Job = {
   period: string;
-  title: string;
+  /** Puuttuu omalta tuotteelta: sillä ei ole työnantajaa eikä
+      nimikettä, joten se ei saa työpaikan kokoista otsikkoa. */
+  title?: string;
   company: string;
   projects: { name: string; body: string }[];
 };
@@ -32,17 +34,6 @@ const services = [
 ];
 
 const jobs: Job[] = [
-  {
-    period: '2024 —',
-    title: 'Oma tuote',
-    company: 'Blokbook',
-    projects: [
-      {
-        name: 'Blokbook',
-        body: 'Tilojen varaus- ja hallintapalvelu. Tuotesuunnittelu, UX/UI ja tekninen toteutus',
-      },
-    ],
-  },
   {
     period: '2021 —',
     title: 'Senior Designer',
@@ -105,6 +96,16 @@ const jobs: Job[] = [
       {
         name: 'Oikotie Asunnot — iOS ja Android',
         body: 'Natiivisovellukset. Designer ja projektipäällikkö',
+      },
+    ],
+  },
+  {
+    period: '2024 —',
+    company: 'Oma tuote',
+    projects: [
+      {
+        name: 'Blokbook',
+        body: 'Tilojen varaus- ja hallintapalvelu. Tuotesuunnittelu, UX/UI ja tekninen toteutus',
       },
     ],
   },
