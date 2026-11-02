@@ -17,21 +17,32 @@ const services = [
   {
     number: '01',
     title: 'Tuote ja palvelu',
-    body: 'Käyttäjäkeskeinen UX/UI, palvelumuotoilu, käyttäjäpolut ja vaatimusmäärittely.',
+    body: 'UX/UI-suunnittelu, palvelumuotoilu, konseptointi, käyttäjäpolut ja vaatimusmäärittely.',
   },
   {
     number: '02',
     title: 'Toteutus',
-    body: 'Koodipohjainen design system, front end tuotantoon ja interaktiiviset prototyypit UX engineering -työtavalla.',
+    body: 'Koodipohjainen design system, front end -kehitys, interaktiiviset prototyypit ja AI-avusteinen kehittäminen.',
   },
   {
     number: '03',
     title: 'Tutkimus',
-    body: 'Käytettävyystestaus ja auditointi, asiakashaastattelut, saavutettavuus.',
+    body: 'Käyttäjähaastattelut, käytettävyystestaus, saavutettavuus ja käyttäjälähtöinen kehittäminen.',
   },
 ];
 
 const jobs: Job[] = [
+  {
+    period: '2024 —',
+    title: 'Oma tuote',
+    company: 'Blokbook',
+    projects: [
+      {
+        name: 'Blokbook',
+        body: 'Tilojen varaus- ja hallintapalvelu. Tuotesuunnittelu, UX/UI ja tekninen toteutus',
+      },
+    ],
+  },
   {
     period: '2021 —',
     title: 'Senior Designer',
@@ -100,18 +111,19 @@ const jobs: Job[] = [
 ];
 
 const jobsFootnote =
-  'Lisäksi Blokbook (oma tuote, 2024 —), Finavia, Ilta-Sanomat, Fennia ja Caverion.';
+  'Lisäksi Finavia, Ilta-Sanomat, Fennia ja Caverion.';
 
 const tools = [
-  { label: 'Design', items: 'Figma, Storybook, Sketch, InVision' },
-  { label: 'Koodi', items: 'Next.js, React, TypeScript, HTML, CSS, Vue, Strapi' },
-  { label: 'Muu', items: 'Photoshop, Lightroom, After Effects, Ableton, Logic Pro' },
+  { label: 'Suunnittelu', items: 'Figma, FigJam, Storybook' },
+  { label: 'Koodi', items: 'React, Next.js, TypeScript, HTML, CSS, Vue, Git, GitHub' },
+  { label: 'AI ja kehitystyökalut', items: 'Claude, Claude Code, ChatGPT, Cursor, VS Code' },
+  { label: 'Muut', items: 'Supabase, Strapi, Photoshop, Lightroom, After Effects' },
 ];
 
 const education = [
   { label: 'Insinööri (AMK), mediatekniikka', items: '2010' },
-  { label: 'Web Accessibility Certificate', items: 'W3Cx, kesken' },
-  { label: 'Kielet', items: 'suomi (äidinkieli), englanti (sujuva), ruotsi (perusteet)' },
+  { label: 'Web Accessibility Certificate', items: 'W3Cx, opinnot kesken' },
+  { label: 'Kielet', items: 'Suomi (äidinkieli), englanti (sujuva), ruotsi (perusteet)' },
 ];
 
 const cv = { services, jobs, jobsFootnote, tools, education };
