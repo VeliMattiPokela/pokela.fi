@@ -1109,8 +1109,8 @@ mitä kuvan pitää näyttää.
 
 - [ ] "Mitä tekisin toisin" — yksi rehellinen lause
 - [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
-- [ ] Mittarit. Teksti sanoo nyt "Mittareita ei ole vielä julkaistu" —
-      joko luvut tai lause pois
+- [x] Mittarit. Lause poistettu, tilalla palvelun osoite
+      colliersasunnot.com (2.11.2026)
 - [ ] Logo. `kuvat/logo/colliers.webp` on tumma laatikko harmaine
       palkkeineen; muut logorivin merkit ovat läpinäkyviä
       sanamerkkejä. Merkitty `blocked`-tilaan `content/logos.ts`:ssä,
