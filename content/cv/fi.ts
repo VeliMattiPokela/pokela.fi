@@ -58,7 +58,7 @@ const jobs: Job[] = [
     ],
   },
   {
-    period: '2024 —',
+    period: '2025 —',
     company: 'Blokbook Oy',
     projects: [
       {
@@ -100,12 +100,8 @@ const jobs: Job[] = [
     company: 'Sanoma Digital Oy',
     projects: [
       {
-        name: 'Oikotie Asunnot — palvelu',
-        body: 'Suomen suurin asuntoilmoitusten palvelu. Tuotesuunnittelu, konsepti, käytettävyys',
-      },
-      {
-        name: 'Oikotie Asunnot — iOS ja Android',
-        body: 'Natiivisovellukset. Designer ja projektipäällikkö',
+        name: 'Oikotie Asunnot — verkko- ja mobiilipalvelut',
+        body: 'Tuotesuunnittelu, konseptointi, käytettävyys ja analytiikka. Natiivien iOS- ja Android-sovellusten suunnittelu ja projektinhallinta',
       },
     ],
   },
