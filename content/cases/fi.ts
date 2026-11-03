@@ -337,7 +337,7 @@ const thisSite: Case = {
       kind: 'checks',
       label: 'Tarkistukset',
       title: '{n} tarkistusta pitää koodin ja Figman samana',
-      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Täällä jokainen muutos kulkee tarkistusten läpi, ja jos jokin ei täsmää, muutos pysähtyy ennen julkaisua. Jokaisen tarkistuksen raja kerrotaan auki.',
+      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Täällä jokainen muutos kulkee tarkistusten läpi, ja jos jokin ei täsmää, muutos pysähtyy ennen julkaisua.',
       pending: {
         id: 'tulossa',
         title: 'Tulossa',
