@@ -119,7 +119,7 @@ const tools = [
 
 const education = [
   { label: 'Insinööri (AMK), mediatekniikka', items: '2010' },
-  { label: 'Web Accessibility Certificate', items: 'W3Cx, opinnot kesken' },
+  { label: 'Web Accessibility Certificate', items: 'W3Cx' },
   { label: 'Kielet', items: 'Suomi (äidinkieli), englanti (sujuva), ruotsi (perusteet)' },
 ];
 
