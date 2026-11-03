@@ -1290,6 +1290,13 @@ on käytetty. Alun perin se jätettiin pois, koska sen case kertoo
 tuotekehityksestä, mutta Vellu suunnitteli senkin suoraan koodiin
 samalla menetelmällä.
 
+**Lisäys 3.11.2026:** Himat (case 04) lisättiin caseihin, joissa
+menetelmää on käytetty. Se suunniteltiin suoraan koodiin: brändi,
+tokenit ja ensimmäiset komponentit ovat repon ensimmäiseltä päivältä
+(6.10.2026), ja säännöt ovat tekstitiedostoissa (CLAUDE.md, ADR:t),
+joista AI-agentti työskentelee. Storybookia ja Figmaa siinä ei ole,
+joten Himatin rivi ei mainitse niitä.
+
 *Kirjattu 14.10.2026 Vellun hyväksynnällä*
 
 ## 39. Otsikoissa ei ole loppupistettä

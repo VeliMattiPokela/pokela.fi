@@ -16,7 +16,7 @@ const tyotapa = {
     { label: 'Mitä', value: 'Käyttäjälähtöinen suunnittelu ja front end' },
     { label: 'Työkalut', value: 'React, TypeScript, Storybook, Git, AI-avustaja' },
     { label: 'Rooli', value: 'UX engineer: design ja toteutus samoissa käsissä' },
-    { label: 'Käytössä', value: 'Colliers Asunnot, Blokbook, tämä sivusto' },
+    { label: 'Käytössä', value: 'Colliers Asunnot, Blokbook, tämä sivusto, Himat' },
   ],
   hero: {
     label: 'Sama näkymä neljässä vaiheessa: runko, design system, data ja julkaistu palvelu.',
@@ -104,6 +104,11 @@ const tyotapa = {
       slug: 'portfolio',
       p: 'Menetelmän seuraava askel: koodi on ainoa lähde, ja Figma ja AI-työkalut seuraavat sitä tarkistettuina.',
       meta: 'Jatkokehitys',
+    },
+    {
+      slug: 'himat',
+      p: 'Oma tuote tehtiin suoraan koodiin ensimmäisestä päivästä. Design system ja säännöt kirjoitettiin heti alkuun, ja AI-agentti työskentelee niiden mukaan.',
+      meta: 'Oma tuote, AI-agentti',
     },
   ],
 };
