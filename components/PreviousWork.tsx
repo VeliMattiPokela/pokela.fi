@@ -75,12 +75,14 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
       </div>
 
       {d.hero ? (
-        <Media
-          id={d.hero.id}
-          ratio={d.hero.ratio as Ratio}
-          caption={d.hero.caption}
-          sizes="(min-width: 1200px) 1100px, calc(100vw - 40px)"
-        />
+        <div className="detail__hero">
+          <Media
+            id={d.hero.id}
+            ratio={d.hero.ratio as Ratio}
+            caption={d.hero.caption}
+            sizes="(min-width: 900px) 760px, calc(100vw - 40px)"
+          />
+        </div>
       ) : null}
 
       <div className="detail__role">
