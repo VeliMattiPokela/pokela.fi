@@ -1738,3 +1738,25 @@ esimerkiksi, koska kuva on valmis ja havainnollistaa esitystapaa.
 tuodaan vasta, kun kuvalla on jotain sanottavaa, jota teksti ei sano.
 
 *Kirjattu 2.11.2026 Vellun pyynnöstä*
+
+## 55. Viimeisin päivitys kertoo tuloksen lukijalle
+
+**Tilanne:** case 03:n aikajanalla jokaisen tarkistuksen rivinä oli
+sen konsolitulosteen yhteenveto sellaisenaan: "38/48 storylla, 10
+poikkeusta joiden sääntö tarkistettu (palvelinkomponentti,
+katettu-muualla, ei-näkyvää)", tiedostonimiä ja Figma-tiedoston
+avain. Lisäksi hitain vaihe korostettiin mustalla kiskolla, ja rivien
+välit venyivät keston mukaan. Vellu ei saanut selvää, mitä rivit tai
+korostus tarkoittivat, ja ontot pallot näyttivät keskeneräisiltä.
+
+**Päätös:** tarkistuksen ✓-rivi kirjoitetaan lukijalle, koska sivu
+näyttää sen sellaisenaan. Tiedostot, tunnisteet ja poikkeusten
+erittely tulostuvat omille `  ·`-riveilleen, joita sivu ei näytä.
+Luku kertoo vain sen, mitä vaaditaan ("38/38 komponentilla on
+Storybook-story"). Aikajanalla kaikki vaiheet näkyvät valmiina ja
+tasavälein, ilman hitaimman vaiheen korostusta.
+
+**Perustelu:** sivu rakennetaan vain, jos jokainen vaihe menee läpi,
+joten jokainen vaihe on valmis. Case on showcase, ei ohjekirja.
+
+*Kirjattu 3.11.2026 Vellun pyynnöstä*

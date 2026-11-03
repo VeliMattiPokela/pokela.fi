@@ -161,6 +161,6 @@ if (virheet.length) {
 }
 
 console.log(
-  `✓ Kuvasuhteet synkassa — ${suhteenNimet.size} suhdetta, ${verrattuja} porrasta` +
-    ` (kuvat.mjs ↔ base.css ↔ Media.tsx)`,
+  `✓ Kuvasuhteet synkassa — ${suhteenNimet.size} kuvasuhdetta täsmää kaikkialla`,
 );
+console.log(`  · ${verrattuja} porrasta, kuvat.mjs ↔ base.css ↔ Media.tsx`);

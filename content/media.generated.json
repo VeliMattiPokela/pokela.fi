@@ -237,26 +237,24 @@
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.494,
+            "suhde": 0.493,
             "leveydet": [
-              480,
-              742
+              423
             ],
-            "leveys": 742,
-            "korkeus": 1502
+            "leveys": 423,
+            "korkeus": 858
           }
         ],
         "pivo-kirjautuminen-jalkeen": [
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.494,
+            "suhde": 0.493,
             "leveydet": [
-              480,
-              742
+              423
             ],
-            "leveys": 742,
-            "korkeus": 1502
+            "leveys": 423,
+            "korkeus": 858
           }
         ]
       }

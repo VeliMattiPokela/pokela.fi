@@ -1078,8 +1078,8 @@ mitä kuvan pitää näyttää.
 | ✓ | 8 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen, kokoaa kannen ja laskee kulut. |
 | ✓ | 9 | Himat | `himat-talous` | 3:4 · ≥1344 px | Oma talous: tulot, kotitalous ja säästöt kolmella kysymyksellä |
 | ✓ | 10 | Himat | `himat-paperit` | 3:4 · ≥1344 px | Kunnossapitotarveselvitys luetaan, ja remontit näkyvät sivunumeroineen |
-| ✓ | 11 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matkat, palvelut, luonto ja melu |
-| ✓ | 12 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä |
+| ✓ | 11 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matka-ajat, kartta, liikenne ja melu |
+| ✓ | 12 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kuukausikulu, oma raha ja taloyhtiön luvut samoilla riveillä |
 | ✓ | 13 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
 | ✓ | 14 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
 | ✓ | 15 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |

@@ -1031,7 +1031,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   }
 
   const valmiit = lista.length - puuttuvat.length;
-  console.log(`\n✓ Kuvat rakennettu — ${valmiit}/${lista.length} paikkaa täynnä`);
+  console.log(`\n✓ Kuvat rakennettu — ${valmiit}/${lista.length} kuvaa valmiina`);
   if (puuttuvat.length) {
     console.log(`  ${puuttuvat.length} paikkaa odottaa kuvaa. Mitkä ja mistä kohtaa sivua:`);
     console.log('  npm run kuvat:lista');
