@@ -206,8 +206,8 @@ const blokbook: Case = {
       kind: 'scope',
       surface: 'tint',
       label: 'Vastuualueet',
-      title: 'Mistä kaikesta vastaan',
-      body: 'Tuotteen kaikki osa-alueet konseptista ylläpitoon, hinnoittelusta asiakastukeen.',
+      title: 'Konseptista asiakastukeen',
+      body: 'Tuotteen kaikki osa-alueet liikeideasta hinnoitteluun ja ylläpitoon.',
       items: [
         'Konseptointi ja liikeidea',
         'Brändi ja ilme',
@@ -230,8 +230,9 @@ const blokbook: Case = {
       lead: 'Palvelu on markkinoilla, ja kehitys jatkuu',
       items: [
         {
-          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on oma, joten tuotteen suunta on omissa käsissä.',
+          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu.',
         },
+        { p: 'blokbook.com', href: 'https://blokbook.com' },
       ],
     },
     {
