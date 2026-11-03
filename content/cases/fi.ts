@@ -187,22 +187,8 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'pair',
-      label: 'Kaksi näkökulmaa',
-      items: [
-        {
-          id: 'blokbook-asukas',
-          ratio: '4:3',
-          label: 'Asukas varaa ja maksaa',
-          caption: 'Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu.',
-        },
-        {
-          id: 'blokbook-hallinta',
-          ratio: '4:3',
-          label: 'Isännöinti hallinnoi',
-          caption: 'Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet.',
-        },
-      ],
+      kind: 'todo',
+      text: 'Kaksi näkökulmaa: asukkaan varausnäkymä ja hallinnan näkymä samasta tilasta rinnakkain, kun oikeat kuvakaappaukset ovat saatavilla.',
     },
     {
       kind: 'text',
@@ -235,27 +221,8 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'trio',
-      surface: 'tint',
-      label: 'Kolme alustaa',
-      title: 'Sama palvelu, kolme alustaa',
-      items: [
-        {
-          media: { id: 'blokbook-web', ratio: '3:4', caption: 'Web — varausnäkymä kapeana' },
-          h: 'Web',
-          p: 'Ensimmäinen alusta. Design system ja Storybook syntyivät tässä.',
-        },
-        {
-          media: { id: 'blokbook-ios', ratio: '3:4', caption: 'iOS — natiivisovellus, ei laitekehystä' },
-          h: 'iOS',
-          p: 'Natiivi sovellus, samat komponentit ja sama ilme kuin webissä.',
-        },
-        {
-          media: { id: 'blokbook-android', ratio: '3:4', caption: 'Android — sama näkymä' },
-          h: 'Android',
-          p: 'Sama työtapa kuin Colliersissa, mutta nyt myös mobiilissa.',
-        },
-      ],
+      kind: 'todo',
+      text: 'Kolme alustaa: palautetaan vain, jos webin, iOS:n ja Androidin näkymistä on oikeat kuvat.',
     },
     {
       kind: 'text',
