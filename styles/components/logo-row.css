@@ -20,7 +20,22 @@
   margin: 0;
   padding: 0;
 }
-@media (min-width: 900px) { .logo-row { gap: var(--space-32) var(--space-56); } }
+/* Leveällä näytöllä logot jaetaan tasaisesti. Kiinteä väli jätti
+   kymmenennen logon yksin toiselle riville. Keskileveydellä logot ovat
+   kahdessa viiden sarakkeen rivissä, jotta toinen rivi ei jää vajaaksi;
+   1400 px:stä ylöspäin kaikki mahtuvat yhdelle riville. Väli on
+   vähimmäisväli, space-between jakaa loput. */
+@media (min-width: 900px) {
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    justify-content: space-between;
+    gap: var(--space-32) var(--space-32);
+  }
+}
+@media (min-width: 1400px) {
+  .logo-row { display: flex; flex-wrap: nowrap; justify-content: space-between; }
+}
 
 .logo-row__item {
   width: var(--logo-w, auto);
@@ -37,7 +52,10 @@
   transition: background-color var(--dur-fast) var(--ease-standard);
 }
 .logo-row:hover .logo-row__item { background-color: var(--ink-faint); }
-.logo-row__item:hover { background-color: var(--ink); }
+/* Sama tarkkuus kuin rivin säännöllä (0,3,0) ja myöhemmin, jotta
+   osoitettu logo voittaa. Pelkkä .logo-row__item:hover (0,2,0) hävisi,
+   ja osoitettu logo haalistui muiden mukana. */
+.logo-row .logo-row__item:hover { background-color: var(--ink); }
 
 .logo-row-block {
   display: flex;

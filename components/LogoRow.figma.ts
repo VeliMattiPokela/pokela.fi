@@ -11,9 +11,9 @@
  * maski ja väri tulee --ink-muted-muuttujasta. Siksi ne toimivat
  * myös tummassa teemassa, toisin kuin suoraan sijoitettu musta PNG.
  *
- * Huom: Oikotien ja Colliersin logotiedostot ovat laatikoita eivätkä
- * sanamerkkejä. Se näkyy sekä sivustolla että Figmassa — vika on
- * tiedostossa, ja se on kirjattu käsikirjan (docs/kasikirja.md) avoimiin kohtiin.
+ * Huom: Oikotien logotiedosto on laatikko eikä sanamerkki. Se näkyy
+ * sekä sivustolla että Figmassa — vika on tiedostossa, ja se on
+ * kirjattu käsikirjan (docs/kasikirja.md) avoimiin kohtiin.
  */
 
 import figma from 'figma';

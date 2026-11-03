@@ -1818,4 +1818,41 @@ kaikkiin töihin.
 **Figma:** avautuneen rivin sisältöä ei ole piirretty Figmaan (ks.
 päätös 56), joten pohjiin ei tule muutosta.
 
+## 58. Videon taukonapissa on etenemisviiva
+
+**Tilanne:** case-videot toistuvat mykkinä silmukoina, ja nurkan
+Pysäytä/Toista-nappi oli ainoa merkki toistosta. Katsoja ei nähnyt,
+missä kohtaa videota mennään tai milloin silmukka alkaa alusta.
+
+**Päätös:** napin alareunassa on ohut viiva, joka kasvaa vasemmalta
+videon ajan mukana. Sama ilme kuin sivunvaihdon viivassa (päätös 41):
+`--hairline-strong` ja `--ink` hiusviivan `--line`-pohjan päällä.
+Tauolla viiva pysähtyy kohtaansa, silmukan alussa se palaa alkuun.
+Viiva on sekä Videossa että videovertailussa (BeforeAfter), jossa se
+seuraa jälkeen-videota. Videolla on `etenema`-propsi (0–1), jolla
+Storybook ja Figma näyttävät viivan paikallaan.
+
+**Perustelu:** viiva on siinä, mihin katsoja jo katsoo, eikä tuo
+sivulle uutta elementtiä. Se ei ole kelausohjain: video on koriste,
+ja nappi on edelleen ainoa ohjain (päätös 11).
+
+**Figma:** Video-komponentin kumpaankin Tila-varianttiin lisättiin
+napin alareunaan viiva (pohja ja etenemä 40 %).
+
+## 59. Kävijämittaus Vercelin omilla työkaluilla
+
+**Päätös:** sivustolla on Vercel Web Analytics ja Speed Insights
+(`@vercel/analytics`, `@vercel/speed-insights`), jotka lisätään
+juuren layoutiin. Mittaus on evästeetön eikä tallenna henkilötietoja,
+joten suostumusbanneria ei tarvita.
+
+**Perustelu:** sivusto on jo Vercelissä (päätös 49), joten erillistä
+palvelua tai tiliä ei tarvita. Hobby-tasolla Web Analyticsissa on
+50 000 tapahtumaa kuukaudessa ja Speed Insightsissa 10 000 tapahtumaa
+30 päivässä. Rajan ylittyessä keruu pysähtyy, eikä laskua tule.
+
+**Käyttöönotto:** mittaus kytketään päälle Vercelin projektin
+Analytics- ja Speed Insights -välilehdeltä (Enable). Ennen sitä
+skriptit eivät lähetä mitään.
+
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
