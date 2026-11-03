@@ -228,6 +228,7 @@ const blokbook: Case = {
       items: [
         {
           media: { id: 'blokbook-web', ratio: '3:4', caption: 'Web — palvelun etusivu' },
+          levea: true,
           h: 'Web',
           p: 'Ensimmäinen alusta. Design system ja Storybook syntyivät tässä.',
         },
