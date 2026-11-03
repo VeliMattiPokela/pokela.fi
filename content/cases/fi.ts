@@ -52,7 +52,7 @@ const colliers: Case = {
         },
         {
           h: 'Miksi',
-          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä on käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pystyi näkemään ja kokeilemaan palvelua alusta asti.',
+          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä tuntuu käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pystyi näkemään ja kokeilemaan palvelua alusta asti.',
         },
         {
           h: 'Seuraus',
@@ -206,8 +206,8 @@ const blokbook: Case = {
       kind: 'scope',
       surface: 'tint',
       label: 'Vastuualueet',
-      title: 'Mistä kaikesta vastaan',
-      body: 'Tuotteen kaikki osa-alueet konseptista ylläpitoon, hinnoittelusta asiakastukeen.',
+      title: 'Konseptista asiakastukeen',
+      body: 'Tuotteen kaikki osa-alueet liikeideasta hinnoitteluun ja ylläpitoon.',
       items: [
         'Konseptointi ja liikeidea',
         'Brändi ja ilme',
@@ -250,8 +250,9 @@ const blokbook: Case = {
       lead: 'Palvelu on markkinoilla, ja kehitys jatkuu',
       items: [
         {
-          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu viikoittain. Yritys on oma, joten tuotteen suunta on omissa käsissä.',
+          p: 'Useampi taloyhtiö käyttää palvelua, ja kehitys jatkuu.',
         },
+        { p: 'blokbook.com', href: 'https://blokbook.com' },
       ],
     },
     {
@@ -290,7 +291,7 @@ const thisSite: Case = {
       items: [
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa yleensä Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
+          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa usein myös Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
         },
       ],
     },
@@ -357,7 +358,7 @@ const thisSite: Case = {
       kind: 'checks',
       label: 'Tarkistukset',
       title: '{n} tarkistusta pitää koodin ja Figman samana',
-      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Täällä jokainen muutos kulkee tarkistusten läpi, ja jos jokin ei täsmää, muutos pysähtyy ennen julkaisua. Jokaisen tarkistuksen raja kerrotaan auki.',
+      note: 'Design system rapistuu yleensä vähitellen, kun koodi ja Figma alkavat erota. Täällä jokainen muutos kulkee tarkistusten läpi, ja jos jokin ei täsmää, muutos pysähtyy ennen julkaisua.',
       pending: {
         id: 'tulossa',
         title: 'Tulossa',

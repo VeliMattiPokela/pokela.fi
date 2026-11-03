@@ -16,7 +16,6 @@ const meta = {
         title: 'Tokenit',
         huomaa: 'Huomaa, jos väri tai mitta muuttuu koodissa mutta ei Figmassa.',
         proves: 'styles/tokens.css ja tokens.json ovat samat arvot jokaisella breakpointilla.',
-        blind: 'Ei kerro, käyttääkö arvoa kukaan.',
         runs: true,
       },
       {
@@ -24,7 +23,6 @@ const meta = {
         title: 'Figma',
         huomaa: 'Huomaa, jos komponentti tai variantti on koodissa mutta ei Figma-kirjastossa.',
         proves: 'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin. Kirjaston sisältö luetaan Figma-tiedostosta.',
-        blind: 'Ei tarkista muuttujia.',
         runs: true,
       },
       {
@@ -32,7 +30,6 @@ const meta = {
         title: 'Tekstit',
         huomaa: 'Huomaa, jos teksti kirjoitetaan komponenttiin sanakirjan ohi.',
         proves: 'Näkyvät tekstit tulevat sanakirjasta, eivät komponenteista.',
-        blind: null,
         runs: false,
       },
     ],
@@ -51,9 +48,9 @@ export const Ryhmissa: Story = {
       { id: 'tulossa', title: 'Tulossa', note: 'Tarkistus on kirjoitettu, mutta sitä ei vielä ajeta.' },
     ],
     items: [
-      { id: 'tokens', title: 'Tokenit', huomaa: 'Huomaa, jos väri tai mitta muuttuu koodissa mutta ei Figmassa.', proves: 'styles/tokens.css ja tokens.json ovat samat arvot.', blind: null, runs: true },
-      { id: 'figma', title: 'Figma', huomaa: 'Huomaa, jos variantti on koodissa mutta ei Figmassa.', proves: 'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin.', blind: null, runs: true },
-      { id: 'tekstit', group: 'tulossa', title: 'Tekstit', huomaa: 'Huomaa, jos teksti kirjoitetaan komponenttiin sanakirjan ohi.', proves: 'Näkyvät tekstit tulevat sanakirjasta.', blind: null, runs: false },
+      { id: 'tokens', title: 'Tokenit', huomaa: 'Huomaa, jos väri tai mitta muuttuu koodissa mutta ei Figmassa.', proves: 'styles/tokens.css ja tokens.json ovat samat arvot.', runs: true },
+      { id: 'figma', title: 'Figma', huomaa: 'Huomaa, jos variantti on koodissa mutta ei Figmassa.', proves: 'Jokainen kytkentä osoittaa olemassa olevaan Figma-komponenttiin.', runs: true },
+      { id: 'tekstit', group: 'tulossa', title: 'Tekstit', huomaa: 'Huomaa, jos teksti kirjoitetaan komponenttiin sanakirjan ohi.', proves: 'Näkyvät tekstit tulevat sanakirjasta.', runs: false },
     ],
   },
 };

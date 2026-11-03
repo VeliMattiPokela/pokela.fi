@@ -51,7 +51,6 @@ const fi = {
 
   work: {
     title: 'Työt',
-    subtitle: 'Neljä kärkeä · aiemmat työt',
     previous: 'Aiemmat työt',
     previousHint: 'Avautuu sivulla',
     nextCase: 'Seuraava case',
