@@ -270,7 +270,7 @@ const thisSite: Case = {
       items: [
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelu tehdään usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa yleensä Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
+          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa usein myös Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
         },
       ],
     },
