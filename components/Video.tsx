@@ -24,7 +24,7 @@ import { useEffect, useRef, useState, type RefObject } from 'react';
  * `Mobiili` on kolmas: herolla voi olla oma puhelinvideo, kuten
  * herokuvalla oma mobiilikuva. Ks. Video.figma.ts.
  *
- * Napin alareunassa on etenemisviiva (päätös 57): ohut musteviiva
+ * Napin alareunassa on etenemisviiva (päätös 58): ohut musteviiva
  * kertoo, missä kohtaa silmukkaa video on. Sama viiva kuin
  * sivunvaihdossa (päätös 41), mutta se seuraa videon aikaa.
  */

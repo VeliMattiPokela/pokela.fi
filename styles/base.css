@@ -363,7 +363,7 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
   cursor: pointer;
 }
 
-/* Etenemä napin alareunassa (päätös 57): sama viiva kuin
+/* Etenemä napin alareunassa (päätös 58): sama viiva kuin
    sivunvaihdossa (päätös 41), --hairline-strong ja --ink, mutta se
    kertoo missä kohtaa silmukkaa video on. Alla hiusviivan pohja
    --line, kuten ListRow'n siirtymässä, jotta koko pituus hahmottuu.

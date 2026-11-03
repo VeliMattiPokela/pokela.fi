@@ -73,7 +73,7 @@ export const Levylla: Story = {
 
 /**
  * Etenemä napin alareunassa: musteviiva kertoo, missä kohtaa
- * silmukkaa video on (päätös 57). Sivustolla viiva seuraa videon
+ * silmukkaa video on (päätös 58). Sivustolla viiva seuraa videon
  * aikaa; tässä se on pakotettu paikalleen, koska videotiedostoa ei ole.
  */
 export const Etenema: Story = { args: { tila: 'toistaa', etenema: 0.4 } };

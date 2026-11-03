@@ -59,7 +59,7 @@ export default function BeforeAfter({
   const frameRef = useRef<HTMLDivElement>(null);
   const ennenRef = useRef<HTMLVideoElement>(null);
   const jalkeenRef = useRef<HTMLVideoElement>(null);
-  /* Etenemä seuraa johtajaa, kuten ennen-video (päätös 57). */
+  /* Etenemä seuraa johtajaa, kuten ennen-video (päätös 58). */
   const viiva = useEtenema(jalkeenRef);
 
   const videot = videovertailu(id);
