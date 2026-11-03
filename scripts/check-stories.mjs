@@ -244,19 +244,39 @@ const uusiaWeak = weak
   }))
   .filter((w) => w.gaps.length);
 
+/**
+ * Yhteenvetorivi (✓) näkyy sellaisenaan case 03:n aikajanalla, joten
+ * siinä on vain kattavuus: poikkeukset eivät tarvitse storya, joten
+ * ne eivät ole luvussa. Poikkeusten erittely tulostetaan omalle
+ * rivilleen kehittäjälle.
+ */
+const SYY_LUKIJALLE = {
+  'katettu-muualla': 'näkyy toisen komponentin storyssa',
+  palvelinkomponentti: 'toimii vain palvelimella',
+  'ei-näkyvää': 'ei näy ruudulla',
+};
+function poikkeuksetLukijalle() {
+  if (!exemptUsed.length) return '';
+  const maarat = SYYT.map((syy) => [syy, exemptUsed.filter((e) => e.syy === syy).length])
+    .filter(([, n]) => n)
+    .sort((a, b) => b[1] - a[1])
+    .map(([syy, n]) => `${n} ${SYY_LUKIJALLE[syy]}`);
+  const luettelo = maarat.length > 1 ? `${maarat.slice(0, -1).join(', ')} ja ${maarat.at(-1)}` : maarat[0];
+  return `${exemptUsed.length} komponenttia ei tarvitse omaa storya: ${luettelo}`;
+}
+
 const covered = components.length - missing.length - exemptUsed.length;
 const problems = uusiaMissing.length + staleExempt.length + uusiaWeak.length + badExempt.length;
 
 if (problems === 0) {
   console.log(
-    `✓ Storyt kattavat komponentit — ${covered}/${components.length} storylla, ` +
-      `${exemptUsed.length} poikkeusta joiden sääntö tarkistettu ` +
-      `(${[...new Set(exemptUsed.map((e) => e.syy))].join(', ')})` +
+    `✓ Storyt kattavat komponentit — ${covered}/${covered} komponentilla on Storybook-story` +
       (taso.kaytossa ? `, ${taso.nyt} lähtötasolla` : '') +
       (taso.kaytossa && edistyminen('stories')
         ? ` (${edistyminen('stories').alku} → ${edistyminen('stories').nyt}, ${edistyminen('stories').maksettu} % maksettu)`
         : ''),
   );
+  if (exemptUsed.length) console.log(`  · ${poikkeuksetLukijalle()}`);
   if (taso.korjatut.length) {
     console.log(`  · ${taso.korjatut.length} rikkomusta korjattu kirjauksen jälkeen —`);
     console.log('    lukitse edistyminen: npm run lahtotaso:kirjaa');

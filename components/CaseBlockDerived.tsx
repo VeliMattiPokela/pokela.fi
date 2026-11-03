@@ -123,8 +123,10 @@ export default function CaseBlockDerived({
                           title={vaihe.nimi}
                           meta={kesto(vaihe.kesto)}
                           description={vaihe.tulos}
-                          variant={vaihe === ajo.hitain ? 'emphasis' : 'default'}
-                          weight={vaihe.kesto / ajo.sivustoAlkoi}
+                          /* Jokainen vaihe on valmis: sivu rakennetaan vain,
+                             jos kaikki menevät läpi. Siksi kaikki näkyvät
+                             täytettyinä ja tasavälein. */
+                          variant="emphasis"
                         />
                       ))}
                       <TimelineItem label={kello(ajo.sivustoAlkoi)} title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />

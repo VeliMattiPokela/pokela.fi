@@ -32,9 +32,9 @@ const eriytyneet = lista.filter(({ polku, sisalto }) => {
 
 if (eriytyneet.length === 0) {
   console.log(
-    `✓ Favicon ajan tasalla — ${lista.length} tiedostoa vastaa tokeneita ` +
-      `(pinta ${varit.vaaleaPinta} / muste ${varit.vaaleaMuste})`,
+    '✓ Favicon ajan tasalla — Vastaa teeman värejä',
   );
+  console.log(`  · ${lista.length} tiedostoa, pinta ${varit.vaaleaPinta} / muste ${varit.vaaleaMuste}`);
   process.exit(0);
 }
 

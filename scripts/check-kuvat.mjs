@@ -52,8 +52,8 @@ const taynna = lista.length - puuttuvat.length;
 
 if (virheet.length === 0) {
   console.log(
-    `✓ Kuvat synkassa — ${taynna}/${lista.length} paikkaa täynnä` +
-      (puuttuvat.length ? `, ${puuttuvat.length} odottaa kuvaa` : ''),
+    `✓ Kuvat synkassa — ${taynna}/${lista.length} kuvaa paikallaan` +
+      (puuttuvat.length ? `, ${puuttuvat.length} odottaa vielä kuvaa` : ''),
   );
   process.exit(0);
 }

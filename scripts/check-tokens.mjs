@@ -280,7 +280,8 @@ for (const [name, expected] of Object.entries(simple)) {
 const total = Object.values(checked).reduce((a, b) => a + b, 0);
 
 if (drift.length === 0) {
-  console.log(`✓ Tokenit synkassa — ${total} tokenia tarkistettu (styles/tokens.css ↔ tokens.json)`);
+  console.log(`✓ Tokenit synkassa — ${total} tokenia täsmää koodin ja Figman välillä`);
+  console.log('  · styles/tokens.css ↔ tokens.json');
   process.exit(0);
 }
 
