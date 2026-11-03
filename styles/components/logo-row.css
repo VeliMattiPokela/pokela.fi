@@ -37,7 +37,10 @@
   transition: background-color var(--dur-fast) var(--ease-standard);
 }
 .logo-row:hover .logo-row__item { background-color: var(--ink-faint); }
-.logo-row__item:hover { background-color: var(--ink); }
+/* Sama tarkkuus kuin rivin säännöllä (0,3,0) ja myöhemmin, jotta
+   osoitettu logo voittaa. Pelkkä .logo-row__item:hover (0,2,0) hävisi,
+   ja osoitettu logo haalistui muiden mukana. */
+.logo-row .logo-row__item:hover { background-color: var(--ink); }
 
 .logo-row-block {
   display: flex;

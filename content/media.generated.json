@@ -518,9 +518,14 @@
       "korkeus": 336
     },
     "colliers": {
+      "muoto": "svg",
+      "leveys": 1051,
+      "korkeus": 254
+    },
+    "blokbook": {
       "muoto": "png",
-      "leveys": 1040,
-      "korkeus": 588
+      "leveys": 1732,
+      "korkeus": 256
     },
     "microsoft": {
       "muoto": "png",

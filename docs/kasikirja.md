@@ -1101,10 +1101,10 @@ mitä kuvan pitää näyttää.
 - [ ] Asiakkaan sitaatti: lause, nimi, titteli — **odottaa lupaa**
 - [x] Mittarit. Lause poistettu, tilalla palvelun osoite
       colliersasunnot.com (2.11.2026)
-- [ ] Logo. `kuvat/logo/colliers.webp` on tumma laatikko harmaine
-      palkkeineen; muut logorivin merkit ovat läpinäkyviä
-      sanamerkkejä. Merkitty `blocked`-tilaan `content/logos.ts`:ssä,
-      eli se ei näy rivillä ennen kuin korvataan
+- [x] Logo. Laatikkologon tilalla `kuvat/logo/colliers.svg`:
+      pelkkä sanamerkki, otettu Colliersin logon vektorista
+      (Wikimedia Commons, Colliers_logo.svg) ilman laatikkoa ja
+      värejä (3.11.2026)
 
 **02 · Blokbook**
 
