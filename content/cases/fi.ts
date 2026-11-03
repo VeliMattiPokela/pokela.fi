@@ -521,13 +521,13 @@ const himat: Case = {
           id: 'himat-sijainti',
           ratio: '3:4',
           label: 'Sopiiko arkeen',
-          caption: 'Sijainti: matkat, palvelut, luonto ja melu',
+          caption: 'Sijainti: matka-ajat, kartta, liikenne ja melu',
         },
         {
           id: 'himat-vertailu',
           ratio: '3:4',
           label: 'Kaksi kotia rinnakkain',
-          caption: 'Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä',
+          caption: 'Vertailu: kuukausikulu, oma raha ja taloyhtiön luvut samoilla riveillä',
         },
       ],
     },
@@ -576,6 +576,7 @@ const himat: Case = {
         {
           p: 'Himat lukee ilmoituksen, taloyhtiön dokumentit ja sijainnin, laskee kulut kotitalouden taloudesta ja vertaa koteja rinnakkain. Kehitys jatkuu pilotin palautteen pohjalta.',
         },
+        { p: 'himat-ten.vercel.app', href: 'https://himat-ten.vercel.app/' },
       ],
     },
   ],
