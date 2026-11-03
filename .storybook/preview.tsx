@@ -1,26 +1,10 @@
 import type { Decorator, Preview } from '@storybook/nextjs-vite';
 import { useLayoutEffect } from 'react';
-import { Archivo, Bodoni_Moda } from 'next/font/google';
+import { bodoni, archivo } from '../app/fonts/fonts';
 import tokens from '../tokens.json';
 import '../styles/index.css';
 import './story-layout.css';
 import './storybook.css';
-
-/* Samat fontit kuin sivustolla, samalla tavalla ladattuna.
-   Muuttujat menevät tokens.css:n --font-display / --font-ui taakse. */
-const bodoni = Bodoni_Moda({
-  subsets: ['latin-ext'],
-  weight: ['400', '500'],
-  display: 'swap',
-  variable: '--font-bodoni',
-});
-
-const archivo = Archivo({
-  subsets: ['latin-ext'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-  variable: '--font-archivo',
-});
 
 /**
  * Teema asetetaan juureen samalla attribuutilla kuin sivustolla

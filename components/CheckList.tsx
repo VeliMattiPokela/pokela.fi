@@ -5,8 +5,9 @@ import { Accordion, useAccordionGroup } from './Accordion';
 
 /**
  * Tarkistuslista casessa: nimi ja millaisen virheen tarkistus
- * pysäyttää näkyvät aina, tarkka kuvaus ja raja ("Ei kata") avautuvat
- * rivistä. Viimeinen rivi voi olla viimeisin päivitys, jonka aikajana
+ * pysäyttää näkyvät aina, tarkka kuvaus avautuu rivistä. Rajaa ("Ei
+ * kata") ei näytetä: se on kehittäjän tietoa ja on käsikirjassa
+ * (päätös 50, tarkennus 3.11.2026). Viimeinen rivi voi olla viimeisin päivitys, jonka aikajana
  * avautuu samalla tavalla. Sillä on oma ryhmäotsikkonsa, jottei se
  * näytä kuuluvan edelliseen ryhmään (Tulossa).
  *
@@ -19,7 +20,7 @@ export default function CheckList({
   groups,
   build,
 }: {
-  items: { id: string; title: string; huomaa: string; proves: string; items?: string[]; blind: string | null; runs: boolean; group?: string }[];
+  items: { id: string; title: string; huomaa: string; proves: string; items?: string[]; runs: boolean; group?: string }[];
   groups?: { id: string; title: string; note: string }[];
   build?: { group: { title: string; note: string }; title: string; description: string; children: ReactNode };
 }) {
@@ -60,12 +61,6 @@ export default function CheckList({
                   {check.items.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               ) : null}
-            </section>
-            <section className="check-detail__col">
-              <h5 className="meta check-detail__label">Ei kata</h5>
-              {(check.blind ?? 'Rajaa ei ole kirjattu.').split('\n\n').map((kappale, k) => (
-                <p key={k} className="check-detail__text">{kappale}</p>
-              ))}
             </section>
           </div>
         </Accordion>

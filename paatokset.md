@@ -1623,6 +1623,16 @@ rivin nimi on "Viimeisin päivitys": "ajo" on kehittäjän sana, ja
 lukija ymmärtää päivityksen. Tekstit ovat casen sisällössä
 (`paivitys`).
 
+**Tarkennus 3.11.2026:** avatussa tarkistuksessa ei enää näytetä
+"Ei kata" -palstaa, eikä osion johdanto lupaa, että rajat kerrotaan
+auki. Vellu: showcasessa raja vie huomion siihen, mitä ei tehdä, eikä
+prosessia katsova lukija hyödy siitä. Rajat säilyvät rekisterissä
+(`blind`, `lib/checks.ts`) ja käsikirjassa, joissa kehittäjä tarvitsee
+niitä. Samalla listaan tuli saavutettavuustarkistus. Se ajetaan
+storyjen testien mukana (`npm run test:stories`), ei `check:*`-skriptinä,
+joten rekisterin `komento` kertoo, mikä komento sen ajaa. Se on
+ajossa, kun komento on olemassa ja CI ajaa sen.
+
 ## 51. Kuvalla, jossa on oma tausta, on oma kuva kumpaankin teemaan
 
 **Tilanne:** Työt-sivun nostokuvaksi (paikka 21) tehtiin seinä
@@ -1784,7 +1794,31 @@ kiinni), joten pohjiin ei tule muutosta. Media `levy` on Figmassa jo.
 
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
 
-## 57. Kävijämittaus Vercelin omilla työkaluilla
+## 57. Aiemmat työt etenevät samassa järjestyksessä
+
+**Tilanne:** avatuissa aiemmissa töissä rooli osui eri kohtaan. Elisa
+Aistissa ja OP Vahinkoapurissa laitekuva oli heti johdannon alla ja
+rooli sen jälkeen, mutta Pivossa ei ollut nostoa, joten rooli tuli
+heti johdannon perään ja kaikki kuvat vasta lopussa. Lisäksi johdanto
+alkoi osassa töistä suoraan ongelmasta eikä kertonut, kuka asiakas oli
+(Vellu 3.11.).
+
+**Päätös:** jokainen työ etenee samassa järjestyksessä: otsikko ja
+johdanto, nosto, rooli, työn sisältö ja lopuksi muut kuvat, jos niitä
+on. Pivon nosto on sen kolmen videon rivi, ja ennen ja jälkeen
+-vertailu jää loppuun. Datan `hero` on nyt kuvalista (`items`), jotta
+nosto voi olla yksi kokonaiskuva tai rivi videoita. Johdannon
+ensimmäinen lause kertoo asiakkaan ja palvelun nimeltä, sitten
+lähtötilanteen. Asiakkaat mainitaan nimeltä, ei anonymisoituina.
+
+**Perustelu:** kun rakenne on sama, lukija oppii sen ensimmäisestä
+työstä ja vertaa sisältöä eikä etsi osioita. Päätös 56 laajenee
+kaikkiin töihin.
+
+**Figma:** avautuneen rivin sisältöä ei ole piirretty Figmaan (ks.
+päätös 56), joten pohjiin ei tule muutosta.
+
+## 58. Kävijämittaus Vercelin omilla työkaluilla
 
 **Päätös:** sivustolla on Vercel Web Analytics ja Speed Insights
 (`@vercel/analytics`, `@vercel/speed-insights`), jotka lisätään

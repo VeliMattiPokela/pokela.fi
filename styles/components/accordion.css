@@ -54,6 +54,12 @@
   border-image: linear-gradient(var(--badge-surface) 0 0) fill 0 / / 0 100vw;
 }
 @media (min-width: 900px) { .detail__hero { padding-block: var(--space-72); } }
+/* Videorivi nostona (Pivo): rivi on yhtä leveä kuin yksittäinen
+   kokonaiskuva, jotta nostot ovat samankokoisia töiden välillä. */
+.detail__hero--rivi > .detail__media {
+  max-width: calc(var(--measure) * 1.5);
+  margin-inline: auto;
+}
 .detail__hero > .media {
   max-width: calc(var(--measure) * 1.5);
   margin-inline: auto;

@@ -107,7 +107,7 @@ export default function CaseBlockDerived({
               <h3 className="display-m case__h">{block.title.replace('{n}', String(live))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <CheckList
-                items={lista.map(({ id, title, huomaa, proves, items, blind, runs }) => ({ id, title, huomaa, proves, items, blind: blind || null, runs, group: runs ? undefined : 'tulossa' }))}
+                items={lista.map(({ id, title, huomaa, proves, items, runs }) => ({ id, title, huomaa, proves, items, runs, group: runs ? undefined : 'tulossa' }))}
                 groups={[block.pending]}
                 build={ajo ? {
                   group: block.paivitys,

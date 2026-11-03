@@ -15,9 +15,10 @@ import { join } from 'node:path';
  * kuin todellisuus — sama periaate kuin artefaktien tilassa
  * (lib/artefacts.ts).
  *
- * `blind` on tarkoituksella näkyvissä. Se kertoo mitä tarkistus EI
- * näe. Sivun argumentti on että jokaisen väitteen voi tarkistaa;
- * silloin myös tarkistuksen rajan on oltava luettavissa.
+ * `blind` kertoo, mitä tarkistus EI näe. Se on kehittäjän tietoa:
+ * käsikirja ja tämä rekisteri kertovat sen, mutta casesivu ei
+ * (päätös 50, tarkennus 3.11.2026). Showcasessa raja vei huomion
+ * siihen, mitä ei tehdä.
  */
 
 const repoRoot = process.cwd();
@@ -36,6 +37,12 @@ export type Check = {
   blind: string;
   /** Design system vai tämän sivuston oma tarkistus. Ks. päätökset 42 ja 50. */
   group: CheckGroupId;
+  /**
+   * Tarkistus, joka ei ole `check:*`-skripti vaan muu npm-komento
+   * (saavutettavuus ajetaan storyjen testien mukana). Se on ajossa,
+   * kun komento on olemassa ja CI ajaa sen.
+   */
+  komento?: string;
   /** Onko se kytketty ketjuun ja onko skripti olemassa. Johdettu. */
   runs: boolean;
 };
@@ -136,6 +143,15 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     blind: 'Ei voi tarkistaa vapaata tekstiä, joten väärä perustelu menee läpi. Siksi kaikki, mikä voidaan johtaa koodista, luodaan automaattisesti.',
   },
   {
+    id: 'saavutettavuus',
+    komento: 'test:stories',
+    group: 'ydin',
+    title: 'Saavutettavuus',
+    huomaa: 'Huomaa, jos komponentissa on saavutettavuusvirhe, kuten liian heikko kontrasti tai puuttuva nimi ruudunlukijalle.',
+    proves: 'Jokainen Storybook-story renderöidään selaimessa ja tarkistetaan automaattisesti axe-työkalulla. Virhe pysäyttää muutoksen.',
+    blind: 'Tarkistaa komponentit storyissa, ei valmiita sivuja. Kone löytää vain osan ongelmista: lukujärjestys ja näppäimistön järkevyys testataan käsin.',
+  },
+  {
     id: 'strings',
     group: 'ydin',
     title: 'Tekstit',
@@ -174,11 +190,21 @@ function wired(): Set<string> {
   return ids;
 }
 
+/** Muu kuin `check:*`-tarkistus on ajossa, kun komento on olemassa ja CI ajaa sen. */
+function komentoAjossa(komento: string): boolean {
+  const pkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8')) as {
+    scripts: Record<string, string>;
+  };
+  const ciPath = join(repoRoot, '.github/workflows/ci.yml');
+  const ci = existsSync(ciPath) ? readFileSync(ciPath, 'utf8') : '';
+  return Boolean(pkg.scripts[komento]) && ci.includes(`npm run ${komento}`);
+}
+
 /** Kaikki tunnetut tarkistukset ryhmittäin, ryhmän sisällä ajossa olevat ensin. */
 export function checks(): Check[] {
   const live = wired();
   const ryhma = (c: Check) => CHECK_GROUPS.findIndex((g) => g.id === c.group);
-  return DESCRIPTIONS.map((d) => ({ ...d, runs: live.has(d.id) })).sort(
+  return DESCRIPTIONS.map((d) => ({ ...d, runs: d.komento ? komentoAjossa(d.komento) : live.has(d.id) })).sort(
     (a, b) => ryhma(a) - ryhma(b) || Number(b.runs) - Number(a.runs),
   );
 }

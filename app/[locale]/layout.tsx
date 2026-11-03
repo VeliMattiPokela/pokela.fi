@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Archivo, Bodoni_Moda } from 'next/font/google';
+import { bodoni, archivo } from '@/app/fonts/fonts';
 import '@/styles/index.css';
 
 import { locales, localeTags, isLocale, path, type Locale } from '@/lib/i18n';
@@ -12,22 +12,6 @@ import PageProgressRoute from '@/components/PageProgressRoute';
 import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
-/* Fontit itse tarjoiltuina: ei ulkoista pyyntöä, ei layout-hyppyä.
-   Muuttujat menevät tokens.css:n --font-display / --font-ui taakse. */
-const bodoni = Bodoni_Moda({
-  subsets: ['latin-ext'],
-  weight: ['400', '500'],
-  display: 'swap',
-  variable: '--font-bodoni',
-});
-
-const archivo = Archivo({
-  subsets: ['latin-ext'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-  variable: '--font-archivo',
-});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -112,7 +96,7 @@ export default async function LocaleLayout({
             `${dict.footer.colophonLabel} — ${dict.footer.colophon}`,
           ]}
         />
-        {/* Vercelin kävijä- ja nopeusmittaus (päätös 57). Evästeetön, joten
+        {/* Vercelin kävijä- ja nopeusmittaus (päätös 58). Evästeetön, joten
             suostumusbanneria ei tarvita. Skriptit tulevat Vercelin omasta
             /_vercel-polusta, ja ne toimivat vain, kun mittaus on
             projektin asetuksissa päällä. */}
