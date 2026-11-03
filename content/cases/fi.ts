@@ -240,7 +240,7 @@ const blokbook: Case = {
         {
           media: { id: 'blokbook-android', ratio: '3:4', caption: 'Android — saunan varauskalenteri' },
           h: 'Android',
-          p: 'Sama työtapa kuin Colliersissa, mutta nyt myös mobiilissa.',
+          p: 'Sama työtapa kuin Colliersissa, jonka lisäksi myös natiivitoteutus mobiiliin.',
         },
       ],
     },
