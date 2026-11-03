@@ -28,7 +28,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      <PageHeader title={dict.work.title} meta={dict.work.subtitle} />
+      <PageHeader title={dict.work.title} />
 
       {/* ---- neljä kärkeä ----------------------------------------- */}
       <section className="list-rows" aria-label={dict.home.selectedWork}>
