@@ -1,5 +1,26 @@
 {
   "paikat": {
+    "aisti-laitteet": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "teema": "yhteinen",
+      "osat": {
+        "aisti-laitteet": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 1.408,
+            "leveydet": [
+              480,
+              800,
+              1087
+            ],
+            "leveys": 1087,
+            "korkeus": 772
+          }
+        ]
+      }
+    },
     "blokbook-hero": {
       "tyyppi": "kuva",
       "esitys": "taysi",
@@ -230,6 +251,27 @@
         ]
       }
     },
+    "op-laitteet": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "teema": "yhteinen",
+      "osat": {
+        "op-laitteet": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.8526,
+            "leveydet": [
+              480,
+              800,
+              920
+            ],
+            "leveys": 920,
+            "korkeus": 1079
+          }
+        ]
+      }
+    },
     "pivo-kirjautuminen": {
       "tyyppi": "vertailu",
       "osat": {
@@ -326,9 +368,7 @@
     }
   },
   "numerot": {
-    "aisti-mobiili": 18,
-    "aisti-tiketti": 19,
-    "aisti-tyopoyta": 17,
+    "aisti-laitteet": 17,
     "blokbook-hero": 6,
     "colliers-haku": 3,
     "colliers-hero": 1,
@@ -340,28 +380,18 @@
     "himat-sijainti": 11,
     "himat-talous": 9,
     "himat-vertailu": 12,
-    "media-viiva": 23,
-    "muotokuva": 25,
-    "op-aloitus": 20,
-    "op-polku": 22,
-    "op-vaurio": 21,
+    "media-viiva": 19,
+    "muotokuva": 21,
+    "op-laitteet": 18,
     "pivo-kirjautuminen": 16,
     "pivo-kulut": 14,
     "pivo-reaktio": 15,
     "pivo-ryhma": 13,
     "portfolio-prosessi": 7,
-    "tyot-storybook": 24
+    "tyot-storybook": 20
   },
   "muodot": {
-    "aisti-mobiili": {
-      "suhde": "4:5",
-      "leveys": 2736
-    },
-    "aisti-tiketti": {
-      "suhde": "4:3",
-      "leveys": 2736
-    },
-    "aisti-tyopoyta": {
+    "aisti-laitteet": {
       "suhde": "4:3",
       "leveys": 2736
     },
@@ -417,16 +447,8 @@
       "suhde": "1:1",
       "leveys": 880
     },
-    "op-aloitus": {
+    "op-laitteet": {
       "suhde": "4:3",
-      "leveys": 2736
-    },
-    "op-polku": {
-      "suhde": "4:3",
-      "leveys": 2736
-    },
-    "op-vaurio": {
-      "suhde": "4:5",
       "leveys": 2736
     },
     "pivo-kirjautuminen": {
