@@ -1783,3 +1783,21 @@ toimii nostona; rivin lopussa se hukkuisi tekstin alle (vrt. päätös 54).
 kiinni), joten pohjiin ei tule muutosta. Media `levy` on Figmassa jo.
 
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
+
+## 57. Kävijämittaus Vercelin omilla työkaluilla
+
+**Päätös:** sivustolla on Vercel Web Analytics ja Speed Insights
+(`@vercel/analytics`, `@vercel/speed-insights`), jotka lisätään
+juuren layoutiin. Mittaus on evästeetön eikä tallenna henkilötietoja,
+joten suostumusbanneria ei tarvita.
+
+**Perustelu:** sivusto on jo Vercelissä (päätös 49), joten erillistä
+palvelua tai tiliä ei tarvita. Hobby-tasolla Web Analyticsissa on
+50 000 tapahtumaa kuukaudessa ja Speed Insightsissa 10 000 tapahtumaa
+30 päivässä. Rajan ylittyessä keruu pysähtyy, eikä laskua tule.
+
+**Käyttöönotto:** mittaus kytketään päälle Vercelin projektin
+Analytics- ja Speed Insights -välilehdeltä (Enable). Ennen sitä
+skriptit eivät lähetä mitään.
+
+*Kirjattu 3.11.2026 Vellun pyynnöstä*

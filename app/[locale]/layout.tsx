@@ -10,6 +10,8 @@ import { HeroIntroScript } from '@/components/HeroIntro';
 import NavRoute from '@/components/NavRoute';
 import PageProgressRoute from '@/components/PageProgressRoute';
 import Footer from '@/components/Footer';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 /* Fontit itse tarjoiltuina: ei ulkoista pyyntöä, ei layout-hyppyä.
    Muuttujat menevät tokens.css:n --font-display / --font-ui taakse. */
@@ -110,6 +112,12 @@ export default async function LocaleLayout({
             `${dict.footer.colophonLabel} — ${dict.footer.colophon}`,
           ]}
         />
+        {/* Vercelin kävijä- ja nopeusmittaus (päätös 57). Evästeetön, joten
+            suostumusbanneria ei tarvita. Skriptit tulevat Vercelin omasta
+            /_vercel-polusta, ja ne toimivat vain, kun mittaus on
+            projektin asetuksissa päällä. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
