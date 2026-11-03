@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Lahteet, rajaukset, videovertailu } from './Media';
-import type { Tila } from './Video';
+import { Etenema, useEtenema, type Tila } from './Video';
 
 /**
  * Ennen / jälkeen -vertailu. Sivuston signature-komponentti.
@@ -64,6 +64,8 @@ export default function BeforeAfter({
   const frameRef = useRef<HTMLDivElement>(null);
   const ennenRef = useRef<HTMLVideoElement>(null);
   const jalkeenRef = useRef<HTMLVideoElement>(null);
+  /* Etenemä seuraa johtajaa, kuten ennen-video (päätös 58). */
+  const viiva = useEtenema(jalkeenRef);
 
   const videot = videovertailu(id);
 
@@ -252,6 +254,7 @@ export default function BeforeAfter({
             onClick={vaihda}
           >
             {toisto === 'toistaa' ? 'Pysäytä' : 'Toista'}
+            <Etenema viiva={viiva} />
           </button>
         ) : null}
       </div>
