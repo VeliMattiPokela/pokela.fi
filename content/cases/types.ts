@@ -59,8 +59,10 @@ type BlockKind =
   /** Käännetty väitepalkki. Yksi per case. */
   /** `link` vie sivuston omalle sivulle; `to` nimeää sen (päätös 45). */
   | { kind: 'band'; title: string; body: string; link?: { label: string; to: 'system' } }
-  /** Kolme kuvaa otsikoin. */
-  | { kind: 'trio'; label: string; title: string; items: { media: MediaSlot; h: string; p: string }[] }
+  /** Kolme kuvaa otsikoin. `levea` antaa kohteelle työpöydällä kahden
+      sarakkeen leveyden samalla korkeudella: vaakakuva (läppäri)
+      jäisi kapeassa pystylaatikossa pieneksi puhelinten rinnalla. */
+  | { kind: 'trio'; label: string; title: string; items: { media: MediaSlot; h: string; p: string; levea?: boolean }[] }
   /** Numeroitu vastuualuelista. */
   | { kind: 'scope'; label: string; title: string; body: string; items: string[] }
   /** Avattavat artefaktit (case 03). Tila ja osoitteet johdetaan
