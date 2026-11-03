@@ -45,6 +45,22 @@
 .detail__section-title { margin: 0 0 var(--space-8); }
 .detail__section-body { margin: 0; color: var(--ink-muted); }
 
+/* Aiemman työn kokonaiskuva (päätös 56). Levyn tausta jatkuu ruudun
+   reunoihin kuten herossa (base.css), ja kuva on sen keskellä enintään
+   puolitoista lukumittaa leveänä. Täysleveä 4:3-levy oli lähes ruudun
+   korkuinen; reunaan rajattu kuva taas jätti oikean puolen tyhjäksi. */
+.detail__hero {
+  padding-block: var(--space-40);
+  border-image: linear-gradient(var(--badge-surface) 0 0) fill 0 / / 0 100vw;
+}
+@media (min-width: 900px) { .detail__hero { padding-block: var(--space-72); } }
+.detail__hero > .media {
+  max-width: calc(var(--measure) * 1.5);
+  margin-inline: auto;
+  padding: 0;
+  box-shadow: none;
+}
+
 /* Kuvaosio: otsikko ja ingressi kuvien yläpuolella, hiusviiva
    erottaa osiot toisistaan. Otsikoton osio on pelkkä kuvarivi. */
 .detail__media-group { display: flex; flex-direction: column; gap: var(--space-24); }
