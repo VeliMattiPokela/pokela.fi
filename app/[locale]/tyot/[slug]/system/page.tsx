@@ -284,7 +284,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
                   style={isMeta ? undefined : { fontSize: undefined }}
                 >
                   {isDisplay
-                    ? 'Pokela'
+                    ? 'Portfolio'
                     : isMeta
                       ? 'UX Engineer — Helsinki'
                       : 'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon.'}
