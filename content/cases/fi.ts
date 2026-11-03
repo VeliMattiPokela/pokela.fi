@@ -73,7 +73,7 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Iteroimme toimivaa palvelua, emme kuvia',
+      title: 'Iteroimme koodattua palvelua, emme kuvia',
       body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
@@ -125,7 +125,7 @@ const colliers: Case = {
       label: 'Lopputulos',
       lead: 'Palvelu on julkaistu ja käytössä',
       items: [
-        { p: 'colliersasunnot.com' },
+        { p: 'colliersasunnot.com', href: 'https://colliersasunnot.com' },
       ],
     },
     { kind: 'todo', text: 'Asiakkaan sitaatti — yksi lause, nimi ja titteli. Odottaa lupaa.' },
@@ -187,22 +187,8 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'pair',
-      label: 'Kaksi näkökulmaa',
-      items: [
-        {
-          id: 'blokbook-asukas',
-          ratio: '4:3',
-          label: 'Asukas varaa ja maksaa',
-          caption: 'Varaus asukkaan näkökulmasta: vapaat vuorot ja maksu.',
-        },
-        {
-          id: 'blokbook-hallinta',
-          ratio: '4:3',
-          label: 'Isännöinti hallinnoi',
-          caption: 'Hallintanäkymä: tilat, vuorot, maksut ja käyttöoikeudet.',
-        },
-      ],
+      kind: 'todo',
+      text: 'Kaksi näkökulmaa: asukkaan varausnäkymä ja hallinnan näkymä samasta tilasta rinnakkain, kun oikeat kuvakaappaukset ovat saatavilla.',
     },
     {
       kind: 'text',
@@ -235,27 +221,8 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'trio',
-      surface: 'tint',
-      label: 'Kolme alustaa',
-      title: 'Sama palvelu, kolme alustaa',
-      items: [
-        {
-          media: { id: 'blokbook-web', ratio: '3:4', caption: 'Web — varausnäkymä kapeana' },
-          h: 'Web',
-          p: 'Ensimmäinen alusta. Design system ja Storybook syntyivät tässä.',
-        },
-        {
-          media: { id: 'blokbook-ios', ratio: '3:4', caption: 'iOS — natiivisovellus, ei laitekehystä' },
-          h: 'iOS',
-          p: 'Natiivi sovellus, samat komponentit ja sama ilme kuin webissä.',
-        },
-        {
-          media: { id: 'blokbook-android', ratio: '3:4', caption: 'Android — sama näkymä' },
-          h: 'Android',
-          p: 'Sama työtapa kuin Colliersissa, mutta nyt myös mobiilissa.',
-        },
-      ],
+      kind: 'todo',
+      text: 'Kolme alustaa: palautetaan vain, jos webin, iOS:n ja Androidin näkymistä on oikeat kuvat.',
     },
     {
       kind: 'text',
@@ -521,13 +488,13 @@ const himat: Case = {
           id: 'himat-sijainti',
           ratio: '3:4',
           label: 'Sopiiko arkeen',
-          caption: 'Sijainti: matkat, palvelut, luonto ja melu',
+          caption: 'Sijainti: matka-ajat, kartta, liikenne ja melu',
         },
         {
           id: 'himat-vertailu',
           ratio: '3:4',
           label: 'Kaksi kotia rinnakkain',
-          caption: 'Vertailu: kulut, taloyhtiö ja sijainti samoilla riveillä',
+          caption: 'Vertailu: kuukausikulu, oma raha ja taloyhtiön luvut samoilla riveillä',
         },
       ],
     },
@@ -576,6 +543,7 @@ const himat: Case = {
         {
           p: 'Himat lukee ilmoituksen, taloyhtiön dokumentit ja sijainnin, laskee kulut kotitalouden taloudesta ja vertaa koteja rinnakkain. Kehitys jatkuu pilotin palautteen pohjalta.',
         },
+        { p: 'himat-ten.vercel.app', href: 'https://himat-ten.vercel.app/' },
       ],
     },
   ],

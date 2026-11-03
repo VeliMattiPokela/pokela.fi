@@ -189,7 +189,8 @@ const uudet = unrecorded.filter((hit) =>
 
 if (uudet.length === 0 && stale.length === 0) {
   const recorded = Object.values(EXEMPT).reduce((n, e) => n + Object.keys(e).length, 0);
-  let rivi = `✓ Ei kovakoodattuja arvoja — ${scanned} arvoa tarkistettu, ${recorded} kirjattua poikkeusta`;
+  console.log('✓ Ei kovakoodattuja arvoja — Värit ja mitat tulevat tokeneista, poikkeukset on perusteltu');
+  let rivi = `  · ${scanned} arvoa tarkistettu, ${recorded} kirjattua poikkeusta`;
   if (taso.kaytossa) {
     const e = edistyminen('hardcoded');
     rivi += `, ${taso.nyt} lähtötasolla`;

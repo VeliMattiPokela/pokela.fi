@@ -357,9 +357,9 @@ for (const script of checkScripts) {
 
 if (drift.length === 0) {
   console.log(
-    `✓ Dokumentaatio ajan tasalla — ${blocks} luotua lohkoa, ${paths} polkua, ` +
-      `${commands} komentoa, ${checkScripts.length} tarkistusta kolmessa rekisterissä`,
+    `✓ Dokumentaatio ajan tasalla — Ohjeiden ${paths} tiedostoviittausta ja ${commands} komentoa ovat ajan tasalla`,
   );
+  console.log(`  · ${blocks} luotua lohkoa, ${checkScripts.length} tarkistusta kolmessa rekisterissä`);
   process.exit(0);
 }
 

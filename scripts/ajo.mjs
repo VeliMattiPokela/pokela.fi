@@ -43,7 +43,12 @@ function aja(skripti) {
   });
 }
 
-/** Tarkistuksen yhteenvetorivi: "✓ Kuvat synkassa — 7/23 paikkaa…" → "7/23 paikkaa…". */
+/**
+ * Tarkistuksen yhteenvetorivi: "✓ Kuvat synkassa — 19/30 kuvaa…" → "19/30 kuvaa…".
+ * Rivi näkyy case 03:n aikajanalla sellaisenaan, joten se kirjoitetaan
+ * lukijalle eikä kehittäjälle. Tiedostot ja muut yksityiskohdat
+ * tulostetaan omille "  ·"-riveilleen, joita sivu ei näytä.
+ */
 function tulos(ulos) {
   const rivi = ulos.split('\n').find((r) => r.startsWith('✓'));
   if (!rivi) return null;

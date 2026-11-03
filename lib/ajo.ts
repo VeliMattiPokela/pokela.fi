@@ -33,7 +33,6 @@ export type Ajo = {
   vaiheet: Vaihe[];
   /** Next.js:n build alkoi tästä. */
   sivustoAlkoi: number;
-  hitain: Vaihe;
 };
 
 type Kirjattu = {
@@ -66,8 +65,7 @@ export function viimeisinAjo(): Ajo | null {
     alku += v.kesto;
     return vaihe;
   });
-  const hitain = vaiheet.reduce((a, b) => (b.kesto > a.kesto ? b : a));
-  return { ...kirjattu, vaiheet, hitain };
+  return { ...kirjattu, vaiheet };
 }
 
 /** 61 000 ms → "1.01" (minuutit.sekunnit), aikajanan kellonaika. */

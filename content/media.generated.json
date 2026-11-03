@@ -279,26 +279,24 @@
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.494,
+            "suhde": 0.493,
             "leveydet": [
-              480,
-              742
+              423
             ],
-            "leveys": 742,
-            "korkeus": 1502
+            "leveys": 423,
+            "korkeus": 858
           }
         ],
         "pivo-kirjautuminen-jalkeen": [
           {
             "koko": "base",
             "media": null,
-            "suhde": 0.494,
+            "suhde": 0.493,
             "leveydet": [
-              480,
-              742
+              423
             ],
-            "leveys": 742,
-            "korkeus": 1502
+            "leveys": 423,
+            "korkeus": 858
           }
         ]
       }
@@ -370,61 +368,36 @@
     }
   },
   "numerot": {
-    "aisti-laitteet": 22,
-    "blokbook-android": 11,
-    "blokbook-asukas": 7,
-    "blokbook-hallinta": 8,
+    "aisti-laitteet": 17,
     "blokbook-hero": 6,
-    "blokbook-ios": 10,
-    "blokbook-web": 9,
     "colliers-haku": 3,
     "colliers-hero": 1,
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "himat-hero": 13,
-    "himat-paperit": 15,
-    "himat-sijainti": 16,
-    "himat-talous": 14,
-    "himat-vertailu": 17,
-    "media-viiva": 24,
-    "muotokuva": 26,
-    "op-laitteet": 23,
-    "pivo-kirjautuminen": 21,
-    "pivo-kulut": 19,
-    "pivo-reaktio": 20,
-    "pivo-ryhma": 18,
-    "portfolio-prosessi": 12,
-    "tyot-storybook": 25
+    "himat-hero": 8,
+    "himat-paperit": 10,
+    "himat-sijainti": 11,
+    "himat-talous": 9,
+    "himat-vertailu": 12,
+    "media-viiva": 19,
+    "muotokuva": 21,
+    "op-laitteet": 18,
+    "pivo-kirjautuminen": 16,
+    "pivo-kulut": 14,
+    "pivo-reaktio": 15,
+    "pivo-ryhma": 13,
+    "portfolio-prosessi": 7,
+    "tyot-storybook": 20
   },
   "muodot": {
     "aisti-laitteet": {
       "suhde": "4:3",
       "leveys": 2736
     },
-    "blokbook-android": {
-      "suhde": "3:4",
-      "leveys": 880
-    },
-    "blokbook-asukas": {
-      "suhde": "4:3",
-      "leveys": 1344
-    },
-    "blokbook-hallinta": {
-      "suhde": "4:3",
-      "leveys": 1344
-    },
     "blokbook-hero": {
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
-    },
-    "blokbook-ios": {
-      "suhde": "3:4",
-      "leveys": 880
-    },
-    "blokbook-web": {
-      "suhde": "3:4",
-      "leveys": 880
     },
     "colliers-haku": {
       "suhde": "4:5",
