@@ -37,7 +37,8 @@ type BlockKind =
   /** Tekstiosio: valinnainen iso väite (display-m) + nimettyjä
       kappaleita. Vain lead on display-kokoinen — muuten sivu täyttyisi
       isoista otsikoista. */
-  | { kind: 'text'; label: string; lead?: string; items: { h?: string; p: string }[] }
+  /** `href` tekee kappaleesta ulkoisen linkin (esim. julkaistu palvelu). */
+  | { kind: 'text'; label: string; lead?: string; items: { h?: string; p: string; href?: string }[] }
   /** Yksittäinen kuva. */
   | { kind: 'media'; media: MediaSlot }
   /** Kuvapari, esim. skeleton → julkaisu. */

@@ -73,7 +73,7 @@ const colliers: Case = {
     },
     {
       kind: 'band',
-      title: 'Iteroimme toimivaa palvelua, emme kuvia',
+      title: 'Iteroimme koodattua palvelua, emme kuvia',
       body: 'Klikattava runko oli selaimessa jo ensimmäisinä viikkoina: hakupolut, hakemuspolku, verkkovuokraus, etusivu ja asuntosivu. Sitä käytettiin myös projektin viestintään, koska kokonaisuuden näki ennen kuin ulkoasua oli viimeistelty.',
     },
     {
@@ -125,7 +125,7 @@ const colliers: Case = {
       label: 'Lopputulos',
       lead: 'Palvelu on julkaistu ja käytössä',
       items: [
-        { p: 'colliersasunnot.com' },
+        { p: 'colliersasunnot.com', href: 'https://colliersasunnot.com' },
       ],
     },
     { kind: 'todo', text: 'Asiakkaan sitaatti — yksi lause, nimi ja titteli. Odottaa lupaa.' },

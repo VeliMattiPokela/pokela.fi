@@ -74,7 +74,17 @@ export default function CaseBlock({
                 return (
                   <div key={i} className="case__item">
                     {item.h ? <Heading className="title">{item.h}</Heading> : null}
-                    {item.p ? <p className="body-l measure case__p">{item.p}</p> : null}
+                    {item.p ? (
+                      <p className="body-l measure case__p">
+                        {item.href ? (
+                          <a className="case-link" href={item.href} target="_blank" rel="noreferrer">
+                            {item.p} <Icon name="arrow-up-right" size="s" />
+                          </a>
+                        ) : (
+                          item.p
+                        )}
+                      </p>
+                    ) : null}
                   </div>
                 );
               })}
