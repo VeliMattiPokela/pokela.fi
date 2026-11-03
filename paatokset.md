@@ -1623,6 +1623,16 @@ rivin nimi on "Viimeisin päivitys": "ajo" on kehittäjän sana, ja
 lukija ymmärtää päivityksen. Tekstit ovat casen sisällössä
 (`paivitys`).
 
+**Tarkennus 3.11.2026:** avatussa tarkistuksessa ei enää näytetä
+"Ei kata" -palstaa, eikä osion johdanto lupaa, että rajat kerrotaan
+auki. Vellu: showcasessa raja vie huomion siihen, mitä ei tehdä, eikä
+prosessia katsova lukija hyödy siitä. Rajat säilyvät rekisterissä
+(`blind`, `lib/checks.ts`) ja käsikirjassa, joissa kehittäjä tarvitsee
+niitä. Samalla listaan tuli saavutettavuustarkistus. Se ajetaan
+storyjen testien mukana (`npm run test:stories`), ei `check:*`-skriptinä,
+joten rekisterin `komento` kertoo, mikä komento sen ajaa. Se on
+ajossa, kun komento on olemassa ja CI ajaa sen.
+
 ## 51. Kuvalla, jossa on oma tausta, on oma kuva kumpaankin teemaan
 
 **Tilanne:** Työt-sivun nostokuvaksi (paikka 21) tehtiin seinä
