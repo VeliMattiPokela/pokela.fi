@@ -89,7 +89,7 @@ export function InvertDemo() {
 /* ---- typografia --------------------------------------------------- */
 
 const sampleFor = (name: string) => {
-  if (name.startsWith('display')) return 'Pokela';
+  if (name.startsWith('display')) return 'Portfolio';
   if (name.startsWith('meta')) return 'Senior Designer — Helsinki';
   return 'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon.';
 };
