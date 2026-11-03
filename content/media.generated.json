@@ -328,36 +328,31 @@
     }
   },
   "numerot": {
-    "aisti-mobiili": 23,
-    "aisti-tiketti": 24,
-    "aisti-tyopoyta": 22,
-    "blokbook-android": 11,
-    "blokbook-asukas": 7,
-    "blokbook-hallinta": 8,
+    "aisti-mobiili": 18,
+    "aisti-tiketti": 19,
+    "aisti-tyopoyta": 17,
     "blokbook-hero": 6,
-    "blokbook-ios": 10,
-    "blokbook-web": 9,
     "colliers-haku": 3,
     "colliers-hero": 1,
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "himat-hero": 13,
-    "himat-paperit": 15,
-    "himat-sijainti": 16,
-    "himat-talous": 14,
-    "himat-vertailu": 17,
-    "media-viiva": 28,
-    "muotokuva": 30,
-    "op-aloitus": 25,
-    "op-polku": 27,
-    "op-vaurio": 26,
-    "pivo-kirjautuminen": 21,
-    "pivo-kulut": 19,
-    "pivo-reaktio": 20,
-    "pivo-ryhma": 18,
-    "portfolio-prosessi": 12,
-    "tyot-storybook": 29
+    "himat-hero": 8,
+    "himat-paperit": 10,
+    "himat-sijainti": 11,
+    "himat-talous": 9,
+    "himat-vertailu": 12,
+    "media-viiva": 23,
+    "muotokuva": 25,
+    "op-aloitus": 20,
+    "op-polku": 22,
+    "op-vaurio": 21,
+    "pivo-kirjautuminen": 16,
+    "pivo-kulut": 14,
+    "pivo-reaktio": 15,
+    "pivo-ryhma": 13,
+    "portfolio-prosessi": 7,
+    "tyot-storybook": 24
   },
   "muodot": {
     "aisti-mobiili": {
@@ -372,29 +367,9 @@
       "suhde": "4:3",
       "leveys": 2736
     },
-    "blokbook-android": {
-      "suhde": "3:4",
-      "leveys": 880
-    },
-    "blokbook-asukas": {
-      "suhde": "4:3",
-      "leveys": 1344
-    },
-    "blokbook-hallinta": {
-      "suhde": "4:3",
-      "leveys": 1344
-    },
     "blokbook-hero": {
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
-    },
-    "blokbook-ios": {
-      "suhde": "3:4",
-      "leveys": 880
-    },
-    "blokbook-web": {
-      "suhde": "3:4",
-      "leveys": 880
     },
     "colliers-haku": {
       "suhde": "4:5",
