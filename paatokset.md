@@ -1783,3 +1783,29 @@ toimii nostona; rivin lopussa se hukkuisi tekstin alle (vrt. päätös 54).
 kiinni), joten pohjiin ei tule muutosta. Media `levy` on Figmassa jo.
 
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
+
+## 57. Aiemmat työt etenevät samassa järjestyksessä
+
+**Tilanne:** avatuissa aiemmissa töissä rooli osui eri kohtaan. Elisa
+Aistissa ja OP Vahinkoapurissa laitekuva oli heti johdannon alla ja
+rooli sen jälkeen, mutta Pivossa ei ollut nostoa, joten rooli tuli
+heti johdannon perään ja kaikki kuvat vasta lopussa. Lisäksi johdanto
+alkoi osassa töistä suoraan ongelmasta eikä kertonut, kuka asiakas oli
+(Vellu 3.11.).
+
+**Päätös:** jokainen työ etenee samassa järjestyksessä: otsikko ja
+johdanto, nosto, rooli, työn sisältö ja lopuksi muut kuvat, jos niitä
+on. Pivon nosto on sen kolmen videon rivi, ja ennen ja jälkeen
+-vertailu jää loppuun. Datan `hero` on nyt kuvalista (`items`), jotta
+nosto voi olla yksi kokonaiskuva tai rivi videoita. Johdannon
+ensimmäinen lause kertoo asiakkaan ja palvelun nimeltä, sitten
+lähtötilanteen. Asiakkaat mainitaan nimeltä, ei anonymisoituina.
+
+**Perustelu:** kun rakenne on sama, lukija oppii sen ensimmäisestä
+työstä ja vertaa sisältöä eikä etsi osioita. Päätös 56 laajenee
+kaikkiin töihin.
+
+**Figma:** avautuneen rivin sisältöä ei ole piirretty Figmaan (ks.
+päätös 56), joten pohjiin ei tule muutosta.
+
+*Kirjattu 3.11.2026 Vellun pyynnöstä*
