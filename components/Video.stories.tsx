@@ -70,3 +70,13 @@ export const TummaTeema: Story = {
 export const Levylla: Story = {
   args: { tila: 'toistaa', esitys: 'levy', leveys: 750, korkeus: 1334, caption: 'Puhelinruudun video' },
 };
+
+/**
+ * Etenemä napin alareunassa: musteviiva kertoo, missä kohtaa
+ * silmukkaa video on (päätös 57). Sivustolla viiva seuraa videon
+ * aikaa; tässä se on pakotettu paikalleen, koska videotiedostoa ei ole.
+ */
+export const Etenema: Story = { args: { tila: 'toistaa', etenema: 0.4 } };
+
+/** Tauolla viiva pysähtyy kohtaansa. */
+export const EtenemaTauolla: Story = { args: { tila: 'tauolla', etenema: 0.7 } };

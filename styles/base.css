@@ -363,6 +363,27 @@ a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
   cursor: pointer;
 }
 
+/* Etenemä napin alareunassa (päätös 57): sama viiva kuin
+   sivunvaihdossa (päätös 41), --hairline-strong ja --ink, mutta se
+   kertoo missä kohtaa silmukkaa video on. Alla hiusviivan pohja
+   --line, kuten ListRow'n siirtymässä, jotta koko pituus hahmottuu.
+   Viiva kasvaa scaleX:llä, joten se ei koskaan siirrä nappia.
+   Ei transitionia: silmukan alussa viiva hyppää takaisin alkuun. */
+.video__etenema {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--hairline-strong);
+  background: linear-gradient(var(--line), var(--line)) bottom / 100% var(--hairline) no-repeat;
+  pointer-events: none;
+}
+.video__etenema-viiva {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
 /* Levy: kuva kokonaisena hillityn taustalevyn keskellä.
    Kuvakaappauksen oma tausta osui ennen suoraan sivun taustaa vasten,
    ja raja näytti sattumanvaraiselta. Levy antaa jokaiselle kuvalle

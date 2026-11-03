@@ -1780,3 +1780,26 @@ toimii nostona; rivin lopussa se hukkuisi tekstin alle (vrt. päätös 54).
 kiinni), joten pohjiin ei tule muutosta. Media `levy` on Figmassa jo.
 
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
+
+## 57. Videon taukonapissa on etenemisviiva
+
+**Tilanne:** case-videot toistuvat mykkinä silmukoina, ja nurkan
+Pysäytä/Toista-nappi oli ainoa merkki toistosta. Katsoja ei nähnyt,
+missä kohtaa videota mennään tai milloin silmukka alkaa alusta.
+
+**Päätös:** napin alareunassa on ohut viiva, joka kasvaa vasemmalta
+videon ajan mukana. Sama ilme kuin sivunvaihdon viivassa (päätös 41):
+`--hairline-strong` ja `--ink` hiusviivan `--line`-pohjan päällä.
+Tauolla viiva pysähtyy kohtaansa, silmukan alussa se palaa alkuun.
+Viiva on sekä Videossa että videovertailussa (BeforeAfter), jossa se
+seuraa jälkeen-videota. Videolla on `etenema`-propsi (0–1), jolla
+Storybook ja Figma näyttävät viivan paikallaan.
+
+**Perustelu:** viiva on siinä, mihin katsoja jo katsoo, eikä tuo
+sivulle uutta elementtiä. Se ei ole kelausohjain: video on koriste,
+ja nappi on edelleen ainoa ohjain (päätös 11).
+
+**Figma:** Video-komponentin kumpaankin Tila-varianttiin lisättiin
+napin alareunaan viiva (pohja ja etenemä 40 %).
+
+*Kirjattu 3.11.2026 Vellun pyynnöstä*
