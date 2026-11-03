@@ -63,6 +63,21 @@
    tyylittelemättä ja putosivat selaimen oletukseen. */
 .case__trio h4 { margin: var(--space-12) 0 var(--space-8); }
 
+/* Leveä kohde: työpöydällä neljä saraketta, joista leveä vie kaksi.
+   Subgrid jakaa rivit (kuva, otsikko, teksti) kaikkien kohteiden
+   kesken, joten leveän kuvan levy venyy puhelinten 3:4-levyjen
+   korkuiseksi eikä tarvitse omaa kuvasuhdetta. */
+@media (min-width: 900px) {
+  .case__trio--levea {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: auto auto auto;
+    row-gap: 0;
+  }
+  .case__trio--levea > * { display: grid; grid-row: span 3; grid-template-rows: subgrid; }
+  .case__trio--levea > .case__trio-item--levea { grid-column: span 2; }
+  .case__trio-item--levea .media { aspect-ratio: auto; height: 100%; }
+}
+
 /* Numeroitu lista (Blokbookin vastuualueet). */
 .case__scope { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--hairline) solid var(--line); }
 @media (min-width: 600px) { .case__scope { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

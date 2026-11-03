@@ -21,6 +21,8 @@ const SIZES = {
   sarake: '(min-width: 1440px) 968px, (min-width: 900px) 70vw, (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)',
   kolmikko:
     '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 48px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
+  kolmikkoLevea:
+    '(min-width: 1440px) 900px, (min-width: 900px) calc(50vw - 48px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)',
 };
 import Reveal from './Reveal';
 import Nosto from './Nosto';
@@ -180,14 +182,14 @@ export default function CaseBlock({
           <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               <h3 className="display-m case__h">{block.title}</h3>
-              <div className="case__trio">
+              <div className={block.items.some((i) => i.levea) ? 'case__trio case__trio--levea' : 'case__trio'}>
                 {block.items.map((item) => (
-                  <div key={item.h}>
+                  <div key={item.h} className={item.levea ? 'case__trio-item--levea' : undefined}>
                     <Media
                       id={item.media.id}
                       ratio={item.media.ratio}
                       caption={item.media.caption}
-                      sizes={SIZES.kolmikko}
+                      sizes={item.levea ? SIZES.kolmikkoLevea : SIZES.kolmikko}
                     />
                     <h4 className="title">{item.h}</h4>
                     <p className="body-s muted">
