@@ -21,6 +21,26 @@
         ]
       }
     },
+    "blokbook-android": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "teema": "yhteinen",
+      "osat": {
+        "blokbook-android": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.4729,
+            "leveydet": [
+              480,
+              515
+            ],
+            "leveys": 515,
+            "korkeus": 1089
+          }
+        ]
+      }
+    },
     "blokbook-hero": {
       "tyyppi": "kuva",
       "esitys": "taysi",
@@ -68,6 +88,49 @@
             ],
             "leveys": 2800,
             "korkeus": 1200
+          }
+        ]
+      }
+    },
+    "blokbook-ios": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "teema": "yhteinen",
+      "osat": {
+        "blokbook-ios": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 0.4916,
+            "leveydet": [
+              438
+            ],
+            "leveys": 438,
+            "korkeus": 891
+          }
+        ]
+      }
+    },
+    "blokbook-web": {
+      "tyyppi": "kuva",
+      "esitys": "levy",
+      "teema": "yhteinen",
+      "osat": {
+        "blokbook-web": [
+          {
+            "koko": "base",
+            "media": null,
+            "suhde": 1.6407,
+            "leveydet": [
+              480,
+              800,
+              1200,
+              1600,
+              2000,
+              2110
+            ],
+            "leveys": 2110,
+            "korkeus": 1286
           }
         ]
       }
@@ -368,36 +431,51 @@
     }
   },
   "numerot": {
-    "aisti-laitteet": 17,
+    "aisti-laitteet": 20,
+    "blokbook-android": 9,
     "blokbook-hero": 6,
+    "blokbook-ios": 8,
+    "blokbook-web": 7,
     "colliers-haku": 3,
     "colliers-hero": 1,
     "colliers-runko": 2,
     "colliers-strapi": 5,
     "colliers-vuokraus": 4,
-    "himat-hero": 8,
-    "himat-paperit": 10,
-    "himat-sijainti": 11,
-    "himat-talous": 9,
-    "himat-vertailu": 12,
-    "media-viiva": 19,
-    "muotokuva": 21,
-    "op-laitteet": 18,
-    "pivo-kirjautuminen": 16,
-    "pivo-kulut": 14,
-    "pivo-reaktio": 15,
-    "pivo-ryhma": 13,
-    "portfolio-prosessi": 7,
-    "tyot-storybook": 20
+    "himat-hero": 11,
+    "himat-paperit": 13,
+    "himat-sijainti": 14,
+    "himat-talous": 12,
+    "himat-vertailu": 15,
+    "media-viiva": 22,
+    "muotokuva": 24,
+    "op-laitteet": 21,
+    "pivo-kirjautuminen": 19,
+    "pivo-kulut": 17,
+    "pivo-reaktio": 18,
+    "pivo-ryhma": 16,
+    "portfolio-prosessi": 10,
+    "tyot-storybook": 23
   },
   "muodot": {
     "aisti-laitteet": {
       "suhde": "4:3",
       "leveys": 2736
     },
+    "blokbook-android": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
     "blokbook-hero": {
       "suhde": "4:5 · 16:9 · 21:9",
       "leveys": 2736
+    },
+    "blokbook-ios": {
+      "suhde": "3:4",
+      "leveys": 880
+    },
+    "blokbook-web": {
+      "suhde": "3:4",
+      "leveys": 880
     },
     "colliers-haku": {
       "suhde": "4:5",

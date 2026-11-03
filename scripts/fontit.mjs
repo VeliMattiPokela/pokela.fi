@@ -1,7 +1,8 @@
 /**
  * Sivuston fontit
  * ---------------------------------------------------------------
- * Sivusto lataa fontit next/fontilla (app/[locale]/layout.tsx).
+ * Sivusto lataa fontit repon tiedostoista next/font/localilla
+ * (app/fonts/fonts.ts).
  * Paketin käyttäjällä ei ole next/fontia, joten paketin styles.css
  * lataa samat fontit Google Fontsista. Lista luetaan layoutista,
  * jottei paketti ja sivu voi ladata eri painoja.
@@ -13,14 +14,22 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-/** next/fontin kutsut layoutista: [{ nimi: 'Bodoni Moda', painot: ['400', '500'] }]. */
+/**
+ * localFont-kutsut tiedostosta app/fonts/fonts.ts:
+ * [{ nimi: 'Bodoni Moda', painot: ['400', '500'] }]. Nimi tulee
+ * tiedostonimestä (BodoniModa.woff2) ja painot painoalueesta
+ * ('400 500') sadan välein.
+ */
 export function ladatutFontit() {
-  const layout = readFileSync(join(root, 'app/[locale]/layout.tsx'), 'utf8');
-  return [...layout.matchAll(/=\s*([A-Z][A-Za-z_]+)\(\{([\s\S]*?)\}\);/g)]
-    .map(([, kutsu, asetukset]) => ({
-      nimi: kutsu.replace(/_/g, ' '),
-      painot: [...(asetukset.match(/weight:\s*\[([^\]]*)\]/)?.[1] ?? '').matchAll(/'(\d+)'/g)].map((m) => m[1]),
-    }))
+  const fontit = readFileSync(join(root, 'app/fonts/fonts.ts'), 'utf8');
+  return [...fontit.matchAll(/localFont\(\{([\s\S]*?)\}\);/g)]
+    .map(([, asetukset]) => {
+      const tiedosto = asetukset.match(/src:\s*'\.\/([A-Za-z]+)\.woff2'/)[1];
+      const [min, max = min] = asetukset.match(/weight:\s*'(\d+)(?:\s+(\d+))?'/).slice(1).filter(Boolean).map(Number);
+      const painot = [];
+      for (let p = min; p <= max; p += 100) painot.push(String(p));
+      return { nimi: tiedosto.replace(/([a-z])([A-Z])/g, '$1 $2'), painot };
+    })
     .sort((a, b) => a.nimi.localeCompare(b.nimi));
 }
 

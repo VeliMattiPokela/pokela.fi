@@ -221,8 +221,28 @@ const blokbook: Case = {
       ],
     },
     {
-      kind: 'todo',
-      text: 'Kolme alustaa: palautetaan vain, jos webin, iOS:n ja Androidin näkymistä on oikeat kuvat.',
+      kind: 'trio',
+      surface: 'tint',
+      label: 'Kolme alustaa',
+      title: 'Sama palvelu, kolme alustaa',
+      items: [
+        {
+          media: { id: 'blokbook-web', ratio: '3:4', caption: 'Web — palvelun etusivu' },
+          levea: true,
+          h: 'Web',
+          p: 'Ensimmäinen alusta. Design system ja Storybook syntyivät tässä.',
+        },
+        {
+          media: { id: 'blokbook-ios', ratio: '3:4', caption: 'iOS — taloyhtiön kotinäkymä' },
+          h: 'iOS',
+          p: 'Natiivi sovellus, samat komponentit ja sama ilme kuin webissä.',
+        },
+        {
+          media: { id: 'blokbook-android', ratio: '3:4', caption: 'Android — saunan varauskalenteri' },
+          h: 'Android',
+          p: 'Sama työtapa kuin Colliersissa, mutta nyt myös mobiilissa.',
+        },
+      ],
     },
     {
       kind: 'text',

@@ -22,6 +22,11 @@ import type { Tila } from './Video';
  * väärän tilan. Vertailuparia ei rajata, joten kehys ottaa lähteen
  * oman kuvasuhteen eikä object-fit: cover leikkaa mitään pois.
  *
+ * Nimet ovat jakajan vieressä omalla puolellaan ja leikataan oman
+ * kuvansa kanssa, joten nimi kertoo aina, kumpaa puolta katsoo.
+ * Kulmiin kiinnitetyt nimet jäivät irti jakajasta, eikä niistä
+ * nähnyt, kumpi kuva oli milloinkin näkyvissä.
+ *
  * Videovertailu: kun paikkaan on pudotettu kaksi videota, puolet
  * toistuvat päällekkäin samaan tahtiin ja jakajaa voi vetää kesken
  * toiston. "Jälkeen" johtaa ja "Ennen" seuraa sitä: jos ennen-video
@@ -211,8 +216,15 @@ export default function BeforeAfter({
           </>
         )}
 
-        <span className="meta meta--s compare__label compare__label--before">{beforeLabel}</span>
-        <span className="meta meta--s compare__label compare__label--after">{afterLabel}</span>
+        {/* Nimet jakajan vieressä, kumpikin omalla puolellaan ja
+            leikattuna oman kuvansa kanssa: näkyy vain sen puolen nimi,
+            jonka kuva on näkyvissä. */}
+        <span className="compare__puoli compare__puoli--before" aria-hidden="true">
+          <span className="meta meta--s compare__label compare__label--before">{beforeLabel}</span>
+        </span>
+        <span className="compare__puoli compare__puoli--after" aria-hidden="true">
+          <span className="meta meta--s compare__label compare__label--after">{afterLabel}</span>
+        </span>
 
         <span className="compare__divider" aria-hidden="true" />
         <span className="body-s compare__handle" aria-hidden="true">

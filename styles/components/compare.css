@@ -38,19 +38,35 @@
   clip-path: inset(0 calc(100% - var(--pos)) 0 0);
 }
 
-.compare__label {
+/* Nimen kerros on koko kehyksen kokoinen ja leikataan samalla
+   tavalla kuin sen puolen kuva. Nimi on jakajan vieressä, joten se
+   liikkuu jakajan mukana ja katoaa oman kuvansa mukana. */
+.compare__puoli {
   position: absolute;
-  top: var(--space-12);
-  padding: var(--space-4) var(--space-8);
+  inset: 0;
   pointer-events: none;
 }
+.compare__puoli--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare__puoli--after { clip-path: inset(0 0 0 var(--pos)); }
+
+/* Nimet ovat kahvan korkeudella sen molemmin puolin, joten ne
+   luetaan yhdessä jakajan kanssa: "Ennen ‹ › Jälkeen". Kehyksen
+   yläreunassa ne hukkuivat kaappauksen omaan navigaatioon. */
+.compare__label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: var(--space-4) var(--space-8);
+  white-space: nowrap;
+  border: var(--hairline) solid var(--ink);
+}
 .compare__label--before {
-  left: var(--space-12);
+  right: calc(100% - var(--pos) + var(--tap-min) / 2 + var(--space-8));
   background: var(--invert-surface);
   color: var(--invert-ink);
 }
 .compare__label--after {
-  right: var(--space-12);
+  left: calc(var(--pos) + var(--tap-min) / 2 + var(--space-8));
   background: var(--paper);
   color: var(--ink);
 }
