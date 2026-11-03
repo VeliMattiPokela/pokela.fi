@@ -27,6 +27,11 @@ function sarakkeet(media: PreviousMedia[]) {
  * Aiemmat työt. Rivit avautuvat paikallaan — vanhat projektit eivät saa
  * omia sivuja, jotta kaksi kärkicasea pitävät huomion.
  *
+ * Jokainen avattu rivi etenee samassa järjestyksessä: otsikko ja
+ * johdanto, nosto, rooli, työn sisältö ja lopuksi muut kuvat
+ * (päätös 57). Ennen nosto oli vain osalla töistä, jolloin rooli
+ * osui eri kohtaan eri töissä.
+ *
  * Vastuut on eroteltu: vastuullani vs. osallistuin. Yksi lista olisi
  * lyhyempi mutta epärehellisempi.
  *
@@ -75,13 +80,27 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
       </div>
 
       {d.hero ? (
-        <div className="detail__hero">
-          <Media
-            id={d.hero.id}
-            ratio={d.hero.ratio as Ratio}
-            caption={d.hero.caption}
-            sizes="(min-width: 900px) 760px, calc(100vw - 40px)"
-          />
+        <div className={d.hero.items.length > 1 ? 'detail__hero detail__hero--rivi' : 'detail__hero'}>
+          {d.hero.items.length > 1 ? (
+            <div className="detail__media" style={sarakkeet(d.hero.items)}>
+              {d.hero.items.map((media) => (
+                <Media
+                  key={media.caption}
+                  id={media.id}
+                  ratio={media.ratio as Ratio}
+                  caption={media.caption}
+                  sizes="(min-width: 900px) 360px, (min-width: 600px) calc(33vw - 32px), calc(100vw - 40px)"
+                />
+              ))}
+            </div>
+          ) : (
+            <Media
+              id={d.hero.items[0].id}
+              ratio={d.hero.items[0].ratio as Ratio}
+              caption={d.hero.items[0].caption}
+              sizes="(min-width: 900px) 760px, calc(100vw - 40px)"
+            />
+          )}
         </div>
       ) : null}
 
