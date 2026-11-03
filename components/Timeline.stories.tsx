@@ -23,7 +23,7 @@ const meta = {
     label: '0.01',
     title: 'Kuvat',
     meta: 'alle sekunnin',
-    description: '7/23 paikkaa täynnä, 16 odottaa kuvaa',
+    description: '7/23 kuvaa paikallaan, 16 odottaa vielä kuvaa',
   },
   decorators: [
     (Story) => (
@@ -50,7 +50,7 @@ export const Korostettu: Story = {
     group: 'Build',
     title: 'Kuvat ja videot',
     meta: '5 min 32 s',
-    description: '7/23 paikkaa täynnä',
+    description: '7/23 kuvaa valmiina',
     weight: 0.99,
   },
 };
@@ -64,8 +64,8 @@ export const Loppu: Story = {
 export const Jana: Story = {
   render: () => (
     <>
-      <TimelineItem label="0.00" group="Design system" title="Tokenit" meta="alle sekunnin" description="101 tokenia tarkistettu" />
-      <TimelineItem label="0.01" title="Kuvat" meta="alle sekunnin" description="7/23 paikkaa täynnä, 16 odottaa kuvaa" />
+      <TimelineItem label="0.00" group="Design system" title="Tokenit" meta="alle sekunnin" description="101 tokenia täsmää koodin ja Figman välillä" />
+      <TimelineItem label="0.01" title="Kuvat" meta="alle sekunnin" description="7/23 kuvaa paikallaan, 16 odottaa vielä kuvaa" />
       <TimelineItem label="0.03" group="Build" title="Kuvat ja videot" meta="5 min 32 s" variant="emphasis" weight={0.5} />
       <TimelineItem label="5.35" title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
     </>

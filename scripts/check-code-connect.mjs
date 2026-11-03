@@ -131,7 +131,10 @@ const count =
 if (count === 0) {
   const e = taso.kaytossa ? edistyminen('code-connect') : null;
   console.log(
-    `✓ Code Connect ehjä — ${ok.length}/${IN_FIGMA.length} kytkentää, Figma-tiedosto ${fileKey}` +
+    `✓ Code Connect ehjä — ${ok.length}/${IN_FIGMA.length} Figma-komponenttia kytketty koodiin`,
+  );
+  console.log(
+    `  · Figma-tiedosto ${fileKey}` +
       (taso.kaytossa ? `, ${taso.nyt} lähtötasolla` : '') +
       (e ? ` (${e.alku} → ${e.nyt}, ${e.maksettu} % maksettu)` : ''),
   );
