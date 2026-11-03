@@ -1769,9 +1769,10 @@ ratkaisuosio jo kertoo.
 **Päätös:** kumpikin työ näytetään yhdellä laitekuvalla (läpinäkyvä
 mockup, esitys `levy`, 4:3), joka on heti otsikon ja ingressin alla.
 Aiemman työn dataan tuli valinnainen `hero`, ja `media` jää näiltä
-tyhjäksi. Pivon kuvaosiot säilyvät ennallaan. Työpöydällä kuva on enintään
-puolitoista lukumittaa leveä: täysleveänä 4:3-levy oli lähes ruudun
-korkuinen (Vellu 3.11.).
+tyhjäksi. Pivon kuvaosiot säilyvät ennallaan. Levyn tausta jatkuu ruudun
+reunoihin kuten herossa, ja kuva on sen keskellä enintään puolitoista
+lukumittaa leveänä: täysleveänä 4:3-levy oli lähes ruudun korkuinen,
+ja vasempaan reunaan rajattu levy näytti irralliselta (Vellu 3.11.).
 
 **Perustelu:** kokonaiskuva kertoo yhdellä silmäyksellä, millainen
 palvelu on ja millä laitteilla, mitä teksti ei kerro. Otsikon alla se
