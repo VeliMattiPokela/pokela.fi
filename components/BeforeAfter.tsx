@@ -193,7 +193,7 @@ export default function BeforeAfter({
             </picture>
 
             {/* Ennen: päällä, leikattuna jakajan kohdalta. */}
-            <picture className="compare__img--before">
+            <picture className="compare__img compare__img--before">
               <Lahteet nimi={`${id}-ennen`} r={ennen!} sizes={sizes} />
               <img
                 src={`/kuva/${id}-ennen-${ennen!.koko}-${ennen!.leveys}.webp`}
