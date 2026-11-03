@@ -75,7 +75,7 @@ export const Jana: Story = {
 /** Mobiilissa kuvaus rivittyy, sivutieto pysyy otsikon rinnalla. */
 export const Mobiilissa: Story = {
   globals: { viewport: { value: 'base' } },
-  args: { title: 'Storyt', description: '17/24 komponentilla on oma Storybook-story. Loput 7 eivät tarvitse omaa storya: 5 näkyy toisen komponentin storyssa ja 2 toimii vain palvelimella' },
+  args: { title: 'Storyt', description: '17/17 komponentilla on Storybook-story' },
 };
 
 /** Kisko ja pisteet ovat tokenien värejä, joten ne kääntyvät teeman mukana. */
