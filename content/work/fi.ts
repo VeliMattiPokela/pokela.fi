@@ -75,12 +75,13 @@ export type Previous = {
     sectionsTitle: string;
     sections: { title: string; body: string }[];
     /**
-     * Yksi kuva heti otsikon ja ingressin alla. Työlle, jonka voi
-     * näyttää yhdellä kokonaiskuvalla: kuvarivi ratkaisuosion perässä
-     * hukkuisi tekstin alle. Ei vertailua, koska kuva on nosto, ei
-     * todiste.
+     * Nosto heti otsikon ja ingressin alla, ennen roolia. Jokaisessa
+     * työssä on sama järjestys: johdanto, nosto, rooli, työn sisältö
+     * ja lopuksi muut kuvat (päätös 57). Nosto on yksi kokonaiskuva
+     * tai rivi videoita, ei vertailua, koska se näyttää työn eikä
+     * todista mitään.
      */
-    hero?: { id: string; kind: 'image'; ratio: string; caption: string };
+    hero?: { items: Exclude<PreviousMedia, { kind: 'compare' }>[] };
     /**
      * Kuva- ja videopaikat osioittain. Tyhjä lista = ei vielä
      * materiaalia. Otsikoton osio on pelkkä kuvarivi; otsikollinen
@@ -144,7 +145,7 @@ const previous: Previous[] = [
     detail: {
       heading: 'Maksusovellus yli miljoonalle käyttäjälle',
       intro:
-        'Mobiilimaksamisen sovellus rahan lähettämiseen, yhteisten kulujen jakamiseen ja verkkomaksuihin.',
+        'Pivo on OP:n mobiilimaksusovellus rahan lähettämiseen, yhteisten kulujen jakamiseen ja verkkomaksuihin. Käyttäjiä on 1,2 miljoonaa iOS:llä ja Androidilla.',
       roleTitle: 'Service Designer / UX/UI Designer',
       roleNote: 'iOS ja Android. Prototyypit testattiin asiakkailla ennen toteutusta.',
       responsible: [
@@ -176,17 +177,14 @@ const previous: Previous[] = [
           body: 'Kehitin tiimin tapaa siirtää design toteutukseen. Siitä alkoi kiinnostus suunnitella suoraan koodissa.',
         },
       ],
+      hero: {
+        items: [
+          { id: 'pivo-ryhma', kind: 'video', ratio: '3:4', caption: 'Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu' },
+          { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan' },
+          { id: 'pivo-reaktio', kind: 'video', ratio: '3:4', caption: 'Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä' },
+        ],
+      },
       media: [
-        {
-          title: 'Polut, prototyypit ja liike',
-          intro:
-            'Suunnittelin käyttöliittymäpolut, prototyypit, interaktiot ja animaatiot. Liike kertoo käyttäjälle, mitä juuri tapahtui: ryhmä syntyy, kulu tasataan ja saapuneeseen maksuun vastataan reaktiolla.',
-          items: [
-            { id: 'pivo-ryhma', kind: 'video', ratio: '3:4', caption: 'Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu' },
-            { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan' },
-            { id: 'pivo-reaktio', kind: 'video', ratio: '3:4', caption: 'Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä' },
-          ],
-        },
         {
           title: 'Saavutettavuus ennen ja jälkeen',
           intro:
@@ -213,9 +211,9 @@ const previous: Previous[] = [
     detail: {
       heading: 'Tilannekuva, jonka voi lukea yhdellä silmäyksellä',
       intro:
-        'Elisan tilannekuvapalvelu yritysasiakkaille oli teknisesti ja visuaalisesti jäänyt jälkeen, eikä se enää vastannut käyttäjien tarpeita. Uusi versio rakennettiin aiemman tutkimuksen päälle, täydennettynä uusilla haastatteluilla ja käytettävyystesteillä.',
+        'Elisa on yksi Suomen suurimmista teleoperaattoreista. Tavoite oli uudistaa sen yritysasiakkaiden tilannekuvapalvelu, joka oli jäänyt teknisesti ja visuaalisesti jälkeen eikä enää vastannut käyttäjien tarpeita. Uusi versio rakennettiin aiemman tutkimuksen päälle, täydennettynä uusilla haastatteluilla ja käytettävyystesteillä.',
       roleTitle: 'UI/UX Designer',
-      roleNote: 'Työparina palvelumuotoilija ja kehitystiimi.',
+      roleNote: 'Työparina palvelumuotoilija ja kehitystiimi. Konsepti ja käyttöliittymä testattiin loppukäyttäjillä ennen kehitystä.',
       responsible: [
         'Tuotteen UI/UX-suunnittelu',
         'Käyttäjätutkimus ja käytettävyystestaus',
@@ -242,10 +240,7 @@ const previous: Previous[] = [
         },
       ],
       hero: {
-        id: 'aisti-laitteet',
-        kind: 'image',
-        ratio: '4:3',
-        caption: 'Toimipistenäkymä työpöydällä, tabletilla ja puhelimessa',
+        items: [{ id: 'aisti-laitteet', kind: 'image', ratio: '4:3', caption: 'Toimipistenäkymä työpöydällä, tabletilla ja puhelimessa' }],
       },
       media: [],
     },
@@ -259,7 +254,7 @@ const previous: Previous[] = [
     detail: {
       heading: 'Lomake vaihtui keskusteluksi',
       intro:
-        'Vanha vahinkoilmoitus oli sekava, joten asiakkaat soittivat tai täyttivät paperilomakkeen. Se kuormitti asiakaspalvelua ja turhautti molempia osapuolia. Taustalla oli toinen ongelma: järjestelmä ei tuottanut rakenteista dataa, joten korvauskäsittely oli hidasta ja manuaalista.',
+        'OP Pohjola halusi uudenlaisen tavan ilmoittaa vakuutusvahingosta. Vanha ilmoitus oli sekava, joten asiakkaat soittivat tai täyttivät paperilomakkeen. Se kuormitti asiakaspalvelua ja turhautti molempia osapuolia. Taustalla oli toinen ongelma: järjestelmä ei tuottanut rakenteista dataa, joten korvauskäsittely oli hidasta ja manuaalista.',
       roleTitle: 'UI/UX Designer',
       roleNote: 'Tiivis yhteistyö kehitystiimin kanssa läpi projektin.',
       responsible: [
@@ -288,10 +283,7 @@ const previous: Previous[] = [
         },
       ],
       hero: {
-        id: 'op-laitteet',
-        kind: 'image',
-        ratio: '4:3',
-        caption: 'Ilmoituksen aloitus tabletilla ja vaurionvalitsin puhelimessa',
+        items: [{ id: 'op-laitteet', kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus tabletilla ja vaurionvalitsin puhelimessa' }],
       },
       media: [],
     },
