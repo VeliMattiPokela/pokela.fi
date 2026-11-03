@@ -52,7 +52,7 @@ const colliers: Case = {
         },
         {
           h: 'Miksi',
-          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä on käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pystyi näkemään ja kokeilemaan palvelua alusta asti.',
+          p: 'Selaimessa toimivasta palvelusta näkee heti, miltä sitä tuntuu käyttää, ja jokainen suunnittelupäätös on samalla valmista koodia. Asiakas pystyi näkemään ja kokeilemaan palvelua alusta asti.',
         },
         {
           h: 'Seuraus',
