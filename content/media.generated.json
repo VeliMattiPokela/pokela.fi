@@ -159,7 +159,12 @@
       "tyyppi": "video",
       "esitys": "taysi",
       "leveys": 2800,
-      "korkeus": 1410
+      "korkeus": 1410,
+      "mobiili": {
+        "leveys": 1290,
+        "korkeus": 1614,
+        "paaAlkaen": "(min-width: 600px)"
+      }
     },
     "colliers-runko": {
       "tyyppi": "videovertailu",
