@@ -1089,17 +1089,13 @@ mitä kuvan pitää näyttää.
 | ✓ | 19 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
 | ✓ | 20 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |
 | ✓ | 21 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
-|  | 22 | Elisa Aisti | `aisti-tyopoyta` | 4:3 · ≥2736 px | Päänäkymä: toimipistelista ja kartta työpöydällä |
-|  | 23 | Elisa Aisti | `aisti-mobiili` | 4:5 · ≥2736 px | Mobiilikartta ja toimipisteen tila |
-|  | 24 | Elisa Aisti | `aisti-tiketti` | 4:3 · ≥2736 px | Tiketti aikaennusteineen |
-|  | 25 | OP Vahinkoapuri | `op-aloitus` | 4:3 · ≥2736 px | Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää |
-|  | 26 | OP Vahinkoapuri | `op-vaurio` | 4:5 · ≥2736 px | Vaurionvalitsin: auto ylhäältä, klikattavat osat |
-|  | 27 | OP Vahinkoapuri | `op-polku` | 4:3 · ≥2736 px | Mukautuva kysymyspolku |
-| ✓ | 28 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
-| ✓ | 29 | Storybook | `tyot-storybook` + `tyot-storybook-tumma` | 4:3 · ≥2736 px | Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana |
-| ✓ | 30 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
+| ✓ | 22 | Elisa Aisti | `aisti-laitteet` | 4:3 · ≥2736 px | Toimipistenäkymä työpöydällä, tabletilla ja puhelimessa |
+| ✓ | 23 | OP Vahinkoapuri | `op-laitteet` | 4:3 · ≥2736 px | Ilmoituksen aloitus tabletilla ja vaurionvalitsin puhelimessa |
+| ✓ | 24 | Storybook | `media-viiva` + `media-viiva-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Korkeuskäyrät viivapiirroksena |
+| ✓ | 25 | Storybook | `tyot-storybook` + `tyot-storybook-tumma` | 4:3 · ≥2736 px | Design systemin komponentit: lomake, valinnat, ilmoitukset, dialogi, taulukko ja aikajana |
+| ✓ | 26 | Tietoa-sivu | `muotokuva` | 1:1 · ≥880 px | Muotokuva. Tausta poistettu, joten se piirtyy suoraan paperille ilman kehystä. |
 
-19/30 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
+21/26 täynnä. Sama luettelo komennolla `npm run kuvat:lista`.
 <!-- /generated -->
 
 #### Faktat ja luvat casettain

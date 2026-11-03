@@ -74,6 +74,15 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
         <p className="body-l measure detail__intro">{d.intro}</p>
       </div>
 
+      {d.hero ? (
+        <Media
+          id={d.hero.id}
+          ratio={d.hero.ratio as Ratio}
+          caption={d.hero.caption}
+          sizes="(min-width: 1200px) 1100px, calc(100vw - 40px)"
+        />
+      ) : null}
+
       <div className="detail__role">
         <div className="detail__role-col">
           <h4 className="meta">{dict.common.role}</h4>

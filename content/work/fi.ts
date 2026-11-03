@@ -75,6 +75,13 @@ export type Previous = {
     sectionsTitle: string;
     sections: { title: string; body: string }[];
     /**
+     * Yksi kuva heti otsikon ja ingressin alla. Työlle, jonka voi
+     * näyttää yhdellä kokonaiskuvalla: kuvarivi ratkaisuosion perässä
+     * hukkuisi tekstin alle. Ei vertailua, koska kuva on nosto, ei
+     * todiste.
+     */
+    hero?: { id: string; kind: 'image'; ratio: string; caption: string };
+    /**
      * Kuva- ja videopaikat osioittain. Tyhjä lista = ei vielä
      * materiaalia. Otsikoton osio on pelkkä kuvarivi; otsikollinen
      * saa otsikon ja ingressin, jotta eri aiheiden kuvat eivät
@@ -234,15 +241,13 @@ const previous: Previous[] = [
           body: 'Järjestelmä on auki pitkiä jaksoja, joten tumma teema valittiin, koska se on silmille kevyempi. Palvelu toimii mobiilista työpöydälle.',
         },
       ],
-      media: [
-        {
-          items: [
-            { id: 'aisti-tyopoyta', kind: 'image', ratio: '4:3', caption: 'Päänäkymä: toimipistelista ja kartta työpöydällä' },
-            { id: 'aisti-mobiili', kind: 'image', ratio: '4:5', caption: 'Mobiilikartta ja toimipisteen tila' },
-            { id: 'aisti-tiketti', kind: 'image', ratio: '4:3', caption: 'Tiketti aikaennusteineen' },
-          ],
-        },
-      ],
+      hero: {
+        id: 'aisti-laitteet',
+        kind: 'image',
+        ratio: '4:3',
+        caption: 'Toimipistenäkymä työpöydällä, tabletilla ja puhelimessa',
+      },
+      media: [],
     },
   },
   {
@@ -282,15 +287,13 @@ const previous: Previous[] = [
           body: 'Uudistus muutti myös sen, mitä ilmoituksesta jää järjestelmään. Rakenteinen data vähensi käsityötä ja nopeutti korvauskäsittelyä.',
         },
       ],
-      media: [
-        {
-          items: [
-            { id: 'op-aloitus', kind: 'image', ratio: '4:3', caption: 'Ilmoituksen aloitus: mitä tarvitaan ja kauanko kestää' },
-            { id: 'op-vaurio', kind: 'image', ratio: '4:5', caption: 'Vaurionvalitsin: auto ylhäältä, klikattavat osat' },
-            { id: 'op-polku', kind: 'image', ratio: '4:3', caption: 'Mukautuva kysymyspolku' },
-          ],
-        },
-      ],
+      hero: {
+        id: 'op-laitteet',
+        kind: 'image',
+        ratio: '4:3',
+        caption: 'Ilmoituksen aloitus tabletilla ja vaurionvalitsin puhelimessa',
+      },
+      media: [],
     },
   },
 ];

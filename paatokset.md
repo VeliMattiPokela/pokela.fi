@@ -1738,3 +1738,25 @@ esimerkiksi, koska kuva on valmis ja havainnollistaa esitystapaa.
 tuodaan vasta, kun kuvalla on jotain sanottavaa, jota teksti ei sano.
 
 *Kirjattu 2.11.2026 Vellun pyynnöstä*
+
+## 55. Aiemmalle työlle yksi kokonaiskuva heti otsikon alle
+
+**Tilanne:** Elisa Aistin ja OP Vahinkoapurin avautuvissa riveissä
+oli kummassakin kolmen tyhjän kuvapaikan rivi ratkaisuosion perässä.
+Kuvia ei ollut, ja yksittäiset näkymät olisivat toistaneet sen, minkä
+ratkaisuosio jo kertoo.
+
+**Päätös:** kumpikin työ näytetään yhdellä laitekuvalla (läpinäkyvä
+mockup, esitys `levy`, 4:3), joka on heti otsikon ja ingressin alla.
+Aiemman työn dataan tuli valinnainen `hero`, ja `media` jää näiltä
+tyhjäksi. Pivon kuvaosiot säilyvät ennallaan.
+
+**Perustelu:** kokonaiskuva kertoo yhdellä silmäyksellä, millainen
+palvelu on ja millä laitteilla, mitä teksti ei kerro. Otsikon alla se
+toimii nostona; rivin lopussa se hukkuisi tekstin alle (vrt. päätös 54).
+
+**Figma:** avautuneen rivin sisältöä ei ole piirretty Figmaan
+(Accordionin open-tila on pelkkä rivi, Työlista-pohjassa rivit ovat
+kiinni), joten pohjiin ei tule muutosta. Media `levy` on Figmassa jo.
+
+*Kirjattu 3.11.2026 Vellun pyynnöstä*
