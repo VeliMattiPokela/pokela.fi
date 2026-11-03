@@ -35,8 +35,8 @@ export const logos: Logo[] = [
   { name: 'Elisa',        file: 'elisa', height: 25 },
   { name: 'Pivo',         file: 'pivo', height: 25 },
   { name: 'OP',           file: 'op', height: 24 },
-  { name: 'Colliers',     file: 'colliers', height: 17 },
-  { name: 'Blokbook',     file: 'blokbook', height: 17 },
+  { name: 'Colliers',     file: 'colliers', height: 16 },
+  { name: 'Blokbook',     file: 'blokbook', height: 14 },
 
   {
     name: 'Microsoft',

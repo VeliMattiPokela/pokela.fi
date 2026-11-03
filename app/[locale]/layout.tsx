@@ -96,7 +96,7 @@ export default async function LocaleLayout({
             `${dict.footer.colophonLabel} — ${dict.footer.colophon}`,
           ]}
         />
-        {/* Vercelin kävijä- ja nopeusmittaus (päätös 58). Evästeetön, joten
+        {/* Vercelin kävijä- ja nopeusmittaus (päätös 59). Evästeetön, joten
             suostumusbanneria ei tarvita. Skriptit tulevat Vercelin omasta
             /_vercel-polusta, ja ne toimivat vain, kun mittaus on
             projektin asetuksissa päällä. */}
