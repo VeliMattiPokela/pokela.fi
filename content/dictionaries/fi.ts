@@ -11,9 +11,9 @@
 const fi = {
   meta: {
     siteName: 'Pokela',
-    title: 'Veli-Matti Pokela — Senior Designer',
+    title: 'Veli-Matti Pokela — Senior Product Designer & UX Engineer',
     description:
-      'Suunnittelen käyttöliittymät ja koodaan ne tuotantoon. Senior Designer, Helsinki.',
+      'Suunnittelen käyttöliittymät ja koodaan ne tuotantoon. Senior Product Designer & UX Engineer, Helsinki.',
     skipToContent: 'Siirry sisältöön',
   },
 
@@ -33,7 +33,7 @@ const fi = {
   home: {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-Matti', 'Pokela'],
-    role: 'Senior Designer, Helsinki',
+    role: 'Senior Product Designer & UX Engineer, Helsinki',
     /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
     heroArt: 'Korkeuskäyrät viivapiirroksena',
     /** TODO: oikea saatavuustieto. Ei näytetä ennen kuin se on tiedossa. */
@@ -61,7 +61,7 @@ const fi = {
   about: {
     titleLines: ['Veli-Matti', 'Pokela'],
     lede:
-      'Senior Designer, Helsinki. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
+      'Senior Product Designer & UX Engineer, Helsinki. Teen konsepteja, käyttöliittymiä ja niiden front end -toteutuksen.',
     body:
       'Olen työskennellyt digitaalisten tuotteiden ja palveluiden suunnittelun parissa vuodesta 2010. Yhdistän työssäni UX/UI-suunnittelua, palvelumuotoilua ja front end -kehitystä. Työ alkaa käyttäjien ja liiketoiminnan tarpeiden ymmärtämisestä ja etenee konsepteista ja prototyypeistä toimiviin, koodattuihin käyttöliittymiin. Työskentelen sujuvasti sekä Figmassa että suoraan koodissa ja hyödynnän tekoälyä osana suunnittelu- ja kehitystyötä. Kokemusta on niin kuluttajille suunnatuista digitaalisista palveluista kuin monimutkaisista sisäisistä työkaluista.',
     contact: 'Ota yhteyttä',
@@ -70,7 +70,7 @@ const fi = {
     printCv: 'Tulosta CV',
     /* Näkyy vain paperilla: ruudulla yhteystiedot ovat napissa ja
        footerissa, joista kumpikaan ei tulostu. */
-    printRole: 'Senior Designer',
+    printRole: 'Senior Product Designer & UX Engineer',
     portraitAlt: 'Veli-Matti Pokela',
     servicesTitle: 'Osaaminen',
     historyTitle: 'Työhistoria',

@@ -90,7 +90,7 @@ export function InvertDemo() {
 
 const sampleFor = (name: string) => {
   if (name.startsWith('display')) return 'Portfolio';
-  if (name.startsWith('meta')) return 'Senior Designer — Helsinki';
+  if (name.startsWith('meta')) return 'Senior Product Designer & UX Engineer — Helsinki';
   return 'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon.';
 };
 

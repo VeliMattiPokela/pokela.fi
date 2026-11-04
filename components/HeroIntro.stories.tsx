@@ -29,7 +29,7 @@ const meta = {
       <section className="page home__intro">
         <HeroName lines={['Veli-Matti', 'Pokela']} />
         <div className="home__intro-meta">
-          <p className="meta ink home__role">Senior Designer, Helsinki</p>
+          <p className="meta ink home__role">Senior Product Designer & UX Engineer, Helsinki</p>
         </div>
       </section>
     ),
