@@ -216,8 +216,8 @@
       "leveys": 1920,
       "korkeus": 822,
       "mobiili": {
-        "leveys": 1200,
-        "korkeus": 1500,
+        "leveys": 1170,
+        "korkeus": 1464,
         "paaAlkaen": "(min-width: 600px)"
       }
     },
