@@ -1087,7 +1087,7 @@ mitä kuvan pitää näyttää.
 | ✓ | 7 | Blokbook | `blokbook-web` | 3:4 · ≥880 px | Web — palvelun etusivu |
 | ✓ | 8 | Blokbook | `blokbook-ios` | 3:4 · ≥880 px | iOS — taloyhtiön kotinäkymä |
 | ✓ | 9 | Blokbook | `blokbook-android` | 3:4 · ≥880 px | Android — saunan varauskalenteri |
-| ✓ | 10 | Designer portfolio | `portfolio-prosessi` | 4:3 · ≥2736 px | Prosessi alusta loppuun: koodi, Figma, Storybook, tarkistukset, sivusto ja Figma Make. |
+| ✓ | 10 | Pokela.fi | `portfolio-prosessi` | 4:3 · ≥2736 px | Prosessi alusta loppuun: koodi, Figma, Storybook, tarkistukset, sivusto ja Figma Make. |
 | ✓ | 11 | Himat | `himat-hero` + `himat-hero-mobiili` *(valinn.)* | 4:5 · 16:9 · 21:9 · ≥2736 px | Ilmoituksen linkistä kohdesivulle: Himat lukee ilmoituksen, kokoaa kannen ja laskee kulut. |
 | ✓ | 12 | Himat | `himat-talous` | 3:4 · ≥1344 px | Oma talous: tulot, kotitalous ja säästöt kolmella kysymyksellä |
 | ✓ | 13 | Himat | `himat-paperit` | 3:4 · ≥1344 px | Kunnossapitotarveselvitys luetaan, ja remontit näkyvät sivunumeroineen |
