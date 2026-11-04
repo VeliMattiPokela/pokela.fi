@@ -100,13 +100,13 @@ const fi = {
     title: 'System',
     /* Ingressi kertoo ensikertalaiselle, mikä sivu on ja miksi sillä
        on väliä. Build-huomio on sen alla todisteena. */
-    lede: 'Design system on tämän portfolion yhteinen kieli, jolla Figma, koodi ja AI tekevät samaa sivustoa. Tällä sivulla se on näkyvissä sellaisenaan: jokainen väri, mitta ja komponentti on sama, jota sivusto käyttää.',
+    lede: 'Tämän portfolion design system on sama koodissa, Figmassa ja AI-työkaluissa. Tällä sivulla näkyy jokainen väri, mitta ja komponentti, jota sivusto käyttää.',
     kerroksetLabel:
       'Tämä sivusto purettuna kolmeen kerrokseen: tokenit, komponentit ja valmis sivu.',
     kerrokset: ['01 Tokenit', '02 Komponentit', '03 Sivu'],
     layersTitle: '00 — Kerroksina',
     layersNote:
-      'Sama sivu kolmena kerroksena. Kerrokset ovat sivuston omaa koodia, eivät kuvia: värit ja mitat luetaan tokens.json:sta buildin aikana ja komponentit ovat samat, joita sivu käyttää. Kun token muuttuu, tämäkin sivu muuttuu.',
+      'Sama sivu kolmena kerroksena. Kerrokset ovat sivuston omaa koodia, eivät kuvia. Värit ja mitat tulevat design systemistä, ja komponentit ovat samat, joita sivusto käyttää. Kun token muuttuu, tämäkin sivu muuttuu.',
   },
 
   showcase: {

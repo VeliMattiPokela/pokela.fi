@@ -127,7 +127,7 @@ const leads: Lead[] = [
     slug: 'himat',
     number: '04',
     title: 'Himat',
-    tagline: 'Asuntoilmoituksesta ymmärrettäväksi päätökseksi',
+    tagline: 'Asuntoilmoituksesta selkeään ostopäätökseen',
     lede:
       'Palvelu asunnon ostajalle: ilmoituksen linkistä syntyy kohdenäkymä, joka kertoo riskit, kulut ja sen, mitä koti tarkoittaisi omalle taloudelle. Oma tuote, betana pilottikäytössä.',
     meta: 'Oma tuote · tuote, design, toteutus',
@@ -180,7 +180,7 @@ const previous: Previous[] = [
       hero: {
         items: [
           { id: 'pivo-ryhma', kind: 'video', ratio: '3:4', caption: 'Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu' },
-          { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan' },
+          { id: 'pivo-kulut', kind: 'video', ratio: '3:4', caption: 'Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu siirtyy listaan' },
           { id: 'pivo-reaktio', kind: 'video', ratio: '3:4', caption: 'Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä' },
         ],
       },

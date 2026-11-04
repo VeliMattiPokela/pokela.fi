@@ -80,7 +80,7 @@ const colliers: Case = {
       kind: 'trio',
       surface: 'tint',
       label: 'Mitä rakennettiin',
-      title: 'Design ja toteutus samoissa käsissä',
+      title: 'Asuntohaku, vuokraus ja sisällönhallinta',
       items: [
         {
           media: { id: 'colliers-haku', ratio: '4:5', caption: 'AI-haku: kirjoitettu kuvaus + tulokset' },
@@ -115,7 +115,7 @@ const colliers: Case = {
       label: 'Työtapa',
       items: [
         {
-          p: 'Valitsin UX engineering -työtavan, koska palvelun laatu ratkesi vasta käytössä: hakupolut, vuokrauksen vaiheet ja sisällönhallinnan komponentit piti kokeilla selaimessa eikä kuvina. Kun suunnittelu ja toteutus ovat samassa koodissa, mikään ei katoa luovutuksessa, ja jokainen päätös nähdään heti siinä muodossa, jossa käyttäjä sen kohtaa. Sama työtapa teki myös kahdeksan kuukauden aikataulusta mahdollisen.',
+          p: 'Valitsin UX engineering -työtavan, koska palvelun laatu ratkesi vasta käytössä: hakupolut, vuokrauksen vaiheet ja sisällönhallinnan komponentit piti kokeilla selaimessa eikä kuvina. Kun suunnittelu ja toteutus ovat samassa koodissa, mikään ei muutu matkalla suunnittelusta toteutukseen, ja jokainen päätös nähdään heti siinä muodossa, jossa käyttäjä sen kohtaa. Sama työtapa teki myös kahdeksan kuukauden aikataulusta mahdollisen.',
         },
       ],
     },
@@ -291,7 +291,7 @@ const thisSite: Case = {
       items: [
         {
           h: 'Tehtävä',
-          p: 'Portfolio, joka on itse näyte työtavasta. Omissa projekteissa suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa usein myös Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
+          p: 'Portfolion tarkoitus oli näyttää työtapa käytännössä. Omissa projekteissa suunnittelen usein suoraan koodiin UX engineering -työtavalla, mutta asiakasorganisaatioissa työ alkaa usein myös Figmasta. Tavoite oli osoittaa, että kumpikin tapa toimii.',
         },
       ],
     },
@@ -331,7 +331,7 @@ const thisSite: Case = {
       kind: 'band',
       title: 'Yksi design system koodissa, Figmassa ja AI-työkaluissa',
       body: 'Tokenit, komponentit ja sivut ovat samaa koodia. Figman kirjasto ja Figma Make käyttävät samoja osia npm-paketteina.',
-      link: { label: 'Design system elävänä', to: 'system' },
+      link: { label: 'Katso design system', to: 'system' },
     },
     {
       kind: 'kerrokset',
@@ -345,7 +345,7 @@ const thisSite: Case = {
       surface: 'tint',
       label: 'Yksi komponentti',
       title: 'Yksi komponentti neljästä suunnasta',
-      body: 'Listarivi on sivuston tunnusomaisin komponentti. Se näkyy tässä valmiina, koodina, Storybookissa ja Figmassa. Koodi luetaan lähdetiedostoista buildin aikana.',
+      body: 'Listarivi on sivuston tunnusomaisin komponentti. Se näkyy tässä valmiina, koodina, Storybookissa ja Figmassa.',
     },
     {
       kind: 'ketju',
@@ -380,7 +380,7 @@ const thisSite: Case = {
         },
         {
           h: 'Milloin tämä ei kannata',
-          p: 'Kytkentä vaatii ylläpitoa ja kannattaa vasta, kun komponentteja on tarpeeksi ja tekijöitä useampi. Yhden hengen projektissa tai kymmenen komponentin kirjastossa se on turhaa työtä.',
+          p: 'Koodin ja Figman pitäminen samana vaatii ylläpitoa, ja se kannattaa vasta, kun komponentteja on paljon ja tekijöitä useampi. Yhden hengen projektissa tai kymmenen komponentin kirjastossa se on turhaa työtä.',
         },
       ],
     },
@@ -418,11 +418,11 @@ const himat: Case = {
       label: 'Lähtötilanne',
       items: [
         {
-          p: 'Asunnon ostaminen on useimmille elämän suurin taloudellinen päätös, mutta siihen tarvittava tieto on hajallaan: ilmoitus yhdessä palvelussa, taloyhtiön dokumentit PDF:inä, lainalaskelma pankin sivulla ja oma talous taulukossa. Nykyiset työkalut lisäävät dataa ostajan eteen.',
+          p: 'Asunnon ostaminen on useimmille elämän suurin taloudellinen päätös, mutta siihen tarvittava tieto on hajallaan: ilmoitus yhdessä palvelussa, taloyhtiön dokumentit PDF:inä, lainalaskelma pankin sivulla ja oma talous taulukossa. Nykyiset työkalut tuovat ostajalle lisää dataa, mutta eivät auta tulkitsemaan sitä.',
         },
         {
           h: 'Tehtävä',
-          p: 'Palvelu, joka vähentää ostajan tulkintatyötä. Ilmoituksen linkistä syntyy kohdenäkymä, joka kertoo heti, mitä kohteesta kannattaa huomata ja mitä se maksaisi juuri tälle kotitaloudelle. Ei uusi asuntoportaali, ei pankkilaskuri eikä yksi pistemäärä.',
+          p: 'Palvelu, joka vähentää ostajan tulkintatyötä. Ilmoituksen linkistä syntyy kohdenäkymä, joka kertoo heti, mitä kohteesta kannattaa huomata ja mitä se maksaisi juuri tälle kotitaloudelle.',
         },
       ],
     },
@@ -451,7 +451,7 @@ const himat: Case = {
       lead: 'Ilmoituksen linkki riittää alkuun',
       items: [
         {
-          p: 'Ilmoituksen linkki liitetään, ja Himat lukee loput. Kohteen kansi kertoo ensin olennaisen, eli mikä kohteessa on hyvää ja mitä kannattaa vielä selvittää. Kulut lasketaan lainasta, vastikkeista ja kaupan hetken rahoista, ja oma talous kysytään kolmella kysymyksellä, ei pitkänä lomakkeena. Kun välittäjän lähettämät taloyhtiön paperit lisätään, puuttuvat tiedot täydentyvät lähteineen.',
+          p: 'Ilmoituksen linkki liitetään, ja Himat lukee loput. Kohteen kansi kertoo ensin olennaisen, eli mikä kohteessa on hyvää ja mitä kannattaa vielä selvittää. Kulut lasketaan lainasta, vastikkeista ja kaupan hetken rahoista, ja oma talous selvitetään kolmella kysymyksellä. Kun välittäjän lähettämät taloyhtiön paperit lisätään, puuttuvat tiedot täydentyvät lähteineen.',
         },
       ],
     },
@@ -481,7 +481,7 @@ const himat: Case = {
     {
       kind: 'text',
       label: 'Arvolupaus',
-      lead: 'Vähemmän tulkintaa, ei lisää dataa',
+      lead: 'Ostajan työ helpommaksi',
       items: [
         {
           h: 'Arvoa ennen kirjautumista',
@@ -524,7 +524,7 @@ const himat: Case = {
       surface: 'tint',
       label: 'Vastuualueet',
       title: 'Ideasta betaan yhdellä tekijällä',
-      body: 'Tuotteen kaikki osa-alueet, ja tekoäly työn keskiössä alusta asti.',
+      body: 'Tuotteen kaikki osa-alueet. Tekoäly on ollut mukana alusta asti.',
       items: [
         'Tuotekonsepti ja rajaus',
         'Brändi ja ilme',
@@ -540,11 +540,11 @@ const himat: Case = {
     {
       kind: 'text',
       label: 'Laatu',
-      lead: 'Säännöt ovat rekisterissä, eivät kehotteessa',
+      lead: 'Tekoälyn säännöt on kirjattu ja testattu',
       items: [
         {
-          h: 'Mitattu tekoäly',
-          p: 'Jokainen poiminnan sääntö ja normalisointi on kirjattu syineen, ja sen takana on testiaineisto, joka todistaa sen. Kehotteen muutos mitataan aineistoa vasten ennen käyttöönottoa.',
+          h: 'Tekoälyn tarkkuus mitataan',
+          p: 'Jokainen poiminnan sääntö ja normalisointi on kirjattu syineen, ja sen takana on testiaineisto, joka varmistaa sen. Kehotteen muutos mitataan aineistoa vasten ennen käyttöönottoa.',
         },
         {
           h: 'Samat portit joka muutoksessa',
