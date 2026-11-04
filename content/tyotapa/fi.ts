@@ -20,7 +20,7 @@ const tyotapa = {
   ],
   hero: {
     label: 'Sama näkymä neljässä vaiheessa: runko, design system, data ja julkaistu palvelu.',
-    caption: 'Sama näkymä runkona, design systemillä, datalla ja julkaistuna. Koodi ei vaihdu matkalla.',
+    caption: 'Sama näkymä runkona, design systemillä, datalla ja julkaistuna. Sama koodi kulkee alusta loppuun.',
   },
   stepsTitle: 'Vaiheet',
   steps: [
@@ -42,7 +42,7 @@ const tyotapa = {
     {
       aihe: 'polut',
       h: 'Näkymät ja polut',
-      p: 'Käyttäjäpolut rakennetaan kokonaisina etusivulta loppuun asti, ei yksittäisinä ruutuina.',
+      p: 'Käyttäjäpolut rakennetaan kokonaisina etusivulta loppuun asti.',
     },
     {
       aihe: 'data',
@@ -59,13 +59,13 @@ const tyotapa = {
   benefits: [
     {
       h: 'Palaute tulee toimivasta palvelusta',
-      p: 'Asiakas kommentoi palvelua selaimessa, ei kuvaa palvelusta.',
+      p: 'Asiakas kommentoi toimivaa palvelua selaimessa.',
     },
     {
-      h: 'Mikään ei katoa matkalla koodiksi',
+      h: 'Suunnitelma ei muutu toteutuksessa',
       p: 'Suunnittelupäätökset ovat jo koodia, joten niitä ei tulkita uudelleen toteutuksessa.',
     },
-    { h: 'Design system pysyy totena', p: 'Dokumentaatio on sama koodi, joka on tuotannossa.' },
+    { h: 'Design system pysyy ajan tasalla', p: 'Dokumentaatio on sama koodi, joka on tuotannossa.' },
   ],
   limitsTitle: 'Rajat',
   limits: [
@@ -84,7 +84,7 @@ const tyotapa = {
     },
     {
       h: 'Yksi työkalu muiden joukossa',
-      p: 'Kaikki projektit eivät hyödy tästä, ja perinteisille prosesseille on edelleen paikkansa.',
+      p: 'Kaikki projektit eivät hyödy tästä, ja perinteinen työtapa sopii edelleen moniin.',
     },
   ],
   casesTitle: 'Missä käytetty',
@@ -102,7 +102,7 @@ const tyotapa = {
     },
     {
       slug: 'portfolio',
-      p: 'Menetelmän seuraava askel: koodi on ainoa lähde, ja Figma ja AI-työkalut seuraavat sitä tarkistettuina.',
+      p: 'Menetelmän seuraava askel: koodi on ainoa lähde, ja tarkistukset pitävät Figman ja AI-työkalut sen kanssa samana.',
       meta: 'Jatkokehitys',
     },
     {

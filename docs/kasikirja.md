@@ -32,6 +32,16 @@ alaa eikä todista mitään.
   "vastaavat toisiaan", ei "synkassa".
 - Rajat ja epävarmuus kerrotaan ohimennen, ilman dramatiikkaa.
 - Ajatusviivoja korkeintaan yksi kappaleessa.
+- Ei englannista käännettyjä kielikuvia ("design system elävänä",
+  "pysyy totena", "mikään ei katoa matkalla", "työn keskiössä") eikä
+  kiellon kolmikkoja ("ei X, ei Y eikä Z"). Ne kuulostavat
+  tekoälyltä. Lue lause ääneen: jos sitä ei sanoisi kollegalle, kirjoita
+  se uudelleen.
+- Rakentamisen sanat eivät kuulu sivulle: build, rekisteri, kehote,
+  kytkentä, tokens.json. Kerro mitä lukija hyötyy, ei miten koodi toimii.
+- Sama lause vain yhteen paikkaan. Jos fraasi toistuu sivulta toiselle
+  ("design ja toteutus samoissa käsissä"), kirjoita toinen kohta
+  konkreettisemmaksi.
 - Minämuoto vain siellä, missä se kertoo vastuun tai roolin
   ("Vastasin front endistä"). Otsikot ja sävyä asettavat lauseet
   ovat passiivissa tai neutraaleja: minäkertoja kuulostaa suomeksi
@@ -1084,7 +1094,7 @@ mitä kuvan pitää näyttää.
 | ✓ | 14 | Himat | `himat-sijainti` | 3:4 · ≥1344 px | Sijainti: matka-ajat, kartta, liikenne ja melu |
 | ✓ | 15 | Himat | `himat-vertailu` | 3:4 · ≥1344 px | Vertailu: kuukausikulu, oma raha ja taloyhtiön luvut samoilla riveillä |
 | ✓ | 16 | Pivo | `pivo-ryhma` | 3:4 · ≥1344 px | Ryhmän luominen: valmis pohja, jäsenet ja ensimmäinen kulu |
-| ✓ | 17 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu hiljenee listaan |
+| ✓ | 17 | Pivo | `pivo-kulut` | 3:4 · ≥1344 px | Ryhmän kulut: kortti nousee kosketuksesta, ja tasattu kulu siirtyy listaan |
 | ✓ | 18 | Pivo | `pivo-reaktio` | 3:4 · ≥1344 px | Saapunut maksu: reaktio valitaan palkista pyyhkäisemällä |
 | ✓ | 19 | Pivo | `pivo-kirjautuminen-ennen` + `pivo-kirjautuminen-jalkeen` | vapaa · ≥880 px | Kirjautuminen ennen ja jälkeen: vaalea teksti kylläisellä gradientilla ei täyttänyt kontrastivaatimuksia, harvennetut versaalit hidastivat lukemista ja syötetyt merkit näkyivät vain ohuina pisteinä. |
 | ✓ | 20 | Elisa Aisti | `aisti-laitteet` | 4:3 · ≥2736 px | Toimipistenäkymä työpöydällä, tabletilla ja puhelimessa |

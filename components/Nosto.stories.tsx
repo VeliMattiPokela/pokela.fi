@@ -37,7 +37,7 @@ export const Linkilla: Story = {
     body: 'Tokenit, komponentit ja sivut ovat samaa koodia.',
     action: (
       <a href="#" className="btn btn--text">
-        Design system elävänä
+        Katso design system
       </a>
     ),
   },
