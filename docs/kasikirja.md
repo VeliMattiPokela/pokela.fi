@@ -32,6 +32,16 @@ alaa eikä todista mitään.
   "vastaavat toisiaan", ei "synkassa".
 - Rajat ja epävarmuus kerrotaan ohimennen, ilman dramatiikkaa.
 - Ajatusviivoja korkeintaan yksi kappaleessa.
+- Ei englannista käännettyjä kielikuvia ("design system elävänä",
+  "pysyy totena", "mikään ei katoa matkalla", "työn keskiössä") eikä
+  kiellon kolmikkoja ("ei X, ei Y eikä Z"). Ne kuulostavat
+  tekoälyltä. Lue lause ääneen: jos sitä ei sanoisi kollegalle, kirjoita
+  se uudelleen.
+- Rakentamisen sanat eivät kuulu sivulle: build, rekisteri, kehote,
+  kytkentä, tokens.json. Kerro mitä lukija hyötyy, ei miten koodi toimii.
+- Sama lause vain yhteen paikkaan. Jos fraasi toistuu sivulta toiselle
+  ("design ja toteutus samoissa käsissä"), kirjoita toinen kohta
+  konkreettisemmaksi.
 - Minämuoto vain siellä, missä se kertoo vastuun tai roolin
   ("Vastasin front endistä"). Otsikot ja sävyä asettavat lauseet
   ovat passiivissa tai neutraaleja: minäkertoja kuulostaa suomeksi
