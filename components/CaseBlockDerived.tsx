@@ -161,13 +161,15 @@ export default function CaseBlockDerived({
                     <span className="meta meta--s">{String(lenkki.numero).padStart(2, '0')}</span>
                     <h4 className="title">{lenkki.otsikko}</h4>
                     <p className="body-s muted">{lenkki.teksti}</p>
-                    <span className="meta faint case__ketju-vartijat">
-                      {lenkki.tulossa
-                        ? 'Tulossa'
-                        : lenkki.vartijat.length
-                          ? `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`
-                          : 'Ei tarkistusta'}
-                    </span>
+                    {/* Vaihe ilman tarkistusta jää ilman riviä: "Ei
+                        tarkistusta" oli lukijalle pelkkää kohinaa. */}
+                    {lenkki.tulossa || lenkki.vartijat.length ? (
+                      <span className="meta faint case__ketju-vartijat">
+                        {lenkki.tulossa
+                          ? 'Tulossa'
+                          : `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`}
+                      </span>
+                    ) : null}
                   </li>
                 ))}
               </ol>
