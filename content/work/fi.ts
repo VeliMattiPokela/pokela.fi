@@ -116,7 +116,7 @@ const leads: Lead[] = [
   {
     slug: 'portfolio',
     number: '03',
-    title: 'Pokela.fi',
+    title: 'Pokela.fi – Portfolio',
     tagline: 'Portfolio, joka on itsessään näyte työtavasta',
     lede:
       'Portfolio suunniteltiin ja rakennettiin koodissa. Design system on sama koodissa ja Figmassa, ja Storybook, Code Connect -kytkennät ja tarkistukset ovat julkisia.',
