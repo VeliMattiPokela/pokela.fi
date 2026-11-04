@@ -260,13 +260,13 @@ const blokbook: Case = {
       text: 'Täydennä: julkaisuvuosi, taloyhtiöiden määrä (jos saa kertoa), isännöitsijän tai hallituksen lause, "mitä tekisin toisin".',
     },
   ],
-  next: { slug: 'portfolio', title: 'Designer portfolio' },
+  next: { slug: 'portfolio', title: 'Pokela.fi – Portfolio' },
 };
 
 const thisSite: Case = {
   slug: 'portfolio',
   eyebrow: 'Case 03 · 2026 · Oma portfolio',
-  title: 'Designer portfolio',
+  title: 'Pokela.fi – Portfolio',
   tagline: 'Portfolio, joka on itsessään näyte työtavasta. Se suunniteltiin koodissa, ja Figma ja AI-työkalut käyttävät samaa design systemiä.',
   facts: [
     { label: 'Rooli', value: 'Design, front end, design system' },
