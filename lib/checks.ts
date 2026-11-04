@@ -29,7 +29,9 @@ export type Check = {
   title: string;
   /** Rivin lause: millaisen virheen tarkistus pysäyttää. Ks. päätös 50. */
   huomaa: string;
-  /** Mitä tarkistus todistaa. Näkyy avatussa paneelissa. */
+  /** Mitä avattu paneeli lisää rivin lauseeseen. Paneeli näyttää
+      huomaa-lauseen ja tämän peräkkäin, joten tämä ei toista sitä.
+      Tyhjä, kun rivin lause riittää. */
   proves: string;
   /** Lista proves-tekstin perään, kun luettelo on selkeämpi kuin lause. */
   items?: string[];
@@ -66,7 +68,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Tokenit',
     huomaa: 'Huomaa, jos väri tai mitta muuttuu koodissa mutta ei Figmassa.',
-    proves: 'Varmistaa, että koodin ja Figman tokenit ovat samat jokaisella näyttökoolla. Vertailussa ovat tokens.css ja tokens.json.',
+    proves: 'Vertailu tehdään jokaisella näyttökoolla.',
     blind: 'Ei kerro, käytetäänkö tokenia missään. Käyttämätön token on molemmissa tiedostoissa ja menee läpi.',
   },
   {
@@ -74,7 +76,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Storyt',
     huomaa: 'Huomaa, jos komponentilta puuttuu Storybook-story, tumma teema tai mobiilikoko.',
-    proves: 'Varmistaa, että jokaisella komponentilla on Storybook-story, jossa on myös tumma teema ja mobiilikoko.',
+    proves: '',
     blind: 'Ei arvioi storyn laatua, vain sen että se on olemassa. Jos story puuttuu tarkoituksella, syy valitaan kolmesta vakiovaihtoehdosta.',
   },
   {
@@ -82,7 +84,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Code Connect',
     huomaa: 'Huomaa, jos Figma-komponenttia ei ole kytketty koodin komponenttiin.',
-    proves: 'Varmistaa, että jokaisella Figma-komponentilla on kytkentä koodin komponenttiin.',
+    proves: '',
     blind: 'Katsoo vain koodin puolta. Sen, että komponentti todella löytyy Figmasta, varmistaa Figma-tarkistus (05).',
   },
   {
@@ -90,7 +92,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Kovakoodatut arvot',
     huomaa: 'Huomaa, jos tyyliin kirjoitetaan väri tai mitta suoraan tokenin ohi.',
-    proves: 'Varmistaa, että tyyleissä ei ole mittoja, värejä tai fonttipainoja tokenien ohi.',
+    proves: 'Sama koskee fonttipainoja.',
     blind: 'Poikkeus on sallittu, kun sen syy kirjataan. Tarkistus näkee, että syy on kirjattu, mutta ei sitä, onko syy hyvä.',
   },
   {
@@ -122,7 +124,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Figma',
     huomaa: 'Huomaa, jos komponentti tai variantti on koodissa mutta ei Figma-kirjastossa.',
-    proves: 'Varmistaa, että koodin komponentit ja Figma-kirjasto vastaavat toisiaan, variantteja myöten. Kirjaston sisältö luetaan suoraan Figmasta, ei käsin ylläpidetystä listasta. Lisäksi tarkistus varmistaa, että',
+    proves: 'Kirjaston sisältö luetaan suoraan Figmasta. Lisäksi tarkistus varmistaa, että',
     items: ['sivupohjien gridit vastaavat layout-tokeneita', 'kuvasuhteet ovat samat Figmassa ja kuvien käsittelyssä', 'sivupohjien tekstit ovat samat kuin julkaistulla sivulla.'],
     blind: 'Ei tarkista Figman muuttujia, koska Figman rajapinta ei anna niihin lukuoikeutta tällä tilillä. Muuttujat luodaan tokens.jsonista, mutta Figmassa jälkikäteen tehtyä muutosta mikään ei huomaa.\n\nSivupohjista tarkistus huomaa vanhentuneen tekstin, mutta ei kokonaan puuttuvaa osiota.',
   },
@@ -131,7 +133,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Paketit',
     huomaa: 'Huomaa, jos npm-paketti on muuttunut mutta versiota ei ole nostettu.',
-    proves: 'Varmistaa, että npm:ssä julkaistut paketit ovat samat kuin repo rakentaisi. Paketit ovat @pokela/tokens ja @pokela/components, ja vertailu tehdään tavu tavulta. Jos sisältö on muuttunut mutta versio ei, korjaus on nostaa versiota pull requestissa. Kun muutos yhdistetään, main julkaisee uuden version npm:ään automaattisesti.',
+    proves: 'Julkaistua pakettia verrataan tavu tavulta siihen, mitä koodista syntyisi. Kun muutos yhdistetään, uusi versio julkaistaan npm:ään automaattisesti.',
     blind: 'Ei näe, mihin versioon Figma Maken kit on kiinnitetty. Kitin päivitys tehdään Figmassa käsin.',
   },
   {
@@ -139,7 +141,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Dokumentaatio',
     huomaa: 'Huomaa, jos ohje viittaa tiedostoon tai komentoon, jota ei enää ole.',
-    proves: 'Varmistaa, että dokumentaatiossa mainitut tiedostot ja komennot ovat olemassa ja jokainen tarkistus on dokumentoitu. Koodista johdettavat kohdat, kuten Figman kokoelmat, luodaan automaattisesti ja tarkistetaan lähdettään vasten.',
+    proves: 'Lisäksi jokaisen tarkistuksen pitää olla dokumentoitu. Koodista johdettavat kohdat luodaan automaattisesti ja tarkistetaan lähdettään vasten.',
     blind: 'Ei voi tarkistaa vapaata tekstiä, joten väärä perustelu menee läpi. Siksi kaikki, mikä voidaan johtaa koodista, luodaan automaattisesti.',
   },
   {
@@ -156,7 +158,7 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     group: 'ydin',
     title: 'Tekstit',
     huomaa: 'Huomaa, jos teksti kirjoitetaan komponenttiin sanakirjan ohi.',
-    proves: 'Varmistaa, että sivun tekstit tulevat sanakirjasta eivätkä ole kirjoitettuina komponentteihin.',
+    proves: '',
     blind: 'Tarkistusta ei vielä ajeta, joten se ei vielä estä mitään.',
   },
 ];

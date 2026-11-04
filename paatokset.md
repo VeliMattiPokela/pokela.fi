@@ -1633,6 +1633,15 @@ storyjen testien mukana (`npm run test:stories`), ei `check:*`-skriptinä,
 joten rekisterin `komento` kertoo, mikä komento sen ajaa. Se on
 ajossa, kun komento on olemassa ja CI ajaa sen.
 
+Tarkennus 4.11.2026: avattu paneeli näyttää rivin lauseen ja sen
+perään `proves`-tekstin. Kun `proves` alkoi "Varmistaa, että…", se
+sanoi saman asian toiseen kertaan (Vellu: "turhaa toistoa"). Nyt
+`proves` kertoo vain sen, mitä rivin lause ei jo kerro, ja on tyhjä,
+kun lause riittää. Prosessin vaiheista poistui "Ei tarkistusta":
+vaihe ilman tarkistusta jää ilman riviä, koska merkintä oli lukijalle
+pelkkää kohinaa. Tulossa-ryhmän selitteestä poistui sivulause
+"joten se ei ole otsikon luvussa", jota lukija ei ymmärtänyt.
+
 ## 51. Kuvalla, jossa on oma tausta, on oma kuva kumpaankin teemaan
 
 **Tilanne:** Työt-sivun nostokuvaksi (paikka 21) tehtiin seinä

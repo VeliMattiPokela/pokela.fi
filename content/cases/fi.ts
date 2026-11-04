@@ -362,7 +362,7 @@ const thisSite: Case = {
       pending: {
         id: 'tulossa',
         title: 'Tulossa',
-        note: 'Tarkistus on kirjoitettu, mutta sitä ei vielä ajeta, joten se ei ole otsikon luvussa.',
+        note: 'Tarkistus on kirjoitettu, mutta sitä ei vielä ajeta.',
       },
       paivitys: {
         title: 'Sivuston päivitys',
