@@ -9,9 +9,11 @@ import Reveal from '@/components/Reveal';
 import Section from '@/components/Section';
 import CaseText from '@/components/CaseText';
 
-/** Muotokuva on neljä saraketta kahdestatoista, eli noin kolmannes. */
+/** Työpöydällä muotokuva on neljä saraketta kahdestatoista, eli noin
+    kolmannes. Kapeammalla se on pieni ympyrä nimen rinnalla
+    (about.css). */
 const PORTRAIT_SIZES =
-  '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 40px), (min-width: 600px) calc(50vw - 48px), calc(100vw - 40px)';
+  '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 40px), (min-width: 600px) 176px, 136px';
 
 export async function generateMetadata({
   params,
@@ -36,7 +38,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* ---- otsikko + muotokuva -------------------------------- */}
       <section className="page section about__top">
         <Grid>
-          <Col base={4} sm={8} md={7}>
+          <Col base={4} sm={8} md={7} className="about__intro">
             <h1 className="display-l about__title">
               {about.titleLines.map((line) => (
                 <span key={line} className="about__title-line">
@@ -71,7 +73,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </div>
           </Col>
 
-          <Col base={4} sm={8} md={4} startMd={9}>
+          <Col base={4} sm={8} md={4} startMd={9} className="about__portrait-col">
             {/* Muotokuva on pyöreä rajaus valkoisella taustalla, ja
                 ympyrän ulkopuoli on läpinäkyvä. Valkoinen sävytetään
                 harmaaksi pinnaksi (ks. about.css).

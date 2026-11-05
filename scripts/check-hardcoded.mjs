@@ -44,6 +44,8 @@ const EXEMPT = {
   },
   'about.css': {
     'grid-template-columns:300px': 'CV-rivin vuosisarake mitoitettu pisimmän vuosiluvun mukaan, ei asteikolta.',
+    'width:136px': 'Muotokuvan ympyrä nimen rinnalla mobiilissa: mitoitettu nimen kahden rivin korkeuden mukaan, ei asteikolta.',
+    'width:176px': 'Sama ympyrä tabletilla, jossa nimi on samankokoinen mutta tilaa on enemmän.',
   },
   'korkeuskayrat.css': {
     'min-height:320px': 'Viivateoksen alaraja matalalla ruudulla: mitoitettu niin, että käyriä mahtuu näkyviin parikymmentä. Piirros, ei layout-askel.',
