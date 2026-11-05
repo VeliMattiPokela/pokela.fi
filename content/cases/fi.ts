@@ -108,6 +108,9 @@ const colliers: Case = {
         {
           p: 'Tokenit, komponentit ja layoutit ovat Storybookissa. Erillistä Figma-tiedostoa ei ollut, joten dokumentaatio vastaa aina tuotannossa olevaa koodia.',
         },
+        {
+          p: 'Jokainen julkaisu kulkee automaattisten testien ja tiukan tyyppitarkistuksen läpi, ja tuotantoon siirto hyväksytään erikseen. Saavutettavuutta ja ulkoasun muutoksia tarkistetaan Storybookissa komponentteja rakennettaessa.',
+        },
       ],
     },
     {
@@ -199,6 +202,9 @@ const blokbook: Case = {
         },
         {
           p: 'Yhteinen koodipohja ja design system pitävät käyttöliittymät yhtenäisinä webissä, iOS:ssä ja Androidissa.',
+        },
+        {
+          p: 'Jokainen muutos kulkee automaattisten testien sekä saavutettavuus-, tietoturva- ja design system -tarkistusten läpi ennen julkaisua.',
         },
       ],
     },
