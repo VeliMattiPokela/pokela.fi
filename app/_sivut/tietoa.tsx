@@ -1,0 +1,185 @@
+import type { Metadata } from 'next';
+import { Lahteet, rajaukset } from '@/components/Media';
+import { isLocale, type Locale } from '@/lib/i18n';
+import { getDictionary } from '@/content/dictionaries';
+import { getCv } from '@/content/cv';
+import PrintCv from '@/components/PrintCv';
+import { Grid, Col } from '@/components/Grid';
+import Reveal from '@/components/Reveal';
+import Section from '@/components/Section';
+import CaseText from '@/components/CaseText';
+
+/** Työpöydällä muotokuva on neljä saraketta kahdestatoista, eli noin
+    kolmannes. Kapeammalla se on pieni ympyrä nimen rinnalla
+    (about.css). */
+const PORTRAIT_SIZES =
+  '(min-width: 1440px) 440px, (min-width: 900px) calc(33vw - 40px), (min-width: 600px) 176px, 136px';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return { title: getDictionary(locale).nav.about };
+}
+
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return null;
+
+  const dict = getDictionary(locale as Locale);
+  const cv = getCv(locale as Locale);
+  const { about } = dict;
+
+  return (
+    <>
+      {/* ---- otsikko + muotokuva -------------------------------- */}
+      <section className="page section about__top">
+        <Grid>
+          <Col base={4} sm={8} md={7} className="about__intro">
+            <h1 className="display-l about__title">
+              {about.titleLines.map((line) => (
+                <span key={line} className="about__title-line">
+                  {line}
+                </span>
+              ))}
+            </h1>
+            {/* Vain paperilla. Painettu CV ilman yhteystietoja on
+                hyödytön, ja ruudulla ne ovat napissa ja footerissa
+                joista kumpikaan ei tulostu. */}
+            <div className="cv-print-only">
+              <p className="meta cv-print-only__role">
+                {about.printRole} · {dict.footer.location}
+              </p>
+              <p className="cv-print-only__contact">
+                <a href={`mailto:${dict.footer.email}`}>{dict.footer.email}</a>
+                {' · '}
+                <a href={dict.footer.linkedinUrl}>
+                  {dict.footer.linkedinUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                </a>
+              </p>
+            </div>
+
+            <p className="body-l measure about__lede">{about.lede}</p>
+            <p className="measure about__body">{about.body}</p>
+
+            <div className="about__actions">
+              <a href={`mailto:${dict.footer.email}`} className="btn btn--primary btn--block">
+                {about.contact}
+              </a>
+              <PrintCv label={about.printCv} />
+            </div>
+          </Col>
+
+          <Col base={4} sm={8} md={4} startMd={9} className="about__portrait-col">
+            {/* Muotokuva on pyöreä rajaus valkoisella taustalla, ja
+                ympyrän ulkopuoli on läpinäkyvä. Valkoinen sävytetään
+                harmaaksi pinnaksi (ks. about.css).
+
+                Kuva kulkee saman putken läpi kuin casejen kuvat
+                (content/kuvat.ts → npm run kuvat), mutta se ei käytä
+                Media-komponenttia: sillä on oma luokkansa
+                ympyrärajausta varten eikä se saa paikanvaraajan
+                taustaa taakseen — tausta näkyisi läpinäkyvän alueen
+                kohdalla. Rajaukset luetaan silti samasta
+                manifestista. */}
+            {(() => {
+              const osa = rajaukset('muotokuva')?.[0];
+              if (!osa) return null;
+              return (
+                <picture className="about__portrait-pinta">
+                  <Lahteet nimi="muotokuva" r={osa} sizes={PORTRAIT_SIZES} />
+                  <img
+                    src={`/kuva/muotokuva-${osa.koko}-${osa.leveys}.webp`}
+                    alt={about.portraitAlt}
+                    width={osa.leveys}
+                    height={osa.korkeus}
+                    sizes={PORTRAIT_SIZES}
+                    fetchPriority="high"
+                    decoding="sync"
+                    className="about__portrait"
+                  />
+                </picture>
+              );
+            })()}
+          </Col>
+        </Grid>
+      </section>
+
+      {/* ---- mitä teen ------------------------------------------ */}
+      <Reveal>
+        <section className="page section" aria-labelledby="services">
+          <h2 id="services" className="meta section-head">
+            {about.servicesTitle}
+          </h2>
+          <div className="about__services">
+            {cv.services.map((service) => (
+              <div key={service.number} className="about__service">
+                <span className="meta">{service.number}</span>
+                <h3 className="title about__service-title">{service.title}</h3>
+                <p className="body-s muted measure about__service-body">
+                  <CaseText text={service.body} locale={locale as Locale} />
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* ---- työhistoria ---------------------------------------- */}
+      <Section id="history" title={about.historyTitle} meta={about.historySince}>
+
+        {cv.jobs.map((job) => (
+          <article key={job.period} className="cv-job">
+            <div className="cv-job__head">
+              <span className="meta">{job.period}</span>
+              {job.title && <h3 className="display-s cv-job__title">{job.title}</h3>}
+              <span className="body-s faint">{job.company}</span>
+            </div>
+            <dl className="cv-job__projects">
+              {job.projects.map((project) => (
+                <div key={project.name} className="cv-job__project">
+                  <dt className="cv-job__project-name">{project.name}</dt>
+                  <dd className="body-s cv-job__project-body">{project.body}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+
+        <p className="body-s cv-footnote">{cv.jobsFootnote}</p>
+      </Section>
+
+      {/* ---- työkalut + koulutus -------------------------------- */}
+      <section className="page section">
+        <Grid>
+          <Col base={4} sm={8} md={6} as="div">
+            <h2 className="meta section-head">{about.toolsTitle}</h2>
+            <dl className="cv-list">
+              {cv.tools.map((row) => (
+                <div key={row.label} className="cv-list__row">
+                  <dt className="body-s cv-list__label">{row.label}</dt>
+                  <dd className="body-s muted">{row.items}</dd>
+                </div>
+              ))}
+            </dl>
+          </Col>
+
+          <Col base={4} sm={8} md={6} as="div">
+            <h2 className="meta section-head">{about.educationTitle}</h2>
+            <dl className="cv-list">
+              {cv.education.map((row) => (
+                <div key={row.label} className="cv-list__row">
+                  <dt className="body-s cv-list__label">{row.label}</dt>
+                  <dd className="body-s muted">{row.items}</dd>
+                </div>
+              ))}
+            </dl>
+          </Col>
+        </Grid>
+      </section>
+    </>
+  );
+}

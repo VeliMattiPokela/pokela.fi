@@ -162,7 +162,7 @@ export default function CaseBlockDerived({
                     key={lenkki.numero}
                     className={['tyotapa__vaihe', lenkki.tulossa ? 'case__ketju-tulossa' : ''].join(' ')}
                   >
-                    <Piirros aihe={lenkki.aihe} />
+                    <Piirros aihe={lenkki.aihe} kieli={locale} />
                     <span className="meta meta--s">{String(lenkki.numero).padStart(2, '0')}</span>
                     <h4 className="title">{lenkki.otsikko}</h4>
                     <p className="body-s muted">{lenkki.teksti}</p>
