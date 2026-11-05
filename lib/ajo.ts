@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { CHECK_GROUPS, checks } from './checks';
+import type { Locale } from './i18n';
+import { getJohdetut, kaannaRyhma, kaannaTarkistus } from '@/content/johdetut';
 
 /**
  * Buildin vaiheet sivulla.
@@ -44,7 +46,8 @@ type Kirjattu = {
   sivustoAlkoi: number;
 };
 
-export function viimeisinAjo(): Ajo | null {
+export function viimeisinAjo(locale: Locale): Ajo | null {
+  const t = getJohdetut(locale).tarkistukset;
   const tiedosto = join(process.cwd(), '.ajo', 'ajo.json');
   if (!existsSync(tiedosto)) return null;
   const kirjattu = JSON.parse(readFileSync(tiedosto, 'utf8')) as Kirjattu;
@@ -52,15 +55,16 @@ export function viimeisinAjo(): Ajo | null {
   /* Nimi ja ryhmä tarkistusrekisteristä, jotta ne ovat samat kuin
      listassa. Sivuston omat tarkistukset näkyvät vain täällä, joten
      ryhmän nimi erottaa ne design systemin tarkistuksista (päätös 50). */
-  const rekisteri = new Map(checks().map((c) => [c.id, c]));
-  const ryhmat = new Map(CHECK_GROUPS.map((g) => [g.id, g.title]));
+  const rekisteri = new Map(checks().map((c) => [c.id, kaannaTarkistus(locale, c)]));
+  const ryhmat = new Map(CHECK_GROUPS.map((g) => [g.id, kaannaRyhma(locale, g.id, g.title)]));
   let alku = 0;
   const vaiheet = kirjattu.vaiheet.map((v): Vaihe => {
     const vaihe: Vaihe = {
       ...v,
-      nimi: v.id === 'kuvaputki' ? 'Kuvat ja videot' : (rekisteri.get(v.id)?.title ?? v.id),
+      nimi: v.id === 'kuvaputki' ? t.kuvaputki : (rekisteri.get(v.id)?.title ?? v.id),
+      tulos: t.naytaTulos ? v.tulos : null,
       alku,
-      ryhma: v.id === 'kuvaputki' ? 'Build' : (ryhmat.get(rekisteri.get(v.id)?.group ?? 'ydin') ?? 'Tarkistukset'),
+      ryhma: v.id === 'kuvaputki' ? t.build : (ryhmat.get(rekisteri.get(v.id)?.group ?? 'ydin') ?? t.oletusryhma),
     };
     alku += v.kesto;
     return vaihe;
@@ -75,8 +79,8 @@ export const kello = (ms: number) => {
 };
 
 /** Kesto luettavana: "alle sekunnin", "5 s", "5 min 28 s". */
-export const kesto = (ms: number) => {
-  if (ms < 1000) return 'alle sekunnin';
+export const kesto = (ms: number, alleSekunnin = 'alle sekunnin') => {
+  if (ms < 1000) return alleSekunnin;
   const s = Math.round(ms / 1000);
   return s < 60 ? `${s} s` : `${Math.floor(s / 60)} min ${s % 60} s`;
 };

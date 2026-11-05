@@ -19,13 +19,16 @@ export default function CheckList({
   items,
   groups,
   build,
+  labels: teksti = { open: 'Avaa', close: 'Sulje', checks: 'Tarkistaa' },
 }: {
   items: { id: string; title: string; huomaa: string; proves: string; items?: string[]; runs: boolean; group?: string }[];
   groups?: { id: string; title: string; note: string }[];
   build?: { group: { title: string; note: string }; title: string; description: string; children: ReactNode };
+  /** Rivin avaus ja sulku sekä avatun rivin otsake. Oletus suomeksi. */
+  labels?: { open: string; close: string; checks: string };
 }) {
   const group = useAccordionGroup();
-  const labels = { open: 'Avaa', close: 'Sulje' };
+  const { checks: tarkistaa, ...labels } = teksti;
 
   return (
     <div className="list-rows case__checklist">
@@ -52,7 +55,7 @@ export default function CheckList({
             {/* Rivin kuvaus siirtyy avatessa tähän: rivillä on silloin
                 vain otsikko, ja lause aloittaa palstan musteella. */}
             <section className="check-detail__col">
-              <h5 className="meta check-detail__label">Tarkistaa</h5>
+              <h5 className="meta check-detail__label">{tarkistaa}</h5>
               <p className="check-detail__text">
                 <span className="check-detail__lead">{check.huomaa}</span> {check.proves}
               </p>

@@ -5,6 +5,7 @@ import Ikkuna from './Ikkuna';
 import { caseArtefacts } from '@/lib/artefacts';
 import { checks, liveCheckCount } from '@/lib/checks';
 import { ketju } from '@/content/prosessi';
+import { getJohdetut, kaannaLenkki, kaannaTarkistus } from '@/content/johdetut';
 import { kello, kesto, viimeisinAjo } from '@/lib/ajo';
 import Timeline, { TimelineItem } from './Timeline';
 import type { Locale } from '@/lib/i18n';
@@ -38,19 +39,20 @@ export default function CaseBlockDerived({
   block: DerivedBlock;
   locale: Locale;
 }) {
+  const t = getJohdetut(locale);
   switch (block.kind) {
     case 'artefacts': {
       /* Tila luetaan tiedostoista build-aikana, ei casedatasta.
          Storybook on olemassa vaikkei julkaistu — sitä ei saa
          esittää samana kuin Figmaa, jota ei ole. */
-      const artefacts = caseArtefacts();
+      const artefacts = caseArtefacts(t.artefaktit);
       return (
         <Reveal>
           <Section layout="aside" title={block.label} surface={block.surface}>
             <div className="case__section-body">
               {/* Luku johdetaan listasta: käsin kirjoitettuna se
                   vanhenisi heti kun artefakti lisätään tai poistetaan. */}
-              <h3 className="display-m case__h">{artefacts.length} paikkaa, joissa työn voi tarkistaa</h3>
+              <h3 className="display-m case__h">{t.artefaktit.otsikko.replace('{n}', String(artefacts.length))}</h3>
               <p className="body-l measure case__p">{block.note}</p>
               <div className="ikkunat">
                 {artefacts.map((item) => (
@@ -89,10 +91,12 @@ export default function CaseBlockDerived({
       /* Listassa vain design systemin tarkistukset; sivuston omat
          näkyvät viimeisimmän ajon aikajanalla omana ryhmänään
          (päätös 50). Ajamaton tarkistus siirtyy Tulossa-ryhmään. */
-      const all = checks().filter((c) => c.group === 'ydin');
+      const all = checks()
+        .filter((c) => c.group === 'ydin')
+        .map((c) => kaannaTarkistus(locale, c));
       const lista = [...all.filter((c) => c.runs), ...all.filter((c) => !c.runs)];
       const live = liveCheckCount();
-      const ajo = viimeisinAjo();
+      const ajo = viimeisinAjo(locale);
 
       if (!block.title.includes('{n}')) {
         throw new Error(
@@ -109,10 +113,11 @@ export default function CaseBlockDerived({
               <CheckList
                 items={lista.map(({ id, title, huomaa, proves, items, runs }) => ({ id, title, huomaa, proves, items, runs, group: runs ? undefined : 'tulossa' }))}
                 groups={[block.pending]}
+                labels={{ open: t.tarkistukset.avaa, close: t.tarkistukset.sulje, checks: t.tarkistukset.tarkistaa }}
                 build={ajo ? {
                   group: block.paivitys,
                   title: block.paivitys.row,
-                  description: ['Läpi', new Date(ajo.alkoi).toLocaleDateString('fi-FI', { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
+                  description: [t.tarkistukset.lapi, new Date(ajo.alkoi).toLocaleDateString(t.tarkistukset.paivays, { timeZone: 'Europe/Helsinki' }), ajo.commit].filter(Boolean).join(' · '),
                   children: (
                     <Timeline>
                       {ajo.vaiheet.map((vaihe, i) => (
@@ -121,7 +126,7 @@ export default function CaseBlockDerived({
                           label={kello(vaihe.alku)}
                           group={i === 0 || ajo.vaiheet[i - 1].ryhma !== vaihe.ryhma ? vaihe.ryhma : null}
                           title={vaihe.nimi}
-                          meta={kesto(vaihe.kesto)}
+                          meta={kesto(vaihe.kesto, t.tarkistukset.alleSekunnin)}
                           description={vaihe.tulos}
                           /* Jokainen vaihe on valmis: sivu rakennetaan vain,
                              jos kaikki menevät läpi. Siksi kaikki näkyvät
@@ -129,7 +134,7 @@ export default function CaseBlockDerived({
                           variant="emphasis"
                         />
                       ))}
-                      <TimelineItem label={kello(ajo.sivustoAlkoi)} title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
+                      <TimelineItem label={kello(ajo.sivustoAlkoi)} title={t.tarkistukset.sivusto} description={t.tarkistukset.sivustoKuvaus} variant="end" />
                     </Timeline>
                   ),
                 } : undefined}
@@ -142,7 +147,7 @@ export default function CaseBlockDerived({
     case 'ketju': {
       /* Tarkistuksen nimi luetaan rekisteristä, jotta se on sama kuin
          tarkistuslistassa. Tuntematon tunniste näkyy sellaisenaan. */
-      const nimet = new Map(checks().map((c) => [c.id, c.title]));
+      const nimet = new Map(checks().map((c) => [c.id, kaannaTarkistus(locale, c).title]));
       return (
         <Reveal>
           <Section layout="aside" title={block.label} surface={block.surface}>
@@ -152,12 +157,12 @@ export default function CaseBlockDerived({
               {/* Sama vaiherakenne kuin Työtapa-sivulla: kuva, numero,
                   otsikko ja teksti. Vartijat kulkevat viimeisenä rivinä. */}
               <ol className="tyotapa__vaiheet case__ketju">
-                {ketju.map((lenkki) => (
+                {ketju.map((l) => kaannaLenkki(locale, l)).map((lenkki) => (
                   <li
                     key={lenkki.numero}
                     className={['tyotapa__vaihe', lenkki.tulossa ? 'case__ketju-tulossa' : ''].join(' ')}
                   >
-                    <Piirros aihe={lenkki.aihe} />
+                    <Piirros aihe={lenkki.aihe} kieli={locale} />
                     <span className="meta meta--s">{String(lenkki.numero).padStart(2, '0')}</span>
                     <h4 className="title">{lenkki.otsikko}</h4>
                     <p className="body-s muted">{lenkki.teksti}</p>
@@ -166,8 +171,8 @@ export default function CaseBlockDerived({
                     {lenkki.tulossa || lenkki.vartijat.length ? (
                       <span className="meta faint case__ketju-vartijat">
                         {lenkki.tulossa
-                          ? 'Tulossa'
-                          : `${lenkki.vartijat.length > 1 ? 'Tarkistukset' : 'Tarkistus'}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`}
+                          ? t.ketju.tulossa
+                          : `${lenkki.vartijat.length > 1 ? t.ketju.tarkistukset : t.ketju.tarkistus}: ${lenkki.vartijat.map((id) => nimet.get(id) ?? id).join(' · ')}`}
                       </span>
                     ) : null}
                   </li>

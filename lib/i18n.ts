@@ -2,9 +2,9 @@
  * Lokalisointi.
  * ---------------------------------------------------------------
  * `locales` = kielet jotka julkaistaan. `plannedLocales` = kaikki
- * joille rakenne on olemassa. EN-tekstejä ei ole vielä kirjoitettu,
- * joten se on suunnitelmissa muttei buildissa — reitit syntyvät
- * `locales`-listasta, joten EN kytketään päälle lisäämällä se tähän.
+ * joille rakenne on olemassa. Reitit syntyvät `locales`-listasta.
+ * Suomi on lähdekieli: muut kielet seuraavat sitä, ja check:kielet
+ * pitää ne samassa rakenteessa (päätös 60).
  *
  * Sanakirjan tyyppi johdetaan suomesta, joten epätäydellinen
  * käännös ei mene läpi tyypintarkistuksesta.
@@ -13,8 +13,8 @@
 export const plannedLocales = ['fi', 'en'] as const;
 export type Locale = (typeof plannedLocales)[number];
 
-/** Julkaistut kielet. Lisää 'en' kun tekstit ovat valmiit. */
-export const locales: readonly Locale[] = ['fi'];
+/** Julkaistut kielet. */
+export const locales: readonly Locale[] = ['fi', 'en'];
 
 export const defaultLocale: Locale = 'fi';
 
@@ -58,3 +58,23 @@ export function path(locale: Locale, section?: Section, ...rest: string[]): stri
 
 /** Design systemin polku: path('fi', 'work', 'portfolio', 'system'). */
 export const systemPath = (locale: Locale) => path(locale, 'work', SYSTEM_CASE, 'system');
+
+/** Kielivalitsimen kohde: toinen julkaistu kieli, kun kieliä on kaksi. */
+export function toinenKieli(locale: Locale): Locale | null {
+  const muut = locales.filter((l) => l !== locale);
+  return muut.length === 1 ? muut[0] : null;
+}
+
+/**
+ * Saman sivun polku toisella kielellä: /fi/tyot/colliers/ →
+ * /en/work/colliers/. Osion nimi käännetään `slugs`-taulusta; casejen
+ * slugit ovat samat kaikilla kielillä.
+ */
+export function vastinpolku(pathname: string | null, kohde: Locale): string {
+  const osat = (pathname ?? '').split('/').filter(Boolean);
+  const lahde = osat[0];
+  if (!lahde || !isLocale(lahde)) return path(kohde);
+  const osio = (Object.keys(slugs) as Section[]).find((s) => slugs[s][lahde] === osat[1]);
+  if (!osio) return path(kohde);
+  return path(kohde, osio, ...osat.slice(2));
+}

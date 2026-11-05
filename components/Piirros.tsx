@@ -55,6 +55,47 @@ export const PIIRROS_AIHEET: readonly PiirrosAihe[] = [
 ];
 
 /** Pieni tekstirivi piirroksessa. */
+
+/**
+ * Kuvituksen sanat kielittäin. Ne ovat osa piirrosta (näkymän
+ * otsikko, nappi, selite), joten ne asuvat piirroksen kanssa eivätkä
+ * sanakirjassa: paketin komponentti ei lue sivuston sisältöä.
+ */
+const SANAT = {
+  fi: {
+    koti: 'KOTI',
+    loydaKoti: 'Löydä koti',
+    haku: 'Kaksio, parveke, lähellä metroa',
+    hae: 'HAE',
+    vaiheet: ['01 Runko', '02 Design system', '03 Data', '04 Julkaistu'],
+    kayttaja: 'KÄYTTÄJÄ',
+    liiketoiminta: 'LIIKETOIMINTA',
+    tekniikka: 'TEKNIIKKA',
+    kaksio: 'Kaksio',
+    koodi: 'KOODI',
+    paatetty: 'PÄÄTETTY',
+    auki: 'AUKI',
+    otaYhteytta: 'Ota yhteyttä',
+  },
+  en: {
+    koti: 'HOME',
+    loydaKoti: 'Find a home',
+    haku: 'One bedroom, balcony, near the metro',
+    hae: 'SEARCH',
+    vaiheet: ['01 Skeleton', '02 Design system', '03 Data', '04 Live'],
+    kayttaja: 'USER',
+    liiketoiminta: 'BUSINESS',
+    tekniikka: 'TECHNOLOGY',
+    kaksio: 'One bedroom',
+    koodi: 'CODE',
+    paatetty: 'DECIDED',
+    auki: 'OPEN',
+    otaYhteytta: 'Get in touch',
+  },
+};
+type Sanat = (typeof SANAT)['fi'];
+export type PiirrosKieli = keyof typeof SANAT;
+
 function T({
   x,
   y,
@@ -102,7 +143,7 @@ function Selain({ x, y, w, h, url, children }: { x: number; y: number; w: number
 }
 
 /** Sama näkymä neljässä kypsyysasteessa: 1 runko, 2 design system, 3 data, 4 julkaistu. */
-function Nakyma({ w, vaihe }: { w: number; vaihe: 1 | 2 | 3 | 4 }) {
+function Nakyma({ w, vaihe, t }: { w: number; vaihe: 1 | 2 | 3 | 4; t: Sanat }) {
   const p = 16;
   const runko = vaihe === 1;
   const kuva = vaihe >= 3;
@@ -119,7 +160,7 @@ function Nakyma({ w, vaihe }: { w: number; vaihe: 1 | 2 | 3 | 4 }) {
       ) : (
         <>
           <T x={p} y={23} k="merkki" koko={8}>
-            KOTI
+            {t.koti}
           </T>
           {[0, 1, 2].map((i) => (
             <rect key={i} className="piirros__muste" x={w - p - 30 - i * 34} y={17} width={24} height={2} />
@@ -130,7 +171,7 @@ function Nakyma({ w, vaihe }: { w: number; vaihe: 1 | 2 | 3 | 4 }) {
         <rect className="piirros__katko" x={p} y={40} width={w * 0.55} height={22} />
       ) : (
         <T x={p} y={60} k="display" koko={24}>
-          Löydä koti
+          {t.loydaKoti}
         </T>
       )}
       {runko ? (
@@ -160,12 +201,12 @@ function Nakyma({ w, vaihe }: { w: number; vaihe: 1 | 2 | 3 | 4 }) {
           <rect className="piirros__pohja" x={p} y={by} width={w - 2 * p - 70} height={20} />
           {kuva ? (
             <T x={p + 8} y={by + 13} k="muted" koko={8}>
-              Kaksio, parveke, lähellä metroa
+              {t.haku}
             </T>
           ) : null}
           <rect className="piirros__muste" x={w - p - 62} y={by} width={62} height={20} />
           <T x={w - p - 31} y={by + 13} k="painike" koko={7} keski>
-            HAE
+            {t.hae}
           </T>
         </>
       )}
@@ -201,10 +242,10 @@ function Nakyma({ w, vaihe }: { w: number; vaihe: 1 | 2 | 3 | 4 }) {
   );
 }
 
-function Kypsyminen() {
+function Kypsyminen({ t }: { t: Sanat }) {
   const w = 300;
   const h = 330;
-  const nimet = ['01 Runko', '02 Design system', '03 Data', '04 Julkaistu'];
+  const nimet = t.vaiheet;
   const px = 24 + 3 * 334 + w - 64;
   const py = 44 + h - 150;
   return (
@@ -217,7 +258,7 @@ function Kypsyminen() {
               {nimi.toUpperCase()}
             </T>
             <Selain x={x} y={44} w={w} h={h} url={i === 3 ? 'palvelu.fi' : 'localhost:3000'}>
-              <Nakyma w={w} vaihe={(i + 1) as 1 | 2 | 3 | 4} />
+              <Nakyma w={w} vaihe={(i + 1) as 1 | 2 | 3 | 4} t={t} />
             </Selain>
             {i < 3 ? nuoli(x + w + 8, 44 + h / 2) : null}
           </g>
@@ -228,13 +269,13 @@ function Kypsyminen() {
         <rect className="piirros__pohja" width={84} height={164} rx={12} />
         <rect className="piirros__hius" x={30} y={6} width={24} height={4} rx={2} />
         <T x={10} y={34} k="display" koko={13}>
-          Löydä koti
+          {t.loydaKoti}
         </T>
         <rect className="piirros__kuva" x={10} y={42} width={64} height={50} />
         <path className="piirros__vuori" d="M10 92 L30 70 L46 80 L60 62 L74 92 Z" />
         <rect className="piirros__muste" x={10} y={100} width={64} height={14} />
         <T x={42} y={110} k="painike" koko={7} keski>
-          HAE
+          {t.hae}
         </T>
         <T x={10} y={132} k="hinta" koko={9}>
           1 240 €
@@ -245,7 +286,7 @@ function Kypsyminen() {
   );
 }
 
-function Ymmarrys() {
+function Ymmarrys({ t }: { t: Sanat }) {
   return (
     <svg viewBox="0 0 240 150">
       {[
@@ -257,13 +298,13 @@ function Ymmarrys() {
       ))}
       <circle className="piirros__muste" cx={120} cy={72} r={4} />
       <T x={56} y={16} k="meta" koko={8} keski>
-        KÄYTTÄJÄ
+        {t.kayttaja}
       </T>
       <T x={188} y={16} k="meta" koko={8} keski>
-        LIIKETOIMINTA
+        {t.liiketoiminta}
       </T>
       <T x={120} y={146} k="meta" koko={8} keski>
-        TEKNIIKKA
+        {t.tekniikka}
       </T>
     </svg>
   );
@@ -345,8 +386,8 @@ function Polut() {
   );
 }
 
-function Data() {
-  const rivit = ['{', '  name: "Kaksio",', '  rent: 1240,', '  area: 48', '}'];
+function Data({ t }: { t: Sanat }) {
+  const rivit = ['{', `  name: "${t.kaksio}",`, '  rent: 1240,', '  area: 48', '}'];
   return (
     <svg viewBox="0 0 240 150">
       {rivit.map((rivi, i) => (
@@ -406,11 +447,11 @@ function Painike({ x, y, w = 44, tila = 'muste' }: { x: number; y: number; w?: n
   return <rect className={`piirros__${tila}`} x={x} y={y} width={w} height={14} />;
 }
 
-function Lahtotilanne() {
+function Lahtotilanne({ t }: { t: Sanat }) {
   return (
     <svg viewBox="0 0 240 150">
       <T x={20} y={22} k="meta" koko={8}>
-        KOODI
+        {t.koodi}
       </T>
       <rect className="piirros__pohja" x={20} y={30} width={76} height={96} />
       <Rivit x={28} y={40} n={8} w={56} />
@@ -431,11 +472,11 @@ function Lahtotilanne() {
       {/* Selite: täytetty ero on päätetty, avoin odottaa päätöstä. */}
       <circle className="piirros__muste" cx={74} cy={139} r={3} />
       <T x={81} y={142} k="meta" koko={8}>
-        PÄÄTETTY
+        {t.paatetty}
       </T>
       <circle className="piirros__pohja" cx={140} cy={139} r={3} />
       <T x={147} y={142} k="meta" koko={8}>
-        AUKI
+        {t.auki}
       </T>
     </svg>
   );
@@ -555,8 +596,8 @@ function Kirjasto() {
   );
 }
 
-function Kytkenta() {
-  const rivit = ['<Button size="m">', '  Ota yhteyttä', '</Button>'];
+function Kytkenta({ t }: { t: Sanat }) {
+  const rivit = ['<Button size="m">', `  ${t.otaYhteytta}`, '</Button>'];
   return (
     <svg viewBox="0 0 240 150">
       <T x={20} y={36} k="meta" koko={8}>
@@ -568,7 +609,7 @@ function Kytkenta() {
       <path className="piirros__viiva" d="M99 79 H125" />
       <circle className="piirros__muste" cx={128} cy={79} r={3} />
       <T x={132} y={36} k="meta" koko={8}>
-        KOODI
+        {t.koodi}
       </T>
       <rect className="piirros__pohja" x={128} y={44} width={96} height={70} />
       {rivit.map((rivi, i) => (
@@ -636,7 +677,7 @@ function Paluu() {
   );
 }
 
-const PIIRROKSET: Record<PiirrosAihe, () => ReactNode> = {
+const PIIRROKSET: Record<PiirrosAihe, (props: { t: Sanat }) => ReactNode> = {
   kypsyminen: Kypsyminen,
   ymmarrys: Ymmarrys,
   pohja: Pohja,
@@ -654,7 +695,16 @@ const PIIRROKSET: Record<PiirrosAihe, () => ReactNode> = {
   paluu: Paluu,
 };
 
-export default function Piirros({ aihe, label }: { aihe: PiirrosAihe; label?: string }) {
+export default function Piirros({
+  aihe,
+  label,
+  kieli = 'fi',
+}: {
+  aihe: PiirrosAihe;
+  label?: string;
+  /** Kuvituksen sanat (näkymien otsikot, napit, selitteet). Oletus suomeksi. */
+  kieli?: PiirrosKieli;
+}) {
   const Kuva = PIIRROKSET[aihe];
   return (
     <div
@@ -663,7 +713,7 @@ export default function Piirros({ aihe, label }: { aihe: PiirrosAihe; label?: st
       aria-label={label}
       aria-hidden={label ? undefined : true}
     >
-      <Kuva />
+      <Kuva t={SANAT[kieli]} />
     </div>
   );
 }

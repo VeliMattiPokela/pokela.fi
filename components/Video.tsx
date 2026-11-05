@@ -107,6 +107,7 @@ export default function Video({
   esitys = 'taysi',
   mobiili,
   etenema,
+  labels = { play: 'Toista', pause: 'Pysäytä' },
 }: {
   id: string;
   leveys: number;
@@ -130,6 +131,8 @@ export default function Video({
    * paikallaan; sivustolla viiva seuraa videon aikaa eikä tätä anneta.
    */
   etenema?: number;
+  /** Toistonapin teksti. Oletus suomeksi; sivusto antaa sen sanakirjasta. */
+  labels?: { play: string; pause: string };
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const viiva = useEtenema(ref, etenema);
@@ -193,11 +196,10 @@ export default function Video({
           </>
         ) : null}
       </video>
-      {/* Napin teksti on suomeksi suoraan, kuten Median muukin teksti:
-          sivustolla on yksi kieli (lib/i18n.ts), ja sanakirja tulee
-          tähän samalla kun Media saa sen. */}
+      {/* Napin teksti tulee propsina: sivusto antaa sen sanakirjasta
+          kielen mukaan. Oletus on suomeksi. */}
       <button type="button" className="meta meta--s video__toisto" onClick={vaihda}>
-        {tila === 'toistaa' ? 'Pysäytä' : 'Toista'}
+        {tila === 'toistaa' ? labels.pause : labels.play}
         <Etenema viiva={viiva} />
       </button>
     </>

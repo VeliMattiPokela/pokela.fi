@@ -99,6 +99,7 @@ export default function CaseBlock({
       return (
         <div className="page">
           <Media
+            labels={{ play: dict.common.play, pause: dict.common.pause }}
             id={block.media.id}
             ratio={block.media.ratio}
             caption={block.media.caption}
@@ -116,6 +117,7 @@ export default function CaseBlock({
               {block.items.map((media) => (
                 <figure key={media.caption} style={{ margin: 0 }}>
                   <Media
+                    labels={{ play: dict.common.play, pause: dict.common.pause }}
                     id={media.id}
                     ratio={media.ratio}
                     caption={media.caption}
@@ -143,6 +145,7 @@ export default function CaseBlock({
             <div className="case__section-body">
               {taysi ? (
                 <BeforeAfter
+                  labels={{ play: dict.common.play, pause: dict.common.pause }}
                   id={block.id}
                   beforeLabel={block.beforeLabel}
                   afterLabel={block.afterLabel}
@@ -151,7 +154,7 @@ export default function CaseBlock({
                   sizes={SIZES.sarake}
                 />
               ) : (
-                <Media id={block.id} ratio={block.ratio} caption={block.caption} sizes={SIZES.sarake} />
+                <Media id={block.id} ratio={block.ratio} caption={block.caption} sizes={SIZES.sarake} labels={{ play: dict.common.play, pause: dict.common.pause }} />
               )}
             </div>
           </Section>
@@ -186,6 +189,7 @@ export default function CaseBlock({
                 {block.items.map((item) => (
                   <div key={item.h} className={item.levea ? 'case__trio-item--levea' : undefined}>
                     <Media
+                      labels={{ play: dict.common.play, pause: dict.common.pause }}
                       id={item.media.id}
                       ratio={item.media.ratio}
                       caption={item.media.caption}

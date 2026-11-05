@@ -28,11 +28,16 @@ const fi = {
     themeLight: 'Vaalea',
     themeDark: 'Tumma',
     themeSystem: 'Auto',
+    /* Kielivalitsin: linkki toiseen kieleen. Pitkä muoto on
+       linkin nimi ruudunlukijalle, lyhyt näkyy navissa. */
+    language: 'In English',
+    languageShort: 'EN',
   },
 
   home: {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-Matti', 'Pokela'],
+    nameGuides: { capHeight: 'Versaali', xHeight: 'x-korkeus', baseline: 'Perusviiva' },
     role: 'Senior Product Designer & UX Engineer, Helsinki',
     /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
     heroArt: 'Korkeuskäyrät viivapiirroksena',
@@ -117,6 +122,31 @@ const fi = {
     /* Keskimmäisen näyterivin meta ei ole sisältöä vaan selite siitä
        mitä rivi demonstroi. */
     hoverDemo: 'Avattu rivi, käännetty',
+    tabView: 'Näkymä',
+    tabCode: 'Koodi',
+    states: 'Tilat',
+    statesValue: 'Perustila · osoitin rivin päällä · näppäimistöfokus · painallus kosketusnäytöllä',
+    sizes: 'Koot',
+    sizesValue: 'Alle 600 px pinottu, siitä ylöspäin yksi rivi',
+    usedIn: 'Käytössä',
+    usedInValue: 'Etusivu · työlistaus · aiemmat työt · tämä näkymä',
+    tokenNote: '{n} tokenia, ei yhtään kovakoodattua arvoa',
+    lines: 'riviä',
+    styleNote: 'Jokainen väri, väli ja viiva tulee tokenista, joten tumma teema ei tarvitse omaa sääntöä.',
+    storyNote: 'Story ei ole erillinen kuvaus komponentista. Se on sama komponentti, jota tämä sivu käyttää, eri tiloissaan.',
+    storiesTitle: 'Tilat joita ylläpidetään ({n})',
+    storiesNote:
+      'Jokainen tila avataan oikeassa selaimessa ja tarkistetaan koneellisesti aina kun sivustoa julkaistaan. Jos kontrasti, kosketuskohteen koko tai ruudunlukijan näkemä nimi rikkoutuu yhdessäkin tilassa, julkaisu pysähtyy siihen.',
+    variant: 'Variantti',
+    breakpointValue: 'base · sm+ — @media-katko, ei propsi, joten sitä ei kartoiteta koodiin.',
+    props: 'Propsit',
+    tokensLabel: 'Tokenit tässä komponentissa ({n})',
+    tokensValue: 'Tokeneilla on Figmassa samat nimet kuin koodissa, joten suunnittelija ja kehittäjä puhuvat samoista asioista.',
+    variantsNote:
+      'Variantit ja propsit luetaan kytkentätiedostosta, ei kirjoiteta tähän: siellä ne ovat siinä muodossa jota Figma oikeasti käyttää. Jos kytkentä muuttuu, tämä lista muuttuu mukana.',
+    connectNote:
+      'Tämä on repon tiedosto sellaisenaan, ei esimerkki. Se kertoo Figmalle mikä koodikomponentti vastaa mitä, jolloin Dev Mode näyttää suunnittelijalle oikean käyttötavan arvatun rakenteen sijaan. Kytkennän eheyden tarkistaa',
+    connectNoteEnd: 'jokaisessa buildissa.',
   },
 
   common: {
@@ -134,8 +164,21 @@ const fi = {
     after: 'Jälkeen',
     clients: 'Asiakkaita',
     toBeAdded: 'Täydennetään',
+    /* Videon toistonappi. */
+    play: 'Toista',
+    pause: 'Pysäytä',
   },
 } as const;
 
-export type Dictionary = typeof fi;
+/** `as const` tekee arvoista literaaleja; muut kielet tarvitsevat
+    saman rakenteen merkkijonoina. */
+type Laajenna<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly Laajenna<U>[]
+    : T extends object
+      ? { readonly [K in keyof T]: Laajenna<T[K]> }
+      : T;
+
+export type Dictionary = Laajenna<typeof fi>;
 export default fi;

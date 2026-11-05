@@ -26,6 +26,13 @@ const OLETUSTEKSTIT: NavLabels = {
   themeSystem: 'Auto',
 };
 
+/**
+ * Linkki saman sivun toiseen kieliversioon. `short` näkyy navissa
+ * (esim. EN), `label` kertoo ruudunlukijalle minne linkki vie, ja
+ * `lang` on kohdekielen koodi.
+ */
+export type NavLanguage = { href: string; short: string; label: string; lang: string };
+
 export type NavProps = {
   /** Tunnus vasemmassa laidassa, myös navin nimi ruudunlukijalle. */
   brand: string;
@@ -45,6 +52,8 @@ export type NavProps = {
   contact?: ContactInfo & { label: string };
   /** Napit ja teemanvaihto. Oletus englanniksi. */
   labels?: Partial<NavLabels>;
+  /** Kielivalitsin teemanvaihdon vieressä. Ilman tätä sitä ei näytetä. */
+  language?: NavLanguage;
   /**
    * Linkkikomponentti, kuten ListRow:ssa. Oletus on tavallinen `<a>`;
    * Next.js-sovellus antaa tähän `next/link`:n.
@@ -79,6 +88,7 @@ export default function Nav({
   currentPath,
   contact,
   labels,
+  language,
   as: LinkComponent = 'a',
 }: NavProps) {
   const t = { ...OLETUSTEKSTIT, ...labels };
@@ -200,6 +210,17 @@ export default function Nav({
           </ul>
 
           <div className="nav__tools">
+            {language ? (
+              <LinkComponent
+                href={language.href}
+                hrefLang={language.lang}
+                lang={language.lang}
+                className="meta meta--s nav__link nav__kieli"
+              >
+                {language.short}
+                <span className="visually-hidden"> · {language.label}</span>
+              </LinkComponent>
+            ) : null}
             <ThemeToggle
               labels={{
                 theme: t.theme,

@@ -109,6 +109,11 @@
 
 .nav__tools { display: flex; align-items: center; gap: var(--space-8); }
 
+/* Kielivalitsin: sama tekstilinkki kuin navin linkit, teemanvaihdon
+   vieressä. Näkyy myös mobiilissa, koska se ei ole valikon linkki
+   vaan työkalu. Väli teemanvaihtoon on sama kuin linkkien väli. */
+.nav__kieli { margin-right: var(--space-20); }
+
 /* Mobiilivalikon avaus: kaksi viivaa, ei hampurilaisikonia. */
 .nav__menu-btn {
   display: inline-flex;

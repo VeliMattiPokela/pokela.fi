@@ -90,6 +90,12 @@ jobs:
       - name: Kuvasuhteet synkassa (rajaus ↔ esitys)
         run: npm run check:suhteet
 
+      # Englanninkielinen sivu seuraa suomea: sama rakenne, ja jokainen
+      # suomen muutos vaatii käännöksen päivityksen ja kuittauksen
+      # (päätös 60). Ilman tätä englanti jää jälkeen hiljaa.
+      - name: Kieliversiot synkassa (fi ↔ en)
+        run: npm run check:kielet
+
       # Ketjun viimeinen lenkki: Figma Make lukee npm:ää, ei repoa.
       # Jos julkaistu paketti jää jälkeen, prototyypit tehdään eri
       # komponenteilla kuin sivusto — hiljaa. Tarvitsee verkon, joten

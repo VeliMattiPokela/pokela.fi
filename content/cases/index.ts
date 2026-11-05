@@ -1,8 +1,9 @@
 import type { Locale } from '@/lib/i18n';
 import fi, { caseRefs as fiRefs } from './fi';
+import en, { caseRefs as enRefs } from './en';
 import type { Case, CaseRef } from './types';
 
-const byLocale: Partial<Record<Locale, Case[]>> = { fi };
+const byLocale: Partial<Record<Locale, Case[]>> = { fi, en };
 
 export function getCases(locale: Locale): Case[] {
   const cases = byLocale[locale];
@@ -14,7 +15,7 @@ export function getCase(locale: Locale, slug: string): Case | undefined {
   return getCases(locale).find((item) => item.slug === slug);
 }
 
-const refsByLocale: Partial<Record<Locale, CaseRef[]>> = { fi: fiRefs };
+const refsByLocale: Partial<Record<Locale, CaseRef[]>> = { fi: fiRefs, en: enRefs };
 
 /** Casejen mainnat leipätekstissä, taivutusmuotoineen. */
 export function getCaseRefs(locale: Locale): CaseRef[] {
