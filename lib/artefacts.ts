@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { readStories } from './source';
 import { artefactUrls } from '@/content/artefacts';
 import type { IkkunaAihe } from '@/components/Ikkuna';
+import type { Johdetut } from '@/content/johdetut';
 
 /**
  * Artefaktien tila.
@@ -75,19 +76,19 @@ const state = (href: string | null, exists: boolean): ArtefactState =>
  * Aiemmin nämä olivat kiinteitä merkkijonoja, ja jokainen julkaisu
  * jätti niihin vanhan totuuden — "Tulossa" asiasta joka oli jo tehty.
  */
-const note = (s: ArtefactState, detail?: string): string => {
+const note = (t: Johdetut['artefaktit'], s: ArtefactState, detail?: string): string => {
   /* Ei nuolta: nuoli on ikoni, ja ikoni kuuluu linkkiin joka sen
      piirtää — ei tilasta johdettuun merkkijonoon. Ks. Icon.tsx. */
-  if (s === 'julkaistu') return 'Avaa';
-  if (s === 'olemassa') return detail ? `Tehty · ${detail}` : 'Tehty · ei vielä julkinen';
-  return 'Tulossa';
+  if (s === 'julkaistu') return t.avaa;
+  if (s === 'olemassa') return `${t.tehty} · ${detail ?? t.eiJulkinen}`;
+  return t.tulossa;
 };
 
 
 /**
  * Case 03:n viisi artefaktia. Sama totuus kuin yllä, laajempana.
  */
-export function caseArtefacts(): (Artefact & { number: string; body: string; aihe: IkkunaAihe; host: string })[] {
+export function caseArtefacts(t: Johdetut['artefaktit']): (Artefact & { number: string; body: string; aihe: IkkunaAihe; host: string })[] {
   const remote = artefactUrls.repo ?? readGitRemote();
   const connections = countCodeConnect();
   const hasStorybook = has('.storybook/main.ts');
@@ -105,17 +106,17 @@ export function caseArtefacts(): (Artefact & { number: string; body: string; aih
       aihe: 'storybook',
       host: host(artefactUrls.storybook, 'Storybook'),
       label: 'Storybook',
-      body: 'Komponentit, tokenit ja tilat selaimessa. Sama koodi, jota tämä sivu käyttää.',
+      body: t.storybook,
       state: state(artefactUrls.storybook, hasStorybook),
       href: artefactUrls.storybook,
-      detail: 'ei vielä julkinen',
+      detail: t.eiJulkinen,
     },
     {
       number: '02',
       aihe: 'figma',
       host: host(artefactUrls.figma, 'Figma'),
-      label: 'Figma-tiedosto',
-      body: 'Sama kirjasto Figmassa: komponentit, variantit ja tokenit.',
+      label: t.figmaTiedosto,
+      body: t.figma,
       state: state(artefactUrls.figma, hasFigma),
       href: artefactUrls.figma,
     },
@@ -123,22 +124,22 @@ export function caseArtefacts(): (Artefact & { number: string; body: string; aih
       number: '03',
       aihe: 'code-connect',
       host: 'Figma Dev Mode',
-      label: 'Code Connect -kytkennät',
-      body: 'Määrittelyt jotka kertovat Figmalle, mikä koodikomponentti vastaa mitä.',
+      label: t.kytkennat,
+      body: t.codeConnect,
       state: state(artefactUrls.codeConnect, connections > 0),
       href: artefactUrls.codeConnect,
       /* Julkaistu, mutta kytkentöjä ei voi katsoa ilman Figma-tiliä:
          ne näkyvät Dev Modessa, ja anonyymi katselija saa vain
          "Sign up to inspect". Se on rehellisempi sanoa kuin antaa
          ymmärtää että linkki riittäisi. */
-      detail: `${connections} kytkentää, julkaistu Figmaan. Näkyvät Dev Modessa, joka vaatii Figma-tilin`,
+      detail: t.codeConnectTila.replace('{n}', String(connections)),
     },
     {
       number: '04',
       aihe: 'repo',
       host: host(remote, 'Git'),
       label: 'Repo',
-      body: 'Koko sivusto, tokenit, build ja tarkistukset.',
+      body: t.repo,
       state: state(remote, false),
       href: remote,
     },
@@ -146,6 +147,6 @@ export function caseArtefacts(): (Artefact & { number: string; body: string; aih
 
   return items.map(({ detail, ...item }) => ({
     ...item,
-    note: note(item.state, detail),
+    note: note(t, item.state, detail),
   }));
 }

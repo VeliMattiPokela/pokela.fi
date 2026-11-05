@@ -148,18 +148,21 @@ export function CodeBlock({
   html,
   lines,
   note,
+  linesLabel = 'riviä',
 }: {
   path: string;
   html: string;
   /** Tiedoston rivimäärä. Tiedosto näytetään aina kokonaan. */
   lines: number;
   note?: string;
+  /** Rivimäärän yksikkö, esim. 'riviä'. */
+  linesLabel?: string;
 }) {
   return (
     <figure className="code">
       <figcaption className="code__head">
         <span className="meta meta--s code__path">{path}</span>
-        <span className="meta meta--s code__lines">{lines} riviä</span>
+        <span className="meta meta--s code__lines">{lines} {linesLabel}</span>
       </figcaption>
       <div className="code__body" dangerouslySetInnerHTML={{ __html: html }} />
       {note ? <p className="body-s code__note">{note}</p> : null}

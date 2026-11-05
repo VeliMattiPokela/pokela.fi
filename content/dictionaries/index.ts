@@ -1,8 +1,9 @@
 import type { Locale } from '@/lib/i18n';
 import fi, { type Dictionary } from './fi';
+import en from './en';
 
-/** Sanakirjat kielittäin. EN lisätään tähän kun tekstit on kirjoitettu. */
-const dictionaries: Partial<Record<Locale, Dictionary>> = { fi };
+/** Sanakirjat kielittäin. */
+const dictionaries: Partial<Record<Locale, Dictionary>> = { fi, en };
 
 export function getDictionary(locale: Locale): Dictionary {
   const dict = dictionaries[locale];

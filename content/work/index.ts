@@ -1,7 +1,8 @@
 import type { Locale } from '@/lib/i18n';
 import fi, { type Work } from './fi';
+import en from './en';
 
-const byLocale: Partial<Record<Locale, Work>> = { fi };
+const byLocale: Partial<Record<Locale, Work>> = { fi, en };
 
 export function getWork(locale: Locale): Work {
   const work = byLocale[locale];

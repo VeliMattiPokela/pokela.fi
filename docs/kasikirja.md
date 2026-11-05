@@ -53,6 +53,31 @@ alaa eikä todista mitään.
   korjataan toiminto, ei kirjoiteta ohjetta (päätös 32).
   Ruudunlukijan tekstit ovat eri asia ja jäävät.
 
+### Kieliversiot
+
+Sivusto on suomeksi ja englanniksi (päätös 60). Suomi on lähdekieli:
+teksti kirjoitetaan ensin suomeksi ja sitten englanniksi samaan
+kohtaan. Englanti kirjoitetaan uudelleen, ei käännetä lause lauseelta,
+ja samat säännöt pätevät: lyhyt näyteteksti, minämuoto vain roolissa,
+otsikoissa ei pistettä. Otsikot ovat sentence case. Termit on sovittu
+kerran (Work, How I work, About, Get in touch; Starting point, Brief,
+Decision, Outcome; clickable skeleton, ei prototype).
+
+Kaikki näkyvä teksti asuu `content/`-kansiossa kielittäin, ei
+komponentissa: `content/<moduuli>/fi.ts` ja `en.ts`. Paketin
+komponentit saavat tekstinsä propseina, ja oletus on suomeksi.
+
+Kun muutat suomenkielistä tekstiä:
+
+1. Muuta sama kohta tiedostoon `en.ts`.
+2. Aja `npm run kielet:kuittaa`, joka kirjaa suomen uudet tekstit
+   lukkoon `content/kielet.lukko.json`.
+3. Commitoi lukko samassa muutoksessa.
+
+Ilman kuittausta `check:kielet` kaatuu ja luettelee muuttuneet kohdat.
+Kuittaus on lupaus siitä, että käännös vastaa suomea, joten sitä ei
+ajeta ennen kuin englanti on päivitetty.
+
 Prosessiketjun tekstit (`content/prosessi.ts`) näkyvät myös Figmassa.
 Kun niitä muuttaa, Figman tekstit päivitetään samalla, muuten
 `check:figma` punastuu.
@@ -155,6 +180,18 @@ vastaavat lähdettään: `figma-kokoelmat` (pluginin README) ja
 `perusta-sivut` (Storybookin etusivu). Korjaus: `npm run docs:korjaa`.
 Syntyi, kun `check-favicon` oli ketjussa mutta ei CI:ssä. Raja: proosaa
 se ei todenna.
+
+**12. Kieliversiot** (`scripts/check-kielet.mjs`) — jokaisella
+sisältömoduulilla (`content/<moduuli>/fi.ts`) on englanninkielinen pari
+samalla rakenteella: samat avaimet, sama määrä kappaleita ja kuvia,
+samat tunnisteet (slug, id, kind, href …). Jokainen suomenkielinen
+teksti on kirjattu tiiviisteenä tiedostoon `content/kielet.lukko.json`
+sellaisena kuin se oli käännöksen viimeisellä tarkistuksella, joten
+suomen muutos ilman käännöksen päivitystä kaataa ajon ja kertoo kohdan.
+Lisäksi `lib/checks.ts`:n tarkistuksilla ja `content/prosessi.ts`:n
+lenkeillä on oltava käännös tunnisteen mukaan
+(`content/johdetut/en.ts`). Ks. *Kieliversiot*. Raja: ei arvioi
+käännöksen laatua, eikä näe komponenttiin kirjoitettua tekstiä.
 
 ### Figma ja koodi
 

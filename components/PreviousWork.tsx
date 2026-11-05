@@ -85,6 +85,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
             <div className="detail__media" style={sarakkeet(d.hero.items)}>
               {d.hero.items.map((media) => (
                 <Media
+                  labels={{ play: dict.common.play, pause: dict.common.pause }}
                   key={media.caption}
                   id={media.id}
                   ratio={media.ratio as Ratio}
@@ -95,6 +96,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
             </div>
           ) : (
             <Media
+              labels={{ play: dict.common.play, pause: dict.common.pause }}
               id={d.hero.items[0].id}
               ratio={d.hero.items[0].ratio as Ratio}
               caption={d.hero.items[0].caption}
@@ -152,6 +154,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
             {osio.items.map((media) =>
               media.kind === 'compare' ? (
                 <BeforeAfter
+                  labels={{ play: dict.common.play, pause: dict.common.pause }}
                   key={media.caption}
                   id={media.id}
                   beforeLabel={dict.common.before}
@@ -162,6 +165,7 @@ function Detail({ item, dict }: { item: Previous; dict: Dictionary }) {
                 />
               ) : (
                 <Media
+                  labels={{ play: dict.common.play, pause: dict.common.pause }}
                   key={media.caption}
                   id={media.id}
                   ratio={media.ratio as Ratio}

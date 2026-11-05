@@ -48,6 +48,7 @@ export default function BeforeAfter({
   caption,
   sizes = '100vw',
   tila: alku,
+  labels = { play: 'Toista', pause: 'Pysäytä' },
 }: {
   /** Paikan tunniste. Lähteet ovat `<id>-ennen` ja `<id>-jalkeen`. */
   id: string;
@@ -58,6 +59,8 @@ export default function BeforeAfter({
   sizes?: string;
   /** Videovertailun alkutila. Oletus: toistaa, ellei käyttäjä ole pyytänyt vähemmän liikettä. */
   tila?: Tila;
+  /** Toistonapin teksti videovertailussa. Oletus suomeksi. */
+  labels?: { play: string; pause: string };
 }) {
   const [pos, setPos] = useState(50);
   const [toisto, setToisto] = useState<Tila>('tauolla');
@@ -253,7 +256,7 @@ export default function BeforeAfter({
             onPointerDown={(event) => event.stopPropagation()}
             onClick={vaihda}
           >
-            {toisto === 'toistaa' ? 'Pysäytä' : 'Toista'}
+            {toisto === 'toistaa' ? labels.pause : labels.play}
             <Etenema viiva={viiva} />
           </button>
         ) : null}

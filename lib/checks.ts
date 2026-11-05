@@ -62,7 +62,7 @@ export const CHECK_GROUPS: { id: CheckGroupId; title: string }[] = [
 ];
 
 /** Kuvaukset. Arvot `runs` ja järjestys tulevat package.jsonista. */
-const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
+export const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
   {
     id: 'tokens',
     group: 'ydin',
@@ -152,6 +152,14 @@ const DESCRIPTIONS: Omit<Check, 'runs'>[] = [
     huomaa: 'Huomaa, jos komponentissa on saavutettavuusvirhe, kuten liian heikko kontrasti tai puuttuva nimi ruudunlukijalle.',
     proves: 'Jokainen Storybook-story renderöidään selaimessa ja tarkistetaan automaattisesti axe-työkalulla. Virhe pysäyttää muutoksen.',
     blind: 'Tarkistaa komponentit storyissa, ei valmiita sivuja. Kone löytää vain osan ongelmista: lukujärjestys ja näppäimistön järkevyys testataan käsin.',
+  },
+  {
+    id: 'kielet',
+    group: 'tuote',
+    title: 'Kieliversiot',
+    huomaa: 'Huomaa, jos suomenkielinen teksti muuttuu tai lisätään eikä englanninkielinen versio seuraa.',
+    proves: 'Kummallakin kielellä on sama rakenne, samat kuvat ja samat linkit. Jokainen englanninkielinen teksti on sidottu siihen suomenkieliseen versioon, josta se on kirjoitettu.',
+    blind: 'Ei arvioi käännöksen laatua. Se näkee, että käännös on kuitattu suomen muutoksen jälkeen, mutta ei sitä, vastaako se suomea.\n\nKomponenttiin kirjoitettua tekstiä se ei näe, vaan sen huomaisi Tekstit-tarkistus, jota ei vielä ajeta.',
   },
   {
     id: 'strings',

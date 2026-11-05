@@ -129,6 +129,7 @@ export default function Media({
   teema,
   sizes = '100vw',
   priority = false,
+  labels,
 }: {
   id?: string;
   ratio?: Ratio;
@@ -141,6 +142,8 @@ export default function Media({
   sizes?: string;
   /** Näkyykö kuva heti auetessa. Vain sivun ensimmäiselle. */
   priority?: boolean;
+  /** Videon toistonapin teksti. Kulkee Videolle sellaisenaan. */
+  labels?: { play: string; pause: string };
 }) {
   const luokka = `media media-${ratio.replace(':', '-')}`;
   const merkinta = id ? KUVAT[id] : undefined;
@@ -158,6 +161,7 @@ export default function Media({
             korkeus={merkinta.korkeus}
             caption={caption}
             esitys="levy"
+            labels={labels}
           />
         </span>
       </div>
@@ -173,6 +177,7 @@ export default function Media({
           korkeus={merkinta.korkeus}
           caption={caption}
           mobiili={ratio === 'hero' ? merkinta.mobiili?.paaAlkaen : undefined}
+          labels={labels}
         />
       </div>
     );

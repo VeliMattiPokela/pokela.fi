@@ -25,6 +25,9 @@ const meta = {
           '**Linkit tulevat propseina**: `links`, `currentPath` ja `as`, kuten ListRow:ssa.',
           'Sivusto antaa ne sanakirjastaan ja Next.js:n reitittimestä (NavRoute).',
           '',
+          '**Kielivalitsin** (`language`) on tekstilinkki teemanvaihdon vieressä: se vie',
+          'saman sivun toiseen kieliversioon. Ilman propsia sitä ei näytetä.',
+          '',
           '**Teemanvaihto on tekstinappi**, ei kuvake. Kierto on Auto → Vaalea → Tumma.',
           'Ilman valintaa `data-theme` puuttuu kokonaan, jolloin `light-dark()` seuraa',
           'käyttöjärjestelmää.',
@@ -52,6 +55,8 @@ const meta = {
       link: { label: fi.footer.linkedin, href: fi.footer.linkedinUrl },
     },
     labels: fi.nav,
+    /* Kielivalitsin vie saman sivun toiseen kieliversioon. */
+    language: { href: '/en/work/', short: fi.nav.languageShort, label: fi.nav.language, lang: 'en' },
   },
 } satisfies Meta<typeof Nav>;
 

@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { isLocale, locales, path, SYSTEM_CASE, type Locale } from '@/lib/i18n';
 import { getWork } from '@/content/work';
 import { getDictionary } from '@/content/dictionaries';
+import { getSystem, tayta, type System } from '@/content/system';
 import tokens, { colorNames, typeNames, spaceSteps } from '@/lib/tokens';
 import ListRow from '@/components/ListRow';
 import { Grid, Col } from '@/components/Grid';
@@ -29,23 +30,14 @@ import Section from '@/components/Section';
  * yhdessä ryhmässä; määrä lasketaan tästä, ei kirjoiteta käsin.
  */
 const RYHMAT = [
-  { id: 'perusosat', nimi: 'Perusosat', kuvaus: 'Napit ja ikonit, joista muut komponentit kootaan.', komponentit: ['Button', 'Icon'] },
-  {
-    id: 'lomakkeet',
-    nimi: 'Lomakkeet',
-    kuvaus: 'Kentät ja valinnat. Virhe on ainoa tila, jolla on oma väri.',
-    komponentit: ['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup'],
-  },
-  { id: 'navigaatio', nimi: 'Navigaatio', kuvaus: 'Liikkuminen sivujen ja sisällön osien välillä.', komponentit: ['Nav', 'Tabs', 'Accordion', 'Footer'] },
-  { id: 'palaute', nimi: 'Palaute', kuvaus: 'Ilmoitukset ja vahvistukset käyttäjälle.', komponentit: ['Alert', 'Dialog'] },
-  { id: 'data', nimi: 'Data ja listat', kuvaus: 'Rivit, taulukot ja aikajana.', komponentit: ['Table', 'ListRow', 'Timeline'] },
-  {
-    id: 'media',
-    nimi: 'Media',
-    kuvaus: 'Kuvat, video ja tunnisteet. Kuvat tulevat kuvaputkesta.',
-    komponentit: ['Media', 'Video', 'LogoRow', 'HeroName', 'ExplodedView'],
-  },
-  { id: 'rakenne', nimi: 'Rakenne', kuvaus: 'Sivun kehys. Tämä sivu on koottu niistä.', komponentit: ['PageHeader', 'Section', 'Grid'] },
+  /* Ryhmän nimi ja kuvaus ovat content/system/:ssä kielittäin. */
+  { id: 'perusosat', komponentit: ['Button', 'Icon'] },
+  { id: 'lomakkeet', komponentit: ['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup'] },
+  { id: 'navigaatio', komponentit: ['Nav', 'Tabs', 'Accordion', 'Footer'] },
+  { id: 'palaute', komponentit: ['Alert', 'Dialog'] },
+  { id: 'data', komponentit: ['Table', 'ListRow', 'Timeline'] },
+  { id: 'media', komponentit: ['Media', 'Video', 'LogoRow', 'HeroName', 'ExplodedView'] },
+  { id: 'rakenne', komponentit: ['PageHeader', 'Section', 'Grid'] },
 ] as const;
 
 const SOVELLUS = new Set(['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 'ChoiceGroup', 'Tabs', 'Alert', 'Dialog', 'Table']);
@@ -53,12 +45,12 @@ const SOVELLUS = new Set(['TextField', 'Select', 'Checkbox', 'Radio', 'Switch', 
 const komponentteja = RYHMAT.reduce((n, r) => n + r.komponentit.length, 0);
 
 /** Yksi näyte: komponentin nimi, merkintä ja elävä esitys. */
-function Nayte({ nimi, huom, leveä, children }: { nimi: string; huom?: string; leveä?: boolean; children: ReactNode }) {
+function NayteRunko({ nimi, huom, leveä, sovellus, children }: { nimi: string; huom?: string; leveä?: boolean; sovellus: string; children: ReactNode }) {
   return (
     <div className={['sys__specimen', leveä && 'sys__specimen--wide'].filter(Boolean).join(' ')}>
       <div className="sys__specimen-head">
         <span className="meta ink">{nimi}</span>
-        {SOVELLUS.has(nimi) ? <span className="meta meta--s">Sovellus</span> : null}
+        {SOVELLUS.has(nimi) ? <span className="meta meta--s">{sovellus}</span> : null}
         {huom ? <span className="meta meta--s">{huom}</span> : null}
       </div>
       <div className="sys__specimen-body">{children}</div>
@@ -84,7 +76,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
   return {
     title: 'Design system',
-    description: 'Tokenit, komponentit ja tilat elävinä — sama koodi jota sivusto käyttää.',
+    description: getSystem(locale).description,
   };
 }
 
@@ -92,35 +84,38 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
   const { locale } = await params;
   if (!isLocale(locale)) return null;
   const dict = getDictionary(locale as Locale);
+  const t: System = getSystem(locale as Locale);
+  /* Sovellus-merkintä kulkee jokaiselle näytteelle samana. */
+  const Nayte = (props: Omit<Parameters<typeof NayteRunko>[0], 'sovellus'>) => <NayteRunko {...props} sovellus={t.sovellus} />;
 
   const lead = getWork(locale as Locale).leads;
   const naytteet: Record<(typeof RYHMAT)[number]['id'], ReactNode> = {
     perusosat: (
       <>
-        <Nayte nimi="Button" huom="Variantit" leveä>
+        <Nayte nimi="Button" huom={t.huom.variantit} leveä>
           <div className="sys__row">
             <button type="button" className="btn btn--primary">{dict.about.contact}</button>
             <button type="button" className="btn btn--ghost">{dict.home.allWork}</button>
             <button type="button" className="btn btn--text">
               {dict.home.aboutLink} <Icon name="arrow-right" />
             </button>
-            <button type="button" className="btn btn--ghost" disabled>Ei saatavilla</button>
+            <button type="button" className="btn btn--ghost" disabled>{t.napit.eiSaatavilla}</button>
           </div>
         </Nayte>
-        <Nayte nimi="Button" huom="Koot s · m · l ja ikoninappi" leveä>
+        <Nayte nimi="Button" huom={t.huom.koot} leveä>
           <div className="sys__row">
-            <button type="button" className="btn btn--ghost btn--s">Pieni</button>
-            <button type="button" className="btn btn--ghost">Perus</button>
-            <button type="button" className="btn btn--ghost btn--l">Suuri</button>
-            <button type="button" className="btn btn--primary btn--icon btn--s" aria-label="Lisää">
+            <button type="button" className="btn btn--ghost btn--s">{t.napit.pieni}</button>
+            <button type="button" className="btn btn--ghost">{t.napit.perus}</button>
+            <button type="button" className="btn btn--ghost btn--l">{t.napit.suuri}</button>
+            <button type="button" className="btn btn--primary btn--icon btn--s" aria-label={t.napit.lisaa}>
               <Icon name="plus" />
             </button>
-            <button type="button" className="btn btn--ghost btn--icon" aria-label="Valikko">
+            <button type="button" className="btn btn--ghost btn--icon" aria-label={t.napit.valikko}>
               <Icon name="menu" />
             </button>
           </div>
         </Nayte>
-        <Nayte nimi="Icon" huom={`${ICON_NAMES.length} merkkiä`} leveä>
+        <Nayte nimi="Icon" huom={tayta(t.huom.ikonit, { n: ICON_NAMES.length })} leveä>
           <ul className="sys__icons">
             {ICON_NAMES.map((n) => (
               <li key={n} className="sys__icon">
@@ -134,43 +129,41 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
     ),
     lomakkeet: (
       <>
-        <Nayte nimi="TextField" huom="Perus · virhe · vihje · monirivinen">
-          <LomakeNayte />
+        <Nayte nimi="TextField" huom={t.huom.textField}>
+          <LomakeNayte t={t.naytteet} />
         </Nayte>
-        <Nayte nimi="Select" huom="Ja valinnat: Radio, Checkbox, ChoiceGroup, Switch">
-          <ValintaNayte />
+        <Nayte nimi="Select" huom={t.huom.select}>
+          <ValintaNayte t={t.naytteet} />
         </Nayte>
       </>
     ),
     navigaatio: (
       <>
         <Nayte nimi="Tabs" leveä>
-          <TabsNayte />
+          <TabsNayte t={t.naytteet} />
         </Nayte>
         <Nayte nimi="Accordion" leveä>
-          <AccordionNayte labels={{ open: dict.work.open, close: dict.work.close }} />
+          <AccordionNayte t={t.naytteet} labels={{ open: dict.work.open, close: dict.work.close }} />
         </Nayte>
-        <Nayte nimi="Nav ja Footer" huom="Tämän sivun ylä- ja alareuna" leveä>
-          <p className="body-s muted">
-            Navigaatio ja alatunniste ovat sivun kehyksessä, joten ne näkyvät tämän sivun ylä- ja alareunassa.
-          </p>
+        <Nayte nimi="Nav ja Footer" huom={t.huom.navFooter} leveä>
+          <p className="body-s muted">{t.navFooter}</p>
         </Nayte>
       </>
     ),
     palaute: (
       <>
-        <Nayte nimi="Alert" huom="Info · onnistui · virhe">
-          <AlertNayte />
+        <Nayte nimi="Alert" huom={t.huom.alert}>
+          <AlertNayte t={t.naytteet} />
         </Nayte>
         <Nayte nimi="Dialog">
-          <DialogNayte />
+          <DialogNayte t={t.naytteet} />
         </Nayte>
       </>
     ),
     data: (
       <>
         <Nayte nimi="Table" leveä>
-          <TaulukkoNayte />
+          <TaulukkoNayte t={t.naytteet} />
         </Nayte>
         <Nayte nimi="ListRow" leveä>
           <div className="list-rows">
@@ -188,19 +181,19 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         </Nayte>
         <Nayte nimi="Timeline" leveä>
           <Timeline>
-            <TimelineItem label="09:00" group="Tarkistukset" title="Tokenit" meta="1 s" description="tokens.json vastaa tyylejä." />
-            <TimelineItem label="09:01" title="Kuvat" meta="12 s" description="Kuvaputki ajettu." variant="emphasis" />
-            <TimelineItem label="09:02" title="Sivusto rakennetaan" description="Tämä sivu on sen tulos." variant="end" />
+            <TimelineItem label="09:00" group={t.aikajana.ryhma} title={t.aikajana.tokenit} meta="1 s" description={t.aikajana.tokenitKuvaus} />
+            <TimelineItem label="09:01" title={t.aikajana.kuvat} meta="12 s" description={t.aikajana.kuvatKuvaus} variant="emphasis" />
+            <TimelineItem label="09:02" title={t.aikajana.sivusto} description={t.aikajana.sivustoKuvaus} variant="end" />
           </Timeline>
         </Nayte>
       </>
     ),
     media: (
       <>
-        <Nayte nimi="Media" huom="Kuva, suhde 4:3">
+        <Nayte nimi="Media" huom={t.huom.media}>
           <Media id="blokbook-hero" ratio="4:3" sizes="(min-width: 900px) 40vw, 100vw" />
         </Nayte>
-        <Nayte nimi="Video" huom="Median kautta, kun paikka on video">
+        <Nayte nimi="Video" huom={t.huom.video}>
           <Media id="colliers-hero" ratio="4:3" sizes="(min-width: 900px) 40vw, 100vw" />
         </Nayte>
         <Nayte nimi="LogoRow" leveä>
@@ -208,9 +201,9 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         </Nayte>
         <Nayte nimi="HeroName ja ExplodedView" leveä>
           <p className="body-s muted">
-            Nimi on etusivun otsikko, joten se näytetään siellä eikä tällä sivulla toisena pääotsikkona.{' '}
-            <Link href={path(locale as Locale)} className="sys__link">Etusivulle</Link>. ExplodedView on osion{' '}
-            <a href="#layers" className="sys__link">00 Kerroksina</a> kuva.
+            {t.heroName.alku}{' '}
+            <Link href={path(locale as Locale)} className="sys__link">{t.heroName.linkki}</Link>. {t.heroName.exploded}{' '}
+            <a href="#layers" className="sys__link">{t.heroName.kerroksina}</a>{t.heroName.kuva ? ` ${t.heroName.kuva}` : '.'}
           </p>
         </Nayte>
       </>
@@ -218,8 +211,8 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
     rakenne: (
       <Nayte nimi="PageHeader, Section ja Grid" leveä>
         <p className="body-s muted">
-          Sivun otsikko on PageHeader, jokainen numeroitu osio on Section, ja{' '}
-          <a href="#grid" className="sys__link">03 Grid</a> näyttää sarakkeet.
+          {t.rakenne.alku}{' '}
+          <a href="#grid" className="sys__link">03 Grid</a> {t.rakenne.loppu}
         </p>
       </Nayte>
     ),
@@ -227,7 +220,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
 
   return (
     <>
-      <PageHeader title={dict.system.title} meta={<>{colorNames.length} väriä · {typeNames.length} tyyliä · {spaceSteps.length} väliä</>} lede={dict.system.lede} />
+      <PageHeader title={dict.system.title} meta={tayta(t.headerMeta, { varit: colorNames.length, tyylit: typeNames.length, valit: spaceSteps.length })} lede={dict.system.lede} />
 
       {/* ---- kerroksina ------------------------------------------ */}
       <Section id="layers" title={dict.system.layersTitle}>
@@ -236,10 +229,10 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- väri ------------------------------------------------ */}
-      <Section id="color" title="01 — Väri" meta="Ei aksenttiväriä">
+      <Section id="color" title={t.vari.title} meta={t.vari.meta}>
 
         <p className="body-l measure sys__note">
-          Kaksi teemaa, samat token-nimet, yksi määrittely per token
+          {t.vari.note}{' '}
           (<code className="sys__code">light-dark()</code>).
         </p>
 
@@ -261,7 +254,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- typografia ------------------------------------------ */}
-      <Section id="type" title="02 — Typografia" meta="Bodoni Moda + Archivo" surface="tint">
+      <Section id="type" title={t.typo.title} meta="Bodoni Moda + Archivo" surface="tint">
 
         <div className="sys__type">
           {typeNames.map((name) => {
@@ -287,7 +280,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
                     ? 'Portfolio'
                     : isMeta
                       ? 'UX Engineer — Helsinki'
-                      : 'Suunnittelen käyttöliittymät ja kirjoitan ne itse tuotantoon.'}
+                      : t.typo.naytelause}
                 </div>
               </div>
             );
@@ -302,13 +295,13 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
         meta={
           <>
             {tokens.layout.columns.base} → {tokens.layout.columns.sm} → {tokens.layout.columns.md}{' '}
-            saraketta
+            {t.grid.sarakkeita}
           </>
         }
       >
 
         <p className="body-l measure sys__note">
-          Sarakemäärä on token, ei komponentin tieto.
+          {t.grid.note}
         </p>
 
         <Grid className="sys__grid-demo">
@@ -321,7 +314,7 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- välistys -------------------------------------------- */}
-      <Section id="space" title="04 — Välistys" meta="4 px perusyksikkö" surface="tint">
+      <Section id="space" title={t.valistys.title} meta={t.valistys.meta} surface="tint">
 
         <ul className="sys__space">
           {spaceSteps.map(([step, value]) => (
@@ -335,12 +328,10 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
       </Section>
 
       {/* ---- komponentit ----------------------------------------- */}
-      <Section id="components" title="05 — Komponentit" meta={dict.system.rules}>
+      <Section id="components" title={t.komponentit.title} meta={dict.system.rules}>
         <p className="body-l measure sys__note">
-          Kaikki {komponentteja} komponenttia ryhmiteltynä käyttötarkoituksen mukaan, elävinä: samat
-          komponentit, jotka paketti <code className="sys__code">@pokela/components</code> vie ja Figman
-          kirjasto kuvaa. Sovellus-merkityt ovat sovellusnäkymiä ja Makea varten; sivusto itse ei
-          käytä niitä.
+          {tayta(t.komponentit.alku, { n: komponentteja })}{' '}
+          <code className="sys__code">@pokela/components</code> {t.komponentit.loppu}
         </p>
 
         <div className="sys__groups">
@@ -348,9 +339,9 @@ export default async function SystemPage({ params }: { params: Promise<{ locale:
             <section key={ryhma.id} className="sys__group" aria-labelledby={`komponentit-${ryhma.id}`}>
               <div className="sys__group-meta">
                 <h3 id={`komponentit-${ryhma.id}`} className="meta ink">
-                  {String(i + 1).padStart(2, '0')} {ryhma.nimi}
+                  {String(i + 1).padStart(2, '0')} {t.ryhmat[ryhma.id].nimi}
                 </h3>
-                <p className="body-s muted">{ryhma.kuvaus}</p>
+                <p className="body-s muted">{t.ryhmat[ryhma.id].kuvaus}</p>
               </div>
               <div className="sys__specimens">{naytteet[ryhma.id]}</div>
             </section>

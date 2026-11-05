@@ -58,7 +58,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
       tabs={[
         {
           id: 'nakyma',
-          label: 'Näkymä',
+          label: dict.showcase.tabView,
           content: (
             <>
               <div className="list-rows cview__demo">
@@ -92,23 +92,22 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
               <FactList
                 items={[
                   {
-                    label: 'Tilat',
-                    value:
-                      'Perustila · osoitin rivin päällä · näppäimistöfokus · painallus kosketusnäytöllä',
+                    label: dict.showcase.states,
+                    value: dict.showcase.statesValue,
                   },
                   {
-                    label: 'Koot',
-                    value: 'Alle 600 px pinottu, siitä ylöspäin yksi rivi',
+                    label: dict.showcase.sizes,
+                    value: dict.showcase.sizesValue,
                   },
                   {
-                    label: 'Käytössä',
-                    value: 'Etusivu · työlistaus · aiemmat työt · tämä näkymä',
+                    label: dict.showcase.usedIn,
+                    value: dict.showcase.usedInValue,
                   },
                 ]}
               />
 
               <p className="meta cview__states">
-                {tokenCount} tokenia, ei yhtään kovakoodattua arvoa
+                {dict.showcase.tokenNote.replace('{n}', String(tokenCount))}
               </p>
             </>
           ),
@@ -116,19 +115,21 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
 
         {
           id: 'koodi',
-          label: 'Koodi',
+          label: dict.showcase.tabCode,
           content: (
             <>
               <CodeBlock
+                linesLabel={dict.showcase.lines}
                 path={componentSrc.path}
                 html={componentHtml}
                 lines={componentSrc.lines}
               />
               <CodeBlock
+                linesLabel={dict.showcase.lines}
                 path={styleSrc.path}
                 html={styleHtml}
                 lines={styleSrc.lines}
-                note="Jokainen väri, väli ja viiva tulee tokenista, joten tumma teema ei tarvitse omaa sääntöä."
+                note={dict.showcase.styleNote}
               />
             </>
           ),
@@ -140,16 +141,17 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
           content: (
             <>
               <CodeBlock
+                linesLabel={dict.showcase.lines}
                 path={storySrc.path}
                 html={storyHtml}
                 lines={storySrc.lines}
-                note="Story ei ole erillinen kuvaus komponentista. Se on sama komponentti, jota tämä sivu käyttää, eri tiloissaan."
+                note={dict.showcase.storyNote}
               />
 
               {/* Kuvaukset luetaan storyjen omista kommenteista, ei
                   muuttujanimistä: `VainNimi` ei kerro lukijalle mitään. */}
               <div className="cview__states">
-                <h4 className="meta">Tilat joita ylläpidetään ({stories.length})</h4>
+                <h4 className="meta">{dict.showcase.storiesTitle.replace('{n}', String(stories.length))}</h4>
                 <ol className="cview__state-list">
                   {stories.map((story, i) => (
                     <li key={story.name} className="cview__state">
@@ -163,9 +165,7 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
               </div>
 
               <p className="body-s cview__note">
-                Jokainen tila avataan oikeassa selaimessa ja tarkistetaan koneellisesti aina kun
-                sivustoa julkaistaan. Jos kontrasti, kosketuskohteen koko tai ruudunlukijan näkemä
-                nimi rikkoutuu yhdessäkin tilassa, julkaisu pysähtyy siihen.
+                {dict.showcase.storiesNote}
               </p>
             </>
           ),
@@ -183,47 +183,43 @@ export default async function ListRowShowcase({ locale }: { locale: Locale }) {
                     items={[
                       { label: dict.showcase.name, value: <code>ListRow</code> },
                       ...connect.variants.map((variant) => ({
-                        label: `Variantti: ${variant.name}`,
+                        label: `${dict.showcase.variant}: ${variant.name}`,
                         value: variant.values.join(' · '),
                       })),
                       {
-                        label: 'Variantti: Breakpoint',
-                        value:
-                          'base · sm+ — @media-katko, ei propsi, joten sitä ei kartoiteta koodiin.',
+                        label: `${dict.showcase.variant}: Breakpoint`,
+                        value: dict.showcase.breakpointValue,
                       },
                       {
                         /* Enumit ovat variantteja, eivät propseja — ne on listattu jo yllä. */
-                        label: 'Propsit',
+                        label: dict.showcase.props,
                         value: connect.props
                           .filter((prop) => prop.kind !== 'enum')
                           .map((prop) => prop.figma)
                           .join(' · '),
                       },
                       {
-                        label: `Tokenit tässä komponentissa (${tokenCount})`,
-                        value: 'Tokeneilla on Figmassa samat nimet kuin koodissa, joten suunnittelija ja kehittäjä puhuvat samoista asioista.',
+                        label: dict.showcase.tokensLabel.replace('{n}', String(tokenCount)),
+                        value: dict.showcase.tokensValue,
                       },
                     ]}
                   />
                   <p className="body-s cview__note">
-                    Variantit ja propsit luetaan kytkentätiedostosta, ei kirjoiteta tähän: siellä
-                    ne ovat siinä muodossa jota Figma oikeasti käyttää. Jos kytkentä muuttuu, tämä
-                    lista muuttuu mukana.
+                    {dict.showcase.variantsNote}
                   </p>
                 </div>
 
                 <div>
                   <h4 className="meta">{dict.showcase.codeConnectHeading}</h4>
                   <CodeBlock
+                    linesLabel={dict.showcase.lines}
                     path={SOURCES.connect}
                     html={connectHtml}
                     lines={connectSrc.lines}
                   />
                   <p className="body-s cview__note">
-                    Tämä on repon tiedosto sellaisenaan, ei esimerkki. Se kertoo Figmalle mikä
-                    koodikomponentti vastaa mitä, jolloin Dev Mode näyttää suunnittelijalle oikean
-                    käyttötavan arvatun rakenteen sijaan. Kytkennän eheyden tarkistaa{' '}
-                    <code>check:code-connect</code> jokaisessa buildissa.
+                    {dict.showcase.connectNote}{' '}
+                    <code>check:code-connect</code> {dict.showcase.connectNoteEnd}
                   </p>
                 </div>
               </div>

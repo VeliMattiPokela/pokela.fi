@@ -1865,3 +1865,30 @@ Analytics- ja Speed Insights -välilehdeltä (Enable). Ennen sitä
 skriptit eivät lähetä mitään.
 
 *Kirjattu 3.11.2026 Vellun pyynnöstä*
+
+## 60. Englanninkielinen versio seuraa suomea
+
+**Päätös:** sivusto julkaistaan suomeksi ja englanniksi (`/fi/`,
+`/en/`). Suomi on lähdekieli. Englanti kirjoitetaan uudelleen samasta
+sisällöstä kuratoituna UX- ja tuotesuunnittelun kielenä, ei käännetä
+lause lauseelta. Rakenne, kuvat ja järjestys ovat samat. Amerikanenglanti,
+otsikot sentence case ja ilman pistettä, minämuoto vain roolissa.
+Navissa on kielivalitsin (FI / EN), joka vie saman sivun toiseen
+kieliversioon. Juuri `/` ohjaa edelleen suomeen.
+
+**Perustelu:** portfolio on myös englanninkielisille lukijoille, ja
+sivuston tekninen pohja oli jo kahdelle kielelle (`lib/i18n.ts`).
+Kieliversio jää jälkeen hiljaa: suomeen lisätty kappale ei kaada
+mitään. Siksi `check:kielet` vertaa rakenteen ja vaatii jokaiselle
+suomen muutokselle kuittauksen (`content/kielet.lukko.json`), joka
+tehdään vasta kun englanti on päivitetty. Komponentteihin
+kovakoodatut tekstit siirrettiin sisältöön tai propseiksi, koska ne
+olisivat jääneet suomeksi englanninkieliselle sivulle.
+
+**Rajat:** tarkistus ei arvioi käännöksen laatua. Tarkistusajon
+tulosrivit ovat skriptien suomenkielistä tulostetta, joten
+englanninkielinen aikajana näyttää vain vaiheen nimen ja keston.
+Koodinäytteet ja Storybookin tilakuvaukset ovat lähdekoodia ja
+pysyvät suomeksi. Figman sivupohjat pysyvät suomeksi.
+
+*Kirjattu 5.11.2026 Vellun pyynnöstä*
