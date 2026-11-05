@@ -37,6 +37,7 @@ const fi = {
   home: {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-Matti', 'Pokela'],
+    nameGuides: { capHeight: 'Versaali', xHeight: 'x-korkeus', baseline: 'Perusviiva' },
     role: 'Senior Product Designer & UX Engineer, Helsinki',
     /** Etusivun viivateoksen vaihtoehtoinen teksti (Korkeuskayrat). */
     heroArt: 'Korkeuskäyrät viivapiirroksena',

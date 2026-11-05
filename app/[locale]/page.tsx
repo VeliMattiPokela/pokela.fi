@@ -26,7 +26,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <div className="home__alku">
       <HeroIntro>
         <section className="page home__intro">
-          <HeroName lines={home.nameLines} />
+          <HeroName lines={home.nameLines} labels={home.nameGuides} />
 
           <div className="home__intro-meta">
             <p className="meta ink home__role">{home.role}</p>

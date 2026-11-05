@@ -71,15 +71,23 @@ function el(nimi: string, attr: Record<string, string | number>, vanhempi?: Elem
   return e;
 }
 
+export type HeroNameLabels = { capHeight: string; xHeight: string; baseline: string };
+
+const OLETUSNIMET: HeroNameLabels = { capHeight: 'Versaali', xHeight: 'x-korkeus', baseline: 'Perusviiva' };
+
 export default function HeroName({
   lines,
   tila = 'levossa',
+  labels,
 }: {
   /** Nimen rivit. Mobiilissa jokainen on oma rivinsä, työpöydällä ne luetaan yhtenä. */
   lines: readonly string[];
   /** Alkutila. `rakenne` avaa koko nimen rakenteen ilman saapumista. */
   tila?: Tila;
+  /** Apuviivojen nimet. Oletus suomeksi. */
+  labels?: Partial<HeroNameLabels>;
 }) {
+  const t = { ...OLETUSNIMET, ...labels };
   const kehys = useRef<HTMLDivElement>(null);
   const svg = useRef<SVGSVGElement>(null);
   const otsikko = useRef<HTMLHeadingElement>(null);
@@ -147,7 +155,7 @@ export default function HeroName({
       const apu = el('g', {}, L.gR);
       let ri = 0;
       for (const pv of rivit) {
-        for (const [y, nimiT] of [[NOUSU, ''], [nimi.versaali, 'Versaali'], [nimi.xKorkeus, 'x-korkeus'], [0, 'Perusviiva']] as const) {
+        for (const [y, nimiT] of [[NOUSU, ''], [nimi.versaali, t.capHeight], [nimi.xKorkeus, t.xHeight], [0, t.baseline]] as const) {
           const yy = pv - y * s;
           el('line', { x1: 0, y1: yy, x2: W, y2: yy, pathLength: 1, class: y === 0 ? 'hero-name__apu hero-name__apu--pv' : 'hero-name__apu', style: `--d:${ri * 0.08}s` }, apu);
           /* Nimet mahtuvat vain leveälle: kapeassa ne peittäisivät kirjaimet. */
@@ -314,7 +322,7 @@ export default function HeroName({
       juuri.classList.remove('hero-name--elossa', 'hero-name--saapuu');
       piirros.textContent = '';
     };
-  }, [lines, tila]);
+  }, [lines, tila, t.capHeight, t.xHeight, t.baseline]);
 
   return (
     <div ref={kehys} className="hero-name">

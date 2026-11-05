@@ -32,6 +32,7 @@ const en: Dictionary = {
   home: {
     name: 'Veli-Matti Pokela',
     nameLines: ['Veli-Matti', 'Pokela'],
+    nameGuides: { capHeight: 'Cap height', xHeight: 'x-height', baseline: 'Baseline' },
     role: 'Senior Product Designer & UX Engineer, Helsinki',
     heroArt: 'Contour lines as a line drawing',
     availability: null,
